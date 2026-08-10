@@ -168,3 +168,88 @@ def snapshot(day: date | None = None) -> dict:
     return {"day": day, "plant": plant(day), "trend": trend(),
             "machines": by_machine(day), "events": events(day),
             "inventory": inventory(day)}
+
+
+def downtime_by_reason(day: date) -> list[dict]:
+    """Minutes lost per reason code on one day, worst first."""
+    frames = load()
+    downtime = frames["downtime_events"]
+    downtime = downtime[downtime["day"] == day]
+    if downtime.empty:
+        return []
+    grouped = (
+        downtime.groupby("reason_code")
+        .agg(minutes=("duration_minutes", "sum"), events=("event_id", "count"))
+        .reset_index()
+        .sort_values("minutes", ascending=False)
+    )
+    return [
+        {"reason_code": r.reason_code, "minutes": round(float(r.minutes), 1),
+         "events": int(r.events)}
+        for r in grouped.itertuples()
+    ]
+
+
+def defects_by_type(day: date) -> list[dict]:
+    """Defect counts per type on one day, worst first."""
+    frames = load()
+    quality = frames["quality_events"]
+    quality = quality[quality["day"] == day]
+    if quality.empty:
+        return []
+    grouped = (
+        quality.groupby("defect_type")["count"].sum()
+        .rename("defect_count")  # 'count' shadows the namedtuple method on itertuples
+        .sort_values(ascending=False).reset_index()
+    )
+    return [
+        {"defect_type": r.defect_type, "count": int(r.defect_count)}
+        for r in grouped.itertuples()
+    ]
+
+
+def insight_facts(day: date | None = None) -> dict:
+    """Pre-aggregated numbers for the KPI Insights narrative.
+
+    Every figure the model is allowed to mention is computed here (rule 1).
+    The model receives this dict rendered as text and writes prose only.
+    """
+    day = day or latest_day()
+    today = plant(day)
+
+    # Prior day from the trend series, for a direction of travel.
+    series = trend()
+    prior = None
+    for i, point in enumerate(series):
+        if point["day"] == day and i > 0:
+            prior = series[i - 1]
+            break
+
+    machines = by_machine(day)  # already sorted worst OEE first
+    inv = inventory(day)
+
+    return {
+        "day": day,
+        "oee": today["oee"],
+        "availability": today["availability"],
+        "performance": today["performance"],
+        "quality": today["quality"],
+        "scrap_rate": today["scrap_rate"],
+        "downtime_minutes": today["downtime_minutes"],
+        "good_count": today["good_count"],
+        "total_count": today["total_count"],
+        "prior_day": prior["day"] if prior else None,
+        "prior_oee": prior["oee"] if prior else None,
+        "oee_delta": round(today["oee"] - prior["oee"], 4) if prior else None,
+        "worst_machines": [
+            {"machine_id": m["machine_id"], "name": m["name"], "line": m["line"],
+             "oee": m["oee"], "downtime_minutes": m["downtime_minutes"],
+             "scrap_rate": m["scrap_rate"]}
+            for m in machines[:3]
+        ],
+        "downtime_by_reason": downtime_by_reason(day)[:5],
+        "defects_by_type": defects_by_type(day)[:5],
+        "parts_below_reorder": inv["parts_below_reorder"],
+        "lowest_days_of_cover": inv["lowest_days_of_cover"],
+        "starved_minutes_by_line": inv["starved_minutes_by_line"],
+    }

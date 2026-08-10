@@ -104,12 +104,149 @@ EXPLAIN_SCHEMA = {
 }
 
 
+# ===== KPI INSIGHTS =====
+
+class WorstMachine(ApiModel):
+    machine_id: str
+    name: str
+    line: str
+    oee: float
+    downtime_minutes: float
+    scrap_rate: float
+
+
+class ReasonTotal(ApiModel):
+    reason_code: str
+    minutes: float
+    events: int
+
+
+class Finding(ApiModel):
+    """One line of the morning narrative. Generated."""
+
+    text: str
+    action: str
+
+
+class InsightsResponse(ApiModel):
+    """COMPUTED first, GENERATED after. The header still renders real numbers
+    when the model is slow or unavailable (spec 5)."""
+
+    day: date
+    oee: float
+    scrap_rate: float
+    downtime_minutes: float
+    oee_delta: Optional[float] = None  # None only on the first day of the window
+    worst_machines: List[WorstMachine]
+    downtime_by_reason: List[ReasonTotal]
+    parts_below_reorder: int
+
+    # GENERATED: null when the model fails or times out.
+    headline: Optional[str] = None
+    findings: Optional[List[Finding]] = None
+
+
+INSIGHTS_SCHEMA = {
+    "type": "object",
+    "properties": {
+        "headline": {"type": "string"},
+        "findings": {
+            "type": "array",
+            "minItems": 2,
+            "maxItems": 4,
+            "items": {
+                "type": "object",
+                "properties": {
+                    "text": {"type": "string"},
+                    "action": {"type": "string"},
+                },
+                "required": ["text", "action"],
+            },
+        },
+    },
+    "required": ["headline", "findings"],
+}
+
+
 # ===== ROOT CAUSE =====
 
+class RootCauseRequest(ApiModel):
+    event_id: str
+
+
+class EventContext(ApiModel):
+    """The row the user clicked. All COMPUTED."""
+
+    event_id: str
+    kind: Literal["downtime", "quality"]
+    machine_id: str
+    machine_name: str
+    machine_type: str
+    line: str
+    start: datetime
+    shift: str
+    duration_minutes: Optional[float] = None
+    reason_code: Optional[str] = None
+    operator_note: Optional[str] = None
+    defect_type: Optional[str] = None
+    defect_count: Optional[int] = None
+
+
+class EvidenceItem(ApiModel):
+    """One supporting data point. COMPUTED in pandas, shown under the causes
+    so a judge can see the figure the ranking was built on."""
+
+    label: str
+    detail: str
+
+
+class SopCitation(ApiModel):
+    doc_id: str
+    title: str
+    section: str
+
+
 class RootCauseItem(ApiModel):
+    """GENERATED. Ranked against the evidence above, never inventing figures."""
+
     cause: str
-    probability: str  # "high" | "medium" | "low"
+    likelihood: str  # "high" | "medium" | "low"
     evidence: str
+    action: str
+
+
+class RootCauseResponse(ApiModel):
+    event: EventContext
+    evidence: List[EvidenceItem]
+    sources: List[SopCitation]
+    # GENERATED: null when the model fails or times out. Evidence and citations
+    # still render, so the panel is useful even then.
+    causes: Optional[List[RootCauseItem]] = None
+    summary: Optional[str] = None
+
+
+ROOT_CAUSE_SCHEMA = {
+    "type": "object",
+    "properties": {
+        "summary": {"type": "string"},
+        "causes": {
+            "type": "array",
+            "minItems": 2,
+            "maxItems": 4,
+            "items": {
+                "type": "object",
+                "properties": {
+                    "cause": {"type": "string"},
+                    "likelihood": {"type": "string", "enum": ["high", "medium", "low"]},
+                    "evidence": {"type": "string"},
+                    "action": {"type": "string"},
+                },
+                "required": ["cause", "likelihood", "evidence", "action"],
+            },
+        },
+    },
+    "required": ["summary", "causes"],
+}
 
 
 # --- GET /api/kpis -----------------------------------------------------------
