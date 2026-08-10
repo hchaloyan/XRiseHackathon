@@ -1,89 +1,205 @@
 import { useState, type FormEvent } from 'react'
-import { ArrowUp, FileText, Loader2, Search, X } from 'lucide-react'
+import { ChevronDown, FileText, Loader2, Search, Sparkles, X } from 'lucide-react'
 import { api } from '../api/client'
-import type { SearchResponse } from '../api/types'
+import type { ExplainResponse, SopResult } from '../api/types'
 import { Button } from '../components/ui/Button'
 import { Input } from '../components/ui/Input'
 import { SkeletonLines } from '../components/ui/Skeleton'
+import { cn } from '../lib/cn'
 
 /**
- * Persistent ask bar -> POST /api/search. Documents only (CLAUDE.md rule 8).
+ * Persistent ask bar -> POST /api/search, then POST /api/explain. Documents
+ * only (CLAUDE.md rule 8).
+ *
+ * Two steps on purpose. Retrieval runs first and has no model in it, so SOP
+ * sections appear almost instantly; the model is only invoked when the user
+ * expands a section and asks for it. That keeps the slow, failure-prone part
+ * opt-in, and it never blocks the first result.
  *
  * Fixed to the bottom of the viewport and rendered by the layout, so it
  * survives both scrolling and screen changes. It floats as a self-contained
  * glass pill at 08dp — 12% white overlay — rather than a full-bleed strip, so
- * the page stays visible on both sides of it. Answers expand UPWARD above the
- * input, capped and scrollable, so a long citation list never pushes the
- * input off screen.
+ * the page stays visible on both sides of it. Results expand UPWARD above the
+ * input, capped and scrollable, so a long list never pushes the input off
+ * screen.
  *
  * No intent routing lives here or anywhere else on the client. Queries the
- * index cannot answer come back with `outOfScope` set by the backend's
- * similarity floor, and get the fixed redirect string from spec 7.1 rather
- * than a wrong answer.
+ * corpus cannot answer come back with zero results and a `fallbackMessage` set
+ * by the backend's similarity floor, rather than a wrong answer.
  */
 export default function AskBar() {
   const [query, setQuery] = useState('')
-  const [result, setResult] = useState<SearchResponse | null>(null)
-  const [busy, setBusy] = useState(false)
+  const [results, setResults] = useState<SopResult[] | null>(null)
+  const [fallback, setFallback] = useState<string | null>(null)
+  const [explanation, setExplanation] = useState<ExplainResponse | null>(null)
+  const [expandedId, setExpandedId] = useState<string | null>(null)
+  const [searching, setSearching] = useState(false)
+  const [explaining, setExplaining] = useState(false)
 
-  async function onSubmit(e: FormEvent) {
+  // The backend rejects anything shorter than three characters outright.
+  const canSubmit = query.trim().length >= 3 && !searching
+
+  async function onSearch(e: FormEvent) {
     e.preventDefault()
-    const q = query.trim()
-    if (!q || busy) return
-    setBusy(true)
-    setResult(null)
+    if (!canSubmit) return
+    setSearching(true)
+    setExplanation(null)
+    setExpandedId(null)
+    setFallback(null)
     try {
-      setResult(await api.search(q))
+      const data = await api.search(query.trim())
+      setResults(data.results)
+      setFallback(data.fallbackMessage)
+    } catch (err) {
+      console.error('[askbar] search failed:', err)
+      setResults([])
+      setFallback('Search is unavailable right now.')
     } finally {
-      setBusy(false)
+      setSearching(false)
     }
   }
 
-  const open = busy || result !== null
+  async function onExplain(sopIds: string[]) {
+    setExplaining(true)
+    try {
+      setExplanation(await api.explain(query.trim(), sopIds))
+    } catch (err) {
+      console.error('[askbar] explain failed:', err)
+    } finally {
+      setExplaining(false)
+    }
+  }
+
+  function dismiss() {
+    setResults(null)
+    setFallback(null)
+    setExplanation(null)
+    setExpandedId(null)
+  }
+
+  const open = searching || results !== null
 
   return (
     <div className="fixed bottom-6 left-1/2 z-50 w-[min(100%-2rem,42rem)] -translate-x-1/2">
       {open && (
         <div className="glass-bar relative mb-2 max-h-[45vh] overflow-y-auto rounded-2xl border border-line p-4">
-          {busy ? (
+          {searching ? (
             <SkeletonLines lines={2} />
-          ) : result?.outOfScope ? (
-            /* The near-certain off-script moment, made to look deliberate. */
-            <p className="flex items-center gap-2 pr-8 text-sm text-muted">
-              <ArrowUp size={14} className="shrink-0 text-accent" aria-hidden />
-              {result.answer}
-            </p>
           ) : (
             <>
-              <p className="pr-8 text-sm leading-relaxed text-hi">{result?.answer}</p>
-
-              {result && result.citations.length > 0 && (
-                <ul className="mt-4 space-y-2">
-                  {result.citations.map((c) => (
-                    <li key={`${c.docId}${c.section}`} className="rounded-lg bg-white/[0.06] p-3">
-                      <div className="flex flex-wrap items-center gap-2">
-                        <FileText size={12} className="shrink-0 text-accent" aria-hidden />
-                        <span className="data-figure text-[12px] text-accent">{c.docId}</span>
-                        <span className="text-xs text-hi">{c.title}</span>
-                        <span className="text-[12px] text-faint">
-                          {c.section} · rev {c.revision}
+              {results && results.length > 0 && (
+                <ul className="space-y-2 pr-8">
+                  {results.map((r) => (
+                    <li key={r.id} className="overflow-hidden rounded-lg bg-white/[0.06]">
+                      <button
+                        type="button"
+                        onClick={() => setExpandedId(expandedId === r.id ? null : r.id)}
+                        aria-expanded={expandedId === r.id}
+                        className="flex w-full cursor-pointer items-start justify-between gap-3 p-3 text-left transition-colors duration-150 hover:bg-white/5 focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none"
+                      >
+                        <span className="min-w-0">
+                          <span className="flex flex-wrap items-center gap-2">
+                            <FileText size={12} className="shrink-0 text-accent" aria-hidden />
+                            <span className="data-figure text-[12px] text-accent">{r.docId}</span>
+                            <span className="text-xs text-hi">{r.title}</span>
+                          </span>
+                          <span className="mt-0.5 block text-[12px] text-faint">{r.section}</span>
                         </span>
-                      </div>
-                      <p className="mt-1.5 border-l border-line pl-3 text-[12px] leading-relaxed text-muted">
-                        {c.excerpt}
-                      </p>
+                        <ChevronDown
+                          size={14}
+                          aria-hidden
+                          className={cn(
+                            'mt-0.5 shrink-0 transition-transform duration-200',
+                            expandedId === r.id ? 'rotate-180 text-accent' : 'text-faint',
+                          )}
+                        />
+                      </button>
+
+                      {expandedId === r.id && (
+                        <div className="border-t border-line p-3">
+                          <p className="text-[12px] leading-relaxed whitespace-pre-line text-muted">
+                            {r.content}
+                          </p>
+                          <Button
+                            type="button"
+                            size="sm"
+                            variant="outline"
+                            onClick={() => onExplain([r.id])}
+                            disabled={explaining}
+                            className="mt-3"
+                          >
+                            {explaining ? (
+                              <Loader2 size={13} className="animate-spin" aria-hidden />
+                            ) : (
+                              <Sparkles size={13} aria-hidden />
+                            )}
+                            Explain step by step
+                          </Button>
+                        </div>
+                      )}
                     </li>
                   ))}
                 </ul>
               )}
+
+              {/* Generated. Sources always render; everything above them may be
+                  null if the model failed, and the SOP text is unaffected. */}
+              {explanation && (
+                <div className="mt-3 rounded-r-lg border-l-2 border-accent bg-white/[0.05] p-4 shadow-glow">
+                  {explanation.explanation ? (
+                    <>
+                      <p className="text-sm leading-relaxed text-hi">{explanation.explanation}</p>
+
+                      {explanation.steps && (
+                        <ol className="mt-3 space-y-1.5">
+                          {explanation.steps.map((step, i) => (
+                            <li key={i} className="flex gap-2.5 text-xs leading-relaxed">
+                              <span className="data-figure shrink-0 text-accent">{i + 1}.</span>
+                              <span>
+                                <span className="text-hi">{step.action}</span>
+                                <span className="text-muted"> — {step.why}</span>
+                              </span>
+                            </li>
+                          ))}
+                        </ol>
+                      )}
+
+                      {explanation.commonMistake && (
+                        <p className="mt-3 border-t border-line pt-3 text-xs leading-relaxed text-muted">
+                          <span className="text-error">Common mistake: </span>
+                          {explanation.commonMistake}
+                        </p>
+                      )}
+                    </>
+                  ) : (
+                    <p className="text-xs text-muted">
+                      Explanation unavailable. The SOP text above is unchanged.
+                    </p>
+                  )}
+
+                  <p className="mt-3 text-[12px] text-faint">
+                    Sources: {explanation.sources.join(', ')}
+                    {explanation.estimatedMinutes !== null && (
+                      <> · est. {explanation.estimatedMinutes} min</>
+                    )}
+                  </p>
+                </div>
+              )}
+
+              {/* Spec 7.1 redirect, an empty corpus, or an unreachable API. */}
+              {results?.length === 0 && (
+                <p className="pr-8 text-sm text-muted">
+                  {fallback ?? 'No SOPs found. Try different keywords.'}
+                </p>
+              )}
             </>
           )}
 
-          {result && (
+          {results && (
             <button
               type="button"
-              onClick={() => setResult(null)}
-              aria-label="Dismiss answer"
+              onClick={dismiss}
+              aria-label="Dismiss results"
               className="absolute top-3 right-3 cursor-pointer rounded p-1.5 text-muted transition-colors duration-150 hover:bg-white/10 hover:text-hi focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none"
             >
               <X size={14} aria-hidden />
@@ -95,7 +211,7 @@ export default function AskBar() {
       {/* The pill itself. The whole thing lights on focus, so the input inside
           it carries no border or glow of its own. */}
       <form
-        onSubmit={onSubmit}
+        onSubmit={onSearch}
         className="glass-bar flex items-center gap-2 rounded-2xl border border-line p-2 transition-[border-color,box-shadow] duration-200 focus-within:border-accent/50 focus-within:shadow-glow"
       >
         <label htmlFor="askbar" className="sr-only">
@@ -111,13 +227,13 @@ export default function AskBar() {
             id="askbar"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Ask about SOPs, manuals, and audit documents…"
+            placeholder="Ask about SOPs, procedures, troubleshooting…"
             className="h-10 border-0 bg-transparent pl-9 focus-visible:shadow-none"
             autoComplete="off"
           />
         </div>
-        <Button type="submit" size="sm" disabled={busy || !query.trim()} className="shrink-0">
-          {busy ? <Loader2 size={14} className="animate-spin" aria-hidden /> : 'Ask'}
+        <Button type="submit" size="sm" disabled={!canSubmit} className="shrink-0">
+          {searching ? <Loader2 size={14} className="animate-spin" aria-hidden /> : 'Ask'}
         </Button>
       </form>
     </div>

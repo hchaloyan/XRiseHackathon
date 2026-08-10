@@ -1,5 +1,9 @@
+/**
+ * fetch wrapper. Base URL from env. JSON bodies, camelCase on the wire.
+ */
 import fixtures from '../mocks/fixtures.json'
 import type {
+  ExplainResponse,
   InsightResponse,
   KpiResponse,
   RootCauseResponse,
@@ -17,13 +21,17 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
   return res.json() as Promise<T>
 }
 
+function post<T>(path: string, body: unknown): Promise<T> {
+  return request<T>(path, { method: 'POST', body: JSON.stringify(body) })
+}
+
 /**
  * Try the endpoint; fall back to the committed fixture if it is missing or
  * unreachable.
  *
- * Three of the four routers are still empty `APIRouter()` stubs, so this is
- * the normal path today, not an error path. It also means a backend that dies
- * mid-demo degrades to stale-but-correct numbers instead of a red screen
+ * Insights and root cause are still empty `APIRouter()` stubs, so this is the
+ * normal path for them today, not an error path. It also means a backend that
+ * dies mid-demo degrades to stale-but-correct numbers instead of a red screen
  * (spec §5).
  *
  * An `undefined` fixture rethrows: some rows have no canned analysis, and a
@@ -44,19 +52,6 @@ async function withFallback<T>(
   }
 }
 
-/**
- * Fixture-only lookup for the ask bar when the backend is down. Selects a
- * stored response by substring; it does NOT route between document search and
- * factory data (rule 8) — every branch returns one SearchResponse from the
- * same endpoint, and none of this runs when the backend answers.
- */
-function cannedSearch(query: string): SearchResponse {
-  const q = query.toLowerCase()
-  const hit = fixtures.search.canned.find((c) => c.match.some((m) => q.includes(m)))
-  const picked = (hit?.response ?? fixtures.search.default) as SearchResponse
-  return { ...picked, query }
-}
-
 export const api = {
   kpis: () =>
     withFallback('GET /api/kpis', () => request<KpiResponse>('/api/kpis'), fixtures.kpis as KpiResponse),
@@ -71,21 +66,26 @@ export const api = {
   rootCause: (eventId: string) =>
     withFallback(
       `POST /api/root-cause ${eventId}`,
-      () =>
-        request<RootCauseResponse>('/api/root-cause', {
-          method: 'POST',
-          body: JSON.stringify({ eventId }),
-        }),
+      () => post<RootCauseResponse>('/api/root-cause', { eventId }),
       // Only the two demo-script rows have a canned analysis. Anything else
       // rethrows so the panel degrades to evidence built from the row itself,
       // rather than showing another machine's findings.
       (fixtures.rootCause as unknown as Record<string, RootCauseResponse | undefined>)[eventId],
     ),
 
-  search: (query: string) =>
-    withFallback(
-      'POST /api/search',
-      () => request<SearchResponse>('/api/search', { method: 'POST', body: JSON.stringify({ query }) }),
-      cannedSearch(query),
-    ),
+  /**
+   * Retrieval only — no model, so this returns in well under a second. It gets
+   * no fixture fallback: the knowledge base is really implemented, and an
+   * unreachable backend is reported through the UI's fallback message rather
+   * than papered over with canned SOPs.
+   *
+   * Off-corpus queries are handled server-side by the similarity floor, which
+   * returns zero results plus the fixed redirect string (rule 8 — no intent
+   * classifier runs on the client).
+   */
+  search: (query: string) => post<SearchResponse>('/api/search', { query }),
+
+  /** Model reasoning over the exact chunks the user already has on screen. */
+  explain: (query: string, sopIds: string[]) =>
+    post<ExplainResponse>('/api/explain', { query, sopIds }),
 }

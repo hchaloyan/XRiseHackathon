@@ -8,6 +8,41 @@
  * Wire format is camelCase.
  */
 
+// ===== Knowledge base =====
+
+export interface SopResult {
+  id: string // chunk id, e.g. "SOP-002#3"
+  docId: string
+  title: string
+  section: string
+  content: string
+  distance: number
+}
+
+export interface SearchResponse {
+  query: string
+  results: SopResult[]
+  /** Non-null only when nothing cleared the similarity floor (spec 7.1). */
+  fallbackMessage: string | null
+}
+
+export interface ExplainStep {
+  action: string
+  why: string
+}
+
+export interface ExplainResponse {
+  query: string
+  sources: string[]
+  explanation: string | null
+  steps: ExplainStep[] | null
+  commonMistake: string | null
+  estimatedMinutes: number | null
+}
+
+/* The insights and root-cause shapes are defined in full further down — the
+   placeholders that used to sit here were superseded by them. */
+
 /** GET /api/kpis — all computed in pandas, none of it from the model. */
 
 export interface KpiValues {
@@ -148,28 +183,7 @@ export interface RootCauseResponse {
   hypotheses: Hypothesis[] | null
 }
 
-/** POST /api/search */
-
-export interface Citation {
-  docId: string
-  title: string
-  section: string
-  revision: string
-  excerpt: string
-  /** Chroma distance. Lower is closer. */
-  distance: number
-}
-
-export interface SearchRequest {
-  query: string
-}
-
-export interface SearchResponse {
-  query: string
-  /** Generated. */
-  answer: string | null
-  /** Computed by retrieval. */
-  citations: Citation[]
-  /** Computed — the spec 7.1 similarity-floor guard tripped. */
-  outOfScope: boolean
-}
+/* POST /api/search and /api/explain live at the top of this file. The
+   single-answer-plus-citations shape that used to sit here was written against
+   a backend that was never built: the implemented knowledge base splits the
+   work into retrieval (/search, no model) and reasoning (/explain). */
