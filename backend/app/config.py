@@ -33,7 +33,7 @@ class Settings(BaseSettings):
     retrieval_top_k: int = 4
     # Chroma cosine DISTANCE ceiling; above this a chunk is "not really a match".
     # Placeholder until calibrated against the two fixed query sets.
-    max_match_distance: float = 0.55
+    max_match_distance: float = 0.31
 
     data_dir: str = str(REPO_ROOT / "data" / "generated")
 

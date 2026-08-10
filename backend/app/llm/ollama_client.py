@@ -31,7 +31,9 @@ class OllamaClient(LLMClient):
     def __init__(self, model: str | None = None) -> None:
         self.model = model or settings.llm_model
 
-    def complete(self, prompt: str, schema: dict, timeout: int = 30) -> dict | None:
+    def complete(
+        self, prompt: str, schema: dict, timeout: int = 30, max_tokens: int = 450
+    ) -> dict | None:
         try:
             response = _client(timeout).chat(
                 model=self.model,
@@ -40,7 +42,12 @@ class OllamaClient(LLMClient):
                 keep_alive=settings.keep_alive,
                 options={
                     "temperature": 0.2,  # narrative, not creativity
-                    "num_predict": 700,
+                    # Generation time is roughly linear in tokens produced.
+                    # The schema caps array lengths; this caps the total.
+                    "num_predict": max_tokens,
+                    # Nothing here benefits from sampling breadth, and a
+                    # narrower candidate set decodes slightly faster.
+                    "top_k": 20,
                 },
             )
         except Exception as exc:  # network down, model missing, timeout

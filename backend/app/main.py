@@ -1,6 +1,7 @@
 """FastAPI entrypoint: CORS, startup pre-warm, router registration."""
 
 from contextlib import asynccontextmanager
+from threading import Thread
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -20,6 +21,11 @@ async def lifespan(app: FastAPI):
     # Build/open the Chroma index up front so the first search isn't slow.
     get_knowledge_base()
     get_client().prewarm()
+
+    # Generate the briefing in the background so it is already cached by the
+    # time anyone opens the page. Off-thread on purpose: blocking startup on a
+    # 12-15s generation delays every other endpoint too.
+    Thread(target=insights.warm, daemon=True).start()
     yield
 
 
