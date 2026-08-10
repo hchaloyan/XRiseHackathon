@@ -1,0 +1,930 @@
+[
+  {
+    "event_id": "DT-0001",
+    "machine_id": "M-11",
+    "start": "2026-07-27T06:19:00",
+    "end": "2026-07-27T06:40:00",
+    "reason_code": "SENSOR_FAULT",
+    "operator_note": "Mold-close proximity switch reseated"
+  },
+  {
+    "event_id": "DT-0002",
+    "machine_id": "M-11",
+    "start": "2026-07-27T14:18:00",
+    "end": "2026-07-27T14:27:00",
+    "reason_code": "JAM",
+    "operator_note": "Sprue hung up in the chute"
+  },
+  {
+    "event_id": "DT-0003",
+    "machine_id": "M-12",
+    "start": "2026-07-27T06:10:00",
+    "end": "2026-07-27T07:14:00",
+    "reason_code": "PM",
+    "operator_note": "Weekly PM, hydraulic filters replaced"
+  },
+  {
+    "event_id": "DT-0004",
+    "machine_id": "M-12",
+    "start": "2026-07-27T09:04:00",
+    "end": "2026-07-27T09:31:00",
+    "reason_code": "CHANGEOVER",
+    "operator_note": "Colour change, screw purged to clear"
+  },
+  {
+    "event_id": "DT-0005",
+    "machine_id": "M-22",
+    "start": "2026-07-27T14:32:00",
+    "end": "2026-07-27T15:26:00",
+    "reason_code": "CHANGEOVER",
+    "operator_note": "Changeover ran long - fixture alignment reworked twice"
+  },
+  {
+    "event_id": "DT-0006",
+    "machine_id": "M-31",
+    "start": "2026-07-27T14:36:00",
+    "end": "2026-07-27T14:53:00",
+    "reason_code": "CHANGEOVER",
+    "operator_note": "Weld fixture changed for the next assembly"
+  },
+  {
+    "event_id": "DT-0007",
+    "machine_id": "M-32",
+    "start": "2026-07-27T06:21:00",
+    "end": "2026-07-27T06:46:00",
+    "reason_code": "ROBOT_FAULT",
+    "operator_note": "Pick-and-place axis faulted on overtravel"
+  },
+  {
+    "event_id": "DT-0008",
+    "machine_id": "M-33",
+    "start": "2026-07-27T14:09:00",
+    "end": "2026-07-27T15:23:00",
+    "reason_code": "BUILD_FAILURE",
+    "operator_note": "Build aborted, part lifted off the plate"
+  },
+  {
+    "event_id": "DT-0009",
+    "machine_id": "M-34",
+    "start": "2026-07-27T14:11:00",
+    "end": "2026-07-27T14:53:00",
+    "reason_code": "PM",
+    "operator_note": "Nozzle replaced and chamber filters cleaned"
+  },
+  {
+    "event_id": "DT-0010",
+    "machine_id": "M-11",
+    "start": "2026-07-28T14:32:00",
+    "end": "2026-07-28T15:10:00",
+    "reason_code": "PM",
+    "operator_note": "Scheduled lubrication per SOP-002"
+  },
+  {
+    "event_id": "DT-0011",
+    "machine_id": "M-12",
+    "start": "2026-07-28T14:31:00",
+    "end": "2026-07-28T14:51:00",
+    "reason_code": "MATERIAL_STARVE",
+    "operator_note": "Dryer hopper empty, no resin staged"
+  },
+  {
+    "event_id": "DT-0012",
+    "machine_id": "M-14",
+    "start": "2026-07-28T06:39:00",
+    "end": "2026-07-28T07:12:00",
+    "reason_code": "CHANGEOVER",
+    "operator_note": "Mold swap to part 7742, first-off approved"
+  },
+  {
+    "event_id": "DT-0013",
+    "machine_id": "M-21",
+    "start": "2026-07-28T14:38:00",
+    "end": "2026-07-28T15:04:00",
+    "reason_code": "SENSOR_FAULT",
+    "operator_note": "Door interlock nuisance trip"
+  },
+  {
+    "event_id": "DT-0014",
+    "machine_id": "M-22",
+    "start": "2026-07-28T14:11:00",
+    "end": "2026-07-28T15:25:00",
+    "reason_code": "CHANGEOVER",
+    "operator_note": "Changeover ran long - fixture alignment reworked twice"
+  },
+  {
+    "event_id": "DT-0015",
+    "machine_id": "M-22",
+    "start": "2026-07-28T17:03:00",
+    "end": "2026-07-28T17:29:00",
+    "reason_code": "SENSOR_FAULT",
+    "operator_note": "Tool-setter probe misreading, recalibrated"
+  },
+  {
+    "event_id": "DT-0016",
+    "machine_id": "M-24",
+    "start": "2026-07-28T06:11:00",
+    "end": "2026-07-28T06:28:00",
+    "reason_code": "MATERIAL_STARVE",
+    "operator_note": "Upstream cell short, no WIP at the door"
+  },
+  {
+    "event_id": "DT-0017",
+    "machine_id": "M-31",
+    "start": "2026-07-28T06:45:00",
+    "end": "2026-07-28T07:02:00",
+    "reason_code": "CHANGEOVER",
+    "operator_note": "Programme change, torch path re-taught"
+  },
+  {
+    "event_id": "DT-0018",
+    "machine_id": "M-32",
+    "start": "2026-07-28T06:32:00",
+    "end": "2026-07-28T06:56:00",
+    "reason_code": "ROBOT_FAULT",
+    "operator_note": "Gripper failed to confirm part, re-homed"
+  },
+  {
+    "event_id": "DT-0019",
+    "machine_id": "M-33",
+    "start": "2026-07-28T14:31:00",
+    "end": "2026-07-28T14:52:00",
+    "reason_code": "MATERIAL_STARVE",
+    "operator_note": "Filament spool ran out mid-build"
+  },
+  {
+    "event_id": "DT-0020",
+    "machine_id": "M-12",
+    "start": "2026-07-29T14:11:00",
+    "end": "2026-07-29T14:17:00",
+    "reason_code": "JAM",
+    "operator_note": "Robot dropped part into the nest"
+  },
+  {
+    "event_id": "DT-0021",
+    "machine_id": "M-13",
+    "start": "2026-07-29T14:17:00",
+    "end": "2026-07-29T14:46:00",
+    "reason_code": "SENSOR_FAULT",
+    "operator_note": "Mold-close proximity switch reseated"
+  },
+  {
+    "event_id": "DT-0022",
+    "machine_id": "M-21",
+    "start": "2026-07-29T06:16:00",
+    "end": "2026-07-29T07:29:00",
+    "reason_code": "PM",
+    "operator_note": "Spindle warm-up cycle and geometry check"
+  },
+  {
+    "event_id": "DT-0023",
+    "machine_id": "M-22",
+    "start": "2026-07-29T14:10:00",
+    "end": "2026-07-29T15:21:00",
+    "reason_code": "CHANGEOVER",
+    "operator_note": "Changeover ran long - fixture alignment reworked twice"
+  },
+  {
+    "event_id": "DT-0024",
+    "machine_id": "M-22",
+    "start": "2026-07-29T17:17:00",
+    "end": "2026-07-29T17:35:00",
+    "reason_code": "SENSOR_FAULT",
+    "operator_note": "Door interlock nuisance trip"
+  },
+  {
+    "event_id": "DT-0025",
+    "machine_id": "M-23",
+    "start": "2026-07-29T06:31:00",
+    "end": "2026-07-29T07:40:00",
+    "reason_code": "PM",
+    "operator_note": "Weekly PM, way lube and coolant top-up"
+  },
+  {
+    "event_id": "DT-0026",
+    "machine_id": "M-23",
+    "start": "2026-07-29T09:39:00",
+    "end": "2026-07-29T10:08:00",
+    "reason_code": "CHANGEOVER",
+    "operator_note": "Job change to part 5518, first article to CMM"
+  },
+  {
+    "event_id": "DT-0027",
+    "machine_id": "M-24",
+    "start": "2026-07-29T06:08:00",
+    "end": "2026-07-29T06:30:00",
+    "reason_code": "SENSOR_FAULT",
+    "operator_note": "Tool-setter probe misreading, recalibrated"
+  },
+  {
+    "event_id": "DT-0028",
+    "machine_id": "M-32",
+    "start": "2026-07-29T14:13:00",
+    "end": "2026-07-29T14:33:00",
+    "reason_code": "ROBOT_FAULT",
+    "operator_note": "Gripper failed to confirm part, re-homed"
+  },
+  {
+    "event_id": "DT-0029",
+    "machine_id": "M-33",
+    "start": "2026-07-29T06:26:00",
+    "end": "2026-07-29T07:22:00",
+    "reason_code": "PM",
+    "operator_note": "Monthly PM, gantry belts tensioned"
+  },
+  {
+    "event_id": "DT-0030",
+    "machine_id": "M-13",
+    "start": "2026-07-30T14:27:00",
+    "end": "2026-07-30T14:36:00",
+    "reason_code": "SENSOR_FAULT",
+    "operator_note": "Cavity pressure transducer reading erratic"
+  },
+  {
+    "event_id": "DT-0031",
+    "machine_id": "M-14",
+    "start": "2026-07-30T06:14:00",
+    "end": "2026-07-30T06:36:00",
+    "reason_code": "MATERIAL_STARVE",
+    "operator_note": "Waiting on PP resin tote from warehouse"
+  },
+  {
+    "event_id": "DT-0032",
+    "machine_id": "M-14",
+    "start": "2026-07-30T07:22:00",
+    "end": "2026-07-30T07:56:00",
+    "reason_code": "CHANGEOVER",
+    "operator_note": "Tool change to variant B, purge complete"
+  },
+  {
+    "event_id": "DT-0033",
+    "machine_id": "M-14",
+    "start": "2026-07-30T14:12:00",
+    "end": "2026-07-30T14:39:00",
+    "reason_code": "SENSOR_FAULT",
+    "operator_note": "Cavity pressure transducer reading erratic"
+  },
+  {
+    "event_id": "DT-0034",
+    "machine_id": "M-22",
+    "start": "2026-07-30T14:36:00",
+    "end": "2026-07-30T15:37:00",
+    "reason_code": "CHANGEOVER",
+    "operator_note": "Changeover ran long - fixture alignment reworked twice"
+  },
+  {
+    "event_id": "DT-0035",
+    "machine_id": "M-22",
+    "start": "2026-07-30T17:02:00",
+    "end": "2026-07-30T17:30:00",
+    "reason_code": "CHANGEOVER",
+    "operator_note": "Job change to part 5518, first article to CMM"
+  },
+  {
+    "event_id": "DT-0036",
+    "machine_id": "M-33",
+    "start": "2026-07-30T06:20:00",
+    "end": "2026-07-30T07:34:00",
+    "reason_code": "PM",
+    "operator_note": "Monthly PM, gantry belts tensioned"
+  },
+  {
+    "event_id": "DT-0037",
+    "machine_id": "M-11",
+    "start": "2026-07-31T06:23:00",
+    "end": "2026-07-31T06:50:00",
+    "reason_code": "SENSOR_FAULT",
+    "operator_note": "Cavity pressure transducer reading erratic"
+  },
+  {
+    "event_id": "DT-0038",
+    "machine_id": "M-13",
+    "start": "2026-07-31T06:41:00",
+    "end": "2026-07-31T07:15:00",
+    "reason_code": "PM",
+    "operator_note": "Scheduled lubrication per SOP-002"
+  },
+  {
+    "event_id": "DT-0039",
+    "machine_id": "M-14",
+    "start": "2026-07-31T06:33:00",
+    "end": "2026-07-31T08:01:00",
+    "reason_code": "PM",
+    "operator_note": "Weekly PM, hydraulic filters replaced"
+  },
+  {
+    "event_id": "DT-0040",
+    "machine_id": "M-21",
+    "start": "2026-07-31T06:40:00",
+    "end": "2026-07-31T07:11:00",
+    "reason_code": "TOOL_BREAK",
+    "operator_note": "Carbide insert chipped, replaced from crib stock"
+  },
+  {
+    "event_id": "DT-0041",
+    "machine_id": "M-21",
+    "start": "2026-07-31T14:09:00",
+    "end": "2026-07-31T14:48:00",
+    "reason_code": "MATERIAL_STARVE",
+    "operator_note": "Upstream cell short, no WIP at the door"
+  },
+  {
+    "event_id": "DT-0042",
+    "machine_id": "M-22",
+    "start": "2026-07-31T14:15:00",
+    "end": "2026-07-31T15:13:00",
+    "reason_code": "CHANGEOVER",
+    "operator_note": "Changeover ran long - fixture alignment reworked twice"
+  },
+  {
+    "event_id": "DT-0043",
+    "machine_id": "M-23",
+    "start": "2026-07-31T14:43:00",
+    "end": "2026-07-31T15:18:00",
+    "reason_code": "PM",
+    "operator_note": "Weekly PM, way lube and coolant top-up"
+  },
+  {
+    "event_id": "DT-0044",
+    "machine_id": "M-24",
+    "start": "2026-07-31T06:41:00",
+    "end": "2026-07-31T07:44:00",
+    "reason_code": "TOOL_BREAK",
+    "operator_note": "End mill worn early, swapped and re-offset"
+  },
+  {
+    "event_id": "DT-0045",
+    "machine_id": "M-24",
+    "start": "2026-07-31T14:33:00",
+    "end": "2026-07-31T15:36:00",
+    "reason_code": "PM",
+    "operator_note": "Spindle warm-up cycle and geometry check"
+  },
+  {
+    "event_id": "DT-0046",
+    "machine_id": "M-31",
+    "start": "2026-07-31T14:36:00",
+    "end": "2026-07-31T15:50:00",
+    "reason_code": "PM",
+    "operator_note": "Shielding gas regulator serviced"
+  },
+  {
+    "event_id": "DT-0047",
+    "machine_id": "M-11",
+    "start": "2026-08-01T06:22:00",
+    "end": "2026-08-01T06:43:00",
+    "reason_code": "JAM",
+    "operator_note": "Sprue hung up in the chute"
+  },
+  {
+    "event_id": "DT-0048",
+    "machine_id": "M-12",
+    "start": "2026-08-01T06:37:00",
+    "end": "2026-08-01T07:28:00",
+    "reason_code": "PM",
+    "operator_note": "Weekly PM, hydraulic filters replaced"
+  },
+  {
+    "event_id": "DT-0049",
+    "machine_id": "M-21",
+    "start": "2026-08-01T06:14:00",
+    "end": "2026-08-01T07:00:00",
+    "reason_code": "TOOL_BREAK",
+    "operator_note": "Carbide insert chipped, replaced from crib stock"
+  },
+  {
+    "event_id": "DT-0050",
+    "machine_id": "M-22",
+    "start": "2026-08-01T14:10:00",
+    "end": "2026-08-01T15:17:00",
+    "reason_code": "CHANGEOVER",
+    "operator_note": "Changeover ran long - fixture alignment reworked twice"
+  },
+  {
+    "event_id": "DT-0051",
+    "machine_id": "M-22",
+    "start": "2026-08-01T15:59:00",
+    "end": "2026-08-01T16:23:00",
+    "reason_code": "MATERIAL_STARVE",
+    "operator_note": "Upstream cell short, no WIP at the door"
+  },
+  {
+    "event_id": "DT-0052",
+    "machine_id": "M-24",
+    "start": "2026-08-01T14:34:00",
+    "end": "2026-08-01T15:08:00",
+    "reason_code": "TOOL_BREAK",
+    "operator_note": "End mill worn early, swapped and re-offset"
+  },
+  {
+    "event_id": "DT-0053",
+    "machine_id": "M-31",
+    "start": "2026-08-01T14:24:00",
+    "end": "2026-08-01T15:03:00",
+    "reason_code": "MATERIAL_STARVE",
+    "operator_note": "Waiting on stampings from the press shop"
+  },
+  {
+    "event_id": "DT-0054",
+    "machine_id": "M-32",
+    "start": "2026-08-01T06:23:00",
+    "end": "2026-08-01T06:51:00",
+    "reason_code": "MATERIAL_STARVE",
+    "operator_note": "Rivet hopper empty, waiting on line side"
+  },
+  {
+    "event_id": "DT-0055",
+    "machine_id": "M-34",
+    "start": "2026-08-01T14:31:00",
+    "end": "2026-08-01T15:09:00",
+    "reason_code": "CHANGEOVER",
+    "operator_note": "Material change, nozzle purged and re-primed"
+  },
+  {
+    "event_id": "DT-0056",
+    "machine_id": "M-22",
+    "start": "2026-08-02T14:17:00",
+    "end": "2026-08-02T15:27:00",
+    "reason_code": "CHANGEOVER",
+    "operator_note": "Changeover ran long - fixture alignment reworked twice"
+  },
+  {
+    "event_id": "DT-0057",
+    "machine_id": "M-24",
+    "start": "2026-08-02T06:14:00",
+    "end": "2026-08-02T06:37:00",
+    "reason_code": "CHANGEOVER",
+    "operator_note": "Fixture change plus tool offsets reset"
+  },
+  {
+    "event_id": "DT-0058",
+    "machine_id": "M-24",
+    "start": "2026-08-02T14:16:00",
+    "end": "2026-08-02T15:13:00",
+    "reason_code": "TOOL_BREAK",
+    "operator_note": "Broken tap extracted, hole re-tapped"
+  },
+  {
+    "event_id": "DT-0059",
+    "machine_id": "M-24",
+    "start": "2026-08-02T15:49:00",
+    "end": "2026-08-02T16:00:00",
+    "reason_code": "MATERIAL_STARVE",
+    "operator_note": "Waiting on aluminium bar stock from saw"
+  },
+  {
+    "event_id": "DT-0060",
+    "machine_id": "M-31",
+    "start": "2026-08-02T14:34:00",
+    "end": "2026-08-02T14:51:00",
+    "reason_code": "SENSOR_FAULT",
+    "operator_note": "Seam-tracking sensor lost the joint"
+  },
+  {
+    "event_id": "DT-0061",
+    "machine_id": "M-34",
+    "start": "2026-08-02T06:26:00",
+    "end": "2026-08-02T07:02:00",
+    "reason_code": "MATERIAL_STARVE",
+    "operator_note": "Nylon powder hopper below minimum, build held"
+  },
+  {
+    "event_id": "DT-0062",
+    "machine_id": "M-14",
+    "start": "2026-08-03T14:27:00",
+    "end": "2026-08-03T14:42:00",
+    "reason_code": "JAM",
+    "operator_note": "Part stuck in cavity, ejector adjusted"
+  },
+  {
+    "event_id": "DT-0063",
+    "machine_id": "M-22",
+    "start": "2026-08-03T14:32:00",
+    "end": "2026-08-03T15:23:00",
+    "reason_code": "CHANGEOVER",
+    "operator_note": "Changeover ran long - fixture alignment reworked twice"
+  },
+  {
+    "event_id": "DT-0064",
+    "machine_id": "M-23",
+    "start": "2026-08-03T06:32:00",
+    "end": "2026-08-03T06:58:00",
+    "reason_code": "CHANGEOVER",
+    "operator_note": "Fixture change plus tool offsets reset"
+  },
+  {
+    "event_id": "DT-0065",
+    "machine_id": "M-24",
+    "start": "2026-08-03T06:05:00",
+    "end": "2026-08-03T06:22:00",
+    "reason_code": "MATERIAL_STARVE",
+    "operator_note": "Billet delivery short, no kanban card"
+  },
+  {
+    "event_id": "DT-0066",
+    "machine_id": "M-31",
+    "start": "2026-08-03T06:41:00",
+    "end": "2026-08-03T07:18:00",
+    "reason_code": "MATERIAL_STARVE",
+    "operator_note": "Weld wire spool empty, no replacement staged"
+  },
+  {
+    "event_id": "DT-0067",
+    "machine_id": "M-33",
+    "start": "2026-08-03T06:45:00",
+    "end": "2026-08-03T08:35:00",
+    "reason_code": "BUILD_FAILURE",
+    "operator_note": "Build aborted, part lifted off the plate"
+  },
+  {
+    "event_id": "DT-0068",
+    "machine_id": "M-34",
+    "start": "2026-08-03T06:09:00",
+    "end": "2026-08-03T06:21:00",
+    "reason_code": "SENSOR_FAULT",
+    "operator_note": "Chamber thermocouple drifting, recalibrated"
+  },
+  {
+    "event_id": "DT-0069",
+    "machine_id": "M-13",
+    "start": "2026-08-04T06:17:00",
+    "end": "2026-08-04T06:45:00",
+    "reason_code": "SENSOR_FAULT",
+    "operator_note": "Mold-close proximity switch reseated"
+  },
+  {
+    "event_id": "DT-0070",
+    "machine_id": "M-22",
+    "start": "2026-08-04T14:10:00",
+    "end": "2026-08-04T15:21:00",
+    "reason_code": "CHANGEOVER",
+    "operator_note": "Changeover ran long - fixture alignment reworked twice"
+  },
+  {
+    "event_id": "DT-0071",
+    "machine_id": "M-23",
+    "start": "2026-08-04T14:36:00",
+    "end": "2026-08-04T15:17:00",
+    "reason_code": "TOOL_BREAK",
+    "operator_note": "Carbide insert chipped, replaced from crib stock"
+  },
+  {
+    "event_id": "DT-0072",
+    "machine_id": "M-24",
+    "start": "2026-08-04T06:39:00",
+    "end": "2026-08-04T07:10:00",
+    "reason_code": "CHANGEOVER",
+    "operator_note": "Soft jaws bored for the next job"
+  },
+  {
+    "event_id": "DT-0073",
+    "machine_id": "M-24",
+    "start": "2026-08-04T14:44:00",
+    "end": "2026-08-04T15:15:00",
+    "reason_code": "TOOL_BREAK",
+    "operator_note": "Carbide insert chipped, replaced from crib stock"
+  },
+  {
+    "event_id": "DT-0074",
+    "machine_id": "M-31",
+    "start": "2026-08-04T06:39:00",
+    "end": "2026-08-04T07:10:00",
+    "reason_code": "CHANGEOVER",
+    "operator_note": "Weld fixture changed for the next assembly"
+  },
+  {
+    "event_id": "DT-0075",
+    "machine_id": "M-31",
+    "start": "2026-08-04T08:19:00",
+    "end": "2026-08-04T09:03:00",
+    "reason_code": "PM",
+    "operator_note": "Shielding gas regulator serviced"
+  },
+  {
+    "event_id": "DT-0076",
+    "machine_id": "M-34",
+    "start": "2026-08-04T06:14:00",
+    "end": "2026-08-04T06:54:00",
+    "reason_code": "CHANGEOVER",
+    "operator_note": "Material change, nozzle purged and re-primed"
+  },
+  {
+    "event_id": "DT-0077",
+    "machine_id": "M-34",
+    "start": "2026-08-04T14:05:00",
+    "end": "2026-08-04T15:14:00",
+    "reason_code": "PM",
+    "operator_note": "Nozzle replaced and chamber filters cleaned"
+  },
+  {
+    "event_id": "DT-0078",
+    "machine_id": "M-11",
+    "start": "2026-08-05T14:44:00",
+    "end": "2026-08-05T15:54:00",
+    "reason_code": "PM",
+    "operator_note": "Weekly PM, hydraulic filters replaced"
+  },
+  {
+    "event_id": "DT-0079",
+    "machine_id": "M-12",
+    "start": "2026-08-05T06:23:00",
+    "end": "2026-08-05T06:42:00",
+    "reason_code": "MATERIAL_STARVE",
+    "operator_note": "Dryer hopper empty, no resin staged"
+  },
+  {
+    "event_id": "DT-0080",
+    "machine_id": "M-14",
+    "start": "2026-08-05T14:23:00",
+    "end": "2026-08-05T14:55:00",
+    "reason_code": "PM",
+    "operator_note": "Scheduled lubrication per SOP-002"
+  },
+  {
+    "event_id": "DT-0081",
+    "machine_id": "M-21",
+    "start": "2026-08-05T14:27:00",
+    "end": "2026-08-05T15:05:00",
+    "reason_code": "TOOL_BREAK",
+    "operator_note": "Carbide insert chipped, replaced from crib stock"
+  },
+  {
+    "event_id": "DT-0082",
+    "machine_id": "M-22",
+    "start": "2026-08-05T06:33:00",
+    "end": "2026-08-05T07:50:00",
+    "reason_code": "PM",
+    "operator_note": "Spindle warm-up cycle and geometry check"
+  },
+  {
+    "event_id": "DT-0083",
+    "machine_id": "M-22",
+    "start": "2026-08-05T14:32:00",
+    "end": "2026-08-05T15:47:00",
+    "reason_code": "CHANGEOVER",
+    "operator_note": "Changeover ran long - fixture alignment reworked twice"
+  },
+  {
+    "event_id": "DT-0084",
+    "machine_id": "M-24",
+    "start": "2026-08-05T06:22:00",
+    "end": "2026-08-05T06:59:00",
+    "reason_code": "MATERIAL_STARVE",
+    "operator_note": "Upstream cell short, no WIP at the door"
+  },
+  {
+    "event_id": "DT-0085",
+    "machine_id": "M-31",
+    "start": "2026-08-05T06:29:00",
+    "end": "2026-08-05T07:02:00",
+    "reason_code": "MATERIAL_STARVE",
+    "operator_note": "Waiting on stampings from the press shop"
+  },
+  {
+    "event_id": "DT-0086",
+    "machine_id": "M-33",
+    "start": "2026-08-05T06:12:00",
+    "end": "2026-08-05T06:54:00",
+    "reason_code": "PM",
+    "operator_note": "Nozzle replaced and chamber filters cleaned"
+  },
+  {
+    "event_id": "DT-0087",
+    "machine_id": "M-33",
+    "start": "2026-08-05T14:27:00",
+    "end": "2026-08-05T15:03:00",
+    "reason_code": "CHANGEOVER",
+    "operator_note": "Material change, nozzle purged and re-primed"
+  },
+  {
+    "event_id": "DT-0088",
+    "machine_id": "M-11",
+    "start": "2026-08-06T06:40:00",
+    "end": "2026-08-06T06:59:00",
+    "reason_code": "JAM",
+    "operator_note": "Part stuck in cavity, ejector adjusted"
+  },
+  {
+    "event_id": "DT-0089",
+    "machine_id": "M-21",
+    "start": "2026-08-06T06:44:00",
+    "end": "2026-08-06T07:14:00",
+    "reason_code": "TOOL_BREAK",
+    "operator_note": "End mill worn early, swapped and re-offset"
+  },
+  {
+    "event_id": "DT-0090",
+    "machine_id": "M-22",
+    "start": "2026-08-06T14:30:00",
+    "end": "2026-08-06T15:40:00",
+    "reason_code": "CHANGEOVER",
+    "operator_note": "Changeover ran long - fixture alignment reworked twice"
+  },
+  {
+    "event_id": "DT-0091",
+    "machine_id": "M-24",
+    "start": "2026-08-06T06:14:00",
+    "end": "2026-08-06T06:59:00",
+    "reason_code": "PM",
+    "operator_note": "Weekly PM, way lube and coolant top-up"
+  },
+  {
+    "event_id": "DT-0092",
+    "machine_id": "M-24",
+    "start": "2026-08-06T14:25:00",
+    "end": "2026-08-06T15:37:00",
+    "reason_code": "TOOL_BREAK",
+    "operator_note": "End mill worn early, swapped and re-offset"
+  },
+  {
+    "event_id": "DT-0093",
+    "machine_id": "M-31",
+    "start": "2026-08-06T06:24:00",
+    "end": "2026-08-06T07:25:00",
+    "reason_code": "PM",
+    "operator_note": "Shielding gas regulator serviced"
+  },
+  {
+    "event_id": "DT-0094",
+    "machine_id": "M-31",
+    "start": "2026-08-06T14:36:00",
+    "end": "2026-08-06T15:00:00",
+    "reason_code": "CHANGEOVER",
+    "operator_note": "Fixture swap, clamp positions reset"
+  },
+  {
+    "event_id": "DT-0095",
+    "machine_id": "M-32",
+    "start": "2026-08-06T14:40:00",
+    "end": "2026-08-06T15:13:00",
+    "reason_code": "CHANGEOVER",
+    "operator_note": "Nest change for the next model"
+  },
+  {
+    "event_id": "DT-0096",
+    "machine_id": "M-33",
+    "start": "2026-08-06T06:44:00",
+    "end": "2026-08-06T07:00:00",
+    "reason_code": "SENSOR_FAULT",
+    "operator_note": "Chamber thermocouple drifting, recalibrated"
+  },
+  {
+    "event_id": "DT-0097",
+    "machine_id": "M-22",
+    "start": "2026-08-07T06:27:00",
+    "end": "2026-08-07T07:11:00",
+    "reason_code": "MATERIAL_STARVE",
+    "operator_note": "Upstream cell short, no WIP at the door"
+  },
+  {
+    "event_id": "DT-0098",
+    "machine_id": "M-22",
+    "start": "2026-08-07T14:24:00",
+    "end": "2026-08-07T15:20:00",
+    "reason_code": "CHANGEOVER",
+    "operator_note": "Changeover ran long - fixture alignment reworked twice"
+  },
+  {
+    "event_id": "DT-0099",
+    "machine_id": "M-24",
+    "start": "2026-08-07T14:33:00",
+    "end": "2026-08-07T14:59:00",
+    "reason_code": "CHANGEOVER",
+    "operator_note": "Soft jaws bored for the next job"
+  },
+  {
+    "event_id": "DT-0100",
+    "machine_id": "M-31",
+    "start": "2026-08-07T06:22:00",
+    "end": "2026-08-07T07:07:00",
+    "reason_code": "MATERIAL_STARVE",
+    "operator_note": "Waiting on stampings from the press shop"
+  },
+  {
+    "event_id": "DT-0101",
+    "machine_id": "M-33",
+    "start": "2026-08-07T06:08:00",
+    "end": "2026-08-07T06:32:00",
+    "reason_code": "CHANGEOVER",
+    "operator_note": "Material change, nozzle purged and re-primed"
+  },
+  {
+    "event_id": "DT-0102",
+    "machine_id": "M-11",
+    "start": "2026-08-08T06:23:00",
+    "end": "2026-08-08T06:48:00",
+    "reason_code": "CHANGEOVER",
+    "operator_note": "Tool change to variant B, purge complete"
+  },
+  {
+    "event_id": "DT-0103",
+    "machine_id": "M-12",
+    "start": "2026-08-08T14:44:00",
+    "end": "2026-08-08T15:05:00",
+    "reason_code": "MATERIAL_STARVE",
+    "operator_note": "Masterbatch feeder ran dry"
+  },
+  {
+    "event_id": "DT-0104",
+    "machine_id": "M-22",
+    "start": "2026-08-08T14:20:00",
+    "end": "2026-08-08T15:27:00",
+    "reason_code": "CHANGEOVER",
+    "operator_note": "Changeover ran long - fixture alignment reworked twice"
+  },
+  {
+    "event_id": "DT-0105",
+    "machine_id": "M-23",
+    "start": "2026-08-08T06:41:00",
+    "end": "2026-08-08T06:55:00",
+    "reason_code": "MATERIAL_STARVE",
+    "operator_note": "Waiting on aluminium bar stock from saw"
+  },
+  {
+    "event_id": "DT-0106",
+    "machine_id": "M-31",
+    "start": "2026-08-08T14:08:00",
+    "end": "2026-08-08T14:40:00",
+    "reason_code": "CHANGEOVER",
+    "operator_note": "Weld fixture changed for the next assembly"
+  },
+  {
+    "event_id": "DT-0107",
+    "machine_id": "M-32",
+    "start": "2026-08-08T06:29:00",
+    "end": "2026-08-08T07:22:00",
+    "reason_code": "PM",
+    "operator_note": "Press force calibration verified"
+  },
+  {
+    "event_id": "DT-0108",
+    "machine_id": "M-34",
+    "start": "2026-08-08T06:31:00",
+    "end": "2026-08-08T07:20:00",
+    "reason_code": "BUILD_FAILURE",
+    "operator_note": "Powder recoater struck a curled edge"
+  },
+  {
+    "event_id": "DT-0109",
+    "machine_id": "M-11",
+    "start": "2026-08-09T06:08:00",
+    "end": "2026-08-09T06:22:00",
+    "reason_code": "SENSOR_FAULT",
+    "operator_note": "Cavity pressure transducer reading erratic"
+  },
+  {
+    "event_id": "DT-0110",
+    "machine_id": "M-21",
+    "start": "2026-08-09T06:22:00",
+    "end": "2026-08-09T06:45:00",
+    "reason_code": "TOOL_BREAK",
+    "operator_note": "Broken tap extracted, hole re-tapped"
+  },
+  {
+    "event_id": "DT-0111",
+    "machine_id": "M-21",
+    "start": "2026-08-09T14:18:00",
+    "end": "2026-08-09T14:28:00",
+    "reason_code": "MATERIAL_STARVE",
+    "operator_note": "Waiting on aluminium bar stock from saw"
+  },
+  {
+    "event_id": "DT-0112",
+    "machine_id": "M-22",
+    "start": "2026-08-09T14:39:00",
+    "end": "2026-08-09T15:39:00",
+    "reason_code": "CHANGEOVER",
+    "operator_note": "Changeover ran long - fixture alignment reworked twice"
+  },
+  {
+    "event_id": "DT-0113",
+    "machine_id": "M-24",
+    "start": "2026-08-09T06:21:00",
+    "end": "2026-08-09T06:42:00",
+    "reason_code": "TOOL_BREAK",
+    "operator_note": "End mill worn early, swapped and re-offset"
+  },
+  {
+    "event_id": "DT-0114",
+    "machine_id": "M-32",
+    "start": "2026-08-09T14:37:00",
+    "end": "2026-08-09T14:58:00",
+    "reason_code": "CHANGEOVER",
+    "operator_note": "Rivet tooling swapped, force curve re-taught"
+  },
+  {
+    "event_id": "DT-0115",
+    "machine_id": "M-33",
+    "start": "2026-08-09T14:16:00",
+    "end": "2026-08-09T15:37:00",
+    "reason_code": "PM",
+    "operator_note": "Nozzle replaced and chamber filters cleaned"
+  },
+  {
+    "event_id": "DT-0116",
+    "machine_id": "M-34",
+    "start": "2026-08-09T06:22:00",
+    "end": "2026-08-09T06:48:00",
+    "reason_code": "CHANGEOVER",
+    "operator_note": "Build plate swapped and re-levelled"
+  }
+]
