@@ -1,0 +1,3 @@
+{
+  "_comment": "Sample API responses. Populated during the 0:00-0:45 contract slice so the frontend track can build before the endpoints exist. Shapes must match backend/app/schemas.py exactly."
+}
