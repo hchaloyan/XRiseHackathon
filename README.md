@@ -21,9 +21,9 @@ Python 3.11+ and Node 20+.
 
 ## Setup
 
-```bash
-cp .env.example backend/.env
-```
+No `.env` needed — every setting defaults correctly in `backend/app/config.py`.
+Copy `.env.example` to `backend/.env` only if you switch to the hosted model
+fallback.
 
 **Backend** (`:8000`):
 

@@ -2,6 +2,7 @@
 
 from pathlib import Path
 
+from pydantic import field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
@@ -32,10 +33,35 @@ class Settings(BaseSettings):
     sop_dir: str = str(REPO_ROOT / "data" / "sops")
     retrieval_top_k: int = 4
     # Chroma cosine DISTANCE ceiling; above this a chunk is "not really a match".
-    # Placeholder until calibrated against the two fixed query sets.
-    max_match_distance: float = 0.31
+    # Set by `python calibrate_kb.py` over 17 realistic in-corpus phrasings and
+    # 10 factory-data questions: answers 17/17, admits 1.
+    #
+    # The bands OVERLAP - there is no clean number. Real questions run to 0.306
+    # while "how many parts did we scrap on the molding line today" sits at
+    # 0.299, and SOP-006 does cover line-side scrap, so that one is a soft miss.
+    # The failure that actually costs the demo is a data question answered with
+    # a confident procedure, and those stay out: downtime 0.366, scrap rate
+    # 0.396, OEE 0.477. Past ~0.36 they start getting in.
+    #
+    # Take the MIDDLE of the viable range, never its edge. An earlier 0.26 sat
+    # a thousandth away from real questions it silently rejected.
+    #
+    # Not comparable across an embedding change: values from before the nomic
+    # query/document prefixes sat on a different distribution.
+    max_match_distance: float = 0.34
 
     data_dir: str = str(REPO_ROOT / "data" / "generated")
+
+    @field_validator("ollama_host")
+    @classmethod
+    def _dialable(cls, value: str) -> str:
+        """`OLLAMA_HOST` is a SERVER bind address by convention, not a client
+        target, and pydantic binds that ambient var to this field ahead of any
+        .env value. `0.0.0.0` means "listen on every interface" and is not
+        connectable on Windows. Scheme and port are left to the Ollama SDK,
+        which already fills both in.
+        """
+        return value.replace("0.0.0.0", "127.0.0.1")
 
 
 settings = Settings()
