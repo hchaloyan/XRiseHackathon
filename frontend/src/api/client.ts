@@ -1,15 +1,16 @@
 /**
  * fetch wrapper. Base URL from env. JSON bodies, camelCase on the wire.
  */
+import fixtures from '../mocks/fixtures.json'
 import type {
   ExplainResponse,
-  InsightsResponse,
+  InsightResponse,
   KpiResponse,
   RootCauseResponse,
   SearchResponse,
 } from './types'
 
-const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000'
+const BASE_URL = import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:8000'
 
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
   const res = await fetch(`${BASE_URL}${path}`, {
@@ -24,15 +25,67 @@ function post<T>(path: string, body: unknown): Promise<T> {
   return request<T>(path, { method: 'POST', body: JSON.stringify(body) })
 }
 
-export const searchSOPs = (query: string) =>
-  post<SearchResponse>('/api/search', { query })
+/**
+ * Try the endpoint; fall back to the committed fixture if it is missing or
+ * unreachable.
+ *
+ * Insights and root cause are still empty `APIRouter()` stubs, so this is the
+ * normal path for them today, not an error path. It also means a backend that
+ * dies mid-demo degrades to stale-but-correct numbers instead of a red screen
+ * (spec §5).
+ *
+ * An `undefined` fixture rethrows: some rows have no canned analysis, and a
+ * caller that can degrade honestly should be told so rather than handed
+ * someone else's numbers.
+ */
+async function withFallback<T>(
+  label: string,
+  fetcher: () => Promise<T>,
+  fixture: T | undefined,
+): Promise<T> {
+  try {
+    return await fetcher()
+  } catch (err) {
+    if (fixture === undefined) throw err
+    console.warn(`[api] ${label} unavailable, serving fixture:`, err)
+    return fixture
+  }
+}
 
-export const explainSOPs = (query: string, sopIds: string[]) =>
-  post<ExplainResponse>('/api/explain', { query, sopIds })
+export const api = {
+  kpis: () =>
+    withFallback('GET /api/kpis', () => request<KpiResponse>('/api/kpis'), fixtures.kpis as KpiResponse),
 
-export const getKpis = () => request<KpiResponse>('/api/kpis')
+  insights: () =>
+    withFallback(
+      'GET /api/insights',
+      () => request<InsightResponse>('/api/insights'),
+      fixtures.insights as InsightResponse,
+    ),
 
-export const getInsights = () => request<InsightsResponse>('/api/insights')
+  rootCause: (eventId: string) =>
+    withFallback(
+      `POST /api/root-cause ${eventId}`,
+      () => post<RootCauseResponse>('/api/root-cause', { eventId }),
+      // Only the two demo-script rows have a canned analysis. Anything else
+      // rethrows so the panel degrades to evidence built from the row itself,
+      // rather than showing another machine's findings.
+      (fixtures.rootCause as unknown as Record<string, RootCauseResponse | undefined>)[eventId],
+    ),
 
-export const analyzeRootCause = (eventId: string) =>
-  post<RootCauseResponse>('/api/root-cause', { eventId })
+  /**
+   * Retrieval only — no model, so this returns in well under a second. It gets
+   * no fixture fallback: the knowledge base is really implemented, and an
+   * unreachable backend is reported through the UI's fallback message rather
+   * than papered over with canned SOPs.
+   *
+   * Off-corpus queries are handled server-side by the similarity floor, which
+   * returns zero results plus the fixed redirect string (rule 8 — no intent
+   * classifier runs on the client).
+   */
+  search: (query: string) => post<SearchResponse>('/api/search', { query }),
+
+  /** Model reasoning over the exact chunks the user already has on screen. */
+  explain: (query: string, sopIds: string[]) =>
+    post<ExplainResponse>('/api/explain', { query, sopIds }),
+}
