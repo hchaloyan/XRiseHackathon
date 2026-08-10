@@ -1,4 +1,15 @@
-const BASE_URL = import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:8000'
+/**
+ * fetch wrapper. Base URL from env. JSON bodies, camelCase on the wire.
+ */
+import type {
+  ExplainResponse,
+  InsightsResponse,
+  KpiResponse,
+  RootCauseResponse,
+  SearchResponse,
+} from './types'
+
+const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000'
 
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
   const res = await fetch(`${BASE_URL}${path}`, {
@@ -9,8 +20,19 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
   return res.json() as Promise<T>
 }
 
-export const api = {
-  get: <T>(path: string) => request<T>(path),
-  post: <T>(path: string, body: unknown) =>
-    request<T>(path, { method: 'POST', body: JSON.stringify(body) }),
+function post<T>(path: string, body: unknown): Promise<T> {
+  return request<T>(path, { method: 'POST', body: JSON.stringify(body) })
 }
+
+export const searchSOPs = (query: string) =>
+  post<SearchResponse>('/api/search', { query })
+
+export const explainSOPs = (query: string, sopIds: string[]) =>
+  post<ExplainResponse>('/api/explain', { query, sopIds })
+
+export const getKpis = () => request<KpiResponse>('/api/kpis')
+
+export const getInsights = () => request<InsightsResponse>('/api/insights')
+
+export const analyzeRootCause = (eventId: string) =>
+  post<RootCauseResponse>('/api/root-cause', { eventId })
