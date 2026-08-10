@@ -11,6 +11,10 @@ import { useFetch } from '../lib/useFetch'
  * Shows the single most likely cause with the evidence it rests on. The model
  * still returns a ranked list; only the top one is surfaced.
  *
+ * The panel drops to the 00dp base surface while the card around it sits at
+ * 01dp, so the expansion reads as opening *into* the row rather than floating
+ * above it.
+ *
  * Hypotheses are nullable: if the model fails, the row still shows its
  * computed evidence and simply omits the cause (spec §5).
  */
@@ -75,7 +79,7 @@ export default function RootCausePanel({ event }: { event: EventRow }) {
     : null
 
   return (
-    <div className="border-t border-white/5 bg-black/30 px-4 py-5">
+    <div className="border-t border-line bg-black/25 px-5 py-5">
       {loading ? (
         <div className="space-y-4">
           <Skeleton className="h-3 w-32" />
@@ -90,7 +94,7 @@ export default function RootCausePanel({ event }: { event: EventRow }) {
         <>
           {/* Computed. Always renders. */}
           <div className="flex items-center gap-2">
-            <CircleAlert size={13} className="text-btc" aria-hidden />
+            <CircleAlert size={13} className="text-muted" aria-hidden />
             <h4 className="label-caps">Evidence</h4>
           </div>
 
@@ -98,11 +102,11 @@ export default function RootCausePanel({ event }: { event: EventRow }) {
             {data?.evidence.map((e) => (
               <div
                 key={e.label}
-                className="rounded-xl border border-white/5 bg-white/[0.02] px-3 py-2"
+                className="rounded-lg border border-white/5 bg-white/[0.05] px-3 py-2"
               >
                 <dt className="label-caps">{e.label}</dt>
-                <dd className="data-figure mt-1 text-sm text-white/90">{e.value}</dd>
-                {e.detail && <p className="mt-1 text-[11px] leading-snug text-muted">{e.detail}</p>}
+                <dd className="data-figure mt-1 text-sm text-hi">{e.value}</dd>
+                {e.detail && <p className="mt-1 text-[12px] leading-snug text-muted">{e.detail}</p>}
               </div>
             ))}
           </dl>
@@ -111,24 +115,26 @@ export default function RootCausePanel({ event }: { event: EventRow }) {
           {top ? (
             <>
               <div className="mt-6 flex items-center gap-2">
-                <Lightbulb size={13} className="text-gold" aria-hidden />
+                <Lightbulb size={13} className="text-accent" aria-hidden />
                 <h4 className="label-caps">Likely Cause</h4>
               </div>
 
-              <div className="mt-3 rounded-xl border border-btc/40 bg-btc/[0.04] p-4 shadow-lift">
+              {/* The section's one accent-bearing element: a 2px lit rule and
+                  a single glow. No accent fill behind the text. */}
+              <div className="mt-3 rounded-r-lg border-l-2 border-accent bg-white/[0.05] p-4 shadow-glow">
                 <div className="flex flex-wrap items-center gap-2.5">
-                  <h5 className="font-heading text-sm font-medium">{top.cause}</h5>
+                  <h5 className="text-sm font-medium text-hi">{top.cause}</h5>
                   <Badge tone={top.confidence}>{top.confidence} confidence</Badge>
                 </div>
 
-                <p className="mt-2.5 text-xs leading-relaxed text-white/70">{top.reasoning}</p>
+                <p className="mt-2.5 text-xs leading-relaxed text-muted">{top.reasoning}</p>
 
                 {top.supportingEvidence.length > 0 && (
-                  <div className="mt-2.5 flex flex-wrap gap-1.5">
+                  <div className="mt-3 flex flex-wrap gap-1.5">
                     {top.supportingEvidence.map((s) => (
                       <span
                         key={s}
-                        className="rounded-md border border-white/10 bg-white/5 px-2 py-0.5 font-mono text-[10px] text-muted"
+                        className="data-figure rounded bg-white/[0.07] px-2 py-0.5 text-[11px] text-muted"
                       >
                         {s}
                       </span>
@@ -137,9 +143,9 @@ export default function RootCausePanel({ event }: { event: EventRow }) {
                 )}
 
                 {top.recommendedAction && (
-                  <div className="mt-3 flex gap-2 border-t border-white/5 pt-3">
-                    <Wrench size={13} className="mt-0.5 shrink-0 text-gold" aria-hidden />
-                    <p className="text-xs leading-relaxed text-white/80">{top.recommendedAction}</p>
+                  <div className="mt-3 flex gap-2 border-t border-line pt-3">
+                    <Wrench size={13} className="mt-0.5 shrink-0 text-accent" aria-hidden />
+                    <p className="text-xs leading-relaxed text-hi">{top.recommendedAction}</p>
                   </div>
                 )}
               </div>

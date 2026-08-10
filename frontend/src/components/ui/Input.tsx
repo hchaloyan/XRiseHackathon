@@ -2,18 +2,18 @@ import type { ComponentProps } from 'react'
 import { cn } from '../../lib/cn'
 
 /**
- * Data-terminal input: bottom border only, orange on focus, glow beneath.
- * One shape, no variants — the app has exactly one input.
+ * Filled field, translucent so it sits *in* the glass bar rather than on top
+ * of it. One shape, no variants — the app has exactly one input.
  */
 export function Input({ className, ...props }: ComponentProps<'input'>) {
   return (
     <input
       className={cn(
-        'h-12 w-full rounded-lg bg-black/50 px-4 py-2 text-sm text-white',
-        'border-b-2 border-white/20 placeholder:text-white/30',
-        'transition-all duration-200',
-        'focus-visible:border-btc focus-visible:shadow-focus focus-visible:outline-none',
-        'disabled:cursor-not-allowed disabled:opacity-50',
+        'h-12 w-full rounded-xl border border-line bg-white/[0.06] px-4 py-2 text-sm text-hi',
+        'placeholder:text-faint',
+        'transition-[border-color,box-shadow] duration-200',
+        'focus-visible:border-accent/70 focus-visible:shadow-glow focus-visible:outline-none',
+        'disabled:cursor-not-allowed disabled:text-faint',
         className,
       )}
       {...props}

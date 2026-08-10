@@ -12,7 +12,7 @@ import { cn } from '../lib/cn'
 export default function InventoryPanel({ inventory }: { inventory: Inventory | null }) {
   if (!inventory) {
     return (
-      <Card>
+      <Card size="lg">
         <CardLabel>Material Cover</CardLabel>
         <div className="mt-4 space-y-3">
           <Skeleton className="h-10 w-2/3" />
@@ -30,25 +30,23 @@ export default function InventoryPanel({ inventory }: { inventory: Inventory | n
   const watch = byCover.filter((i) => !i.belowReorder).slice(0, 4)
 
   return (
-    <Card className="flex flex-col">
+    <Card size="lg" className="flex flex-col">
       <CardLabel>Material Cover</CardLabel>
 
       <div className="mt-3 flex items-baseline gap-2">
-        <span className="data-figure text-4xl font-medium text-btc">
+        {/* A single small high-emphasis figure — the one accent point here. */}
+        <span className="data-figure text-[32px] leading-none font-medium text-accent">
           {inventory.partsBelowReorder}
         </span>
-        <span className="text-sm text-muted">
-          of {inventory.partsTracked} parts below reorder
-        </span>
+        <span className="text-sm text-muted">of {inventory.partsTracked} parts below reorder</span>
       </div>
 
-      <p className="mt-1 text-xs text-muted">
-        Lowest cover{' '}
-        <span className="data-figure text-gold">{inventory.lowestDaysOfCover} days</span>
+      <p className="mt-2 text-xs text-muted">
+        Lowest cover <span className="data-figure text-hi">{inventory.lowestDaysOfCover} days</span>
       </p>
 
       {short.length > 0 && (
-        <ul className="mt-4 space-y-2">
+        <ul className="mt-5 space-y-2.5">
           {short.map((item) => (
             <PartRow key={item.partId} item={item} short />
           ))}
@@ -57,8 +55,8 @@ export default function InventoryPanel({ inventory }: { inventory: Inventory | n
 
       {watch.length > 0 && (
         <>
-          <div className="label-caps mt-5 border-t border-white/5 pt-3">Next lowest cover</div>
-          <ul className="mt-2 space-y-2">
+          <div className="label-caps mt-5 border-t border-line pt-4">Next lowest cover</div>
+          <ul className="mt-2.5 space-y-2.5">
             {watch.map((item) => (
               <PartRow key={item.partId} item={item} />
             ))}
@@ -73,26 +71,19 @@ function PartRow({ item, short }: { item: InventoryItem; short?: boolean }) {
   const Icon = short ? PackageX : Package
   return (
     <li className="flex items-center gap-3 text-xs">
-      <Icon
-        size={13}
-        className={cn('shrink-0', short ? 'text-burnt' : 'text-white/25')}
-        aria-hidden
-      />
+      <Icon size={13} className={cn('shrink-0', short ? 'text-error' : 'text-faint')} aria-hidden />
       <div className="min-w-0 flex-1">
-        <div
-          className={cn('truncate', short ? 'text-white/80' : 'text-white/50')}
-          title={item.description}
-        >
+        <div className={cn('truncate', short ? 'text-hi' : 'text-muted')} title={item.description}>
           {item.description}
         </div>
-        <div className="label-caps mt-0.5">
+        <div className="label-caps mt-0.5 text-faint">
           {item.partId} · {item.line}
         </div>
       </div>
       <span
         className={cn(
           'data-figure shrink-0 text-right',
-          item.daysOfCover < 5 ? 'text-btc' : short ? 'text-gold' : 'text-muted',
+          item.daysOfCover < 5 ? 'text-error' : short ? 'text-accent' : 'text-muted',
         )}
       >
         {item.daysOfCover}d

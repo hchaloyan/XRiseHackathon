@@ -3,47 +3,62 @@
 /* Self-hosted, not fonts.googleapis.com: spec D1 commits to a fully offline
    demo path, and venue wifi is not part of it. */
 @import "@fontsource-variable/inter";
-@import "@fontsource-variable/space-grotesk";
 @import "@fontsource-variable/jetbrains-mono";
 
 /* --- Design tokens ---------------------------------------------------------
-   The "Bitcoin DeFi" system from design.md. Single source of truth: no
-   component below this file hardcodes a hex value. */
+   Material dark theme (m2.material.io/design/color/dark-theme) with an
+   Apple-style glass treatment on the container surfaces. Single source of
+   truth: no component below this file hardcodes a hex value.
+
+   Three rules drive everything here:
+     1. Depth is surface LIGHTNESS, not shadow. Elevation is a semi-transparent
+        white overlay — here carried by translucent glass rather than an opaque
+        mix, so the overlay math holds but the surface refracts what's behind.
+     2. Accents are desaturated (tone 200). Saturated purple appears only in
+        ambient light and glow, never as a fill behind text.
+     3. Glow is emphasis, not decoration: it marks the accent-bearing element
+        in a section and nothing else. */
 
 @theme {
-  --color-void: #030304; /* True Void — page ground */
-  --color-surface: #0f1115; /* Dark Matter — cards, panels */
-  --color-muted: #94a3b8; /* Stardust — secondary text */
-  --color-edge: #1e293b; /* Dim Boundary — grid lines */
-  --color-btc: #f7931a; /* Bitcoin Orange — primary accent */
-  --color-burnt: #ea580c; /* Burnt Orange — gradient depth */
-  --color-gold: #ffd600; /* Digital Gold — value, success */
+  /* Material's white-overlay elevation table, for reference when adding a
+     surface: 00dp 0% (#121212) · 01dp 5% (#1E1E1E) · 02dp 7% (#232323) ·
+     03dp 8% (#252525) · 04dp 9% (#272727) · 08dp 12% (#2E2E2E) ·
+     24dp 16% (#383838). Containers below take their level from the glass
+     utilities; smaller elements inside them stack white overlays directly. */
+  --color-surface: #121212; /* 00dp — page ground */
+  --color-surface-1: #1e1e1e; /* 01dp — cards */
 
-  --font-heading: "Space Grotesk Variable", ui-sans-serif, sans-serif;
+  /* Emphasis is white at fixed opacity, never a grey hex. 87% white on
+     #121212 clears 15.8:1 and stays legible at every elevation above it. */
+  --color-hi: rgb(255 255 255 / 0.87); /* headings, values, primary body */
+  --color-muted: rgb(255 255 255 / 0.6); /* labels, helper text */
+  --color-faint: rgb(255 255 255 / 0.38); /* disabled text and icons */
+  --color-line: rgb(255 255 255 / 0.12); /* outlines, dividers, disabled fill */
+
+  /* Desaturated accents only. Lavender carries the brand; it appears on small
+     high-emphasis points, never as a large fill. */
+  --color-accent: #c4a6ff; /* Purple 200 — primary accent */
+  --color-positive: #a5d6a7; /* Green 200 — metric improved */
+  --color-error: #cf6679; /* Material dark error — passes AA on #121212 */
+
   --font-body: "Inter Variable", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "JetBrains Mono Variable", ui-monospace, monospace;
 
-  /* Every shadow in this system is colored. No pure black exists. */
-  --shadow-glow-orange: 0 0 20px -5px rgb(234 88 12 / 0.5);
-  --shadow-glow-strong: 0 0 30px -5px rgb(247 147 26 / 0.6);
-  --shadow-glow-gold: 0 0 20px rgb(255 214 0 / 0.3);
-  --shadow-lift: 0 0 30px -10px rgb(247 147 26 / 0.2);
-  --shadow-focus: 0 10px 20px -10px rgb(247 147 26 / 0.3);
+  /* Every tier is +1px over the Tailwind default. This screen is read at a
+     desk, at a glance, before standup — 12px body was too tight for that. */
+  --text-xs: 0.8125rem; /* 13px, was 12 */
+  --text-xs--line-height: 1.125rem;
+  --text-sm: 0.9375rem; /* 15px, was 14 */
+  --text-sm--line-height: 1.375rem;
 
-  --animate-pulse-dot: pulse-dot 2s ease-in-out infinite;
+  /* Glass: a hairline top highlight where the light catches the edge, over a
+     standard drop shadow. Dark theme keeps its shadows. */
+  --shadow-glass:
+    inset 0 1px 0 rgb(255 255 255 / 0.07), 0 8px 32px -8px rgb(0 0 0 / 0.5);
+  /* Reserved for the one accent-bearing element per section. */
+  --shadow-glow: 0 0 24px -6px rgb(196 166 255 / 0.55);
+
   --animate-shimmer: shimmer 1.6s ease-in-out infinite;
-}
-
-@keyframes pulse-dot {
-  0%,
-  100% {
-    opacity: 1;
-    box-shadow: 0 0 0 0 rgb(247 147 26 / 0.6);
-  }
-  50% {
-    opacity: 0.7;
-    box-shadow: 0 0 0 5px rgb(247 147 26 / 0);
-  }
 }
 
 @keyframes shimmer {
@@ -59,65 +74,67 @@
 /* --- Surfaces --------------------------------------------------------------
    Defined once here so five sections don't each invent their own card. */
 
+/* 01dp, opaque. Blur is pointless here — a card sits on flat #121212, and
+   blurred flat grey is just flat grey. The glass lives on the bars, which
+   actually have content moving underneath them. */
 @utility card-block {
-  background-color: var(--color-surface);
-  border: 1px solid rgb(255 255 255 / 0.1);
-  border-radius: var(--radius-2xl);
-  transition: all 300ms;
+  background-color: var(--color-surface-1);
+  border: 1px solid var(--color-line);
+  border-radius: 0.875rem;
+  box-shadow: var(--shadow-glass);
 }
 
-@utility card-glass {
-  background-color: rgb(0 0 0 / 0.4);
-  backdrop-filter: blur(16px);
-  border: 1px solid rgb(255 255 255 / 0.1);
-  border-radius: var(--radius-2xl);
+/* 08dp — app bars. Denser blur, since content scrolls directly beneath it. */
+@utility glass-bar {
+  background-color: rgb(46 46 46 / 0.62);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  backdrop-filter: blur(28px) saturate(180%);
+  box-shadow: var(--shadow-glass);
 }
 
-/* Hover lift for cards that are interactive. Opt-in, not baked into
-   card-block — a static KPI tile that lifts on hover is a lie. */
+/* Interaction states are a white overlay — the color of the container's own
+   content — not a color change and not a transform. Translucent, so the glass
+   underneath keeps working. */
 @utility card-hover {
+  transition: background-color 150ms ease;
   &:hover {
-    transform: translateY(-2px);
-    border-color: rgb(247 147 26 / 0.5);
-    box-shadow: var(--shadow-lift);
+    background-color: rgb(255 255 255 / 0.05);
   }
 }
 
-/* Signature blockchain grid, fading to nothing at the edges. */
-@utility bg-grid {
-  background-size: 50px 50px;
-  background-image:
-    linear-gradient(to right, rgb(30 41 59 / 0.5) 1px, transparent 1px),
-    linear-gradient(to bottom, rgb(30 41 59 / 0.5) 1px, transparent 1px);
-  mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
-}
-
 /* --- Type ------------------------------------------------------------------ */
-
-@utility text-gradient {
-  background-image: linear-gradient(
-    to right,
-    var(--color-btc),
-    var(--color-gold)
-  );
-  background-clip: text;
-  color: transparent;
-}
 
 /* Every number on screen. tabular-nums stops figures jittering when a
    live value updates mid-demo. */
 @utility data-figure {
   font-family: var(--font-mono);
   font-variant-numeric: tabular-nums;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.01em;
 }
 
+/* The only gradient text in the app, and it is the wordmark — a brand mark,
+   not decoration. Both stops stay in the tone-200 range so the letterforms
+   keep their contrast at the dark end of the ramp. */
+@utility text-accent-gradient {
+  background-image: linear-gradient(
+    100deg,
+    #ddcbff,
+    var(--color-accent) 45%,
+    #a68bfa
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Section eyebrow. Body font, not mono — a wall of monospaced caps reads as
+   decoration rather than hierarchy. */
 @utility label-caps {
-  font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 12px;
+  font-weight: 500;
   line-height: 1.4;
   text-transform: uppercase;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.07em;
   color: var(--color-muted);
 }
 
@@ -129,18 +146,13 @@ body,
   height: 100%;
 }
 
+/* Flat #121212. The glass surfaces now refract the page content behind them
+   and nothing else — there is no ambient wash to pick up. */
 body {
-  background-color: var(--color-void);
-  color: white;
+  background-color: var(--color-surface);
+  color: var(--color-hi);
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
-}
-
-h1,
-h2,
-h3,
-h4 {
-  font-family: var(--font-heading);
 }
 
 /* Recharts injects its own focus outline on the SVG wrapper. */

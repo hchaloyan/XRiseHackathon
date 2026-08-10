@@ -52,27 +52,24 @@ function Shell() {
   const { data: kpis, loading } = useFetch(api.kpis)
 
   return (
-    <div className="relative min-h-full overflow-x-hidden bg-void text-white">
-      {/* Textured void: the darkness breathes rather than sitting flat. */}
-      <div className="pointer-events-none absolute inset-0 bg-grid" aria-hidden />
-      <div
-        className="pointer-events-none absolute -top-40 left-1/2 size-[640px] -translate-x-1/2 rounded-full bg-btc opacity-10 blur-[140px]"
-        aria-hidden
-      />
-
-      {/* pb-40 keeps the last row clear of the fixed ask bar. */}
-      <div className="relative mx-auto max-w-7xl px-6 pt-8 pb-40">
-        <header className="mb-6 flex flex-wrap items-center justify-between gap-4">
-          <div className="flex items-center gap-3">
-            <span className="rounded-lg border border-burnt/50 bg-burnt/20 p-2 text-btc">
-              <Activity size={18} strokeWidth={2} />
-            </span>
-            <h1 className="font-heading text-lg leading-none font-semibold tracking-tight">
-              MFGX <span className="text-gradient">AI</span>
+    <div className="min-h-full">
+      {/* App bar sits at 08dp — 12% white overlay — carried by glass, so the
+          ambient light passes through it as content scrolls beneath. */}
+      <header className="glass-bar sticky top-0 z-40 border-b border-line">
+        {/* Three columns rather than a flex row: the centre column is optically
+            centred on the page, not merely placed after the wordmark, and it
+            stays centred whatever the date string's width turns out to be.
+            items-end drops the tab underline onto the header's bottom edge. */}
+        <div className="mx-auto grid max-w-7xl grid-cols-[1fr_auto_1fr] items-end gap-4 px-6 pt-7">
+          <div className="flex items-center gap-3 pb-4">
+            <Activity size={22} strokeWidth={2} className="text-accent" aria-hidden />
+            <h1 className="text-xl leading-none font-semibold tracking-tight text-hi">
+              MFGX <span className="text-accent-gradient">AI</span>
             </h1>
           </div>
 
-          <nav className="flex items-center gap-1 rounded-full border border-white/10 bg-white/5 p-1">
+          {/* Tabs, indicated by an underline rather than a filled pill. */}
+          <nav className="flex items-center gap-2">
             {NAV.map((item) => (
               <NavLink
                 key={item.to}
@@ -80,11 +77,11 @@ function Shell() {
                 end={item.to === '/'}
                 className={({ isActive }) =>
                   cn(
-                    'rounded-full px-4 py-1.5 font-mono text-[11px] tracking-widest uppercase transition-all duration-300',
-                    'focus-visible:ring-2 focus-visible:ring-btc focus-visible:outline-none',
+                    'border-b-2 px-4 pt-1 pb-3.5 text-[15px] font-medium transition-colors duration-150',
+                    'focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none',
                     isActive
-                      ? 'bg-gradient-to-r from-burnt to-btc text-white shadow-glow-orange'
-                      : 'text-muted hover:text-white',
+                      ? 'border-accent text-accent'
+                      : 'border-transparent text-muted hover:text-hi',
                   )
                 }
               >
@@ -93,9 +90,14 @@ function Shell() {
             ))}
           </nav>
 
-          <span className="label-caps text-lg">{kpis ? shortDate(kpis.day) : 'Loading…'}</span>
-        </header>
+          <span className="justify-self-end pb-4 text-[15px] text-muted">
+            {kpis ? shortDate(kpis.day) : 'Loading…'}
+          </span>
+        </div>
+      </header>
 
+      {/* pb-40 keeps the last row clear of the fixed ask bar. */}
+      <div className="mx-auto max-w-7xl px-6 pt-6 pb-40">
         <Outlet context={{ kpis, loading } satisfies KpiContext} />
       </div>
 
