@@ -1,0 +1,119 @@
+[
+  {
+    "part_id": "RM-1001",
+    "description": "Polypropylene resin, natural, 25kg bag",
+    "line": "MOLDING",
+    "uom": "BAG",
+    "on_hand": 210,
+    "reorder_point": 150,
+    "daily_usage": 34
+  },
+  {
+    "part_id": "RM-1002",
+    "description": "ABS resin, black, 25kg bag",
+    "line": "MOLDING",
+    "uom": "BAG",
+    "on_hand": 96,
+    "reorder_point": 120,
+    "daily_usage": 22
+  },
+  {
+    "part_id": "RM-1003",
+    "description": "Colorant masterbatch, grey",
+    "line": "MOLDING",
+    "uom": "KG",
+    "on_hand": 340,
+    "reorder_point": 100,
+    "daily_usage": 11
+  },
+  {
+    "part_id": "CN-1004",
+    "description": "Mold release agent, aerosol",
+    "line": "MOLDING",
+    "uom": "CAN",
+    "on_hand": 62,
+    "reorder_point": 40,
+    "daily_usage": 4
+  },
+  {
+    "part_id": "RM-2001",
+    "description": "Aluminium bar stock 6061, 50mm",
+    "line": "MACHINING",
+    "uom": "BAR",
+    "on_hand": 128,
+    "reorder_point": 90,
+    "daily_usage": 17
+  },
+  {
+    "part_id": "RM-2002",
+    "description": "Steel billet 1045, 75mm",
+    "line": "MACHINING",
+    "uom": "BAR",
+    "on_hand": 41,
+    "reorder_point": 60,
+    "daily_usage": 9
+  },
+  {
+    "part_id": "TL-2003",
+    "description": "Carbide milling insert, CNMG 432",
+    "line": "MACHINING",
+    "uom": "EA",
+    "on_hand": 480,
+    "reorder_point": 200,
+    "daily_usage": 38
+  },
+  {
+    "part_id": "CN-2004",
+    "description": "Coolant concentrate, semi-synthetic",
+    "line": "MACHINING",
+    "uom": "L",
+    "on_hand": 155,
+    "reorder_point": 80,
+    "daily_usage": 6
+  },
+  {
+    "part_id": "RM-3001",
+    "description": "Weld wire ER70S-6, 0.9mm, 15kg spool",
+    "line": "ASSEMBLY",
+    "uom": "SPOOL",
+    "on_hand": 34,
+    "reorder_point": 45,
+    "daily_usage": 7
+  },
+  {
+    "part_id": "CN-3002",
+    "description": "Shielding gas, 75/25 argon-CO2",
+    "line": "ASSEMBLY",
+    "uom": "CYL",
+    "on_hand": 18,
+    "reorder_point": 12,
+    "daily_usage": 2
+  },
+  {
+    "part_id": "HW-3003",
+    "description": "Structural rivet, 6mm steel",
+    "line": "ASSEMBLY",
+    "uom": "EA",
+    "on_hand": 12400,
+    "reorder_point": 8000,
+    "daily_usage": 1450
+  },
+  {
+    "part_id": "RM-3004",
+    "description": "Nylon PA12 powder, additive grade",
+    "line": "ASSEMBLY",
+    "uom": "KG",
+    "on_hand": 58,
+    "reorder_point": 75,
+    "daily_usage": 9
+  },
+  {
+    "part_id": "RM-3005",
+    "description": "ABS filament, 1.75mm, 5kg spool",
+    "line": "ASSEMBLY",
+    "uom": "SPOOL",
+    "on_hand": 21,
+    "reorder_point": 15,
+    "daily_usage": 2
+  }
+]
