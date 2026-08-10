@@ -2,6 +2,7 @@
 
 from pathlib import Path
 
+from pydantic import field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
@@ -36,6 +37,17 @@ class Settings(BaseSettings):
     max_match_distance: float = 0.55
 
     data_dir: str = str(REPO_ROOT / "data" / "generated")
+
+    @field_validator("ollama_host")
+    @classmethod
+    def _dialable(cls, value: str) -> str:
+        """`OLLAMA_HOST` is a SERVER bind address by convention, not a client
+        target, and pydantic binds that ambient var to this field ahead of any
+        .env value. `0.0.0.0` means "listen on every interface" and is not
+        connectable on Windows. Scheme and port are left to the Ollama SDK,
+        which already fills both in.
+        """
+        return value.replace("0.0.0.0", "127.0.0.1")
 
 
 settings = Settings()
