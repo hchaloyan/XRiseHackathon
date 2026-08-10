@@ -10,6 +10,8 @@ minItems/maxItems - see spec 8.
 
 from abc import ABC, abstractmethod
 
+from app.config import settings
+
 
 class LLMClient(ABC):
     @abstractmethod
@@ -25,5 +27,19 @@ class LLMClient(ABC):
         """Throwaway call that makes the model resident. Ignores its own result."""
 
 
+_client: LLMClient | None = None
+
+
 def get_client() -> LLMClient:
-    raise NotImplementedError("Wired during the KPI Insights slice (2:00-3:15).")
+    """Provider is a one-variable change: settings.llm_provider."""
+    global _client
+    if _client is None:
+        if settings.llm_provider == "hosted":
+            from app.llm.hosted_client import HostedClient
+
+            _client = HostedClient()
+        else:
+            from app.llm.ollama_client import OllamaClient
+
+            _client = OllamaClient()
+    return _client
