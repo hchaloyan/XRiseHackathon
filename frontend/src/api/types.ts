@@ -40,14 +40,95 @@ export interface ExplainResponse {
   estimatedMinutes: number | null
 }
 
-// ===== Placeholders: fill in as each slice lands =====
+// ===== KPI Insights (GET /api/insights) =====
+
+export interface WorstMachine {
+  machineId: string
+  name: string
+  line: string
+  oee: number
+  downtimeMinutes: number
+  scrapRate: number
+}
+
+export interface ReasonTotal {
+  reasonCode: string
+  minutes: number
+  events: number
+}
+
+/** One line of the morning narrative. Generated. */
+export interface Finding {
+  text: string
+  action: string
+}
 
 export interface InsightsResponse {
-  [key: string]: unknown
+  // Computed — always present, render these even if the model failed.
+  day: string
+  oee: number
+  scrapRate: number
+  downtimeMinutes: number
+  /** Null only on the first day of the window. */
+  oeeDelta: number | null
+  worstMachines: WorstMachine[]
+  downtimeByReason: ReasonTotal[]
+  partsBelowReorder: number
+
+  // Generated — null when the model fails or times out.
+  headline: string | null
+  findings: Finding[] | null
+}
+
+// ===== Root cause (POST /api/root-cause) =====
+
+/** The row the user clicked. All computed. */
+export interface EventContext {
+  eventId: string
+  kind: 'downtime' | 'quality'
+  machineId: string
+  machineName: string
+  machineType: string
+  line: string
+  start: string
+  shift: string
+  durationMinutes: number | null
+  reasonCode: string | null
+  operatorNote: string | null
+  defectType: string | null
+  defectCount: number | null
+}
+
+/** Supporting data point, computed in pandas. Render under the causes. */
+export interface EvidenceItem {
+  label: string
+  detail: string
+}
+
+export interface SopCitation {
+  docId: string
+  title: string
+  section: string
+}
+
+/** Generated. Ranked against the evidence. */
+export interface RootCauseItem {
+  cause: string
+  likelihood: 'high' | 'medium' | 'low'
+  evidence: string
+  action: string
 }
 
 export interface RootCauseResponse {
-  [key: string]: unknown
+  // Computed — always present.
+  event: EventContext
+  evidence: EvidenceItem[]
+  sources: SopCitation[]
+
+  // Generated — null when the model fails or times out. Evidence and
+  // citations still render, so the panel stays useful.
+  causes: RootCauseItem[] | null
+  summary: string | null
 }
 
 /** GET /api/kpis — all computed in pandas, none of it from the model. */
