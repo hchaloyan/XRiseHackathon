@@ -29,7 +29,8 @@ from app.schemas import (
 )
 from app.services.knowledge_base import INCLUDE_GET, get_knowledge_base
 
-router = APIRouter(prefix="/api", tags=["search"])
+# No prefix here - main.py applies /api to every router uniformly.
+router = APIRouter(tags=["search"])
 
 PROMPT_DIR = Path(__file__).resolve().parents[1] / "prompts"
 
