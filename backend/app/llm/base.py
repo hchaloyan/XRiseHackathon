@@ -9,8 +9,23 @@ minItems/maxItems - see spec 8.
 """
 
 from abc import ABC, abstractmethod
+from pathlib import Path
 
 from app.config import settings
+
+PROMPT_DIR = Path(__file__).resolve().parents[1] / "prompts"
+
+
+def render_prompt(template_name: str, **values: str) -> str:
+    """Load a prompt file and substitute {placeholders}.
+
+    str.replace, not str.format - prompt and evidence text contain braces
+    (JSON examples, dict literals) and format() would raise KeyError on them.
+    """
+    text = (PROMPT_DIR / template_name).read_text(encoding="utf-8")
+    for key, value in values.items():
+        text = text.replace("{" + key + "}", value)
+    return text
 
 
 class LLMClient(ABC):
