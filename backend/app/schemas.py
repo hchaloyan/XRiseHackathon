@@ -318,8 +318,6 @@ class Inventory(ApiModel):
     parts_tracked: int
     parts_below_reorder: int
     lowest_days_of_cover: float
-    # line -> minutes lost to MATERIAL_STARVE on the selected day
-    starved_minutes_by_line: dict[str, float]
     items: list[InventoryItem]
 
 

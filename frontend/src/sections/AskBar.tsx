@@ -1,164 +1,241 @@
+import { useState, type FormEvent } from 'react'
+import { ChevronDown, FileText, Loader2, Search, Sparkles, X } from 'lucide-react'
+import { api } from '../api/client'
+import type { ExplainResponse, SopResult } from '../api/types'
+import { Button } from '../components/ui/Button'
+import { Input } from '../components/ui/Input'
+import { SkeletonLines } from '../components/ui/Skeleton'
+import { cn } from '../lib/cn'
+
 /**
- * Persistent ask bar -> POST /api/search. Documents only (CLAUDE.md rule 8).
- * No intent routing. Low-similarity results get the fixed redirect string
- * from spec 7.1 rather than a wrong answer.
+ * Persistent ask bar -> POST /api/search, then POST /api/explain. Documents
+ * only (CLAUDE.md rule 8).
+ *
+ * Two steps on purpose. Retrieval runs first and has no model in it, so SOP
+ * sections appear almost instantly; the model is only invoked when the user
+ * expands a section and asks for it. That keeps the slow, failure-prone part
+ * opt-in, and it never blocks the first result.
+ *
+ * Fixed to the bottom of the viewport and rendered by the layout, so it
+ * survives both scrolling and screen changes. It floats as a self-contained
+ * glass pill at 08dp — 12% white overlay — rather than a full-bleed strip, so
+ * the page stays visible on both sides of it. Results expand UPWARD above the
+ * input, capped and scrollable, so a long list never pushes the input off
+ * screen.
+ *
+ * No intent routing lives here or anywhere else on the client. Queries the
+ * corpus cannot answer come back with zero results and a `fallbackMessage` set
+ * by the backend's similarity floor, rather than a wrong answer.
  */
-import { useState } from 'react';
-import { searchSOPs, explainSOPs } from '../api/client';
-import type { ExplainResponse, SopResult } from '../api/types';
-import { Search, ChevronDown } from 'lucide-react';
+export default function AskBar() {
+  const [query, setQuery] = useState('')
+  const [results, setResults] = useState<SopResult[] | null>(null)
+  const [fallback, setFallback] = useState<string | null>(null)
+  const [explanation, setExplanation] = useState<ExplainResponse | null>(null)
+  const [expandedId, setExpandedId] = useState<string | null>(null)
+  const [searching, setSearching] = useState(false)
+  const [explaining, setExplaining] = useState(false)
 
-export function AskBar() {
-  const [query, setQuery] = useState('');
-  const [results, setResults] = useState<SopResult[]>([]);
-  const [fallback, setFallback] = useState<string | null>(null);
-  const [explanation, setExplanation] = useState<ExplainResponse | null>(null);
-  const [loading, setLoading] = useState(false);
-  const [showResults, setShowResults] = useState(false);
-  const [expandedResult, setExpandedResult] = useState<string | null>(null);
+  // The backend rejects anything shorter than three characters outright.
+  const canSubmit = query.trim().length >= 3 && !searching
 
-  const handleSearch = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (query.trim().length < 3) return;
-
-    setLoading(true);
-    setExplanation(null);
-    setExpandedResult(null);
-
+  async function onSearch(e: FormEvent) {
+    e.preventDefault()
+    if (!canSubmit) return
+    setSearching(true)
+    setExplanation(null)
+    setExpandedId(null)
+    setFallback(null)
     try {
-      const data = await searchSOPs(query.trim());
-      setResults(data.results);
-      setFallback(data.fallbackMessage);
-      setShowResults(true);
-    } catch (error) {
-      console.error('Search failed:', error);
-      setResults([]);
-      setFallback('Search is unavailable right now.');
-      setShowResults(true);
+      const data = await api.search(query.trim())
+      setResults(data.results)
+      setFallback(data.fallbackMessage)
+    } catch (err) {
+      console.error('[askbar] search failed:', err)
+      setResults([])
+      setFallback('Search is unavailable right now.')
     } finally {
-      setLoading(false);
+      setSearching(false)
     }
-  };
+  }
 
-  const handleExplain = async (sopIds: string[]) => {
-    setLoading(true);
+  async function onExplain(sopIds: string[]) {
+    setExplaining(true)
     try {
-      setExplanation(await explainSOPs(query.trim(), sopIds));
-    } catch (error) {
-      console.error('Explanation failed:', error);
+      setExplanation(await api.explain(query.trim(), sopIds))
+    } catch (err) {
+      console.error('[askbar] explain failed:', err)
     } finally {
-      setLoading(false);
+      setExplaining(false)
     }
-  };
+  }
+
+  function dismiss() {
+    setResults(null)
+    setFallback(null)
+    setExplanation(null)
+    setExpandedId(null)
+  }
+
+  const open = searching || results !== null
 
   return (
-    <div className="bg-blue-50 border-b-2 border-blue-200 p-6 sticky top-0 z-10">
-      {/* Search Bar */}
-      <form onSubmit={handleSearch} className="max-w-2xl">
-        <div className="flex gap-2">
-          <div className="flex-1 relative">
-            <Search className="absolute left-3 top-3 text-gray-400 w-5 h-5" />
-            <input
-              type="text"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder="Ask about SOPs, procedures, troubleshooting..."
-              className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
-          <button
-            type="submit"
-            disabled={loading}
-            className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50"
-          >
-            {loading ? 'Searching...' : 'Search'}
-          </button>
-        </div>
-      </form>
+    <div className="fixed bottom-6 left-1/2 z-50 w-[min(100%-2rem,42rem)] -translate-x-1/2">
+      {open && (
+        <div className="glass-bar relative mb-2 max-h-[45vh] overflow-y-auto rounded-2xl border border-line p-4">
+          {searching ? (
+            <SkeletonLines lines={2} />
+          ) : (
+            <>
+              {results && results.length > 0 && (
+                <ul className="space-y-2 pr-8">
+                  {results.map((r) => (
+                    <li key={r.id} className="overflow-hidden rounded-lg bg-white/[0.06]">
+                      <button
+                        type="button"
+                        onClick={() => setExpandedId(expandedId === r.id ? null : r.id)}
+                        aria-expanded={expandedId === r.id}
+                        className="flex w-full cursor-pointer items-start justify-between gap-3 p-3 text-left transition-colors duration-150 hover:bg-white/5 focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none"
+                      >
+                        <span className="min-w-0">
+                          <span className="flex flex-wrap items-center gap-2">
+                            <FileText size={12} className="shrink-0 text-accent" aria-hidden />
+                            <span className="data-figure text-[12px] text-accent">{r.docId}</span>
+                            <span className="text-xs text-hi">{r.title}</span>
+                          </span>
+                          <span className="mt-0.5 block text-[12px] text-faint">{r.section}</span>
+                        </span>
+                        <ChevronDown
+                          size={14}
+                          aria-hidden
+                          className={cn(
+                            'mt-0.5 shrink-0 transition-transform duration-200',
+                            expandedId === r.id ? 'rotate-180 text-accent' : 'text-faint',
+                          )}
+                        />
+                      </button>
 
-      {/* Results */}
-      {showResults && results.length > 0 && (
-        <div className="mt-6 space-y-3 max-w-2xl">
-          {results.map((result) => (
-            <div key={result.id} className="bg-white border border-gray-200 rounded-lg overflow-hidden">
-              {/* Result Header */}
-              <button
-                onClick={() => setExpandedResult(expandedResult === result.id ? null : result.id)}
-                className="w-full p-4 text-left hover:bg-gray-50 flex justify-between items-start"
-              >
-                <div>
-                  <h3 className="font-semibold text-gray-900">{result.title}</h3>
-                  <p className="text-sm text-gray-500">{result.section}</p>
-                </div>
-                <ChevronDown
-                  className={`w-5 h-5 text-gray-400 transform transition ${expandedResult === result.id ? 'rotate-180' : ''
-                    }`}
-                />
-              </button>
+                      {expandedId === r.id && (
+                        <div className="border-t border-line p-3">
+                          <p className="text-[12px] leading-relaxed whitespace-pre-line text-muted">
+                            {r.content}
+                          </p>
+                          <Button
+                            type="button"
+                            size="sm"
+                            variant="outline"
+                            onClick={() => onExplain([r.id])}
+                            disabled={explaining}
+                            className="mt-3"
+                          >
+                            {explaining ? (
+                              <Loader2 size={13} className="animate-spin" aria-hidden />
+                            ) : (
+                              <Sparkles size={13} aria-hidden />
+                            )}
+                            Explain step by step
+                          </Button>
+                        </div>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              )}
 
-              {/* Expanded Content */}
-              {expandedResult === result.id && (
-                <div className="border-t border-gray-200 bg-gray-50 p-4">
-                  <p className="text-sm text-gray-700 mb-4">{result.content}</p>
-                  <button
-                    onClick={() => handleExplain([result.id])}
-                    disabled={loading}
-                    className="text-sm px-3 py-1 bg-blue-100 text-blue-700 rounded hover:bg-blue-200 disabled:opacity-50"
-                  >
-                    {loading ? 'Explaining...' : 'Explain This Step-by-Step'}
-                  </button>
+              {/* Generated. Sources always render; everything above them may be
+                  null if the model failed, and the SOP text is unaffected. */}
+              {explanation && (
+                <div className="mt-3 rounded-r-lg border-l-2 border-accent bg-white/[0.05] p-4 shadow-glow">
+                  {explanation.explanation ? (
+                    <>
+                      <p className="text-sm leading-relaxed text-hi">{explanation.explanation}</p>
+
+                      {explanation.steps && (
+                        <ol className="mt-3 space-y-1.5">
+                          {explanation.steps.map((step, i) => (
+                            <li key={i} className="flex gap-2.5 text-xs leading-relaxed">
+                              <span className="data-figure shrink-0 text-accent">{i + 1}.</span>
+                              <span>
+                                <span className="text-hi">{step.action}</span>
+                                <span className="text-muted"> — {step.why}</span>
+                              </span>
+                            </li>
+                          ))}
+                        </ol>
+                      )}
+
+                      {explanation.commonMistake && (
+                        <p className="mt-3 border-t border-line pt-3 text-xs leading-relaxed text-muted">
+                          <span className="text-error">Common mistake: </span>
+                          {explanation.commonMistake}
+                        </p>
+                      )}
+                    </>
+                  ) : (
+                    <p className="text-xs text-muted">
+                      Explanation unavailable. The SOP text above is unchanged.
+                    </p>
+                  )}
+
+                  <p className="mt-3 text-[12px] text-faint">
+                    Sources: {explanation.sources.join(', ')}
+                    {explanation.estimatedMinutes !== null && (
+                      <> · est. {explanation.estimatedMinutes} min</>
+                    )}
+                  </p>
                 </div>
               )}
-            </div>
-          ))}
 
-          {/* AI Explanation. Generated fields may be null if the model failed. */}
-          {explanation && (
-            <div className="mt-4 bg-green-50 border border-green-200 rounded-lg p-4">
-              <h4 className="font-semibold text-green-900 mb-2">AI Explanation</h4>
-              {explanation.explanation ? (
-                <>
-                  <p className="text-sm text-gray-700 mb-3">{explanation.explanation}</p>
-                  {explanation.steps && (
-                    <ol className="text-sm text-gray-700 mb-3 space-y-1 list-decimal list-inside">
-                      {explanation.steps.map((step, i) => (
-                        <li key={i}>
-                          <span className="font-medium">{step.action}</span>
-                          <span className="text-gray-500"> — {step.why}</span>
-                        </li>
-                      ))}
-                    </ol>
-                  )}
-                  {explanation.commonMistake && (
-                    <p className="text-sm text-amber-800 mb-3">
-                      Common mistake: {explanation.commonMistake}
-                    </p>
-                  )}
-                  {explanation.estimatedMinutes !== null && (
-                    <p className="text-xs text-gray-500">
-                      Estimated time: {explanation.estimatedMinutes} min
-                    </p>
-                  )}
-                </>
-              ) : (
-                <p className="text-sm text-gray-600 mb-3">
-                  Explanation unavailable. The SOP text above is unchanged.
+              {/* Spec 7.1 redirect, an empty corpus, or an unreachable API. */}
+              {results?.length === 0 && (
+                <p className="pr-8 text-sm text-muted">
+                  {fallback ?? 'No SOPs found. Try different keywords.'}
                 </p>
               )}
-              <p className="text-xs text-gray-500 mt-2">
-                Sources: {explanation.sources.join(', ')}
-              </p>
-            </div>
+            </>
+          )}
+
+          {results && (
+            <button
+              type="button"
+              onClick={dismiss}
+              aria-label="Dismiss results"
+              className="absolute top-3 right-3 cursor-pointer rounded p-1.5 text-muted transition-colors duration-150 hover:bg-white/10 hover:text-hi focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none"
+            >
+              <X size={14} aria-hidden />
+            </button>
           )}
         </div>
       )}
 
-      {/* Spec 7.1 redirect, or an empty corpus */}
-      {showResults && results.length === 0 && !loading && (
-        <div className="mt-4 p-4 bg-yellow-50 border border-yellow-200 rounded-lg text-yellow-800 text-sm max-w-2xl">
-          {fallback ?? 'No SOPs found. Try different keywords.'}
+      {/* The pill itself. The whole thing lights on focus, so the input inside
+          it carries no border or glow of its own. */}
+      <form
+        onSubmit={onSearch}
+        className="glass-bar flex items-center gap-2 rounded-2xl border border-line p-2 transition-[border-color,box-shadow] duration-200 focus-within:border-accent/50 focus-within:shadow-glow"
+      >
+        <label htmlFor="askbar" className="sr-only">
+          Ask about SOPs, manuals, and audit documents
+        </label>
+        <div className="relative flex-1">
+          <Search
+            size={16}
+            aria-hidden
+            className="pointer-events-none absolute top-1/2 left-3 -translate-y-1/2 text-faint"
+          />
+          <Input
+            id="askbar"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Ask about SOPs, procedures, troubleshooting…"
+            className="h-10 border-0 bg-transparent pl-9 focus-visible:shadow-none"
+            autoComplete="off"
+          />
         </div>
-      )}
+        <Button type="submit" size="sm" disabled={!canSubmit} className="shrink-0">
+          {searching ? <Loader2 size={14} className="animate-spin" aria-hidden /> : 'Ask'}
+        </Button>
+      </form>
     </div>
-  );
+  )
 }

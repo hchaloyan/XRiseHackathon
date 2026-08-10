@@ -40,96 +40,8 @@ export interface ExplainResponse {
   estimatedMinutes: number | null
 }
 
-// ===== KPI Insights (GET /api/insights) =====
-
-export interface WorstMachine {
-  machineId: string
-  name: string
-  line: string
-  oee: number
-  downtimeMinutes: number
-  scrapRate: number
-}
-
-export interface ReasonTotal {
-  reasonCode: string
-  minutes: number
-  events: number
-}
-
-/** One line of the morning narrative. Generated. */
-export interface Finding {
-  text: string
-  action: string
-}
-
-export interface InsightsResponse {
-  // Computed — always present, render these even if the model failed.
-  day: string
-  oee: number
-  scrapRate: number
-  downtimeMinutes: number
-  /** Null only on the first day of the window. */
-  oeeDelta: number | null
-  worstMachines: WorstMachine[]
-  downtimeByReason: ReasonTotal[]
-  partsBelowReorder: number
-
-  // Generated — null when the model fails or times out.
-  headline: string | null
-  findings: Finding[] | null
-}
-
-// ===== Root cause (POST /api/root-cause) =====
-
-/** The row the user clicked. All computed. */
-export interface EventContext {
-  eventId: string
-  kind: 'downtime' | 'quality'
-  machineId: string
-  machineName: string
-  machineType: string
-  line: string
-  start: string
-  shift: string
-  durationMinutes: number | null
-  reasonCode: string | null
-  operatorNote: string | null
-  defectType: string | null
-  defectCount: number | null
-}
-
-/** Supporting data point, computed in pandas. Render under the causes. */
-export interface EvidenceItem {
-  label: string
-  detail: string
-}
-
-export interface SopCitation {
-  docId: string
-  title: string
-  section: string
-}
-
-/** Generated. Ranked against the evidence. */
-export interface RootCauseItem {
-  cause: string
-  likelihood: 'high' | 'medium' | 'low'
-  evidence: string
-  action: string
-}
-
-export interface RootCauseResponse {
-  // Computed — always present.
-  event: EventContext
-  evidence: EvidenceItem[]
-  sources: SopCitation[]
-
-  // Generated — null when the model fails or times out. Evidence and
-  // citations still render, so the panel stays useful.
-  causes: RootCauseItem[] | null
-  summary: string | null
-}
+/* The insights and root-cause shapes are defined in full further down — the
+   placeholders that used to sit here were superseded by them. */
 
 /** GET /api/kpis — all computed in pandas, none of it from the model. */
 
@@ -198,8 +110,6 @@ export interface Inventory {
   partsTracked: number
   partsBelowReorder: number
   lowestDaysOfCover: number
-  /** line → minutes lost to MATERIAL_STARVE on the selected day. */
-  starvedMinutesByLine: Record<string, number>
   items: InventoryItem[]
 }
 
@@ -212,3 +122,68 @@ export interface KpiResponse {
   events: EventRow[]
   inventory: Inventory
 }
+
+/* ---------------------------------------------------------------------------
+ * The three shapes below were defined here FIRST, ahead of the backend, so the
+ * frontend could proceed against fixtures (spec §9: "contract lands here, both
+ * tracks unblock"). Mirror them into schemas.py when those routers are built.
+ * ------------------------------------------------------------------------ */
+
+export type Severity = 'high' | 'medium' | 'low'
+
+/** GET /api/insights */
+
+export interface Callout {
+  title: string
+  detail: string
+  severity: Severity
+  /** Pre-formatted by pandas. The model quotes it; it never computes it. */
+  metric: string | null
+}
+
+export interface InsightResponse {
+  /** Computed. */
+  day: string
+  /** Generated — one line, gets the gradient treatment. */
+  headline: string | null
+  /** Generated — 2-4 sentences. */
+  narrative: string | null
+  /** Generated, ranked most severe first. */
+  callouts: Callout[] | null
+}
+
+/** POST /api/root-cause */
+
+export interface RootCauseRequest {
+  eventId: string
+}
+
+/** Computed correlation, assembled in pandas before the model is called. */
+export interface Evidence {
+  label: string
+  value: string
+  detail: string | null
+}
+
+export interface Hypothesis {
+  rank: number
+  cause: string
+  confidence: Severity
+  reasoning: string
+  /** Labels drawn from `evidence[]`, so the ranking is traceable to numbers. */
+  supportingEvidence: string[]
+  recommendedAction: string | null
+}
+
+export interface RootCauseResponse {
+  eventId: string
+  /** Computed — renders even when the model fails (spec §5). */
+  evidence: Evidence[]
+  /** Generated. */
+  hypotheses: Hypothesis[] | null
+}
+
+/* POST /api/search and /api/explain live at the top of this file. The
+   single-answer-plus-citations shape that used to sit here was written against
+   a backend that was never built: the implemented knowledge base splits the
+   work into retrieval (/search, no model) and reasoning (/explain). */
