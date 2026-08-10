@@ -16,8 +16,8 @@ from app.config import settings
 from app.llm.base import get_client, render_prompt
 from app.schemas import (
     INSIGHTS_SCHEMA,
-    Finding,
-    InsightsResponse,
+    Callout,
+    InsightResponse,
     ReasonTotal,
     WorstMachine,
 )
@@ -88,11 +88,11 @@ def _facts_block(facts: dict) -> str:
     return "\n".join(lines)
 
 
-@router.get("/insights", response_model=InsightsResponse)
-def get_insights(day: date | None = None) -> InsightsResponse:
+@router.get("/insights", response_model=InsightResponse)
+def get_insights(day: date | None = None) -> InsightResponse:
     facts = kpi_engine.insight_facts(day)
 
-    response = InsightsResponse(
+    response = InsightResponse(
         day=facts["day"],
         oee=facts["oee"],
         scrap_rate=facts["scrap_rate"],
@@ -113,13 +113,22 @@ def get_insights(day: date | None = None) -> InsightsResponse:
     if result is None:
         return response  # computed-only; the header still renders
 
-    raw_findings = result.get("findings") or []
-    findings = [
-        Finding(text=str(f.get("text", "")), action=str(f.get("action", "")))
-        for f in raw_findings
-        if isinstance(f, dict) and f.get("text")
+    raw_callouts = result.get("callouts") or []
+    callouts = [
+        Callout(
+            title=str(c.get("title", "")),
+            detail=str(c.get("detail", "")),
+            severity=(
+                c.get("severity") if c.get("severity") in ("high", "medium", "low")
+                else "medium"
+            ),
+            metric=c.get("metric") or None,
+        )
+        for c in raw_callouts
+        if isinstance(c, dict) and c.get("title")
     ]
 
     response.headline = result.get("headline")
-    response.findings = findings or None
+    response.narrative = result.get("narrative")
+    response.callouts = callouts or None
     return response

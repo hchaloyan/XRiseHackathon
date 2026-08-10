@@ -14,8 +14,8 @@ from app.llm.base import get_client, render_prompt
 from app.schemas import (
     ROOT_CAUSE_SCHEMA,
     EventContext,
-    EvidenceItem,
-    RootCauseItem,
+    Evidence,
+    Hypothesis,
     RootCauseRequest,
     RootCauseResponse,
     SopCitation,
@@ -28,11 +28,12 @@ router = APIRouter()
 SOP_CHUNKS = 3
 
 
-def _evidence_items(bundle: dict) -> list[EvidenceItem]:
+def _evidence_items(bundle: dict) -> list[Evidence]:
     """Flatten the assembled evidence into display rows.
 
-    These render under the ranked causes, so a judge can see the figures the
-    ranking was built on rather than taking the model's word for it.
+    `label` is what the model quotes in supporting_evidence, so labels are
+    kept short and made unique - a model asked to cite "Previous operator
+    note" three times over cannot say which one it meant.
     """
     event = bundle["event"]
     history = bundle["history"]
@@ -40,50 +41,56 @@ def _evidence_items(bundle: dict) -> list[EvidenceItem]:
     shift = bundle["shift"]
     inventory = bundle["inventory"]
 
-    items: list[EvidenceItem] = []
+    items: list[Evidence] = []
 
     label = history["label"]
     if history["occurrences_on_machine"] > 1:
-        detail = (
-            f"{history['occurrences_on_machine']} times on {event['machine_id']} "
-            f"in {history['window_days']} days "
-            f"({history['occurrences_on_line']} across the {event['line']} line)"
-        )
+        detail = f"{history['occurrences_on_line']} across the {event['line']} line"
         if history["minutes_on_machine"]:
             detail += f", {history['minutes_on_machine']:.0f} minutes total"
-        items.append(EvidenceItem(label=f"{label} recurrence", detail=detail))
+        items.append(
+            Evidence(
+                label=f"{label} recurrence",
+                value=(
+                    f"{history['occurrences_on_machine']} times on "
+                    f"{event['machine_id']} in {history['window_days']} days"
+                ),
+                detail=detail,
+            )
+        )
 
-    for note in history["recent_notes"][:3]:
-        items.append(EvidenceItem(label="Previous operator note", detail=note))
+    for i, note in enumerate(history["recent_notes"][:3], start=1):
+        items.append(Evidence(label=f"Previous note {i}", value=note))
 
     for n in nearby["downtime"][:4]:
         where = "same machine" if n["same_machine"] else n["machine_id"]
         items.append(
-            EvidenceItem(
-                label=f"{n['reason_code']} nearby",
-                detail=(
-                    f"{n['duration_minutes']:.0f} min on {where}, {n['offset']}"
-                    + (f" - {n['operator_note']}" if n["operator_note"] else "")
-                ),
+            Evidence(
+                label=f"{n['reason_code']} {n['offset']}",
+                value=f"{n['duration_minutes']:.0f} min on {where}",
+                detail=n["operator_note"] or None,
             )
         )
 
     for n in nearby["quality"][:3]:
         where = "same machine" if n["same_machine"] else n["machine_id"]
         items.append(
-            EvidenceItem(
-                label=f"{n['defect_type']} nearby",
-                detail=f"{n['count']} parts on {where}, {n['offset']}",
+            Evidence(
+                label=f"{n['defect_type']} {n['offset']}",
+                value=f"{n['count']} parts on {where}",
             )
         )
 
     items.append(
-        EvidenceItem(
+        Evidence(
             label="Machine that day",
-            detail=(
+            value=(
                 f"{shift['machine_downtime_minutes']:.0f} min down across "
-                f"{shift['machine_downtime_events']} events, "
-                f"{shift['machine_good_count']} good of {shift['machine_total_count']} parts, "
+                f"{shift['machine_downtime_events']} events"
+            ),
+            detail=(
+                f"{shift['machine_good_count']} good of "
+                f"{shift['machine_total_count']} parts, "
                 f"scrap {shift['machine_scrap_rate'] * 100:.1f}%"
             ),
         )
@@ -91,22 +98,22 @@ def _evidence_items(bundle: dict) -> list[EvidenceItem]:
 
     if shift["changeover_earlier_today"]:
         items.append(
-            EvidenceItem(
+            Evidence(
                 label="Changeover earlier",
-                detail="A changeover ran on this machine before the event, same day",
+                value="A changeover ran on this machine before the event, same day",
             )
         )
 
     if inventory and inventory["parts_below_reorder"]:
         for part in inventory["parts_below_reorder"][:3]:
             items.append(
-                EvidenceItem(
-                    label="Stock below reorder",
-                    detail=(
-                        f"{part['part_id']} {part['description']}: "
+                Evidence(
+                    label=f"{part['part_id']} below reorder",
+                    value=(
                         f"{part['on_hand']} on hand vs reorder point "
-                        f"{part['reorder_point']}, {part['days_of_cover']} days cover"
+                        f"{part['reorder_point']}"
                     ),
+                    detail=f"{part['description']}, {part['days_of_cover']} days cover",
                 )
             )
 
@@ -157,6 +164,7 @@ def analyze_root_cause(payload: RootCauseRequest) -> RootCauseResponse:
     ]
 
     response = RootCauseResponse(
+        event_id=event["event_id"],
         event=EventContext(
             event_id=event["event_id"],
             kind=event["kind"],
@@ -187,7 +195,10 @@ def analyze_root_cause(payload: RootCauseRequest) -> RootCauseResponse:
     prompt = render_prompt(
         "root_cause.md",
         event=_event_text(event),
-        evidence="\n".join(f"- {e.label}: {e.detail}" for e in evidence),
+        evidence="\n".join(
+            f"- {e.label}: {e.value}" + (f" ({e.detail})" if e.detail else "")
+            for e in evidence
+        ),
         sops=sop_text,
     )
     result = get_client().complete(
@@ -197,18 +208,29 @@ def analyze_root_cause(payload: RootCauseRequest) -> RootCauseResponse:
     if result is None:
         return response  # evidence and citations still render
 
-    raw_causes = result.get("causes") or []
-    causes = [
-        RootCauseItem(
-            cause=str(c.get("cause", "")),
-            likelihood=str(c.get("likelihood", "low")).lower(),
-            evidence=str(c.get("evidence", "")),
-            action=str(c.get("action", "")),
+    known_labels = {e.label for e in evidence}
+    raw = result.get("hypotheses") or []
+    hypotheses = [
+        Hypothesis(
+            rank=int(h.get("rank") or i),
+            cause=str(h.get("cause", "")),
+            confidence=(
+                h.get("confidence") if h.get("confidence") in ("high", "medium", "low")
+                else "low"
+            ),
+            reasoning=str(h.get("reasoning", "")),
+            # Drop invented labels - the UI highlights these against the
+            # evidence list, and a label that matches nothing highlights nothing.
+            supporting_evidence=[
+                s for s in (h.get("supporting_evidence") or []) if s in known_labels
+            ],
+            recommended_action=h.get("recommended_action") or None,
         )
-        for c in raw_causes
-        if isinstance(c, dict) and c.get("cause")
+        for i, h in enumerate(raw, start=1)
+        if isinstance(h, dict) and h.get("cause")
     ]
+    hypotheses.sort(key=lambda h: h.rank)
 
     response.summary = result.get("summary")
-    response.causes = causes or None
+    response.hypotheses = hypotheses or None
     return response

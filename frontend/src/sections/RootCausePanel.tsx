@@ -1,6 +1,6 @@
-import { CircleAlert, Lightbulb, Wrench } from 'lucide-react'
+import { CircleAlert, FileText, Lightbulb, Wrench } from 'lucide-react'
 import { api } from '../api/client'
-import type { Evidence, EventRow, RootCauseResponse } from '../api/types'
+import type { Evidence, EventContext, EventRow, RootCauseResponse } from '../api/types'
 import { Badge } from '../components/ui/Badge'
 import { Skeleton, SkeletonLines } from '../components/ui/Skeleton'
 import { clockTime, humanizeCode, minutes } from '../lib/format'
@@ -52,7 +52,33 @@ function fromRowAlone(event: EventRow): RootCauseResponse {
     })
   }
 
-  return { eventId: event.eventId, evidence, hypotheses: null }
+  // The row already carries everything EventContext needs, so echo it back
+  // rather than leaving the field out and diverging from the API shape.
+  const context: EventContext = {
+    eventId: event.eventId,
+    kind: event.kind,
+    machineId: event.machineId,
+    machineName: event.machineName,
+    machineType: event.machineType,
+    line: event.line,
+    start: event.start,
+    shift: event.shift,
+    durationMinutes: event.durationMinutes,
+    reasonCode: event.reasonCode,
+    operatorNote: event.operatorNote,
+    defectType: event.defectType,
+    defectCount: event.defectCount,
+  }
+
+  // No retrieval ran, so there is nothing honest to cite.
+  return {
+    eventId: event.eventId,
+    event: context,
+    evidence,
+    sources: [],
+    hypotheses: null,
+    summary: null,
+  }
 }
 
 async function loadRootCause(event: EventRow): Promise<RootCauseResponse> {
@@ -154,6 +180,30 @@ export default function RootCausePanel({ event }: { event: EventRow }) {
             <p className="mt-4 text-xs text-muted">
               Likely cause unavailable for this event. The computed evidence above is unaffected.
             </p>
+          )}
+
+          {/* Computed by retrieval, not written by the model — so a cited
+              document always exists. This is the thread from a downtime row
+              to the procedure that covers it. */}
+          {data?.sources && data.sources.length > 0 && (
+            <div className="mt-5 border-t border-line pt-3">
+              <div className="flex items-center gap-2">
+                <FileText size={13} className="text-muted" aria-hidden />
+                <h4 className="label-caps">Referenced Procedures</h4>
+              </div>
+              <ul className="mt-2 flex flex-wrap gap-1.5">
+                {data.sources.map((s) => (
+                  <li
+                    key={`${s.docId}-${s.section}`}
+                    className="rounded bg-white/[0.07] px-2 py-1 text-[11px] text-muted"
+                  >
+                    <span className="data-figure text-accent">{s.docId}</span>
+                    <span className="text-faint"> · </span>
+                    {s.section}
+                  </li>
+                ))}
+              </ul>
+            </div>
           )}
         </>
       )}

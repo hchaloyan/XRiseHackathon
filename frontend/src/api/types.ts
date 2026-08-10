@@ -124,9 +124,11 @@ export interface KpiResponse {
 }
 
 /* ---------------------------------------------------------------------------
- * The three shapes below were defined here FIRST, ahead of the backend, so the
- * frontend could proceed against fixtures (spec §9: "contract lands here, both
- * tracks unblock"). Mirror them into schemas.py when those routers are built.
+ * The shapes below were defined here FIRST, ahead of the backend, so the
+ * frontend could proceed against fixtures (spec §9). The routers are now
+ * built and schemas.py matches these names. Two additions were made when
+ * they landed, both computed and both marked below: the KPI block on
+ * InsightResponse, and `sources` on RootCauseResponse.
  * ------------------------------------------------------------------------ */
 
 export type Severity = 'high' | 'medium' | 'low'
@@ -141,9 +143,39 @@ export interface Callout {
   metric: string | null
 }
 
+export interface WorstMachine {
+  machineId: string
+  name: string
+  line: string
+  oee: number
+  downtimeMinutes: number
+  scrapRate: number
+}
+
+export interface ReasonTotal {
+  reasonCode: string
+  minutes: number
+  events: number
+}
+
 export interface InsightResponse {
   /** Computed. */
   day: string
+
+  /**
+   * Computed — ADDED when the router landed. Always present, so the header
+   * renders real numbers even when every generated field below is null.
+   * Without this the panel is empty exactly when the model is slow.
+   */
+  oee: number
+  scrapRate: number
+  downtimeMinutes: number
+  /** Null only on the first day of the window. */
+  oeeDelta: number | null
+  worstMachines: WorstMachine[]
+  downtimeByReason: ReasonTotal[]
+  partsBelowReorder: number
+
   /** Generated — one line, gets the gradient treatment. */
   headline: string | null
   /** Generated — 2-4 sentences. */
@@ -175,12 +207,43 @@ export interface Hypothesis {
   recommendedAction: string | null
 }
 
+/** The row that was clicked, echoed back. Computed. */
+export interface EventContext {
+  eventId: string
+  kind: 'downtime' | 'quality'
+  machineId: string
+  machineName: string
+  machineType: string
+  line: string
+  start: string
+  shift: string
+  durationMinutes: number | null
+  reasonCode: string | null
+  operatorNote: string | null
+  defectType: string | null
+  defectCount: number | null
+}
+
+/**
+ * Computed — ADDED when the router landed. The SOP sections retrieved for
+ * this event, so the panel can cite where the reasoning came from. Retrieval
+ * picks these, not the model, so a cited document always exists.
+ */
+export interface SopCitation {
+  docId: string
+  title: string
+  section: string
+}
+
 export interface RootCauseResponse {
   eventId: string
-  /** Computed — renders even when the model fails (spec §5). */
+  /** Computed — all three render even when the model fails (spec §5). */
+  event: EventContext
   evidence: Evidence[]
+  sources: SopCitation[]
   /** Generated. */
   hypotheses: Hypothesis[] | null
+  summary: string | null
 }
 
 /* POST /api/search and /api/explain live at the top of this file. The
