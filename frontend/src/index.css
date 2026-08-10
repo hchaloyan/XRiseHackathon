@@ -1,7 +1,175 @@
 @import "tailwindcss";
 
+/* Self-hosted, not fonts.googleapis.com: spec D1 commits to a fully offline
+   demo path, and venue wifi is not part of it. */
+@import "@fontsource-variable/inter";
+@import "@fontsource-variable/jetbrains-mono";
+
+/* --- Design tokens ---------------------------------------------------------
+   Material dark theme (m2.material.io/design/color/dark-theme) with an
+   Apple-style glass treatment on the container surfaces. Single source of
+   truth: no component below this file hardcodes a hex value.
+
+   Three rules drive everything here:
+     1. Depth is surface LIGHTNESS, not shadow. Elevation is a semi-transparent
+        white overlay — here carried by translucent glass rather than an opaque
+        mix, so the overlay math holds but the surface refracts what's behind.
+     2. Accents are desaturated (tone 200). Saturated purple appears only in
+        ambient light and glow, never as a fill behind text.
+     3. Glow is emphasis, not decoration: it marks the accent-bearing element
+        in a section and nothing else. */
+
+@theme {
+  /* Material's white-overlay elevation table, for reference when adding a
+     surface: 00dp 0% (#121212) · 01dp 5% (#1E1E1E) · 02dp 7% (#232323) ·
+     03dp 8% (#252525) · 04dp 9% (#272727) · 08dp 12% (#2E2E2E) ·
+     24dp 16% (#383838). Containers below take their level from the glass
+     utilities; smaller elements inside them stack white overlays directly. */
+  --color-surface: #121212; /* 00dp — page ground */
+  --color-surface-1: #1e1e1e; /* 01dp — cards */
+
+  /* Emphasis is white at fixed opacity, never a grey hex. 87% white on
+     #121212 clears 15.8:1 and stays legible at every elevation above it. */
+  --color-hi: rgb(255 255 255 / 0.87); /* headings, values, primary body */
+  --color-muted: rgb(255 255 255 / 0.6); /* labels, helper text */
+  --color-faint: rgb(255 255 255 / 0.38); /* disabled text and icons */
+  --color-line: rgb(255 255 255 / 0.12); /* outlines, dividers, disabled fill */
+
+  /* Desaturated accents only. Lavender carries the brand; it appears on small
+     high-emphasis points, never as a large fill. */
+  --color-accent: #c4a6ff; /* Purple 200 — primary accent */
+  --color-positive: #a5d6a7; /* Green 200 — metric improved */
+  --color-error: #cf6679; /* Material dark error — passes AA on #121212 */
+
+  --font-body: "Inter Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono Variable", ui-monospace, monospace;
+
+  /* Every tier is +1px over the Tailwind default. This screen is read at a
+     desk, at a glance, before standup — 12px body was too tight for that. */
+  --text-xs: 0.8125rem; /* 13px, was 12 */
+  --text-xs--line-height: 1.125rem;
+  --text-sm: 0.9375rem; /* 15px, was 14 */
+  --text-sm--line-height: 1.375rem;
+
+  /* Glass: a hairline top highlight where the light catches the edge, over a
+     standard drop shadow. Dark theme keeps its shadows. */
+  --shadow-glass:
+    inset 0 1px 0 rgb(255 255 255 / 0.07), 0 8px 32px -8px rgb(0 0 0 / 0.5);
+  /* Reserved for the one accent-bearing element per section. */
+  --shadow-glow: 0 0 24px -6px rgb(196 166 255 / 0.55);
+
+  --animate-shimmer: shimmer 1.6s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+/* --- Surfaces --------------------------------------------------------------
+   Defined once here so five sections don't each invent their own card. */
+
+/* 01dp, opaque. Blur is pointless here — a card sits on flat #121212, and
+   blurred flat grey is just flat grey. The glass lives on the bars, which
+   actually have content moving underneath them. */
+@utility card-block {
+  background-color: var(--color-surface-1);
+  border: 1px solid var(--color-line);
+  border-radius: 0.875rem;
+  box-shadow: var(--shadow-glass);
+}
+
+/* 08dp — app bars. Denser blur, since content scrolls directly beneath it. */
+@utility glass-bar {
+  background-color: rgb(46 46 46 / 0.62);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  backdrop-filter: blur(28px) saturate(180%);
+  box-shadow: var(--shadow-glass);
+}
+
+/* Interaction states are a white overlay — the color of the container's own
+   content — not a color change and not a transform. Translucent, so the glass
+   underneath keeps working. */
+@utility card-hover {
+  transition: background-color 150ms ease;
+  &:hover {
+    background-color: rgb(255 255 255 / 0.05);
+  }
+}
+
+/* --- Type ------------------------------------------------------------------ */
+
+/* Every number on screen. tabular-nums stops figures jittering when a
+   live value updates mid-demo. */
+@utility data-figure {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+}
+
+/* The only gradient text in the app, and it is the wordmark — a brand mark,
+   not decoration. Both stops stay in the tone-200 range so the letterforms
+   keep their contrast at the dark end of the ramp. */
+@utility text-accent-gradient {
+  background-image: linear-gradient(
+    100deg,
+    #ddcbff,
+    var(--color-accent) 45%,
+    #a68bfa
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Section eyebrow. Body font, not mono — a wall of monospaced caps reads as
+   decoration rather than hierarchy. */
+@utility label-caps {
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.4;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--color-muted);
+}
+
+/* --- Base ------------------------------------------------------------------ */
+
 html,
 body,
 #root {
   height: 100%;
+}
+
+/* Flat #121212. The glass surfaces now refract the page content behind them
+   and nothing else — there is no ambient wash to pick up. */
+body {
+  background-color: var(--color-surface);
+  color: var(--color-hi);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Recharts injects its own focus outline on the SVG wrapper. */
+.recharts-wrapper:focus,
+.recharts-surface:focus {
+  outline: none;
+}
+
+/* Motion is decoration here; nothing in this UI depends on it to be
+   understood. Honor the preference completely. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

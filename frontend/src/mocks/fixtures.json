@@ -878,5 +878,271 @@
         }
       ]
     }
+  },
+
+  "_insightsComment": "Mock GET /api/insights. Every figure quoted here is derivable from the kpis block above — the model quotes computed numbers, it never produces them (rule 1).",
+  "insights": {
+    "day": "2026-08-09",
+    "headline": "Scrap doubled to 1.70% and weld porosity is 38% of it",
+    "narrative": "Plant OEE closed at 77.2%, 0.8 points under the 14-day average of 78.0%. Downtime was not the cause: 256 minutes is well under the 325-minute average for the window. The loss came from quality — scrap ran at 1.70% against a 0.83% baseline, and 56 of the 148 rejected units were weld porosity on the Robotic Welding Cell. Separately, Injection Molding Press 350T held 100% availability and 100% quality but only 64.5% performance, the widest cycle-time gap on the floor and one that raised no downtime event at all.",
+    "callouts": [
+      {
+        "title": "Weld porosity concentrated on M-31",
+        "detail": "Four WELD_POROSITY events between 11:39 and 19:28 account for 56 rejected units, 38% of plant scrap. M-31 closed at 92.6% quality, lowest of 12 machines, while never once stopping.",
+        "severity": "high",
+        "metric": "56 units · 7.37% scrap"
+      },
+      {
+        "title": "M-13 is losing output with no downtime event",
+        "detail": "Injection Molding Press 350T ran 100% available at 100% quality yet posted 64.5% performance against its ideal cycle time. Nothing raised a stoppage, so this appears on no downtime report.",
+        "severity": "medium",
+        "metric": "64.5% performance"
+      },
+      {
+        "title": "One changeover took a quarter of the day's downtime",
+        "detail": "M-22 lost 60 minutes to a single shift-B CHANGEOVER with fixture alignment reworked twice — 23% of all plant downtime, on a day when total downtime was otherwise good.",
+        "severity": "medium",
+        "metric": "60 min · 23% of downtime"
+      },
+      {
+        "title": "Four parts below reorder point",
+        "detail": "ABS resin black is at 4.4 days of cover against 22 bags/day. Steel billet, weld wire and PA12 powder are also under their reorder points.",
+        "severity": "low",
+        "metric": "4 of 13 parts"
+      }
+    ]
+  },
+
+  "_rootCauseComment": "Mock POST /api/root-cause, keyed by eventId. Covers the two rows the demo script walks. Any other row degrades to computed-only evidence built client-side from the EventRow (spec 5).",
+  "rootCause": {
+    "DT-0112": {
+      "eventId": "DT-0112",
+      "evidence": [
+        {
+          "label": "CHANGEOVER events on M-22, last 14 days",
+          "value": "19 events · 412 min",
+          "detail": "Machine mean is 21.7 min. Today's 60 min is 2.8x that."
+        },
+        {
+          "label": "Shift split for M-22 changeovers",
+          "value": "14 of 19 on shift B",
+          "detail": "Shift B mean 28.4 min against shift A mean 3.9 min, same machine and same fixture."
+        },
+        {
+          "label": "Operator note pattern",
+          "value": "Fixture alignment in 6 of 14 shift-B notes",
+          "detail": "Today's note reads \"Changeover ran long - fixture alignment reworked twice\"."
+        },
+        {
+          "label": "Share of plant downtime",
+          "value": "60 of 256 min (23.4%)",
+          "detail": null
+        },
+        {
+          "label": "M-22 availability today",
+          "value": "93.75%",
+          "detail": "All 60 of M-22's downtime minutes came from this one event."
+        },
+        {
+          "label": "MACHINING line downtime today",
+          "value": "114 min across 4 events",
+          "detail": "M-21 TOOL_BREAK 23 min, M-24 TOOL_BREAK 21 min, M-21 MATERIAL_STARVE 10 min."
+        }
+      ],
+      "hypotheses": [
+        {
+          "rank": 1,
+          "cause": "Fixture alignment does not repeat on the shift-B setup",
+          "confidence": "high",
+          "reasoning": "Shift B averages 28.4 minutes on this changeover against 3.9 on shift A, and fixture alignment appears in 6 of 14 shift-B notes. The same job on the same machine taking 7x longer is not a skill gap — it points at a locating feature that does not repeat: a worn clamp face, a missing hard stop, or a fixture that was never dowelled.",
+          "supportingEvidence": [
+            "Shift split for M-22 changeovers",
+            "Operator note pattern"
+          ],
+          "recommendedAction": "Inspect the M-22 fixture locating pins and clamp faces before the next shift-B changeover. If wear is present, dowel the fixture to a hard stop so alignment is set rather than dialled in."
+        },
+        {
+          "rank": 2,
+          "cause": "Shifts are working from different setup instructions",
+          "confidence": "medium",
+          "reasoning": "If the fixture measures within tolerance, the remaining difference is procedural. Shift B may be following a superseded revision of the changeover SOP, or running the setup without the sheet at all.",
+          "supportingEvidence": [
+            "Shift split for M-22 changeovers",
+            "CHANGEOVER events on M-22, last 14 days"
+          ],
+          "recommendedAction": "Compare the changeover SOP revision posted at the M-22 station against the current one, then watch a full shift-B setup end to end."
+        },
+        {
+          "rank": 3,
+          "cause": "Batching pushes changeovers onto one shift",
+          "confidence": "low",
+          "reasoning": "14 of 19 changeovers landing on a single shift suggests upstream scheduling, not machine behaviour. This would not explain the per-event duration, but it multiplies the cost of whatever does.",
+          "supportingEvidence": ["CHANGEOVER events on M-22, last 14 days"],
+          "recommendedAction": null
+        }
+      ]
+    },
+    "QC-0071": {
+      "eventId": "QC-0071",
+      "evidence": [
+        {
+          "label": "WELD_POROSITY on M-31 today",
+          "value": "4 events · 56 units",
+          "detail": "11:39 (12), 13:08 (14), 15:17 (17), 19:28 (13). Counts climb through the run."
+        },
+        {
+          "label": "M-31 quality rate",
+          "value": "92.63%",
+          "detail": "Lowest of 12 machines. Plant quality closed at 98.30%."
+        },
+        {
+          "label": "Share of plant scrap",
+          "value": "56 of 148 units (37.8%)",
+          "detail": null
+        },
+        {
+          "label": "M-31 availability today",
+          "value": "100.00%",
+          "detail": "Zero downtime events. The cell never stopped — it ran and produced scrap."
+        },
+        {
+          "label": "Shielding gas on hand",
+          "value": "18 CYL · 9.0 days cover",
+          "detail": "Reorder point is 12. Supply was never short."
+        },
+        {
+          "label": "Weld wire ER70S-6 on hand",
+          "value": "34 SPOOL · 4.9 days cover",
+          "detail": "Below its reorder point of 45."
+        }
+      ],
+      "hypotheses": [
+        {
+          "rank": 1,
+          "cause": "Shielding gas coverage is lost at the torch, not at the supply",
+          "confidence": "high",
+          "reasoning": "Porosity is gas entrapment, and all four events came from a cell that never stopped and never ran short of cylinders — 18 on hand against a reorder point of 12. Coverage loss with adequate supply puts the fault downstream of the bottle: a leaking hose, a nozzle bridged with spatter, or flow drifting below setpoint.",
+          "supportingEvidence": [
+            "Shielding gas on hand",
+            "M-31 availability today"
+          ],
+          "recommendedAction": "Flow-test at the torch rather than the regulator. Inspect the nozzle for spatter bridging and check the gas line for leaks at the quick-disconnect."
+        },
+        {
+          "rank": 2,
+          "cause": "Defect rate rises with time in service",
+          "confidence": "medium",
+          "reasoning": "Counts go 12, 14, 17 across an uninterrupted run before easing to 13 after the shift break. A fault that worsens with run time — nozzle loading, a heating contact tip, fixture heat growth — fits that shape better than a step change would.",
+          "supportingEvidence": ["WELD_POROSITY on M-31 today"],
+          "recommendedAction": "Add a mid-shift consumable change at the M-31 cell and compare tomorrow's defect distribution."
+        },
+        {
+          "rank": 3,
+          "cause": "Contaminated wire from a run-down lot",
+          "confidence": "low",
+          "reasoning": "Weld wire sits at 4.9 days of cover, below its reorder point. Running stock down often means pulling older or part-used spools, where surface oxide or absorbed moisture produces exactly this defect.",
+          "supportingEvidence": ["Weld wire ER70S-6 on hand"],
+          "recommendedAction": "Check the lot number on the spool loaded at M-31 against the current receipt and confirm it was stored sealed."
+        }
+      ]
+    }
+  },
+
+  "_searchComment": "Mock POST /api/search. `canned` is a fixture lookup used ONLY when the backend is unreachable — it selects a stored response, it does not route between document search and factory data (rule 8). Every path still returns one SearchResponse.",
+  "search": {
+    "default": {
+      "query": "",
+      "answer": "Every changeover follows the same four-stage sequence: internal preparation while the previous job runs, machine stop and teardown, fixture set and first-article check, then release to run. Fixtures with dowelled hard stops are set, not dialled in — if a fixture requires alignment by indicator on every setup, SOP-001 §4.2 requires it be flagged for tooling review rather than absorbed into changeover time.",
+      "citations": [
+        {
+          "docId": "SOP-001",
+          "title": "Line Changeover Procedure",
+          "section": "§4.2 Fixture setting and first article",
+          "revision": "C",
+          "excerpt": "Locating features shall be dowelled or hard-stopped such that fixture position is repeatable without indication. Any fixture requiring indicator alignment on successive setups shall be raised to Tooling on a Fixture Review tag.",
+          "distance": 0.21
+        },
+        {
+          "docId": "SOP-001",
+          "title": "Line Changeover Procedure",
+          "section": "§3.1 Internal vs external preparation",
+          "revision": "C",
+          "excerpt": "All tooling, fixtures, gauges and setup sheets shall be staged at the machine before the outgoing job is stopped. Time spent retrieving tooling after machine stop is recorded as changeover overrun.",
+          "distance": 0.28
+        }
+      ],
+      "outOfScope": false
+    },
+    "canned": [
+      {
+        "match": ["porosity", "weld", "shielding", "gas"],
+        "response": {
+          "query": "",
+          "answer": "Porosity in MIG welds is treated as a gas coverage fault first. WI-204 §2 requires flow to be verified at the torch rather than the regulator, because a reading at the bottle does not detect a leaking hose or a nozzle bridged with spatter. Nozzle and contact tip are consumables on a per-shift interval, and wire stored unsealed for more than 24 hours is quarantined for moisture.",
+          "citations": [
+            {
+              "docId": "WI-204",
+              "title": "Robotic Welding Cell — Defect Response",
+              "section": "§2 Porosity",
+              "revision": "B",
+              "excerpt": "On detection of porosity, verify shielding gas flow at the torch using a flow meter cup. Regulator readings are not acceptable evidence of coverage. Inspect nozzle bore for spatter bridging and replace the contact tip before resuming production.",
+              "distance": 0.14
+            },
+            {
+              "docId": "SOP-002",
+              "title": "Preventive Maintenance Schedule",
+              "section": "§6 Welding consumables",
+              "revision": "E",
+              "excerpt": "Nozzle and contact tip: replace each shift or at 400 arc-minutes, whichever comes first. Record replacement on the cell log.",
+              "distance": 0.33
+            },
+            {
+              "docId": "SOP-005",
+              "title": "Consumable Storage and Handling",
+              "section": "§3.4 Filler wire",
+              "revision": "A",
+              "excerpt": "Spools removed from sealed packaging shall be returned to a dry cabinet at end of shift. Wire left exposed beyond 24 hours is quarantined pending bake-out or scrap.",
+              "distance": 0.37
+            }
+          ],
+          "outOfScope": false
+        }
+      },
+      {
+        "match": ["oee", "scrap rate", "downtime", "yesterday", "how many", "what was"],
+        "response": {
+          "query": "",
+          "answer": "I answer from SOPs and manuals. For line data, click any row below.",
+          "citations": [],
+          "outOfScope": true
+        }
+      },
+      {
+        "match": ["maintenance", "pm", "preventive", "lubrication"],
+        "response": {
+          "query": "",
+          "answer": "Preventive maintenance is scheduled on run hours, not calendar days, and the interval clock is only reset by a signed-off task. Injection presses carry a 250-hour screw and check-ring inspection; a press running at reduced cycle rate with no fault code is explicitly listed as a trigger for early inspection under SOP-002 §4.1.",
+          "citations": [
+            {
+              "docId": "SOP-002",
+              "title": "Preventive Maintenance Schedule",
+              "section": "§4.1 Injection moulding — 250 hour",
+              "revision": "E",
+              "excerpt": "Inspect screw flights, check ring and non-return valve. A sustained drop in achieved cycle rate without an associated fault code shall be treated as a wear indication and the inspection brought forward.",
+              "distance": 0.19
+            },
+            {
+              "docId": "SOP-002",
+              "title": "Preventive Maintenance Schedule",
+              "section": "§1.2 Interval basis",
+              "revision": "E",
+              "excerpt": "Intervals are counted in machine run hours. The interval is reset only on completion and sign-off of the scheduled task, not on the calendar date it was due.",
+              "distance": 0.26
+            }
+          ],
+          "outOfScope": false
+        }
+      }
+    ]
   }
 }
