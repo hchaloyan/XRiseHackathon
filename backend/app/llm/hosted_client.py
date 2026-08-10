@@ -36,11 +36,14 @@ class HostedClient(LLMClient):
                 "and endpoints will degrade to computed-only."
             )
 
-    def complete(self, prompt: str, schema: dict, timeout: int = 30) -> dict | None:
+    def complete(
+        self, prompt: str, schema: dict, timeout: int = 30, max_tokens: int = 450
+    ) -> dict | None:
         payload = {
             "model": self.model,
             "messages": [{"role": "user", "content": prompt}],
             "temperature": 0.2,
+            "max_tokens": max_tokens,
             # Structured output by schema, not by prompting (rule 3).
             "response_format": {
                 "type": "json_schema",
