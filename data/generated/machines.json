@@ -1,0 +1,201 @@
+[
+  {
+    "machine_id": "M-11",
+    "name": "Injection Molding Press 110T",
+    "machine_type": "Injection Molding",
+    "keywords": [
+      "injection molding",
+      "molding press",
+      "molder",
+      "imm",
+      "plastics",
+      "tonnage"
+    ],
+    "line": "MOLDING",
+    "cell": "CELL-1",
+    "ideal_cycle_time": 51.7
+  },
+  {
+    "machine_id": "M-12",
+    "name": "Injection Molding Press 220T",
+    "machine_type": "Injection Molding",
+    "keywords": [
+      "injection molding",
+      "molding press",
+      "molder",
+      "imm",
+      "plastics",
+      "tonnage"
+    ],
+    "line": "MOLDING",
+    "cell": "CELL-2",
+    "ideal_cycle_time": 28.9
+  },
+  {
+    "machine_id": "M-13",
+    "name": "Injection Molding Press 350T",
+    "machine_type": "Injection Molding",
+    "keywords": [
+      "injection molding",
+      "molding press",
+      "molder",
+      "imm",
+      "plastics",
+      "tonnage"
+    ],
+    "line": "MOLDING",
+    "cell": "CELL-3",
+    "ideal_cycle_time": 38.2
+  },
+  {
+    "machine_id": "M-14",
+    "name": "Injection Molding Press 500T",
+    "machine_type": "Injection Molding",
+    "keywords": [
+      "injection molding",
+      "molding press",
+      "molder",
+      "imm",
+      "plastics",
+      "tonnage"
+    ],
+    "line": "MOLDING",
+    "cell": "CELL-4",
+    "ideal_cycle_time": 36.3
+  },
+  {
+    "machine_id": "M-21",
+    "name": "CNC Vertical Machining Center 3-Axis",
+    "machine_type": "CNC Machining",
+    "keywords": [
+      "cnc",
+      "machining",
+      "mill",
+      "milling",
+      "lathe",
+      "turning",
+      "metal cutting"
+    ],
+    "line": "MACHINING",
+    "cell": "CELL-1",
+    "ideal_cycle_time": 308.8
+  },
+  {
+    "machine_id": "M-22",
+    "name": "CNC Horizontal Machining Center 4-Axis",
+    "machine_type": "CNC Machining",
+    "keywords": [
+      "cnc",
+      "machining",
+      "mill",
+      "milling",
+      "lathe",
+      "turning",
+      "metal cutting"
+    ],
+    "line": "MACHINING",
+    "cell": "CELL-2",
+    "ideal_cycle_time": 292.7
+  },
+  {
+    "machine_id": "M-23",
+    "name": "CNC Turning Lathe 8-Inch Chuck",
+    "machine_type": "CNC Machining",
+    "keywords": [
+      "cnc",
+      "machining",
+      "mill",
+      "milling",
+      "lathe",
+      "turning",
+      "metal cutting"
+    ],
+    "line": "MACHINING",
+    "cell": "CELL-3",
+    "ideal_cycle_time": 350.9
+  },
+  {
+    "machine_id": "M-24",
+    "name": "CNC Vertical Machining Center 5-Axis",
+    "machine_type": "CNC Machining",
+    "keywords": [
+      "cnc",
+      "machining",
+      "mill",
+      "milling",
+      "lathe",
+      "turning",
+      "metal cutting"
+    ],
+    "line": "MACHINING",
+    "cell": "CELL-4",
+    "ideal_cycle_time": 133.5
+  },
+  {
+    "machine_id": "M-31",
+    "name": "Robotic Welding Cell 6-Axis",
+    "machine_type": "Robotic Welding",
+    "keywords": [
+      "welding",
+      "weld cell",
+      "robot",
+      "robotic",
+      "mig",
+      "fixture"
+    ],
+    "line": "ASSEMBLY",
+    "cell": "CELL-1",
+    "ideal_cycle_time": 64.0
+  },
+  {
+    "machine_id": "M-32",
+    "name": "Automated Assembly and Riveting Station",
+    "machine_type": "Assembly",
+    "keywords": [
+      "assembly",
+      "riveting",
+      "fastening",
+      "station",
+      "line side"
+    ],
+    "line": "ASSEMBLY",
+    "cell": "CELL-2",
+    "ideal_cycle_time": 20.6
+  },
+  {
+    "machine_id": "M-33",
+    "name": "Industrial 3D Printer FDM Large-Format",
+    "machine_type": "Additive Manufacturing",
+    "keywords": [
+      "3d printing",
+      "3d printer",
+      "additive",
+      "fdm",
+      "sls",
+      "powder bed",
+      "prototyping",
+      "printer"
+    ],
+    "line": "ASSEMBLY",
+    "cell": "CELL-3",
+    "ideal_cycle_time": 1031.2
+  },
+  {
+    "machine_id": "M-34",
+    "name": "Industrial 3D Printer SLS Powder-Bed",
+    "machine_type": "Additive Manufacturing",
+    "keywords": [
+      "3d printing",
+      "3d printer",
+      "additive",
+      "fdm",
+      "sls",
+      "powder bed",
+      "prototyping",
+      "printer"
+    ],
+    "line": "ASSEMBLY",
+    "cell": "CELL-4",
+    "ideal_cycle_time": 1203.2
+  }
+]
