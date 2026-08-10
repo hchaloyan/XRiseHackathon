@@ -52,9 +52,23 @@ class SOPResult(ApiModel):
 
 
 class SearchResponse(ApiModel):
+    """One shape for all three outcomes, discriminated by `kind`:
+
+      results      - retrieval found sections above the similarity floor
+      conversation - a greeting or capability question, answered without a
+                     model and without touching the index
+      off_topic    - nothing cleared the floor (spec 7.1)
+    """
+
     query: str
-    results: List[SOPResult]
-    # Non-null only when nothing cleared the similarity floor.
+    kind: Literal["results", "conversation", "off_topic"] = "results"
+    results: List[SOPResult] = []
+    # Conversational reply. Non-null only when kind == "conversation".
+    reply: Optional[str] = None
+    # Clickable example questions, all guaranteed to retrieve. Shown on the
+    # conversation and off_topic paths, empty on results.
+    suggestions: List[str] = []
+    # Kept for the existing UI: set whenever kind != "results".
     fallback_message: Optional[str] = None
 
 
@@ -167,7 +181,9 @@ INSIGHTS_SCHEMA = {
         "callouts": {
             "type": "array",
             "minItems": 2,
-            "maxItems": 4,
+            # 3, not 4: each callout is ~40 generated tokens, and tokens are
+            # the only real driver of wall-clock time here.
+            "maxItems": 3,
             "items": {
                 "type": "object",
                 "properties": {
