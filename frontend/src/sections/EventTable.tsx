@@ -17,8 +17,16 @@ import RootCausePanel from './RootCausePanel'
  * <button> for keyboard use, and a button spanning <td>s is not valid markup.
  */
 
+/* Time · Machine · Line · Reason · Impact · Note · chevron.
+   Impact is right-aligned, so its number ends hard against the column edge and
+   the grid gap alone is not enough to keep it off the note. NOTE_PAD adds that
+   separation on the Note side, where there is slack to spend. */
 const COLS =
   'grid grid-cols-[3.25rem_minmax(0,1.4fr)_5.5rem_9rem_4.5rem_minmax(0,1.6fr)_1.25rem] items-center gap-3'
+
+const NOTE_PAD = 'pl-6'
+
+type Filter = 'all' | 'downtime' | 'quality'
 
 export default function EventTable({
   events,
@@ -28,23 +36,45 @@ export default function EventTable({
   loading: boolean
 }) {
   const [openId, setOpenId] = useState<string | null>(null)
+  const [filter, setFilter] = useState<Filter>('all')
 
-  const rows = [...events].sort((a, b) => b.start.localeCompare(a.start))
-  const downtimeCount = rows.filter((r) => r.kind === 'downtime').length
+  const sorted = [...events].sort((a, b) => b.start.localeCompare(a.start))
+  const downtimeCount = sorted.filter((r) => r.kind === 'downtime').length
+  const rows = filter === 'all' ? sorted : sorted.filter((r) => r.kind === filter)
+
+  // Counts live on the buttons rather than in a separate caption: the same
+  // information, minus a line of chrome.
+  const FILTERS: { key: Filter; label: string; count: number }[] = [
+    { key: 'all', label: 'All', count: sorted.length },
+    { key: 'downtime', label: 'Downtime', count: downtimeCount },
+    { key: 'quality', label: 'Quality', count: sorted.length - downtimeCount },
+  ]
 
   return (
     <Card size="none" className="overflow-hidden">
-      <div className="flex flex-wrap items-baseline justify-between gap-3 px-5 pt-5">
+      <div className="flex flex-wrap items-center justify-between gap-3 px-5 pt-5">
         <CardLabel>Downtime &amp; Quality Events</CardLabel>
-        <span className="font-mono text-[11px] text-muted">
-          {rows.length ? (
-            <>
-              {downtimeCount} downtime · {rows.length - downtimeCount} quality · click any row
-            </>
-          ) : (
-            '—'
-          )}
-        </span>
+
+        <div className="flex items-center gap-1 rounded-lg border border-line p-0.5">
+          {FILTERS.map((f) => (
+            <button
+              key={f.key}
+              type="button"
+              onClick={() => setFilter(f.key)}
+              aria-pressed={filter === f.key}
+              className={cn(
+                'cursor-pointer rounded-md px-2.5 py-1 text-[12px] font-medium transition-colors duration-150',
+                'focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none',
+                filter === f.key
+                  ? 'bg-white/[0.08] text-accent'
+                  : 'text-muted hover:text-hi',
+              )}
+            >
+              {f.label}
+              <span className="data-figure ml-1.5 text-faint">{f.count}</span>
+            </button>
+          ))}
+        </div>
       </div>
 
       <div className={cn(COLS, 'label-caps mt-4 border-b border-white/5 px-5 pb-2')} aria-hidden>
@@ -53,7 +83,7 @@ export default function EventTable({
         <span>Line</span>
         <span>Reason</span>
         <span className="text-right">Impact</span>
-        <span>Note</span>
+        <span className={NOTE_PAD}>Note</span>
         <span />
       </div>
 
@@ -81,7 +111,7 @@ export default function EventTable({
                   COLS,
                   'w-full cursor-pointer px-5 py-3 text-left transition-colors duration-200',
                   'hover:bg-white/[0.03] focus-visible:bg-white/[0.03] focus-visible:outline-none',
-                  'focus-visible:ring-2 focus-visible:ring-btc focus-visible:ring-inset',
+                  'focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-inset',
                   open && 'bg-white/[0.04]',
                 )}
               >
@@ -96,23 +126,20 @@ export default function EventTable({
                   <span className="label-caps">{event.machineId}</span>
                 </span>
 
-                <span className="font-mono text-[11px] text-muted">
+                <span className="font-mono text-[12px] text-muted">
                   {event.line}
                   <span className="ml-1.5 text-white/30">{event.shift}</span>
                 </span>
 
                 <span>
-                  <Badge tone={isDowntime ? 'downtime' : 'quality'}>
+                  {/* Uniform white: the reason is a label, not a severity, and
+                      the filter above now carries the downtime/quality split. */}
+                  <Badge className="text-hi">
                     {humanizeCode(event.reasonCode ?? event.defectType ?? '—')}
                   </Badge>
                 </span>
 
-                <span
-                  className={cn(
-                    'data-figure text-right text-xs',
-                    isDowntime ? 'text-btc' : 'text-gold',
-                  )}
-                >
+                <span className="data-figure text-right text-xs text-accent">
                   {isDowntime
                     ? event.durationMinutes !== null
                       ? minutes(event.durationMinutes)
@@ -120,7 +147,10 @@ export default function EventTable({
                     : `${event.defectCount ?? 0} pcs`}
                 </span>
 
-                <span className="min-w-0 truncate text-[11px] text-muted" title={event.operatorNote ?? ''}>
+                <span
+                  className={cn('min-w-0 truncate text-[12px] text-muted', NOTE_PAD)}
+                  title={event.operatorNote ?? ''}
+                >
                   {event.operatorNote ?? ''}
                 </span>
 
@@ -129,7 +159,7 @@ export default function EventTable({
                   aria-hidden
                   className={cn(
                     'text-muted transition-transform duration-300',
-                    open && 'rotate-90 text-btc',
+                    open && 'rotate-90 text-accent',
                   )}
                 />
               </button>

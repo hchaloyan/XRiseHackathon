@@ -13,6 +13,14 @@ const SEVERITY_ICON: Record<Severity, typeof AlertTriangle> = {
   low: Info,
 }
 
+/** Icon color carries severity. No tinted fill behind it — twelve small
+ *  colored boxes on one screen is noise, not hierarchy. */
+const SEVERITY_COLOR: Record<Severity, string> = {
+  high: 'text-error',
+  medium: 'text-accent',
+  low: 'text-faint',
+}
+
 /**
  * Generated narrative -> GET /api/insights. Fires on page open (spec D2).
  * Generation runs ~10s, so the skeleton is load-bearing, not polish.
@@ -22,26 +30,26 @@ export default function InsightHeader({ className }: { className?: string }) {
   const { data, loading } = useFetch(api.insights)
 
   return (
-    <Card className={cn('flex flex-col', className)}>
+    <Card size="lg" className={cn('flex flex-col', className)}>
       <CardLabel>Today's Briefing</CardLabel>
 
       {loading ? (
         <div className="mt-4 space-y-5">
-          <Skeleton className="h-9 w-4/5" />
+          <Skeleton className="h-8 w-4/5" />
           <SkeletonLines lines={4} />
         </div>
       ) : (
         <>
-          {/* Flourish #1: the largest thing on the screen, and the only
-              gradient text in the app. */}
+          {/* The largest thing on the screen. Weight and size carry it —
+              87% white, no gradient. */}
           {data?.headline && (
-            <h3 className="text-gradient mt-3 font-heading text-2xl leading-tight font-semibold md:text-[2rem]">
+            <h3 className="mt-3 text-2xl leading-snug font-semibold tracking-tight text-hi">
               {data.headline}
             </h3>
           )}
 
           {data?.narrative && (
-            <p className="mt-3 text-sm leading-relaxed text-white/70">{data.narrative}</p>
+            <p className="mt-3 max-w-3xl text-sm leading-relaxed text-muted">{data.narrative}</p>
           )}
 
           {/* Model failed entirely: say so plainly rather than showing an
@@ -53,7 +61,7 @@ export default function InsightHeader({ className }: { className?: string }) {
           )}
 
           {data?.callouts && data.callouts.length > 0 && (
-            <ul className="mt-5 space-y-2">
+            <ul className="mt-6 divide-y divide-line border-t border-line">
               {data.callouts.map((c) => (
                 <CalloutRow key={c.title} callout={c} />
               ))}
@@ -68,23 +76,17 @@ export default function InsightHeader({ className }: { className?: string }) {
 function CalloutRow({ callout }: { callout: Callout }) {
   const Icon = SEVERITY_ICON[callout.severity]
   return (
-    <li className="group flex gap-3 rounded-xl border border-white/5 bg-white/[0.02] p-3 transition-colors duration-300 hover:border-btc/30">
-      <span
-        className={cn(
-          'mt-0.5 h-fit rounded-lg border p-1.5',
-          callout.severity === 'high'
-            ? 'border-burnt/50 bg-burnt/20 text-btc'
-            : callout.severity === 'medium'
-              ? 'border-gold/40 bg-gold/10 text-gold'
-              : 'border-white/10 bg-white/5 text-muted',
-        )}
-      >
-        <Icon size={14} strokeWidth={2} aria-hidden />
-      </span>
+    <li className="flex gap-3 py-3">
+      <Icon
+        size={15}
+        strokeWidth={2}
+        aria-hidden
+        className={cn('mt-0.5 shrink-0', SEVERITY_COLOR[callout.severity])}
+      />
 
       <div className="min-w-0 flex-1">
         <div className="flex flex-wrap items-center gap-2">
-          <h4 className="font-heading text-sm font-medium">{callout.title}</h4>
+          <h4 className="text-sm font-medium text-hi">{callout.title}</h4>
           {callout.metric && (
             <Badge tone={callout.severity} className="data-figure">
               {callout.metric}

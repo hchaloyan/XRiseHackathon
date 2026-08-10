@@ -2,23 +2,25 @@ import { cva, type VariantProps } from 'class-variance-authority'
 import type { ComponentProps } from 'react'
 import { cn } from '../../lib/cn'
 
+/**
+ * The one place a saturated fill is allowed: a single small primary action.
+ * Its label is dark-on-accent, since accent is a tone-200 pastel.
+ * Disabled follows the spec exactly — 12% white fill, 38% white label.
+ */
 const button = cva(
   [
-    'inline-flex items-center justify-center gap-2 rounded-full font-medium',
-    'transition-all duration-300 cursor-pointer',
-    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-btc focus-visible:ring-offset-2 focus-visible:ring-offset-void',
-    'disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100',
+    'inline-flex items-center justify-center gap-2 rounded-lg font-medium',
+    'transition-colors duration-150 cursor-pointer',
+    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-surface',
+    'disabled:cursor-not-allowed disabled:bg-line disabled:text-faint disabled:shadow-none disabled:hover:bg-line',
   ],
   {
     variants: {
       variant: {
-        primary: [
-          'bg-gradient-to-r from-burnt to-btc text-white uppercase tracking-wider',
-          'shadow-glow-orange hover:scale-105 hover:shadow-glow-strong',
-        ],
-        outline: 'border-2 border-white/20 text-white hover:border-white hover:bg-white/10',
-        ghost: 'text-white hover:bg-white/10 hover:text-btc',
-        link: 'text-btc hover:underline',
+        /* The one saturated fill in the app, and the one element that glows. */
+        primary: 'bg-accent text-surface shadow-glow hover:bg-accent/90',
+        outline: 'border border-line text-hi hover:bg-white/5',
+        ghost: 'text-muted hover:bg-white/5 hover:text-hi',
       },
       /** 44px floor on the tappable variants, per design.md touch targets. */
       size: { sm: 'h-9 px-4 text-xs', md: 'min-h-11 px-6 text-sm', icon: 'size-11' },

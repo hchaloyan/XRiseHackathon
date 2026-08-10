@@ -14,6 +14,10 @@ import { deltaVsMean, minutes, pct } from '../lib/format'
  * compares values pandas already produced rather than deriving a new metric.
  */
 
+/** Recharts takes SVG attributes, not classes — this is the one place the
+ *  accent token has to be repeated as a literal. Matches --color-accent. */
+const ACCENT = '#C4A6FF'
+
 type MetricKey = 'oee' | 'availability' | 'scrapRate' | 'downtimeMinutes'
 
 interface MetricDef {
@@ -90,8 +94,6 @@ function MetricCard({
   const history = kpis.trend.map((t) => t[metric.key])
   const delta = deltaVsMean(current, history)
 
-  // Gold reads as value gained, burnt orange as value at risk. No green
-  // exists in this palette and none is smuggled in.
   const improved = delta ? (metric.higherIsBetter ? delta.diff > 0 : delta.diff < 0) : false
   const Arrow =
     delta?.direction === 'flat' ? ArrowRight : delta?.direction === 'up' ? ArrowUpRight : ArrowDownRight
@@ -100,22 +102,24 @@ function MetricCard({
     <Card interactive className="group">
       <CardLabel>{metric.label}</CardLabel>
 
-      <div className="data-figure mt-2 text-3xl font-medium">{metric.format(current)}</div>
+      <div className="data-figure mt-2 text-[28px] leading-none font-medium text-hi">
+        {metric.format(current)}
+      </div>
 
       {delta && (
         <div
           className={cn(
-            'mt-1.5 flex items-center gap-1 font-mono text-[11px]',
-            delta.direction === 'flat' ? 'text-muted' : improved ? 'text-gold' : 'text-burnt',
+            'mt-2 flex items-center gap-1 text-[12px]',
+            delta.direction === 'flat' ? 'text-faint' : improved ? 'text-positive' : 'text-error',
           )}
         >
           <Arrow size={12} strokeWidth={2.5} aria-hidden />
-          <span>
+          <span className="data-figure">
             {metric.deltaUnit === 'pts'
               ? `${Math.abs(delta.diff * 100).toFixed(1)} pts`
               : `${Math.abs(Math.round(delta.diff))} min`}
           </span>
-          <span className="text-muted">vs 14d avg</span>
+          <span className="text-faint">vs 14d avg</span>
         </div>
       )}
 
@@ -133,15 +137,15 @@ function Sparkline({ data, metricKey }: { data: TrendPoint[]; metricKey: MetricK
       <AreaChart data={data} margin={{ top: 2, right: 0, bottom: 0, left: 0 }}>
         <defs>
           <linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#F7931A" stopOpacity={0.45} />
-            <stop offset="100%" stopColor="#F7931A" stopOpacity={0} />
+            <stop offset="0%" stopColor={ACCENT} stopOpacity={0.18} />
+            <stop offset="100%" stopColor={ACCENT} stopOpacity={0} />
           </linearGradient>
         </defs>
         <YAxis hide domain={['dataMin', 'dataMax']} />
         <Area
           type="monotone"
           dataKey={metricKey}
-          stroke="#F7931A"
+          stroke={ACCENT}
           strokeWidth={1.5}
           fill={`url(#${gradientId})`}
           isAnimationActive={false}
@@ -168,43 +172,43 @@ export function MachineRanking({
   const worst = ranked[0]?.oee ?? 0
 
   return (
-    <Card className={cn('flex flex-col', className)}>
+    <Card size="lg" className={cn('flex flex-col', className)}>
       <div className="flex items-baseline justify-between gap-3">
         <CardLabel>Machine OEE</CardLabel>
-        <span className="font-mono text-[11px] text-muted">{machines.length || '—'} machines</span>
+        <span className="text-[12px] text-faint">{machines.length || '—'} machines</span>
       </div>
 
       {/* Rows distribute to fill rather than bunching at the top and leaving
           the card half empty beside the taller inventory panel. */}
-      <ul className="mt-4 flex flex-1 flex-col justify-between gap-2">
+      <ul className="mt-5 flex flex-1 flex-col justify-between gap-2.5">
         {ranked.length === 0 &&
           Array.from({ length: 6 }, (_, i) => <Skeleton key={i} className="h-6 w-full" />)}
 
         {ranked.map((m) => {
           const isWorst = m.oee === worst
           return (
-            <li key={m.machineId} className="group grid grid-cols-[3.5rem_1fr_3rem] items-center gap-3">
+            <li key={m.machineId} className="grid grid-cols-[3.5rem_1fr_3rem] items-center gap-3">
               <span
-                className={cn('font-mono text-[11px]', isWorst ? 'text-btc' : 'text-muted')}
+                className={cn('data-figure text-[12px]', isWorst ? 'text-accent' : 'text-muted')}
                 title={m.name}
               >
                 {m.machineId}
               </span>
 
-              <div className="h-1.5 overflow-hidden rounded-full bg-white/5">
+              {/* The worst machine is the point of this card, so it is the one
+                  bar that lights up. */}
+              <div className="h-1 overflow-hidden rounded-full bg-line">
                 <div
                   className={cn(
-                    'h-full rounded-full transition-all duration-500',
-                    isWorst
-                      ? 'bg-gradient-to-r from-burnt to-btc shadow-glow-orange'
-                      : 'bg-white/25 group-hover:bg-btc/60',
+                    'h-full rounded-full transition-[width] duration-500',
+                    isWorst ? 'bg-accent shadow-glow' : 'bg-white/25',
                   )}
                   style={{ width: `${Math.round(m.oee * 100)}%` }}
                 />
               </div>
 
               <span
-                className={cn('data-figure text-right text-xs', isWorst ? 'text-btc' : 'text-white/70')}
+                className={cn('data-figure text-right text-xs', isWorst ? 'text-accent' : 'text-hi')}
               >
                 {pct(m.oee)}
               </span>
