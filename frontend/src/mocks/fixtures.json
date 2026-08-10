@@ -879,7 +879,6 @@
       ]
     }
   },
-
   "_insightsComment": "Mock GET /api/insights. Every figure quoted here is derivable from the kpis block above — the model quotes computed numbers, it never produces them (rule 1).",
   "insights": {
     "day": "2026-08-09",
@@ -912,7 +911,6 @@
       }
     ]
   },
-
   "_rootCauseComment": "Mock POST /api/root-cause, keyed by eventId. Covers the two rows the demo script walks. Any other row degrades to computed-only evidence built client-side from the EventRow (spec 5).",
   "rootCause": {
     "DT-0112": {
@@ -949,6 +947,23 @@
           "detail": "M-21 TOOL_BREAK 23 min, M-24 TOOL_BREAK 21 min, M-21 MATERIAL_STARVE 10 min."
         }
       ],
+      "sources": [
+        {
+          "docId": "SOP-004",
+          "title": "CNC Changeover, Work Offsets and First Article",
+          "section": "Fixture change"
+        },
+        {
+          "docId": "SOP-004",
+          "title": "CNC Changeover, Work Offsets and First Article",
+          "section": "If the changeover overruns"
+        },
+        {
+          "docId": "SOP-002",
+          "title": "Preventive Maintenance Schedule and Lubrication",
+          "section": "Weekly PM: CNC Machining (M-21 to M-24)"
+        }
+      ],
       "hypotheses": [
         {
           "rank": 1,
@@ -977,10 +992,13 @@
           "cause": "Batching pushes changeovers onto one shift",
           "confidence": "low",
           "reasoning": "14 of 19 changeovers landing on a single shift suggests upstream scheduling, not machine behaviour. This would not explain the per-event duration, but it multiplies the cost of whatever does.",
-          "supportingEvidence": ["CHANGEOVER events on M-22, last 14 days"],
+          "supportingEvidence": [
+            "CHANGEOVER events on M-22, last 14 days"
+          ],
           "recommendedAction": null
         }
-      ]
+      ],
+      "summary": null
     },
     "QC-0071": {
       "eventId": "QC-0071",
@@ -1016,6 +1034,23 @@
           "detail": "Below its reorder point of 45."
         }
       ],
+      "sources": [
+        {
+          "docId": "SOP-008",
+          "title": "Robotic Welding Quality - Porosity, Spatter and Undercut",
+          "section": "WELD_POROSITY"
+        },
+        {
+          "docId": "SOP-002",
+          "title": "Preventive Maintenance Schedule and Lubrication",
+          "section": "Monthly PM: Assembly and Additive (M-31 to M-34)"
+        },
+        {
+          "docId": "SOP-006",
+          "title": "Material Starvation Response and Line-Side Replenishment",
+          "section": "Line-side stock and reorder points"
+        }
+      ],
       "hypotheses": [
         {
           "rank": 1,
@@ -1033,7 +1068,9 @@
           "cause": "Defect rate rises with time in service",
           "confidence": "medium",
           "reasoning": "Counts go 12, 14, 17 across an uninterrupted run before easing to 13 after the shift break. A fault that worsens with run time — nozzle loading, a heating contact tip, fixture heat growth — fits that shape better than a step change would.",
-          "supportingEvidence": ["WELD_POROSITY on M-31 today"],
+          "supportingEvidence": [
+            "WELD_POROSITY on M-31 today"
+          ],
           "recommendedAction": "Add a mid-shift consumable change at the M-31 cell and compare tomorrow's defect distribution."
         },
         {
@@ -1041,13 +1078,15 @@
           "cause": "Contaminated wire from a run-down lot",
           "confidence": "low",
           "reasoning": "Weld wire sits at 4.9 days of cover, below its reorder point. Running stock down often means pulling older or part-used spools, where surface oxide or absorbed moisture produces exactly this defect.",
-          "supportingEvidence": ["Weld wire ER70S-6 on hand"],
+          "supportingEvidence": [
+            "Weld wire ER70S-6 on hand"
+          ],
           "recommendedAction": "Check the lot number on the spool loaded at M-31 against the current receipt and confirm it was stored sealed."
         }
-      ]
+      ],
+      "summary": null
     }
   },
-
   "_searchComment": "Mock POST /api/search. `canned` is a fixture lookup used ONLY when the backend is unreachable — it selects a stored response, it does not route between document search and factory data (rule 8). Every path still returns one SearchResponse.",
   "search": {
     "default": {
@@ -1075,7 +1114,12 @@
     },
     "canned": [
       {
-        "match": ["porosity", "weld", "shielding", "gas"],
+        "match": [
+          "porosity",
+          "weld",
+          "shielding",
+          "gas"
+        ],
         "response": {
           "query": "",
           "answer": "Porosity in MIG welds is treated as a gas coverage fault first. WI-204 §2 requires flow to be verified at the torch rather than the regulator, because a reading at the bottle does not detect a leaking hose or a nozzle bridged with spatter. Nozzle and contact tip are consumables on a per-shift interval, and wire stored unsealed for more than 24 hours is quarantined for moisture.",
@@ -1109,7 +1153,14 @@
         }
       },
       {
-        "match": ["oee", "scrap rate", "downtime", "yesterday", "how many", "what was"],
+        "match": [
+          "oee",
+          "scrap rate",
+          "downtime",
+          "yesterday",
+          "how many",
+          "what was"
+        ],
         "response": {
           "query": "",
           "answer": "I answer from SOPs and manuals. For line data, click any row below.",
@@ -1118,7 +1169,12 @@
         }
       },
       {
-        "match": ["maintenance", "pm", "preventive", "lubrication"],
+        "match": [
+          "maintenance",
+          "pm",
+          "preventive",
+          "lubrication"
+        ],
         "response": {
           "query": "",
           "answer": "Preventive maintenance is scheduled on run hours, not calendar days, and the interval clock is only reset by a signed-off task. Injection presses carry a 250-hour screw and check-ring inspection; a press running at reduced cycle rate with no fault code is explicitly listed as a trigger for early inspection under SOP-002 §4.1.",

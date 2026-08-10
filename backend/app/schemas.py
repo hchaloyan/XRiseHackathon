@@ -105,6 +105,13 @@ EXPLAIN_SCHEMA = {
 
 
 # ===== KPI INSIGHTS =====
+# Names follow frontend/src/api/types.ts, which the redesigned components are
+# already built against. The computed block below is an addition to that
+# contract, not a change to it: without it the header renders empty whenever
+# the model is slow, which is the one moment it must not (spec 5).
+
+Severity = Literal["high", "medium", "low"]
+
 
 class WorstMachine(ApiModel):
     machine_id: str
@@ -121,50 +128,59 @@ class ReasonTotal(ApiModel):
     events: int
 
 
-class Finding(ApiModel):
-    """One line of the morning narrative. Generated."""
+class Callout(ApiModel):
+    """One highlighted finding in the morning brief. GENERATED."""
 
-    text: str
-    action: str
+    title: str
+    detail: str
+    severity: Severity
+    # Pre-formatted by pandas. The model quotes it; it never computes it.
+    metric: Optional[str] = None
 
 
-class InsightsResponse(ApiModel):
-    """COMPUTED first, GENERATED after. The header still renders real numbers
-    when the model is slow or unavailable (spec 5)."""
+class InsightResponse(ApiModel):
+    """COMPUTED first, GENERATED after."""
 
     day: date
+
+    # COMPUTED - always present, so the header shows real numbers even when
+    # every generated field below is null.
     oee: float
     scrap_rate: float
     downtime_minutes: float
     oee_delta: Optional[float] = None  # None only on the first day of the window
-    worst_machines: List[WorstMachine]
-    downtime_by_reason: List[ReasonTotal]
-    parts_below_reorder: int
+    worst_machines: List[WorstMachine] = []
+    downtime_by_reason: List[ReasonTotal] = []
+    parts_below_reorder: int = 0
 
-    # GENERATED: null when the model fails or times out.
+    # GENERATED - null when the model fails or times out.
     headline: Optional[str] = None
-    findings: Optional[List[Finding]] = None
+    narrative: Optional[str] = None
+    callouts: Optional[List[Callout]] = None
 
 
 INSIGHTS_SCHEMA = {
     "type": "object",
     "properties": {
         "headline": {"type": "string"},
-        "findings": {
+        "narrative": {"type": "string"},
+        "callouts": {
             "type": "array",
             "minItems": 2,
             "maxItems": 4,
             "items": {
                 "type": "object",
                 "properties": {
-                    "text": {"type": "string"},
-                    "action": {"type": "string"},
+                    "title": {"type": "string"},
+                    "detail": {"type": "string"},
+                    "severity": {"type": "string", "enum": ["high", "medium", "low"]},
+                    "metric": {"type": "string"},
                 },
-                "required": ["text", "action"],
+                "required": ["title", "detail", "severity", "metric"],
             },
         },
     },
-    "required": ["headline", "findings"],
+    "required": ["headline", "narrative", "callouts"],
 }
 
 
@@ -192,36 +208,44 @@ class EventContext(ApiModel):
     defect_count: Optional[int] = None
 
 
-class EvidenceItem(ApiModel):
-    """One supporting data point. COMPUTED in pandas, shown under the causes
+class Evidence(ApiModel):
+    """One supporting data point. COMPUTED in pandas before the model runs,
     so a judge can see the figure the ranking was built on."""
 
     label: str
-    detail: str
+    value: str
+    detail: Optional[str] = None
 
 
 class SopCitation(ApiModel):
+    """Where the answer came from. COMPUTED by retrieval, not by the model -
+    the model cannot cite a document that was not put in front of it."""
+
     doc_id: str
     title: str
     section: str
 
 
-class RootCauseItem(ApiModel):
+class Hypothesis(ApiModel):
     """GENERATED. Ranked against the evidence above, never inventing figures."""
 
+    rank: int
     cause: str
-    likelihood: str  # "high" | "medium" | "low"
-    evidence: str
-    action: str
+    confidence: Severity
+    reasoning: str
+    # Labels drawn from evidence[], so the ranking is traceable to numbers.
+    supporting_evidence: List[str] = []
+    recommended_action: Optional[str] = None
 
 
 class RootCauseResponse(ApiModel):
+    event_id: str
+    # COMPUTED - both render even when the model fails (spec 5).
     event: EventContext
-    evidence: List[EvidenceItem]
+    evidence: List[Evidence]
     sources: List[SopCitation]
-    # GENERATED: null when the model fails or times out. Evidence and citations
-    # still render, so the panel is useful even then.
-    causes: Optional[List[RootCauseItem]] = None
+    # GENERATED.
+    hypotheses: Optional[List[Hypothesis]] = None
     summary: Optional[str] = None
 
 
@@ -229,23 +253,33 @@ ROOT_CAUSE_SCHEMA = {
     "type": "object",
     "properties": {
         "summary": {"type": "string"},
-        "causes": {
+        "hypotheses": {
             "type": "array",
             "minItems": 2,
             "maxItems": 4,
             "items": {
                 "type": "object",
                 "properties": {
+                    "rank": {"type": "integer"},
                     "cause": {"type": "string"},
-                    "likelihood": {"type": "string", "enum": ["high", "medium", "low"]},
-                    "evidence": {"type": "string"},
-                    "action": {"type": "string"},
+                    "confidence": {"type": "string", "enum": ["high", "medium", "low"]},
+                    "reasoning": {"type": "string"},
+                    "supporting_evidence": {
+                        "type": "array",
+                        "minItems": 1,
+                        "maxItems": 3,
+                        "items": {"type": "string"},
+                    },
+                    "recommended_action": {"type": "string"},
                 },
-                "required": ["cause", "likelihood", "evidence", "action"],
+                "required": [
+                    "rank", "cause", "confidence", "reasoning",
+                    "supporting_evidence", "recommended_action",
+                ],
             },
         },
     },
-    "required": ["summary", "causes"],
+    "required": ["summary", "hypotheses"],
 }
 
 
