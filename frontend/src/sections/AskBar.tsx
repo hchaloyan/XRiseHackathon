@@ -1,7 +1,7 @@
 import { useState, type FormEvent } from 'react'
 import { ChevronDown, FileText, Loader2, Search, Sparkles, X } from 'lucide-react'
 import { api } from '../api/client'
-import type { ExplainResponse, SopResult } from '../api/types'
+import type { ExplainResponse, SearchResponse, SopResult } from '../api/types'
 import { Button } from '../components/ui/Button'
 import { Input } from '../components/ui/Input'
 import { SkeletonLines } from '../components/ui/Skeleton'
@@ -30,33 +30,58 @@ import { cn } from '../lib/cn'
 export default function AskBar() {
   const [query, setQuery] = useState('')
   const [results, setResults] = useState<SopResult[] | null>(null)
+  const [kind, setKind] = useState<SearchResponse['kind'] | null>(null)
+  const [reply, setReply] = useState<string | null>(null)
+  const [suggestions, setSuggestions] = useState<string[]>([])
   const [fallback, setFallback] = useState<string | null>(null)
   const [explanation, setExplanation] = useState<ExplainResponse | null>(null)
   const [expandedId, setExpandedId] = useState<string | null>(null)
   const [searching, setSearching] = useState(false)
   const [explaining, setExplaining] = useState(false)
 
-  // The backend rejects anything shorter than three characters outright.
-  const canSubmit = query.trim().length >= 3 && !searching
+  // Two, not three: the backend's floor is two characters so that "hi" and
+  // "yo" reach the conversational shell.
+  const canSubmit = query.trim().length >= 2 && !searching
 
-  async function onSearch(e: FormEvent) {
-    e.preventDefault()
-    if (!canSubmit) return
+  /** Shared by the form and the suggestion chips. */
+  async function runSearch(raw: string) {
+    const q = raw.trim()
+    if (q.length < 2) return
+
     setSearching(true)
     setExplanation(null)
     setExpandedId(null)
     setFallback(null)
+    setReply(null)
+    setSuggestions([])
     try {
-      const data = await api.search(query.trim())
+      const data = await api.search(q)
       setResults(data.results)
+      setKind(data.kind)
+      setReply(data.reply)
+      setSuggestions(data.suggestions ?? [])
       setFallback(data.fallbackMessage)
     } catch (err) {
       console.error('[askbar] search failed:', err)
       setResults([])
+      setKind('off_topic')
       setFallback('Search is unavailable right now.')
     } finally {
       setSearching(false)
     }
+  }
+
+  function onSearch(e: FormEvent) {
+    e.preventDefault()
+    if (!canSubmit) return
+    void runSearch(query)
+  }
+
+  /** Chips put their text in the box first, so the query the user "asked" is
+   *  the one /api/explain later receives. */
+  function onSuggestion(text: string) {
+    setQuery(text)
+    void runSearch(text)
   }
 
   async function onExplain(sopIds: string[]) {
@@ -72,6 +97,9 @@ export default function AskBar() {
 
   function dismiss() {
     setResults(null)
+    setKind(null)
+    setReply(null)
+    setSuggestions([])
     setFallback(null)
     setExplanation(null)
     setExpandedId(null)
@@ -186,11 +214,41 @@ export default function AskBar() {
                 </div>
               )}
 
+              {/* Conversational turn — a greeting or "what can you do".
+                  Matched by regex server-side, so this costs no model call
+                  and returns in about a millisecond. */}
+              {kind === 'conversation' && reply && (
+                <p className="pr-8 text-sm leading-relaxed text-hi">{reply}</p>
+              )}
+
               {/* Spec 7.1 redirect, an empty corpus, or an unreachable API. */}
-              {results?.length === 0 && (
+              {kind !== 'conversation' && results?.length === 0 && (
                 <p className="pr-8 text-sm text-muted">
                   {fallback ?? 'No SOPs found. Try different keywords.'}
                 </p>
+              )}
+
+              {/* Every chip is drawn from the indexed corpus, so each one is
+                  guaranteed to return sections. This is the recovery path
+                  when someone asks something the SOPs cannot answer. */}
+              {suggestions.length > 0 && (
+                <div className="mt-3 pr-8">
+                  <p className="label-caps mb-2">Try asking</p>
+                  <ul className="flex flex-wrap gap-1.5">
+                    {suggestions.map((s) => (
+                      <li key={s}>
+                        <button
+                          type="button"
+                          onClick={() => onSuggestion(s)}
+                          disabled={searching}
+                          className="cursor-pointer rounded-full border border-line bg-white/[0.06] px-3 py-1 text-[12px] text-muted transition-colors duration-150 hover:bg-white/10 hover:text-hi focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none disabled:opacity-50"
+                        >
+                          {s}
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               )}
             </>
           )}
