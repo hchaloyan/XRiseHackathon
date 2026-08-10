@@ -11,12 +11,10 @@ nothing, and we reply with the fixed redirect string.
 
 from __future__ import annotations
 
-from pathlib import Path
-
 from fastapi import APIRouter, HTTPException
 
 from app.config import settings
-from app.llm.base import get_client
+from app.llm.base import get_client, render_prompt
 from app.schemas import (
     EXPLAIN_SCHEMA,
     OFF_TOPIC_MESSAGE,
@@ -31,21 +29,6 @@ from app.services.knowledge_base import INCLUDE_GET, get_knowledge_base
 
 # No prefix here - main.py applies /api to every router uniformly.
 router = APIRouter(tags=["search"])
-
-PROMPT_DIR = Path(__file__).resolve().parents[1] / "prompts"
-
-
-def _render(template_name: str, **values: str) -> str:
-    """Load a prompt file and substitute {placeholders}.
-
-    str.replace, not str.format - SOP text contains braces and format() would
-    raise KeyError on them.
-    """
-    text = (PROMPT_DIR / template_name).read_text(encoding="utf-8")
-    for key, value in values.items():
-        text = text.replace("{" + key + "}", value)
-    return text
-
 
 def _as_context(chunks: list[dict]) -> str:
     return "\n\n".join(
@@ -120,7 +103,7 @@ def explain_sop(payload: ExplainRequest) -> ExplainResponse:
     ]
     sources = sorted({c["doc_id"] for c in chunks})
 
-    prompt = _render("sop_explain.md", query=query, sop_content=_as_context(chunks))
+    prompt = render_prompt("sop_explain.md", query=query, sop_content=_as_context(chunks))
     result = get_client().complete(prompt, EXPLAIN_SCHEMA, timeout=settings.search_timeout)
 
     if result is None:
