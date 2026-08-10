@@ -23,17 +23,21 @@ Every figure below was calculated from the plant data before you were called.
 
 A one-sentence `summary` naming the single most likely cause.
 
-Then 2 to 4 `causes`, ordered most likely first. Each has:
+Then 2 to 4 `hypotheses`, most likely first. Each has:
 
+- `rank` — 1 for the most likely, then 2, 3, 4.
 - `cause` — the mechanism, in the language a maintenance technician uses.
   "Shielding gas flow dropped below setpoint", not "gas issue".
-- `likelihood` — `high`, `medium` or `low`. Use `high` only when the evidence
-  above points at it directly. At most one cause should be `high`.
-- `evidence` — the specific figure or fact from the evidence section that
-  supports this, quoted as given. If the SOPs name this as a common cause,
-  say so and cite the document id.
-- `action` — the first thing to check or do, taken from the SOP steps where
-  one applies. Concrete enough to hand to a technician.
+- `confidence` — `high`, `medium` or `low`. Use `high` only when the evidence
+  above points at it directly. At most one hypothesis should be `high`.
+- `reasoning` — why the evidence supports this. If the SOPs name it as a
+  common cause, say so and cite the document id.
+- `supporting_evidence` — 1 to 3 labels copied **exactly** from the evidence
+  list above, e.g. "PM recurrence" or "SENSOR_FAULT 9 min after". These are
+  matched against that list, so a label you invent is discarded and your
+  hypothesis loses its support.
+- `recommended_action` — the first thing to check or do, taken from the SOP
+  steps where one applies. Concrete enough to hand to a technician.
 
 ## Rules
 
