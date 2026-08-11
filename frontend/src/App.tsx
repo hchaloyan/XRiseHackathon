@@ -4,6 +4,7 @@ import { NavLink, Outlet, Route, Routes, useOutletContext } from 'react-router'
 import { api } from './api/client'
 import type { KpiResponse } from './api/types'
 import DayPicker from './components/DayPicker'
+import ScrollOverlay from './components/ScrollOverlay'
 import { cn } from './lib/cn'
 import { DayProvider, useDay } from './lib/day'
 import { useFetch } from './lib/useFetch'
@@ -13,6 +14,7 @@ import EventTable from './sections/EventTable'
 import InsightHeader from './sections/InsightHeader'
 import InventoryPanel from './sections/InventoryPanel'
 import KpiGrid, { MachineRanking } from './sections/KpiGrid'
+import WindowControls from './sections/WindowControls'
 
 /**
  * Two screens behind react-router, at the user's explicit direction. This is a
@@ -74,13 +76,54 @@ function Shell() {
   return (
     <div className="min-h-full">
       {/* App bar sits at 08dp — 12% white overlay — carried by glass, so the
-          ambient light passes through it as content scrolls beneath. */}
-      <header className="glass-bar sticky top-0 z-40 border-b border-line">
+          ambient light passes through it as content scrolls beneath.
+
+          Overriding the token rather than the box-shadow: --shadow-glass opens
+          with a lit hairline along the top edge, which every other glass
+          surface wants and this one no longer can have. The window's 7px sizing
+          frame is painted to match this bar (run.py), so the bar's own top edge
+          is 7px inside the window — and the highlight drew a grey line across
+          the middle of what should read as one continuous surface. Only the
+          drop shadow is left. The token is inherited, so this reaches
+          glass-bar's var() without depending on which utility Tailwind emits
+          last, and nothing inside the header uses it. */}
+      <header className="glass-bar sticky top-0 z-40 border-b border-line [--shadow-glass:0_8px_32px_-8px_rgb(0_0_0/0.5)]">
+        {/* The window is frameless (run.py), so this bar IS the title bar.
+            The drag strip is a layer BEHIND the content rather than a class on
+            <header>: pywebview walks UP the DOM from whatever was clicked
+            looking for the region, so tagging the header would make every nav
+            tab drag the window instead of navigating.
+
+            Being behind is only half of it — the grid below also has to stop
+            swallowing the clicks. It covers the whole bar (its own pt-7, and a
+            wordmark stretched across a 1fr column), so pointer-events-none
+            hands the dead space back to the layer and only the tabs opt back
+            in. Without that, the drag area is just the margin outside
+            max-w-7xl: fine maximized, gone the moment the window narrows.
+
+            Double-click maximizes, the way every title bar does. The layer is
+            the right place for it: the tabs and the date picker opt back into
+            pointer events above, so a double-click on either of those never
+            reaches here. */}
+        <div
+          className="pywebview-drag-region absolute inset-0"
+          onDoubleClick={() => void window.pywebview?.api.maximize()}
+        />
+        <WindowControls className="absolute top-0 right-0 z-10" />
+
         {/* Three columns rather than a flex row: the centre column is optically
             centred on the page, not merely placed after the wordmark, and it
             stays centred whatever the date string's width turns out to be.
-            items-end drops the tab underline onto the header's bottom edge. */}
-        <div className="mx-auto grid max-w-7xl grid-cols-[1fr_auto_1fr] items-end gap-4 px-6 pt-7">
+            items-end drops the tab underline onto the header's bottom edge.
+
+            pt-9 clears the caption buttons, which are 36px tall and pinned to
+            the corner. Maximized there is no contest — they sit 320px right of
+            this container's edge — but the container is only inset by px-6 once
+            the window is under 1520px wide, and at that point the date picker
+            would slide underneath them. Reserving the row costs 8px of header
+            and holds at every width, where a right-hand gutter would have to
+            appear and disappear on a breakpoint. */}
+        <div className="pointer-events-none relative mx-auto grid max-w-7xl grid-cols-[1fr_auto_1fr] items-end gap-4 px-6 pt-9">
           <div className="flex items-center gap-3 pb-4">
             <Activity size={22} strokeWidth={2} className="text-accent" aria-hidden />
             <h1 className="text-xl leading-none font-semibold tracking-tight text-hi">
@@ -88,8 +131,11 @@ function Shell() {
             </h1>
           </div>
 
-          {/* Tabs, indicated by an underline rather than a filled pill. */}
-          <nav className="flex items-center gap-2">
+          {/* Tabs, indicated by an underline rather than a filled pill.
+              pointer-events-auto here and on the day picker below: those two
+              take clicks, the rest of the bar drags the window. Anything
+              interactive added to this grid needs the same opt-in. */}
+          <nav className="pointer-events-auto flex items-center gap-2">
             {NAV.map((item) => (
               <NavLink
                 key={item.to}
@@ -110,7 +156,7 @@ function Shell() {
             ))}
           </nav>
 
-          <div className="justify-self-end pb-3.5">
+          <div className="pointer-events-auto justify-self-end pb-3.5">
             <DayPicker daysBehind={dayList?.daysBehind ?? 0} />
           </div>
         </div>
@@ -133,6 +179,10 @@ function Shell() {
       {/* Persistent across both screens: never scrolled past, never navigated
           away from (CLAUDE.md capability 3). */}
       <AskBar />
+
+      {/* The page's scroll pill. Drawn over the content because a native bar
+          reserves a column whose edge shows against the header glass. */}
+      <ScrollOverlay />
     </div>
   )
 }

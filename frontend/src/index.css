@@ -155,6 +155,62 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* --- Scrollbars ------------------------------------------------------------
+   A floating pill in a transparent gutter, Discord-style: the track disappears
+   into whatever is behind it, so the bar reads as part of the surface rather
+   than as an OS control bolted to its edge. This styles INNER scrollers only —
+   the ask bar's results panel. The page is handled below.
+
+   Webkit pseudo-elements, not `scrollbar-color`/`scrollbar-width`: Chromium
+   ignores these the moment a standard scrollbar property is set on the same
+   element, and the standard properties can't inset the thumb. WebView2 and
+   every browser this demo will meet are Chromium, so nothing is lost. */
+
+::-webkit-scrollbar {
+  width: 14px;
+  height: 14px;
+}
+
+::-webkit-scrollbar-track,
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/* The page draws no native bar at all. A classic scrollbar reserves a 14px
+   column, and in-flow content is then laid out to 1906px rather than 1920 —
+   so the header's glass stops short of the window edge and the reserved column
+   shows beside it as a channel running the full height of the window. That
+   channel is what reads as a "track" behind the thumb.
+
+   Zero width reserves nothing, the page runs edge to edge, and ScrollOverlay
+   paints a floating pill over the content instead. Chromium's real overlay
+   scrollbars are behind a flag, or this would be one line of CSS. */
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+/* The transparent border is the whole trick — clipped to the padding box it
+   leaves an 8px pill floating inside a 14px gutter, with no second element and
+   no JS. Fill is --color-line; hardcoded because custom properties inheriting
+   into scrollbar pseudo-elements is not something to bet the demo on. */
+::-webkit-scrollbar-thumb {
+  background-color: rgb(255 255 255 / 0.12);
+  background-clip: padding-box;
+  border: 3px solid transparent;
+  border-radius: 999px;
+}
+
+/* Same white-overlay logic as card-hover: brighter, not a different colour. */
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgb(255 255 255 / 0.24);
+}
+
+::-webkit-scrollbar-thumb:active {
+  background-color: rgb(255 255 255 / 0.32);
+}
+
 /* Recharts injects its own focus outline on the SVG wrapper. */
 .recharts-wrapper:focus,
 .recharts-surface:focus {
