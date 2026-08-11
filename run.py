@@ -78,15 +78,18 @@ def _make_resizable(window) -> None:
     WinForms sets FormBorderStyle.None, which drops WS_THICKFRAME, and every
     edge then hit-tests as client area — the window is stuck at its start size.
 
-    Putting that one style bit back is the whole fix. Windows draws the eight
-    resize zones, the sizing cursors and Aero Snap off it, none of which a CSS
-    grip inside the page could offer, and the content still hit-tests as client
-    so the drag strip and caption buttons are untouched.
+    Putting that one style bit back is most of the fix. Windows draws the resize
+    zones, the sizing cursors and Aero Snap off it, none of which a CSS grip
+    inside the page could offer, and the content still hit-tests as client so
+    the drag strip and caption buttons are untouched.
 
-    The bit costs a 7px sizing frame. Left, right and bottom fall outside the
-    visible window and cost nothing, but the top edge is painted, and it is
-    painted directly above the app bar — so it is coloured to match the bar
-    rather than left as the grey DWM picks.
+    The bit costs a sizing frame. Left, right and bottom fall outside the
+    visible window and cost nothing, but the top edge is painted, and painted
+    directly above the app bar: a 7px band the page cannot reach. Colouring it
+    to match the bar hid it at rest and not in motion — the close button's red
+    hover stopped 7px short of the window's corner, which is the one place a
+    caption button is expected to run right into. `_reclaim_top_frame` below
+    gives that band back to the page.
     """
     if sys.platform != "win32":
         return  # Win32 window styles; the other backends need their own fix
@@ -102,14 +105,16 @@ def _make_resizable(window) -> None:
     user32.SetWindowLongW(
         hwnd, GWL_STYLE, user32.GetWindowLongW(hwnd, GWL_STYLE) | WS_THICKFRAME
     )
+    # Before the SetWindowPos below, so the frame recalculation it forces is
+    # already running through our handler.
+    _reclaim_top_frame(hwnd)
     user32.SetWindowPos(hwnd, 0, 0, 0, 0, 0, SWP_FLAGS)
 
-    # The frame has two painted parts: BORDER_COLOR is the 1px outline around
-    # the whole window, CAPTION_COLOR the 6px band inside it along the top.
-    # Both take the app bar's own tone — #242424, what glass-bar's 62% #2E2E2E
-    # composites to over the #121212 page — so the band reads as the bar
-    # running out to the window's edge. --color-surface was the obvious value
-    # here and the wrong one: a dark strip above a lighter bar is a gap.
+    # BORDER_COLOR is the 1px outline around the whole window. It takes the app
+    # bar's own tone — #242424, what glass-bar's 62% #2E2E2E composites to over
+    # the #121212 page — so the outline reads as the bar's own edge.
+    # CAPTION_COLOR is set for the same reason and now covers only the instant
+    # between the window appearing and the frame recalculation landing.
     #
     # A COLORREF is 0x00BBGGRR; grey needs no channel swap.
     DWMWA_BORDER_COLOR, DWMWA_CAPTION_COLOR = 34, 35
@@ -118,6 +123,104 @@ def _make_resizable(window) -> None:
         ctypes.windll.dwmapi.DwmSetWindowAttribute(
             hwnd, attribute, ctypes.byref(app_bar), 4
         )
+
+
+# The installed callback, held at module scope: ctypes collects a callback that
+# nothing references, and the window would then call into freed memory.
+_WNDPROC_REF = None
+
+
+def _reclaim_top_frame(hwnd: int) -> None:
+    """Extend the client area over the top sizing frame, so the page reaches the
+    window's real top edge.
+
+    WM_NCCALCSIZE is where a window is asked how much of itself is frame. Let
+    the stock handler answer, then push the top back to where it started: the
+    other three edges keep their frame — and with it the resize cursors and
+    Aero Snap — while the top 7px become client area that the webview paints.
+    The app bar then IS the top of the window, which is what the caption
+    buttons' hover has to fill.
+
+    Only while restored. Maximized, a thick-framed window's rect extends past
+    the work area by the frame width, and reclaiming the top there would push
+    the app bar off the top of the screen.
+
+    ponytail: the top edge and the two top corners stop hit-testing as resize
+    zones, since they are client now. The other five zones still work. Fixing
+    that means answering WM_NCHITTEST too, which then has to carve out the
+    caption buttons or make them unclickable — a lot of surface for an edge
+    nobody drags when three others resize the same window.
+    """
+    global _WNDPROC_REF
+
+    import ctypes
+
+    user32 = ctypes.windll.user32
+    GWLP_WNDPROC, WM_NCCALCSIZE = -4, 0x0083
+
+    class RECT(ctypes.Structure):
+        _fields_ = [
+            ("left", ctypes.c_long),
+            ("top", ctypes.c_long),
+            ("right", ctypes.c_long),
+            ("bottom", ctypes.c_long),
+        ]
+
+    class NCCALCSIZE_PARAMS(ctypes.Structure):
+        _fields_ = [("rgrc", RECT * 3), ("lppos", ctypes.c_void_p)]
+
+    LRESULT = ctypes.c_ssize_t
+    WNDPROC = ctypes.WINFUNCTYPE(
+        LRESULT, ctypes.c_void_p, ctypes.c_uint, ctypes.c_size_t, ctypes.c_ssize_t
+    )
+
+    # Spelled out because ctypes defaults every pointer it does not know about
+    # to a 32-bit int, which silently truncates a 64-bit window proc address —
+    # the chained call then jumps into nothing.
+    for fn, argtypes, restype in (
+        (user32.GetWindowLongPtrW, [ctypes.c_void_p, ctypes.c_int], ctypes.c_void_p),
+        (
+            user32.SetWindowLongPtrW,
+            [ctypes.c_void_p, ctypes.c_int, ctypes.c_void_p],
+            ctypes.c_void_p,
+        ),
+        (
+            user32.CallWindowProcW,
+            [
+                ctypes.c_void_p,
+                ctypes.c_void_p,
+                ctypes.c_uint,
+                ctypes.c_size_t,
+                ctypes.c_ssize_t,
+            ],
+            LRESULT,
+        ),
+        (user32.IsZoomed, [ctypes.c_void_p], ctypes.c_bool),
+    ):
+        fn.argtypes, fn.restype = argtypes, restype
+
+    # Read before ours is installed, never after: a message arriving between the
+    # swap and the assignment would otherwise chain to a null pointer.
+    stock = user32.GetWindowLongPtrW(hwnd, GWLP_WNDPROC)
+
+    def proc(window_handle, message, wparam, lparam):
+        try:
+            if message == WM_NCCALCSIZE and wparam and not user32.IsZoomed(window_handle):
+                params = NCCALCSIZE_PARAMS.from_address(lparam)
+                top = params.rgrc[0].top
+                result = user32.CallWindowProcW(
+                    stock, window_handle, message, wparam, lparam
+                )
+                params.rgrc[0].top = top
+                return result
+        except Exception as exc:  # a dead window proc is a dead app
+            print(f"[chrome] frame handler failed, falling back: {exc}")
+        return user32.CallWindowProcW(stock, window_handle, message, wparam, lparam)
+
+    _WNDPROC_REF = WNDPROC(proc)
+    user32.SetWindowLongPtrW(
+        hwnd, GWLP_WNDPROC, ctypes.cast(_WNDPROC_REF, ctypes.c_void_p)
+    )
 
 
 def main() -> None:

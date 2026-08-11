@@ -14,6 +14,12 @@ import { cn } from '../lib/cn'
  * Not a modal: a popover anchored under the date in the header, dismissed by
  * clicking outside or pressing Escape.
  *
+ * Lives in the app bar, which is also the window's title bar, so only the three
+ * buttons below carry pointer-events-auto. Everything else here — the "(latest
+ * on file)" note, the gaps, the padding — inherits `none` from the header grid
+ * and falls through to the drag region behind it, which is what lets the window
+ * be dragged by the bar around the picker rather than only beside it.
+ *
  * The popover is portaled to <body> rather than rendered in place, and that is
  * load-bearing, not tidiness. The header carries backdrop-filter, which makes
  * it a backdrop root: a descendant's own backdrop-filter can only sample
@@ -128,7 +134,7 @@ export default function DayPicker({ daysBehind = 0 }: { daysBehind?: number }) {
         onClick={() => jump(-1)}
         disabled={index <= 0}
         aria-label="Previous day"
-        className="cursor-pointer rounded p-1 text-muted transition-colors duration-150 hover:bg-white/10 hover:text-hi disabled:cursor-default disabled:opacity-30"
+        className="pointer-events-auto cursor-pointer rounded p-1 text-muted transition-colors duration-150 hover:bg-white/10 hover:text-hi disabled:cursor-default disabled:opacity-30"
       >
         <ChevronLeft size={15} aria-hidden />
       </button>
@@ -141,7 +147,7 @@ export default function DayPicker({ daysBehind = 0 }: { daysBehind?: number }) {
           setOpen((v) => !v)
         }}
         aria-expanded={open}
-        className="flex cursor-pointer items-center gap-2 rounded px-2 py-1 text-[15px] text-muted transition-colors duration-150 hover:bg-white/10 hover:text-hi focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none"
+        className="pointer-events-auto flex cursor-pointer items-center gap-2 rounded px-2 py-1 text-[15px] text-muted transition-colors duration-150 hover:bg-white/10 hover:text-hi focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none"
       >
         <CalendarDays size={15} aria-hidden className="text-faint" />
         {/* Fixed width, or the arrows shuffle every time the date changes —
@@ -164,7 +170,7 @@ export default function DayPicker({ daysBehind = 0 }: { daysBehind?: number }) {
         onClick={() => jump(1)}
         disabled={index < 0 || index >= days.length - 1}
         aria-label="Next day"
-        className="cursor-pointer rounded p-1 text-muted transition-colors duration-150 hover:bg-white/10 hover:text-hi disabled:cursor-default disabled:opacity-30"
+        className="pointer-events-auto cursor-pointer rounded p-1 text-muted transition-colors duration-150 hover:bg-white/10 hover:text-hi disabled:cursor-default disabled:opacity-30"
       >
         <ChevronRight size={15} aria-hidden />
       </button>

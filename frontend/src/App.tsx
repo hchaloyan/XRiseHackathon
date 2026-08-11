@@ -95,10 +95,10 @@ function Shell() {
             tab drag the window instead of navigating.
 
             Being behind is only half of it — the grid below also has to stop
-            swallowing the clicks. It covers the whole bar (its own pt-7, and a
+            swallowing the clicks. It covers the whole bar (full height, and a
             wordmark stretched across a 1fr column), so pointer-events-none
-            hands the dead space back to the layer and only the tabs opt back
-            in. Without that, the drag area is just the margin outside
+            hands the dead space back to the layer and only the controls opt
+            back in. Without that, the drag area is just the margin outside
             max-w-7xl: fine maximized, gone the moment the window narrows.
 
             Double-click maximizes, the way every title bar does. The layer is
@@ -114,16 +114,21 @@ function Shell() {
         {/* Three columns rather than a flex row: the centre column is optically
             centred on the page, not merely placed after the wordmark, and it
             stays centred whatever the date string's width turns out to be.
-            items-end drops the tab underline onto the header's bottom edge.
+            items-end drops the tab underline onto the header's bottom edge, and
+            the pb-* on each cell below is what holds the row off it.
 
-            pt-9 clears the caption buttons, which are 36px tall and pinned to
-            the corner. Maximized there is no contest — they sit 320px right of
-            this container's edge — but the container is only inset by px-6 once
-            the window is under 1520px wide, and at that point the date picker
-            would slide underneath them. Reserving the row costs 8px of header
-            and holds at every width, where a right-hand gutter would have to
-            appear and disappear on a breakpoint. */}
-        <div className="pointer-events-none relative mx-auto grid max-w-7xl grid-cols-[1fr_auto_1fr] items-end gap-4 px-6 pt-9">
+            h-17 is the whole bar: 68px, the title bar and the nav in one band.
+
+            The caption buttons are the other thing in this row, and they are
+            overlaid rather than laid out — the grid stays centred on the WINDOW,
+            so 168px of buttons in the flow would drag the wordmark and the tabs
+            off centre by half that. Reserving the width instead: the centred
+            max-w-7xl column clears them on its own once the window is wide
+            enough (its right edge is at W/2+616, the buttons start at W-168, so
+            they part at W=1584), and below that pr-44 holds the date picker
+            clear of them. Both numbers are 3 × the button width in
+            WindowControls — change one and change the other. */}
+        <div className="pointer-events-none relative mx-auto grid h-17 max-w-7xl grid-cols-[1fr_auto_1fr] items-end gap-4 pr-44 pl-6 min-[1584px]:pr-6">
           <div className="flex items-center gap-3 pb-4">
             <Activity size={22} strokeWidth={2} className="text-accent" aria-hidden />
             <h1 className="text-xl leading-none font-semibold tracking-tight text-hi">
@@ -132,9 +137,15 @@ function Shell() {
           </div>
 
           {/* Tabs, indicated by an underline rather than a filled pill.
-              pointer-events-auto here and on the day picker below: those two
-              take clicks, the rest of the bar drags the window. Anything
-              interactive added to this grid needs the same opt-in. */}
+
+              pointer-events is an inherited property, so the grid's `none`
+              reaches every descendant and each control has to opt back in — the
+              tabs here, the three buttons inside DayPicker. Deliberately at
+              that grain rather than on the wrapper: the picker's "(latest on
+              file)" note and the padding around it are text, not controls, and
+              a wrapper-level opt-in made them a dead patch of bar that would
+              not drag the window. Anything interactive added to this grid needs
+              the same opt-in on the control itself. */}
           <nav className="pointer-events-auto flex items-center gap-2">
             {NAV.map((item) => (
               <NavLink
@@ -156,7 +167,7 @@ function Shell() {
             ))}
           </nav>
 
-          <div className="pointer-events-auto justify-self-end pb-3.5">
+          <div className="justify-self-end pb-3.5">
             <DayPicker daysBehind={dayList?.daysBehind ?? 0} />
           </div>
         </div>
