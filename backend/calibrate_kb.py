@@ -20,6 +20,7 @@ import sys
 
 from app.config import settings
 from app.services.knowledge_base import KnowledgeBase, _doc_reference, embed_query
+from app.services.query_expansion import expand
 
 # Answerable from the SOP corpus. Deliberately phrased the way a supervisor
 # would ask, not using the exact headings from the documents.
@@ -47,6 +48,17 @@ IN_CORPUS = [
     "when do I escalate a quality problem",
     "how do I set work offsets on the CNC",
     "how do I recover an SLS recoater strike",
+    # Vocabulary the corpus does not use consistently, or at all. These are
+    # what query_expansion exists for; before it they scored like off-topic
+    # text. Keep them here so a regression in the expansion table shows up as
+    # a falling answered count rather than as a bad demo.
+    "how do I do a mould changeover",       # corpus splits mold/mould 6:4
+    "IMM purge procedure",                  # "imm" appears in zero SOPs
+    "what PPE do I need for a jam",         # "ppe" appears in zero SOPs
+    "M-22 tool broke what do I do",         # "M-22" is in one SOP
+    "whats wrong with m13",                 # no hyphen, no space
+    "OOT parts from the CNC",               # "oot" appears in zero SOPs
+    "3d print keeps failing",
 ]
 
 # Queries that name a document outright. Answered by exact id lookup in
@@ -76,7 +88,10 @@ def best_distances(kb: KnowledgeBase, queries: list[str]) -> list[tuple[str, flo
     rows = []
     for q in queries:
         raw = kb.collection.query(
-            query_embeddings=[embed_query(q)],
+            # Expanded, exactly as knowledge_base.search() does it. Calibrating
+            # on the bare query would set the cutoff against a distribution the
+            # running app never sees.
+            query_embeddings=[embed_query(expand(q))],
             n_results=1,
             include=["metadatas", "distances"],  # type: ignore[arg-type]
         )
@@ -165,6 +180,17 @@ def main() -> int:
     print("\nDocument-reference queries bypass this floor entirely:")
     for q in BY_REFERENCE:
         print(f"  {q!r:34} -> {_doc_reference(q)}")
+
+    # Rule 8 is the property that actually matters, so assert it rather than
+    # leaving it to be read off the table above.
+    cutoff = best_cut or settings.max_match_distance
+    leaks = [q for q, d, _ in out_rows if d <= cutoff]
+    print(f"\nRule 8 check at {cutoff}: {len(leaks)} factory-data question(s) admitted")
+    for q in leaks:
+        print(f"  ADMITTED  {q!r}")
+    if len(leaks) > 1:
+        print("  -> more than one leak. Lower the cutoff or widen the corpus.")
+        return 1
     return 0
 
 

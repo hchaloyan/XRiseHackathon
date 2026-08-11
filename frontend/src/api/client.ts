@@ -5,6 +5,9 @@ import fixtures from '../mocks/fixtures.json'
 import type {
   ExplainResponse,
   InsightResponse,
+  DaysResponse,
+  DocumentListResponse,
+  DocumentMeta,
   KpiResponse,
   RootCauseResponse,
   SearchResponse,
@@ -60,13 +63,21 @@ async function withFallback<T>(
 }
 
 export const api = {
-  kpis: () =>
-    withFallback('GET /api/kpis', () => request<KpiResponse>('/api/kpis'), fixtures.kpis as KpiResponse),
+  /** Available days for the picker. No fixture: an empty list just disables
+   *  the calendar rather than offering days the data cannot answer for. */
+  days: () => request<DaysResponse>('/api/days'),
 
-  insights: () =>
+  kpis: (day?: string | null) =>
+    withFallback(
+      'GET /api/kpis',
+      () => request<KpiResponse>(`/api/kpis${day ? `?day=${day}` : ''}`),
+      fixtures.kpis as KpiResponse,
+    ),
+
+  insights: (day?: string | null) =>
     withFallback(
       'GET /api/insights',
-      () => request<InsightResponse>('/api/insights'),
+      () => request<InsightResponse>(`/api/insights${day ? `?day=${day}` : ''}`),
       fixtures.insights as InsightResponse,
     ),
 
@@ -90,7 +101,8 @@ export const api = {
    * returns zero results plus the fixed redirect string (rule 8 — no intent
    * classifier runs on the client).
    */
-  search: (query: string) => post<SearchResponse>('/api/search', { query }),
+  search: (query: string, previousQuery?: string | null) =>
+    post<SearchResponse>('/api/search', { query, previousQuery: previousQuery ?? null }),
 
   /** Model reasoning over the exact chunks the user already has on screen. */
   explain: (query: string, sopIds: string[]) =>
@@ -98,4 +110,39 @@ export const api = {
 
   /** The whole document behind a result. Read from disk, no model, no index. */
   sop: (docId: string) => request<SopDocument>(`/api/sops/${encodeURIComponent(docId)}`),
+
+  documents: () => request<DocumentListResponse>('/api/documents'),
+
+  /**
+   * Multipart, so no Content-Type header: the browser must set it itself with
+   * the multipart boundary, and naming it here would break the parse.
+   *
+   * Rejections come back as 400 with a human sentence in `detail`; that
+   * sentence is what the user needs to see, so it is surfaced as the error.
+   */
+  uploadDocument: async (file: File, department = ''): Promise<DocumentMeta> => {
+    const body = new FormData()
+    body.append('file', file)
+    body.append('department', department)
+    const res = await fetch(`${BASE_URL}/api/documents`, { method: 'POST', body })
+    if (!res.ok) {
+      const detail = await res.json().catch(() => null)
+      throw new Error(detail?.detail ?? `${res.status} ${res.statusText}`)
+    }
+    return (await res.json()) as DocumentMeta
+  },
+
+  deleteDocument: async (docId: string): Promise<void> => {
+    const res = await fetch(`${BASE_URL}/api/documents/${encodeURIComponent(docId)}`, {
+      method: 'DELETE',
+    })
+    if (!res.ok) {
+      const detail = await res.json().catch(() => null)
+      throw new Error(detail?.detail ?? `${res.status} ${res.statusText}`)
+    }
+  },
+
+  /** A plain href — downloads must survive a right-click, not need JS. */
+  documentDownloadUrl: (docId: string) =>
+    `${BASE_URL}/api/documents/${encodeURIComponent(docId)}/download`,
 }

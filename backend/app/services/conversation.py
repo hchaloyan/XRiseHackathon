@@ -38,7 +38,7 @@ EXAMPLE_QUESTIONS = [
 _CAPABILITY = (
     "I answer from the plant's SOPs, manuals and audit documents - "
     "procedures, troubleshooting steps and maintenance schedules. "
-    "For line data like OEE, scrap or downtime, click any row in the table below."
+    "For line data like OEE, scrap or downtime, click any row in the table above."
 )
 
 
@@ -64,12 +64,31 @@ _PATTERNS: list[tuple[str, re.Pattern[str]]] = [
     ),
     (
         "thanks",
-        re.compile(r"^(thanks|thank\s+you|thx|ta|cheers|nice|perfect|great|got\s+it)"
-                   r"(\s+(a\s+lot|so\s+much|very\s+much))?$"),
+        re.compile(
+            r"^(thanks|thank\s+you|thx|ta|cheers|nice|perfect|great|got\s+it"
+            r"|brilliant|lovely|magic|that\s+helps|that\s+helped|useful|"
+            r"makes\s+sense|understood|noted)"
+            r"(\s+(a\s+lot|so\s+much|very\s+much|mate|team))?$"
+        ),
     ),
     (
         "farewell",
-        re.compile(r"^(bye|goodbye|see\s+you|later|good\s?night|cya)$"),
+        re.compile(
+            r"^(bye|goodbye|see\s+you|later|good\s?night|cya|"
+            r"that\s+is\s+all|thats\s+all|that's\s+all|im\s+done|i'm\s+done|done)$"
+        ),
+    ),
+    (
+        # The user is telling us the answer missed. A dead end here reads as a
+        # broken assistant; offering the corpus's own questions is the honest
+        # recovery, and it costs nothing to be gracious about it.
+        "miss",
+        re.compile(
+            r"^(no|nope|not\s+(that|this|it|what\s+i\s+meant|helpful|right|useful)"
+            r"|wrong|thats\s+wrong|that's\s+wrong|thats\s+not\s+(it|right)"
+            r"|that's\s+not\s+(it|right)|try\s+again|useless|unhelpful"
+            r"|i\s+meant\s+something\s+else|not\s+quite)\??$"
+        ),
     ),
     (
         "capability",
@@ -121,6 +140,11 @@ _STATIC_REPLIES = {
         "I am an assistant running on the plant's own documents. "
         f"{_CAPABILITY}"
     ),
+    "miss": (
+        "Sorry - let me try again. Naming the machine, the reason code or the "
+        "defect usually lands it, for example \"M-31 weld porosity\" or "
+        "\"changeover on the 350T\". Or start from one of these:"
+    ),
 }
 
 
@@ -133,7 +157,7 @@ def _reply_for(intent: str, now: datetime | None = None) -> str:
 
 # Suggestions are worth showing when the user is oriented and looking for a
 # starting point, and noise when they are signing off.
-_WITH_SUGGESTIONS = {"greeting", "capability", "identity"}
+_WITH_SUGGESTIONS = {"greeting", "capability", "identity", "miss"}
 
 # Guardrail: a greeting is short. Anything longer is a real query that merely
 # starts with a greeting word, and belongs to retrieval.
@@ -144,6 +168,37 @@ def _normalise(query: str) -> str:
     text = query.strip().lower()
     text = re.sub(r"[!.,;:]+$", "", text)  # keep '?' - capability patterns use it
     return re.sub(r"\s+", " ", text)
+
+
+# Openings that only make sense against something already on screen. A query
+# starting with one of these is asking about the previous topic, so retrieval
+# should see both strings joined rather than the fragment alone.
+_FOLLOWUP = re.compile(
+    r"^(and|also|what\s+about|how\s+about|what\s+if|ok\s+but|but\s+what|"
+    r"then\s+what|what\s+else|anything\s+else|same\s+for|same\s+on|"
+    r"and\s+for|for\s+the|on\s+the|why|why\s+not|how\s+come|"
+    r"the\s+next\s+step|next\s+step|after\s+that|before\s+that|"
+    r"does\s+that|do\s+they|is\s+it|are\s+they|what\s+about\s+the)\b"
+)
+
+# A follow-up is a fragment. Anything longer is a complete question that
+# happens to start with "why", and stands on its own.
+_FOLLOWUP_MAX_WORDS = 8
+
+
+def is_followup(query: str) -> bool:
+    """True when the query only makes sense against the previous one.
+
+    Deliberately narrow. Getting this wrong in the permissive direction drags
+    the previous topic into an unrelated question, which reads far worse than
+    simply answering the fragment badly - and the caller treats it as a
+    preference for ordering, not a decision, so a false positive still falls
+    back to plain retrieval.
+    """
+    text = _normalise(query)
+    if not text or len(text.split()) > _FOLLOWUP_MAX_WORDS:
+        return False
+    return bool(_FOLLOWUP.match(text))
 
 
 def match(query: str, now: datetime | None = None) -> ConversationTurn | None:

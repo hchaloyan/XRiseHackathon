@@ -1,10 +1,591 @@
 [
   {
-    "event_id": "QC-0001",
+    "event_id": "QC-0079",
+    "machine_id": "M-31",
+    "defect_type": "UNDERCUT",
+    "count": 14,
+    "timestamp": "2026-07-11T11:50:00"
+  },
+  {
+    "event_id": "QC-0076",
+    "machine_id": "M-21",
+    "defect_type": "BURR",
+    "count": 1,
+    "timestamp": "2026-07-11T12:30:00"
+  },
+  {
+    "event_id": "QC-0078",
+    "machine_id": "M-24",
+    "defect_type": "DIM_OOT",
+    "count": 5,
+    "timestamp": "2026-07-11T13:04:00"
+  },
+  {
+    "event_id": "QC-0077",
+    "machine_id": "M-23",
+    "defect_type": "TOOL_MARK",
+    "count": 1,
+    "timestamp": "2026-07-11T17:59:00"
+  },
+  {
+    "event_id": "QC-0080",
+    "machine_id": "M-42",
+    "defect_type": "WATER_SPOT",
+    "count": 9,
+    "timestamp": "2026-07-11T20:04:00"
+  },
+  {
+    "event_id": "QC-0075",
+    "machine_id": "M-14",
+    "defect_type": "CONTAMINATION",
+    "count": 24,
+    "timestamp": "2026-07-11T20:17:00"
+  },
+  {
+    "event_id": "QC-0081",
+    "machine_id": "M-14",
+    "defect_type": "CONTAMINATION",
+    "count": 21,
+    "timestamp": "2026-07-12T11:50:00"
+  },
+  {
+    "event_id": "QC-0084",
+    "machine_id": "M-42",
+    "defect_type": "RESIDUE",
+    "count": 12,
+    "timestamp": "2026-07-12T13:15:00"
+  },
+  {
+    "event_id": "QC-0083",
+    "machine_id": "M-24",
+    "defect_type": "SURFACE_FINISH",
+    "count": 6,
+    "timestamp": "2026-07-12T13:35:00"
+  },
+  {
+    "event_id": "QC-0082",
+    "machine_id": "M-23",
+    "defect_type": "BURR",
+    "count": 1,
+    "timestamp": "2026-07-12T15:59:00"
+  },
+  {
+    "event_id": "QC-0086",
+    "machine_id": "M-32",
+    "defect_type": "SCRATCH",
+    "count": 16,
+    "timestamp": "2026-07-13T08:15:00"
+  },
+  {
+    "event_id": "QC-0088",
+    "machine_id": "M-51",
+    "defect_type": "LABEL_MISPLACED",
+    "count": 13,
+    "timestamp": "2026-07-13T10:55:00"
+  },
+  {
+    "event_id": "QC-0085",
+    "machine_id": "M-32",
+    "defect_type": "MISSING_FASTENER",
+    "count": 19,
+    "timestamp": "2026-07-13T11:48:00"
+  },
+  {
+    "event_id": "QC-0087",
+    "machine_id": "M-42",
+    "defect_type": "CONTAMINATION",
+    "count": 15,
+    "timestamp": "2026-07-13T12:41:00"
+  },
+  {
+    "event_id": "QC-0091",
+    "machine_id": "M-32",
+    "defect_type": "SCRATCH",
+    "count": 20,
+    "timestamp": "2026-07-14T07:05:00"
+  },
+  {
+    "event_id": "QC-0090",
+    "machine_id": "M-32",
+    "defect_type": "SCRATCH",
+    "count": 14,
+    "timestamp": "2026-07-14T07:55:00"
+  },
+  {
+    "event_id": "QC-0092",
+    "machine_id": "M-32",
+    "defect_type": "MISALIGNMENT",
+    "count": 13,
+    "timestamp": "2026-07-14T08:56:00"
+  },
+  {
+    "event_id": "QC-0089",
     "machine_id": "M-11",
+    "defect_type": "CONTAMINATION",
+    "count": 17,
+    "timestamp": "2026-07-14T18:30:00"
+  },
+  {
+    "event_id": "QC-0093",
+    "machine_id": "M-23",
+    "defect_type": "BURR",
+    "count": 1,
+    "timestamp": "2026-07-15T12:13:00"
+  },
+  {
+    "event_id": "QC-0094",
+    "machine_id": "M-32",
+    "defect_type": "SCRATCH",
+    "count": 14,
+    "timestamp": "2026-07-15T16:33:00"
+  },
+  {
+    "event_id": "QC-0095",
+    "machine_id": "M-32",
+    "defect_type": "MISSING_FASTENER",
+    "count": 13,
+    "timestamp": "2026-07-15T21:11:00"
+  },
+  {
+    "event_id": "QC-0098",
+    "machine_id": "M-23",
+    "defect_type": "SURFACE_FINISH",
+    "count": 1,
+    "timestamp": "2026-07-16T08:07:00"
+  },
+  {
+    "event_id": "QC-0097",
+    "machine_id": "M-22",
+    "defect_type": "DIM_OOT",
+    "count": 2,
+    "timestamp": "2026-07-16T10:30:00"
+  },
+  {
+    "event_id": "QC-0101",
+    "machine_id": "M-32",
+    "defect_type": "MISALIGNMENT",
+    "count": 17,
+    "timestamp": "2026-07-16T15:46:00"
+  },
+  {
+    "event_id": "QC-0096",
+    "machine_id": "M-14",
+    "defect_type": "WARP",
+    "count": 18,
+    "timestamp": "2026-07-16T16:22:00"
+  },
+  {
+    "event_id": "QC-0099",
+    "machine_id": "M-23",
+    "defect_type": "SURFACE_FINISH",
+    "count": 2,
+    "timestamp": "2026-07-16T18:49:00"
+  },
+  {
+    "event_id": "QC-0100",
+    "machine_id": "M-32",
+    "defect_type": "SCRATCH",
+    "count": 17,
+    "timestamp": "2026-07-16T21:06:00"
+  },
+  {
+    "event_id": "QC-0102",
+    "machine_id": "M-12",
+    "defect_type": "SHORT_SHOT",
+    "count": 22,
+    "timestamp": "2026-07-17T08:17:00"
+  },
+  {
+    "event_id": "QC-0103",
+    "machine_id": "M-23",
+    "defect_type": "SURFACE_FINISH",
+    "count": 2,
+    "timestamp": "2026-07-17T09:51:00"
+  },
+  {
+    "event_id": "QC-0104",
+    "machine_id": "M-41",
+    "defect_type": "ORANGE_PEEL",
+    "count": 9,
+    "timestamp": "2026-07-17T09:56:00"
+  },
+  {
+    "event_id": "QC-0106",
+    "machine_id": "M-51",
+    "defect_type": "CARTON_CRUSH",
+    "count": 13,
+    "timestamp": "2026-07-17T12:11:00"
+  },
+  {
+    "event_id": "QC-0105",
+    "machine_id": "M-41",
+    "defect_type": "SCRATCH",
+    "count": 15,
+    "timestamp": "2026-07-17T15:46:00"
+  },
+  {
+    "event_id": "QC-0108",
+    "machine_id": "M-13",
+    "defect_type": "FLASH",
+    "count": 24,
+    "timestamp": "2026-07-18T11:04:00"
+  },
+  {
+    "event_id": "QC-0107",
+    "machine_id": "M-11",
+    "defect_type": "SHORT_SHOT",
+    "count": 20,
+    "timestamp": "2026-07-18T11:44:00"
+  },
+  {
+    "event_id": "QC-0110",
+    "machine_id": "M-41",
+    "defect_type": "ORANGE_PEEL",
+    "count": 12,
+    "timestamp": "2026-07-18T16:15:00"
+  },
+  {
+    "event_id": "QC-0109",
+    "machine_id": "M-22",
+    "defect_type": "TOOL_MARK",
+    "count": 2,
+    "timestamp": "2026-07-18T18:35:00"
+  },
+  {
+    "event_id": "QC-0118",
+    "machine_id": "M-32",
+    "defect_type": "SCRATCH",
+    "count": 38,
+    "timestamp": "2026-07-19T07:02:00"
+  },
+  {
+    "event_id": "QC-0111",
+    "machine_id": "M-12",
+    "defect_type": "SHORT_SHOT",
+    "count": 17,
+    "timestamp": "2026-07-19T08:28:00"
+  },
+  {
+    "event_id": "QC-0119",
+    "machine_id": "M-32",
+    "defect_type": "MISSING_FASTENER",
+    "count": 7,
+    "timestamp": "2026-07-19T09:24:00"
+  },
+  {
+    "event_id": "QC-0112",
+    "machine_id": "M-12",
+    "defect_type": "FLASH",
+    "count": 11,
+    "timestamp": "2026-07-19T10:44:00"
+  },
+  {
+    "event_id": "QC-0117",
+    "machine_id": "M-22",
+    "defect_type": "TOOL_MARK",
+    "count": 3,
+    "timestamp": "2026-07-19T17:56:00"
+  },
+  {
+    "event_id": "QC-0113",
+    "machine_id": "M-12",
+    "defect_type": "WARP",
+    "count": 20,
+    "timestamp": "2026-07-19T18:04:00"
+  },
+  {
+    "event_id": "QC-0114",
+    "machine_id": "M-12",
+    "defect_type": "WARP",
+    "count": 20,
+    "timestamp": "2026-07-19T18:27:00"
+  },
+  {
+    "event_id": "QC-0116",
+    "machine_id": "M-14",
+    "defect_type": "WARP",
+    "count": 5,
+    "timestamp": "2026-07-19T18:30:00"
+  },
+  {
+    "event_id": "QC-0115",
+    "machine_id": "M-14",
+    "defect_type": "WARP",
+    "count": 22,
+    "timestamp": "2026-07-19T18:58:00"
+  },
+  {
+    "event_id": "QC-0123",
+    "machine_id": "M-14",
+    "defect_type": "CONTAMINATION",
+    "count": 20,
+    "timestamp": "2026-07-20T07:17:00"
+  },
+  {
+    "event_id": "QC-0124",
+    "machine_id": "M-32",
+    "defect_type": "MISALIGNMENT",
+    "count": 23,
+    "timestamp": "2026-07-20T10:07:00"
+  },
+  {
+    "event_id": "QC-0120",
+    "machine_id": "M-12",
+    "defect_type": "CONTAMINATION",
+    "count": 17,
+    "timestamp": "2026-07-20T10:41:00"
+  },
+  {
+    "event_id": "QC-0125",
+    "machine_id": "M-32",
+    "defect_type": "MISSING_FASTENER",
+    "count": 17,
+    "timestamp": "2026-07-20T12:54:00"
+  },
+  {
+    "event_id": "QC-0121",
+    "machine_id": "M-12",
+    "defect_type": "FLASH",
+    "count": 13,
+    "timestamp": "2026-07-20T13:19:00"
+  },
+  {
+    "event_id": "QC-0122",
+    "machine_id": "M-13",
+    "defect_type": "CONTAMINATION",
+    "count": 22,
+    "timestamp": "2026-07-20T13:26:00"
+  },
+  {
+    "event_id": "QC-0126",
+    "machine_id": "M-51",
+    "defect_type": "MISSING_ITEM",
+    "count": 20,
+    "timestamp": "2026-07-20T18:54:00"
+  },
+  {
+    "event_id": "QC-0131",
+    "machine_id": "M-24",
+    "defect_type": "DIM_OOT",
+    "count": 6,
+    "timestamp": "2026-07-21T07:21:00"
+  },
+  {
+    "event_id": "QC-0133",
+    "machine_id": "M-32",
+    "defect_type": "SCRATCH",
+    "count": 7,
+    "timestamp": "2026-07-21T10:56:00"
+  },
+  {
+    "event_id": "QC-0132",
+    "machine_id": "M-32",
+    "defect_type": "SCRATCH",
+    "count": 21,
+    "timestamp": "2026-07-21T11:54:00"
+  },
+  {
+    "event_id": "QC-0128",
+    "machine_id": "M-14",
+    "defect_type": "WARP",
+    "count": 16,
+    "timestamp": "2026-07-21T13:19:00"
+  },
+  {
+    "event_id": "QC-0129",
+    "machine_id": "M-21",
+    "defect_type": "DIM_OOT",
+    "count": 2,
+    "timestamp": "2026-07-21T13:25:00"
+  },
+  {
+    "event_id": "QC-0127",
+    "machine_id": "M-11",
+    "defect_type": "FLASH",
+    "count": 9,
+    "timestamp": "2026-07-21T17:38:00"
+  },
+  {
+    "event_id": "QC-0130",
+    "machine_id": "M-21",
+    "defect_type": "BURR",
+    "count": 1,
+    "timestamp": "2026-07-21T19:51:00"
+  },
+  {
+    "event_id": "QC-0136",
+    "machine_id": "M-21",
+    "defect_type": "DIM_OOT",
+    "count": 2,
+    "timestamp": "2026-07-22T15:20:00"
+  },
+  {
+    "event_id": "QC-0140",
+    "machine_id": "M-42",
+    "defect_type": "RESIDUE",
+    "count": 17,
+    "timestamp": "2026-07-22T16:11:00"
+  },
+  {
+    "event_id": "QC-0139",
+    "machine_id": "M-32",
+    "defect_type": "MISSING_FASTENER",
+    "count": 24,
+    "timestamp": "2026-07-22T16:25:00"
+  },
+  {
+    "event_id": "QC-0135",
+    "machine_id": "M-13",
     "defect_type": "SINK_MARK",
     "count": 9,
-    "timestamp": "2026-07-27T20:09:00"
+    "timestamp": "2026-07-22T16:32:00"
+  },
+  {
+    "event_id": "QC-0138",
+    "machine_id": "M-32",
+    "defect_type": "SCRATCH",
+    "count": 34,
+    "timestamp": "2026-07-22T16:59:00"
+  },
+  {
+    "event_id": "QC-0137",
+    "machine_id": "M-23",
+    "defect_type": "BURR",
+    "count": 2,
+    "timestamp": "2026-07-22T20:19:00"
+  },
+  {
+    "event_id": "QC-0134",
+    "machine_id": "M-13",
+    "defect_type": "CONTAMINATION",
+    "count": 21,
+    "timestamp": "2026-07-22T20:21:00"
+  },
+  {
+    "event_id": "QC-0141",
+    "machine_id": "M-21",
+    "defect_type": "TOOL_MARK",
+    "count": 2,
+    "timestamp": "2026-07-23T11:09:00"
+  },
+  {
+    "event_id": "QC-0142",
+    "machine_id": "M-32",
+    "defect_type": "SCRATCH",
+    "count": 35,
+    "timestamp": "2026-07-23T16:12:00"
+  },
+  {
+    "event_id": "QC-0143",
+    "machine_id": "M-32",
+    "defect_type": "MISSING_FASTENER",
+    "count": 2,
+    "timestamp": "2026-07-23T16:20:00"
+  },
+  {
+    "event_id": "QC-0151",
+    "machine_id": "M-51",
+    "defect_type": "MISSING_ITEM",
+    "count": 5,
+    "timestamp": "2026-07-24T07:34:00"
+  },
+  {
+    "event_id": "QC-0145",
+    "machine_id": "M-12",
+    "defect_type": "SHORT_SHOT",
+    "count": 16,
+    "timestamp": "2026-07-24T09:19:00"
+  },
+  {
+    "event_id": "QC-0146",
+    "machine_id": "M-12",
+    "defect_type": "SINK_MARK",
+    "count": 11,
+    "timestamp": "2026-07-24T10:41:00"
+  },
+  {
+    "event_id": "QC-0150",
+    "machine_id": "M-51",
+    "defect_type": "MISSING_ITEM",
+    "count": 22,
+    "timestamp": "2026-07-24T13:40:00"
+  },
+  {
+    "event_id": "QC-0147",
+    "machine_id": "M-22",
+    "defect_type": "SURFACE_FINISH",
+    "count": 1,
+    "timestamp": "2026-07-24T15:21:00"
+  },
+  {
+    "event_id": "QC-0148",
+    "machine_id": "M-23",
+    "defect_type": "DIM_OOT",
+    "count": 3,
+    "timestamp": "2026-07-24T17:06:00"
+  },
+  {
+    "event_id": "QC-0149",
+    "machine_id": "M-24",
+    "defect_type": "TOOL_MARK",
+    "count": 9,
+    "timestamp": "2026-07-24T19:10:00"
+  },
+  {
+    "event_id": "QC-0144",
+    "machine_id": "M-11",
+    "defect_type": "SINK_MARK",
+    "count": 21,
+    "timestamp": "2026-07-24T21:07:00"
+  },
+  {
+    "event_id": "QC-0152",
+    "machine_id": "M-21",
+    "defect_type": "SURFACE_FINISH",
+    "count": 1,
+    "timestamp": "2026-07-25T07:19:00"
+  },
+  {
+    "event_id": "QC-0154",
+    "machine_id": "M-42",
+    "defect_type": "RESIDUE",
+    "count": 18,
+    "timestamp": "2026-07-25T07:42:00"
+  },
+  {
+    "event_id": "QC-0153",
+    "machine_id": "M-41",
+    "defect_type": "CONTAMINATION",
+    "count": 13,
+    "timestamp": "2026-07-25T08:22:00"
+  },
+  {
+    "event_id": "QC-0155",
+    "machine_id": "M-42",
+    "defect_type": "CONTAMINATION",
+    "count": 10,
+    "timestamp": "2026-07-25T16:28:00"
+  },
+  {
+    "event_id": "QC-0158",
+    "machine_id": "M-21",
+    "defect_type": "BURR",
+    "count": 2,
+    "timestamp": "2026-07-26T09:13:00"
+  },
+  {
+    "event_id": "QC-0156",
+    "machine_id": "M-11",
+    "defect_type": "FLASH",
+    "count": 12,
+    "timestamp": "2026-07-26T10:37:00"
+  },
+  {
+    "event_id": "QC-0157",
+    "machine_id": "M-12",
+    "defect_type": "FLASH",
+    "count": 15,
+    "timestamp": "2026-07-26T19:13:00"
   },
   {
     "event_id": "QC-0002",
@@ -14,18 +595,18 @@
     "timestamp": "2026-07-27T07:40:00"
   },
   {
-    "event_id": "QC-0003",
-    "machine_id": "M-21",
-    "defect_type": "SURFACE_FINISH",
-    "count": 1,
-    "timestamp": "2026-07-27T21:22:00"
-  },
-  {
     "event_id": "QC-0004",
     "machine_id": "M-22",
     "defect_type": "DIM_OOT",
     "count": 3,
     "timestamp": "2026-07-27T07:56:00"
+  },
+  {
+    "event_id": "QC-0007",
+    "machine_id": "M-31",
+    "defect_type": "SPATTER",
+    "count": 11,
+    "timestamp": "2026-07-27T09:02:00"
   },
   {
     "event_id": "QC-0005",
@@ -42,11 +623,18 @@
     "timestamp": "2026-07-27T19:16:00"
   },
   {
-    "event_id": "QC-0007",
-    "machine_id": "M-31",
-    "defect_type": "SPATTER",
-    "count": 11,
-    "timestamp": "2026-07-27T09:02:00"
+    "event_id": "QC-0001",
+    "machine_id": "M-11",
+    "defect_type": "SINK_MARK",
+    "count": 9,
+    "timestamp": "2026-07-27T20:09:00"
+  },
+  {
+    "event_id": "QC-0003",
+    "machine_id": "M-21",
+    "defect_type": "SURFACE_FINISH",
+    "count": 1,
+    "timestamp": "2026-07-27T21:22:00"
   },
   {
     "event_id": "QC-0008",
@@ -56,25 +644,18 @@
     "timestamp": "2026-07-28T07:55:00"
   },
   {
-    "event_id": "QC-0009",
-    "machine_id": "M-14",
-    "defect_type": "CONTAMINATION",
-    "count": 16,
-    "timestamp": "2026-07-28T15:34:00"
-  },
-  {
-    "event_id": "QC-0010",
-    "machine_id": "M-23",
-    "defect_type": "SURFACE_FINISH",
-    "count": 2,
-    "timestamp": "2026-07-28T20:39:00"
-  },
-  {
     "event_id": "QC-0011",
     "machine_id": "M-31",
     "defect_type": "UNDERCUT",
     "count": 16,
     "timestamp": "2026-07-28T13:19:00"
+  },
+  {
+    "event_id": "QC-0009",
+    "machine_id": "M-14",
+    "defect_type": "CONTAMINATION",
+    "count": 16,
+    "timestamp": "2026-07-28T15:34:00"
   },
   {
     "event_id": "QC-0012",
@@ -84,11 +665,46 @@
     "timestamp": "2026-07-28T19:39:00"
   },
   {
-    "event_id": "QC-0013",
-    "machine_id": "M-12",
-    "defect_type": "SINK_MARK",
-    "count": 13,
-    "timestamp": "2026-07-30T18:14:00"
+    "event_id": "QC-0159",
+    "machine_id": "M-41",
+    "defect_type": "SCRATCH",
+    "count": 15,
+    "timestamp": "2026-07-28T20:38:00"
+  },
+  {
+    "event_id": "QC-0010",
+    "machine_id": "M-23",
+    "defect_type": "SURFACE_FINISH",
+    "count": 2,
+    "timestamp": "2026-07-28T20:39:00"
+  },
+  {
+    "event_id": "QC-0160",
+    "machine_id": "M-51",
+    "defect_type": "LABEL_MISPLACED",
+    "count": 15,
+    "timestamp": "2026-07-29T07:25:00"
+  },
+  {
+    "event_id": "QC-0161",
+    "machine_id": "M-42",
+    "defect_type": "CONTAMINATION",
+    "count": 18,
+    "timestamp": "2026-07-30T12:42:00"
+  },
+  {
+    "event_id": "QC-0016",
+    "machine_id": "M-24",
+    "defect_type": "BURR",
+    "count": 7,
+    "timestamp": "2026-07-30T13:24:00"
+  },
+  {
+    "event_id": "QC-0162",
+    "machine_id": "M-42",
+    "defect_type": "CONTAMINATION",
+    "count": 16,
+    "timestamp": "2026-07-30T15:47:00"
   },
   {
     "event_id": "QC-0014",
@@ -98,6 +714,13 @@
     "timestamp": "2026-07-30T16:48:00"
   },
   {
+    "event_id": "QC-0013",
+    "machine_id": "M-12",
+    "defect_type": "SINK_MARK",
+    "count": 13,
+    "timestamp": "2026-07-30T18:14:00"
+  },
+  {
     "event_id": "QC-0015",
     "machine_id": "M-14",
     "defect_type": "SINK_MARK",
@@ -105,11 +728,11 @@
     "timestamp": "2026-07-30T19:54:00"
   },
   {
-    "event_id": "QC-0016",
-    "machine_id": "M-24",
-    "defect_type": "BURR",
-    "count": 7,
-    "timestamp": "2026-07-30T13:24:00"
+    "event_id": "QC-0019",
+    "machine_id": "M-32",
+    "defect_type": "SCRATCH",
+    "count": 3,
+    "timestamp": "2026-07-31T10:56:00"
   },
   {
     "event_id": "QC-0017",
@@ -126,11 +749,11 @@
     "timestamp": "2026-07-31T12:36:00"
   },
   {
-    "event_id": "QC-0019",
-    "machine_id": "M-32",
-    "defect_type": "SCRATCH",
-    "count": 3,
-    "timestamp": "2026-07-31T10:56:00"
+    "event_id": "QC-0022",
+    "machine_id": "M-31",
+    "defect_type": "SPATTER",
+    "count": 11,
+    "timestamp": "2026-08-01T12:00:00"
   },
   {
     "event_id": "QC-0020",
@@ -147,11 +770,53 @@
     "timestamp": "2026-08-01T19:29:00"
   },
   {
-    "event_id": "QC-0022",
-    "machine_id": "M-31",
-    "defect_type": "SPATTER",
-    "count": 11,
-    "timestamp": "2026-08-01T12:00:00"
+    "event_id": "QC-0029",
+    "machine_id": "M-32",
+    "defect_type": "MISSING_FASTENER",
+    "count": 16,
+    "timestamp": "2026-08-02T08:04:00"
+  },
+  {
+    "event_id": "QC-0027",
+    "machine_id": "M-14",
+    "defect_type": "CONTAMINATION",
+    "count": 17,
+    "timestamp": "2026-08-02T08:09:00"
+  },
+  {
+    "event_id": "QC-0163",
+    "machine_id": "M-41",
+    "defect_type": "ORANGE_PEEL",
+    "count": 20,
+    "timestamp": "2026-08-02T08:51:00"
+  },
+  {
+    "event_id": "QC-0026",
+    "machine_id": "M-14",
+    "defect_type": "SHORT_SHOT",
+    "count": 15,
+    "timestamp": "2026-08-02T09:00:00"
+  },
+  {
+    "event_id": "QC-0025",
+    "machine_id": "M-13",
+    "defect_type": "SHORT_SHOT",
+    "count": 15,
+    "timestamp": "2026-08-02T12:17:00"
+  },
+  {
+    "event_id": "QC-0030",
+    "machine_id": "M-32",
+    "defect_type": "MISALIGNMENT",
+    "count": 12,
+    "timestamp": "2026-08-02T12:19:00"
+  },
+  {
+    "event_id": "QC-0028",
+    "machine_id": "M-22",
+    "defect_type": "DIM_OOT",
+    "count": 1,
+    "timestamp": "2026-08-02T15:25:00"
   },
   {
     "event_id": "QC-0023",
@@ -168,48 +833,6 @@
     "timestamp": "2026-08-02T18:08:00"
   },
   {
-    "event_id": "QC-0025",
-    "machine_id": "M-13",
-    "defect_type": "SHORT_SHOT",
-    "count": 15,
-    "timestamp": "2026-08-02T12:17:00"
-  },
-  {
-    "event_id": "QC-0026",
-    "machine_id": "M-14",
-    "defect_type": "SHORT_SHOT",
-    "count": 15,
-    "timestamp": "2026-08-02T09:00:00"
-  },
-  {
-    "event_id": "QC-0027",
-    "machine_id": "M-14",
-    "defect_type": "CONTAMINATION",
-    "count": 17,
-    "timestamp": "2026-08-02T08:09:00"
-  },
-  {
-    "event_id": "QC-0028",
-    "machine_id": "M-22",
-    "defect_type": "DIM_OOT",
-    "count": 1,
-    "timestamp": "2026-08-02T15:25:00"
-  },
-  {
-    "event_id": "QC-0029",
-    "machine_id": "M-32",
-    "defect_type": "MISSING_FASTENER",
-    "count": 16,
-    "timestamp": "2026-08-02T08:04:00"
-  },
-  {
-    "event_id": "QC-0030",
-    "machine_id": "M-32",
-    "defect_type": "MISALIGNMENT",
-    "count": 12,
-    "timestamp": "2026-08-02T12:19:00"
-  },
-  {
     "event_id": "QC-0031",
     "machine_id": "M-13",
     "defect_type": "SINK_MARK",
@@ -224,11 +847,11 @@
     "timestamp": "2026-08-03T10:34:00"
   },
   {
-    "event_id": "QC-0033",
-    "machine_id": "M-23",
-    "defect_type": "BURR",
-    "count": 1,
-    "timestamp": "2026-08-03T21:32:00"
+    "event_id": "QC-0164",
+    "machine_id": "M-42",
+    "defect_type": "CONTAMINATION",
+    "count": 12,
+    "timestamp": "2026-08-03T16:24:00"
   },
   {
     "event_id": "QC-0034",
@@ -238,53 +861,11 @@
     "timestamp": "2026-08-03T18:43:00"
   },
   {
-    "event_id": "QC-0035",
-    "machine_id": "M-11",
-    "defect_type": "SINK_MARK",
-    "count": 15,
-    "timestamp": "2026-08-04T18:56:00"
-  },
-  {
-    "event_id": "QC-0036",
-    "machine_id": "M-13",
-    "defect_type": "SHORT_SHOT",
-    "count": 11,
-    "timestamp": "2026-08-04T09:55:00"
-  },
-  {
-    "event_id": "QC-0037",
-    "machine_id": "M-24",
+    "event_id": "QC-0033",
+    "machine_id": "M-23",
     "defect_type": "BURR",
-    "count": 5,
-    "timestamp": "2026-08-04T18:47:00"
-  },
-  {
-    "event_id": "QC-0038",
-    "machine_id": "M-31",
-    "defect_type": "WELD_POROSITY",
-    "count": 26,
-    "timestamp": "2026-08-04T13:33:00"
-  },
-  {
-    "event_id": "QC-0039",
-    "machine_id": "M-31",
-    "defect_type": "WELD_POROSITY",
-    "count": 2,
-    "timestamp": "2026-08-04T09:24:00"
-  },
-  {
-    "event_id": "QC-0040",
-    "machine_id": "M-31",
-    "defect_type": "WELD_POROSITY",
-    "count": 18,
-    "timestamp": "2026-08-04T20:09:00"
-  },
-  {
-    "event_id": "QC-0041",
-    "machine_id": "M-31",
-    "defect_type": "WELD_POROSITY",
-    "count": 10,
-    "timestamp": "2026-08-04T16:10:00"
+    "count": 1,
+    "timestamp": "2026-08-03T21:32:00"
   },
   {
     "event_id": "QC-0042",
@@ -294,6 +875,27 @@
     "timestamp": "2026-08-04T07:42:00"
   },
   {
+    "event_id": "QC-0044",
+    "machine_id": "M-32",
+    "defect_type": "SCRATCH",
+    "count": 13,
+    "timestamp": "2026-08-04T08:15:00"
+  },
+  {
+    "event_id": "QC-0039",
+    "machine_id": "M-31",
+    "defect_type": "WELD_POROSITY",
+    "count": 2,
+    "timestamp": "2026-08-04T09:24:00"
+  },
+  {
+    "event_id": "QC-0036",
+    "machine_id": "M-13",
+    "defect_type": "SHORT_SHOT",
+    "count": 11,
+    "timestamp": "2026-08-04T09:55:00"
+  },
+  {
     "event_id": "QC-0043",
     "machine_id": "M-32",
     "defect_type": "MISALIGNMENT",
@@ -301,11 +903,74 @@
     "timestamp": "2026-08-04T10:50:00"
   },
   {
-    "event_id": "QC-0044",
-    "machine_id": "M-32",
-    "defect_type": "SCRATCH",
-    "count": 13,
-    "timestamp": "2026-08-04T08:15:00"
+    "event_id": "QC-0038",
+    "machine_id": "M-31",
+    "defect_type": "WELD_POROSITY",
+    "count": 26,
+    "timestamp": "2026-08-04T13:33:00"
+  },
+  {
+    "event_id": "QC-0041",
+    "machine_id": "M-31",
+    "defect_type": "WELD_POROSITY",
+    "count": 10,
+    "timestamp": "2026-08-04T16:10:00"
+  },
+  {
+    "event_id": "QC-0037",
+    "machine_id": "M-24",
+    "defect_type": "BURR",
+    "count": 5,
+    "timestamp": "2026-08-04T18:47:00"
+  },
+  {
+    "event_id": "QC-0035",
+    "machine_id": "M-11",
+    "defect_type": "SINK_MARK",
+    "count": 15,
+    "timestamp": "2026-08-04T18:56:00"
+  },
+  {
+    "event_id": "QC-0040",
+    "machine_id": "M-31",
+    "defect_type": "WELD_POROSITY",
+    "count": 18,
+    "timestamp": "2026-08-04T20:09:00"
+  },
+  {
+    "event_id": "QC-0048",
+    "machine_id": "M-13",
+    "defect_type": "SINK_MARK",
+    "count": 23,
+    "timestamp": "2026-08-05T09:03:00"
+  },
+  {
+    "event_id": "QC-0050",
+    "machine_id": "M-31",
+    "defect_type": "WELD_POROSITY",
+    "count": 22,
+    "timestamp": "2026-08-05T10:47:00"
+  },
+  {
+    "event_id": "QC-0049",
+    "machine_id": "M-24",
+    "defect_type": "TOOL_MARK",
+    "count": 6,
+    "timestamp": "2026-08-05T15:17:00"
+  },
+  {
+    "event_id": "QC-0051",
+    "machine_id": "M-31",
+    "defect_type": "WELD_POROSITY",
+    "count": 23,
+    "timestamp": "2026-08-05T17:40:00"
+  },
+  {
+    "event_id": "QC-0047",
+    "machine_id": "M-12",
+    "defect_type": "SHORT_SHOT",
+    "count": 1,
+    "timestamp": "2026-08-05T18:19:00"
   },
   {
     "event_id": "QC-0045",
@@ -322,60 +987,11 @@
     "timestamp": "2026-08-05T19:43:00"
   },
   {
-    "event_id": "QC-0047",
-    "machine_id": "M-12",
-    "defect_type": "SHORT_SHOT",
-    "count": 1,
-    "timestamp": "2026-08-05T18:19:00"
-  },
-  {
-    "event_id": "QC-0048",
-    "machine_id": "M-13",
-    "defect_type": "SINK_MARK",
-    "count": 23,
-    "timestamp": "2026-08-05T09:03:00"
-  },
-  {
-    "event_id": "QC-0049",
-    "machine_id": "M-24",
-    "defect_type": "TOOL_MARK",
-    "count": 6,
-    "timestamp": "2026-08-05T15:17:00"
-  },
-  {
-    "event_id": "QC-0050",
-    "machine_id": "M-31",
-    "defect_type": "WELD_POROSITY",
-    "count": 22,
-    "timestamp": "2026-08-05T10:47:00"
-  },
-  {
-    "event_id": "QC-0051",
-    "machine_id": "M-31",
-    "defect_type": "WELD_POROSITY",
-    "count": 23,
-    "timestamp": "2026-08-05T17:40:00"
-  },
-  {
     "event_id": "QC-0052",
     "machine_id": "M-21",
     "defect_type": "DIM_OOT",
     "count": 3,
     "timestamp": "2026-08-06T07:23:00"
-  },
-  {
-    "event_id": "QC-0053",
-    "machine_id": "M-22",
-    "defect_type": "TOOL_MARK",
-    "count": 1,
-    "timestamp": "2026-08-06T18:32:00"
-  },
-  {
-    "event_id": "QC-0054",
-    "machine_id": "M-23",
-    "defect_type": "DIM_OOT",
-    "count": 1,
-    "timestamp": "2026-08-06T17:43:00"
   },
   {
     "event_id": "QC-0055",
@@ -385,11 +1001,39 @@
     "timestamp": "2026-08-06T09:03:00"
   },
   {
+    "event_id": "QC-0165",
+    "machine_id": "M-42",
+    "defect_type": "RESIDUE",
+    "count": 19,
+    "timestamp": "2026-08-06T09:24:00"
+  },
+  {
+    "event_id": "QC-0166",
+    "machine_id": "M-51",
+    "defect_type": "MISSING_ITEM",
+    "count": 23,
+    "timestamp": "2026-08-06T10:23:00"
+  },
+  {
     "event_id": "QC-0056",
     "machine_id": "M-31",
     "defect_type": "WELD_POROSITY",
     "count": 25,
     "timestamp": "2026-08-06T17:26:00"
+  },
+  {
+    "event_id": "QC-0054",
+    "machine_id": "M-23",
+    "defect_type": "DIM_OOT",
+    "count": 1,
+    "timestamp": "2026-08-06T17:43:00"
+  },
+  {
+    "event_id": "QC-0053",
+    "machine_id": "M-22",
+    "defect_type": "TOOL_MARK",
+    "count": 1,
+    "timestamp": "2026-08-06T18:32:00"
   },
   {
     "event_id": "QC-0057",
@@ -413,11 +1057,11 @@
     "timestamp": "2026-08-07T18:31:00"
   },
   {
-    "event_id": "QC-0060",
-    "machine_id": "M-31",
-    "defect_type": "WELD_POROSITY",
-    "count": 18,
-    "timestamp": "2026-08-08T11:56:00"
+    "event_id": "QC-0167",
+    "machine_id": "M-42",
+    "defect_type": "WATER_SPOT",
+    "count": 11,
+    "timestamp": "2026-08-07T18:48:00"
   },
   {
     "event_id": "QC-0061",
@@ -427,11 +1071,11 @@
     "timestamp": "2026-08-08T07:37:00"
   },
   {
-    "event_id": "QC-0062",
+    "event_id": "QC-0060",
     "machine_id": "M-31",
     "defect_type": "WELD_POROSITY",
-    "count": 20,
-    "timestamp": "2026-08-08T18:29:00"
+    "count": 18,
+    "timestamp": "2026-08-08T11:56:00"
   },
   {
     "event_id": "QC-0063",
@@ -448,18 +1092,18 @@
     "timestamp": "2026-08-08T16:54:00"
   },
   {
-    "event_id": "QC-0065",
-    "machine_id": "M-12",
-    "defect_type": "FLASH",
-    "count": 35,
-    "timestamp": "2026-08-09T12:20:00"
+    "event_id": "QC-0062",
+    "machine_id": "M-31",
+    "defect_type": "WELD_POROSITY",
+    "count": 20,
+    "timestamp": "2026-08-08T18:29:00"
   },
   {
-    "event_id": "QC-0066",
-    "machine_id": "M-12",
-    "defect_type": "WARP",
-    "count": 4,
-    "timestamp": "2026-08-09T11:44:00"
+    "event_id": "QC-0168",
+    "machine_id": "M-51",
+    "defect_type": "CARTON_CRUSH",
+    "count": 12,
+    "timestamp": "2026-08-08T18:33:00"
   },
   {
     "event_id": "QC-0067",
@@ -469,11 +1113,32 @@
     "timestamp": "2026-08-09T11:05:00"
   },
   {
+    "event_id": "QC-0070",
+    "machine_id": "M-31",
+    "defect_type": "WELD_POROSITY",
+    "count": 12,
+    "timestamp": "2026-08-09T11:39:00"
+  },
+  {
+    "event_id": "QC-0066",
+    "machine_id": "M-12",
+    "defect_type": "WARP",
+    "count": 4,
+    "timestamp": "2026-08-09T11:44:00"
+  },
+  {
     "event_id": "QC-0068",
     "machine_id": "M-24",
     "defect_type": "TOOL_MARK",
     "count": 5,
     "timestamp": "2026-08-09T11:51:00"
+  },
+  {
+    "event_id": "QC-0065",
+    "machine_id": "M-12",
+    "defect_type": "FLASH",
+    "count": 35,
+    "timestamp": "2026-08-09T12:20:00"
   },
   {
     "event_id": "QC-0069",
@@ -483,18 +1148,11 @@
     "timestamp": "2026-08-09T13:08:00"
   },
   {
-    "event_id": "QC-0070",
-    "machine_id": "M-31",
-    "defect_type": "WELD_POROSITY",
-    "count": 12,
-    "timestamp": "2026-08-09T11:39:00"
-  },
-  {
-    "event_id": "QC-0071",
-    "machine_id": "M-31",
-    "defect_type": "WELD_POROSITY",
-    "count": 13,
-    "timestamp": "2026-08-09T19:28:00"
+    "event_id": "QC-0074",
+    "machine_id": "M-32",
+    "defect_type": "MISSING_FASTENER",
+    "count": 3,
+    "timestamp": "2026-08-09T15:03:00"
   },
   {
     "event_id": "QC-0072",
@@ -511,10 +1169,17 @@
     "timestamp": "2026-08-09T19:09:00"
   },
   {
-    "event_id": "QC-0074",
-    "machine_id": "M-32",
-    "defect_type": "MISSING_FASTENER",
-    "count": 3,
-    "timestamp": "2026-08-09T15:03:00"
+    "event_id": "QC-0071",
+    "machine_id": "M-31",
+    "defect_type": "WELD_POROSITY",
+    "count": 13,
+    "timestamp": "2026-08-09T19:28:00"
+  },
+  {
+    "event_id": "QC-0169",
+    "machine_id": "M-42",
+    "defect_type": "WATER_SPOT",
+    "count": 17,
+    "timestamp": "2026-08-09T19:53:00"
   }
 ]

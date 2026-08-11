@@ -12,8 +12,9 @@ Aggregation is weighted by production time, never an average of machine OEEs
 classic way to put a wrong number on stage.
 """
 
-from datetime import date
+from datetime import date, timedelta
 
+import numpy as np
 import pandas as pd
 
 from app.services.data_loader import load
@@ -144,6 +145,29 @@ def inventory(day: date) -> dict:
     items["days_of_cover"] = (items["on_hand"] / items["daily_usage"]).round(1)
     items["below_reorder"] = items["on_hand"] < items["reorder_point"]
 
+    # "Days of cover" is a stock-controller's phrase and it left supervisors
+    # guessing. These three columns say the same thing in words a shift lead
+    # can act on without translating anything.
+    def _status(row) -> str:
+        if row["below_reorder"]:
+            return "reorder_now"
+        if row["days_of_cover"] < 7:
+            return "order_this_week"
+        return "ok"
+
+    items["status"] = items.apply(_status, axis=1)
+    items["runs_out_on"] = [
+        day + timedelta(days=int(cover)) for cover in items["days_of_cover"]
+    ]
+    # Enough to clear the reorder point with a week's usage behind it, rounded
+    # up to a whole 5 so the number reads like something you would actually put
+    # on a requisition.
+    shortfall = (items["reorder_point"] * 2 - items["on_hand"]).clip(lower=0)
+    weekly = items["daily_usage"] * 7
+    items["suggested_order_qty"] = (
+        np.ceil(pd.concat([shortfall, weekly], axis=1).max(axis=1) / 5) * 5
+    ).astype(int)
+
     # The correlation worth putting on screen: short parts and stopped lines.
     downtime = frames["downtime_events"]
     starved = downtime[(downtime["day"] == day) & (downtime["reason_code"] == "MATERIAL_STARVE")]
@@ -153,10 +177,17 @@ def inventory(day: date) -> dict:
     )
 
     short = items[items["below_reorder"]]
+    soonest = items.sort_values("days_of_cover").iloc[0]
     return {
         "parts_tracked": len(items),
         "parts_below_reorder": len(short),
         "lowest_days_of_cover": float(items["days_of_cover"].min()),
+        # The part that runs out first, named. "Lowest cover 4.4 days" told a
+        # supervisor a number without telling them which part to chase.
+        "soonest_part_id": str(soonest["part_id"]),
+        "soonest_description": str(soonest["description"]),
+        "soonest_days": float(soonest["days_of_cover"]),
+        "soonest_runs_out_on": soonest["runs_out_on"],
         "starved_minutes_by_line": starved_lines,
         "items": items.sort_values("days_of_cover").to_dict("records"),
     }

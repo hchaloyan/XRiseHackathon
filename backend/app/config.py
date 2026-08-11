@@ -18,10 +18,22 @@ class Settings(BaseSettings):
     embed_model: str = "nomic-embed-text"
     keep_alive: str = "30m"  # holds the model in VRAM between requests
 
-    # Hosted fallback (unused while llm_provider == "ollama")
-    hosted_base_url: str = ""
-    hosted_api_key: str = ""
-    hosted_model: str = ""
+    # Hosted provider. Any OpenAI-compatible endpoint; defaults target Groq.
+    # Used in two independent places:
+    #   - as the whole-app fallback when llm_provider == "hosted"
+    #   - as the general-knowledge answerer, below, whatever llm_provider is
+    hosted_base_url: str = "https://api.groq.com/openai/v1"
+    hosted_api_key: str = ""  # GROQ key goes in backend/.env, never in git
+    # llama-3.3-70b-versatile was deprecated on Groq in June 2026. The 20B is
+    # the fast option and this answer is three sentences; use gpt-oss-120b or
+    # qwen/qwen3.6-27b if the answers read too thin.
+    hosted_model: str = "openai/gpt-oss-20b"
+
+    # Who answers a question the SOPs do not cover: "hosted", "ollama", or
+    # "off" to keep the plain redirect. Hosted by default because this path is
+    # user-facing latency, and a 7B local model spends 3s saying less.
+    general_provider: str = "hosted"
+    general_timeout: int = 15
 
     # Timeouts, seconds. On expiry, endpoints return computed fields only.
     insights_timeout: int = 30
