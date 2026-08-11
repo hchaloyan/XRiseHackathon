@@ -2,7 +2,7 @@ import { CircleAlert, FileText, Lightbulb, Wrench } from 'lucide-react'
 import { api } from '../api/client'
 import type { Evidence, EventContext, EventRow, RootCauseResponse } from '../api/types'
 import { Badge } from '../components/ui/Badge'
-import { Skeleton, SkeletonLines } from '../components/ui/Skeleton'
+import Analysing from '../components/ui/Analysing'
 import { clockTime, humanizeCode, minutes } from '../lib/format'
 import { useFetch } from '../lib/useFetch'
 
@@ -30,9 +30,21 @@ const cache = new Map<string, RootCauseResponse>()
  */
 function fromRowAlone(event: EventRow): RootCauseResponse {
   const evidence: Evidence[] = [
-    { label: 'Machine', value: `${event.machineName} (${event.machineId})`, detail: event.machineType },
-    { label: 'Line and shift', value: `${event.line} · Shift ${event.shift}`, detail: null },
-    { label: 'Started', value: clockTime(event.start), detail: event.start.slice(0, 10) },
+    {
+      label: 'Machine',
+      value: `${event.machineName} (${event.machineId})`,
+      detail: event.machineType,
+    },
+    {
+      label: 'Line and shift',
+      value: `${event.line} · Shift ${event.shift}`,
+      detail: null,
+    },
+    {
+      label: 'Started',
+      value: clockTime(event.start),
+      detail: event.start.slice(0, 10),
+    },
   ]
 
   if (event.kind === 'downtime') {
@@ -42,7 +54,11 @@ function fromRowAlone(event: EventRow): RootCauseResponse {
       detail: event.reasonCode ? humanizeCode(event.reasonCode) : null,
     })
     if (event.operatorNote) {
-      evidence.push({ label: 'Operator note', value: event.operatorNote, detail: null })
+      evidence.push({
+        label: 'Operator note',
+        value: event.operatorNote,
+        detail: null,
+      })
     }
   } else {
     evidence.push({
@@ -98,6 +114,12 @@ async function loadRootCause(event: EventRow): Promise<RootCauseResponse> {
 export default function RootCausePanel({ event }: { event: EventRow }) {
   const { data, loading } = useFetch(() => loadRootCause(event))
 
+  // While the model works, render the evidence taken straight off the row.
+  // It is real, it is instant, and it is a subset of what the response will
+  // carry — so the panel fills immediately and then deepens, rather than
+  // showing a skeleton for ten seconds and snapping into place.
+  const shown = data ?? fromRowAlone(event)
+
   // Lowest rank wins rather than array position, so an unsorted response from
   // the model still surfaces the right one.
   const top = data?.hypotheses?.length
@@ -106,106 +128,98 @@ export default function RootCausePanel({ event }: { event: EventRow }) {
 
   return (
     <div className="border-t border-line bg-black/25 px-5 py-5">
+      {/* Computed. Always renders — from the row while loading, from the
+          response once it lands. */}
+      <div className="flex items-center gap-2">
+        <CircleAlert size={13} className="text-muted" aria-hidden />
+        <h4 className="label-caps">Evidence</h4>
+      </div>
+
+      <dl className="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+        {shown.evidence.map((e) => (
+          <div key={e.label} className="rounded-lg border border-white/5 bg-white/[0.05] px-3 py-2">
+            <dt className="label-caps">{e.label}</dt>
+            <dd className="data-figure mt-1 text-sm text-hi">{e.value}</dd>
+            {e.detail && <p className="mt-1 text-[12px] leading-snug text-muted">{e.detail}</p>}
+          </div>
+        ))}
+      </dl>
+
+      {/* Generated. Progress while it runs, then the ranked cause. */}
       {loading ? (
-        <div className="space-y-4">
-          <Skeleton className="h-3 w-32" />
-          <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
-            {Array.from({ length: 6 }, (_, i) => (
-              <Skeleton key={i} className="h-12 w-full" />
-            ))}
-          </div>
-          <SkeletonLines lines={3} />
-        </div>
-      ) : (
         <>
-          {/* Computed. Always renders. */}
-          <div className="flex items-center gap-2">
-            <CircleAlert size={13} className="text-muted" aria-hidden />
-            <h4 className="label-caps">Evidence</h4>
+          <div className="mt-6 flex items-center gap-2">
+            <Lightbulb size={13} className="text-accent" aria-hidden />
+            <h4 className="label-caps">Likely Cause</h4>
+          </div>
+          <Analysing className="mt-3" />
+        </>
+      ) : top ? (
+        <>
+          <div className="mt-6 flex items-center gap-2">
+            <Lightbulb size={13} className="text-accent" aria-hidden />
+            <h4 className="label-caps">Likely Cause</h4>
           </div>
 
-          <dl className="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
-            {data?.evidence.map((e) => (
-              <div
-                key={e.label}
-                className="rounded-lg border border-white/5 bg-white/[0.05] px-3 py-2"
-              >
-                <dt className="label-caps">{e.label}</dt>
-                <dd className="data-figure mt-1 text-sm text-hi">{e.value}</dd>
-                {e.detail && <p className="mt-1 text-[12px] leading-snug text-muted">{e.detail}</p>}
-              </div>
-            ))}
-          </dl>
-
-          {/* Generated. Collapses silently when the model had nothing. */}
-          {top ? (
-            <>
-              <div className="mt-6 flex items-center gap-2">
-                <Lightbulb size={13} className="text-accent" aria-hidden />
-                <h4 className="label-caps">Likely Cause</h4>
-              </div>
-
-              {/* The section's one accent-bearing element: a 2px lit rule and
+          {/* The section's one accent-bearing element: a 2px lit rule and
                   a single glow. No accent fill behind the text. */}
-              <div className="mt-3 rounded-r-lg border-l-2 border-accent bg-white/[0.05] p-4 shadow-glow">
-                <div className="flex flex-wrap items-center gap-2.5">
-                  <h5 className="text-sm font-medium text-hi">{top.cause}</h5>
-                  <Badge tone={top.confidence}>{top.confidence} confidence</Badge>
-                </div>
+          <div className="mt-3 rounded-r-lg border-l-2 border-accent bg-white/[0.05] p-4 shadow-glow">
+            <div className="flex flex-wrap items-center gap-2.5">
+              <h5 className="text-sm font-medium text-hi">{top.cause}</h5>
+              <Badge tone={top.confidence}>{top.confidence} confidence</Badge>
+            </div>
 
-                <p className="mt-2.5 text-xs leading-relaxed text-muted">{top.reasoning}</p>
+            <p className="mt-2.5 text-xs leading-relaxed text-muted">{top.reasoning}</p>
 
-                {top.supportingEvidence.length > 0 && (
-                  <div className="mt-3 flex flex-wrap gap-1.5">
-                    {top.supportingEvidence.map((s) => (
-                      <span
-                        key={s}
-                        className="data-figure rounded bg-white/[0.07] px-2 py-0.5 text-[11px] text-muted"
-                      >
-                        {s}
-                      </span>
-                    ))}
-                  </div>
-                )}
-
-                {top.recommendedAction && (
-                  <div className="mt-3 flex gap-2 border-t border-line pt-3">
-                    <Wrench size={13} className="mt-0.5 shrink-0 text-accent" aria-hidden />
-                    <p className="text-xs leading-relaxed text-hi">{top.recommendedAction}</p>
-                  </div>
-                )}
+            {top.supportingEvidence.length > 0 && (
+              <div className="mt-3 flex flex-wrap gap-1.5">
+                {top.supportingEvidence.map((s) => (
+                  <span
+                    key={s}
+                    className="data-figure rounded bg-white/[0.07] px-2 py-0.5 text-[11px] text-muted"
+                  >
+                    {s}
+                  </span>
+                ))}
               </div>
-            </>
-          ) : (
-            <p className="mt-4 text-xs text-muted">
-              Likely cause unavailable for this event. The computed evidence above is unaffected.
-            </p>
-          )}
+            )}
 
-          {/* Computed by retrieval, not written by the model — so a cited
+            {top.recommendedAction && (
+              <div className="mt-3 flex gap-2 border-t border-line pt-3">
+                <Wrench size={13} className="mt-0.5 shrink-0 text-accent" aria-hidden />
+                <p className="text-xs leading-relaxed text-hi">{top.recommendedAction}</p>
+              </div>
+            )}
+          </div>
+        </>
+      ) : (
+        <p className="mt-4 text-xs text-muted">
+          Likely cause unavailable for this event. The computed evidence above is unaffected.
+        </p>
+      )}
+
+      {/* Computed by retrieval, not written by the model — so a cited
               document always exists. This is the thread from a downtime row
               to the procedure that covers it. */}
-          {data?.sources && data.sources.length > 0 && (
-            <div className="mt-5 border-t border-line pt-3">
-              <div className="flex items-center gap-2">
-                <FileText size={13} className="text-muted" aria-hidden />
-                <h4 className="label-caps">Referenced Procedures</h4>
-              </div>
-              <ul className="mt-2 flex flex-wrap gap-1.5">
-                {data.sources.map((s) => (
-                  <li
-                    key={`${s.docId}-${s.section}`}
-                    className="rounded bg-white/[0.07] px-2 py-1 text-[11px] text-muted"
-                  >
-                    <span className="data-figure text-accent">{s.docId}</span>
-                    <span className="text-faint"> · </span>
-                    {s.section}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-        </>
+      {!loading && data?.sources && data.sources.length > 0 && (
+        <div className="mt-5 border-t border-line pt-3">
+          <div className="flex items-center gap-2">
+            <FileText size={13} className="text-muted" aria-hidden />
+            <h4 className="label-caps">Referenced Procedures</h4>
+          </div>
+          <ul className="mt-2 flex flex-wrap gap-1.5">
+            {data.sources.map((s) => (
+              <li
+                key={`${s.docId}-${s.section}`}
+                className="rounded bg-white/[0.07] px-2 py-1 text-[11px] text-muted"
+              >
+                <span className="data-figure text-accent">{s.docId}</span>
+                <span className="text-faint"> · </span>
+                {s.section}
+              </li>
+            ))}
+          </ul>
+        </div>
       )}
     </div>
   )

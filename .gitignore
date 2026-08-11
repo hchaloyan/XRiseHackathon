@@ -34,3 +34,9 @@ Thumbs.db
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# Uploaded documents are user data, not source. The registry and the files it
+# points at are per-machine; the directories are kept so uploads have a home.
+data/documents/originals/*
+!data/documents/originals/.gitkeep
+data/documents/registry.json

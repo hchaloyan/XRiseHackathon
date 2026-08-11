@@ -32,12 +32,17 @@ class ApiModel(BaseModel):
 
 # Spec 7.1: the fixed redirect for queries the SOP corpus cannot answer.
 OFF_TOPIC_MESSAGE = (
-    "I answer from SOPs and manuals. For line data, click any row below."
+    "I answer from SOPs and manuals. For line data, use the briefing above or "
+    "click any event row."
 )
 
 
 class SearchRequest(ApiModel):
     query: str
+    # The last query that returned results, if any. Lets a fragment like
+    # "what about the 500T?" be resolved against what is already on screen.
+    # Optional: omitting it only costs follow-up handling.
+    previous_query: Optional[str] = None
 
 
 class SOPResult(ApiModel):
@@ -51,23 +56,54 @@ class SOPResult(ApiModel):
     distance: float
 
 
+GENERAL_DISCLAIMER = "Not from your SOPs — general guidance."
+
+GENERAL_SCHEMA = {
+    "type": "object",
+    "properties": {"answer": {"type": "string"}},
+    "required": ["answer"],
+}
+
+
 class SearchResponse(ApiModel):
-    """One shape for all three outcomes, discriminated by `kind`:
+    """One shape for every outcome, discriminated by `kind`:
 
       results      - retrieval found sections above the similarity floor
       conversation - a greeting or capability question, answered without a
                      model and without touching the index
-      off_topic    - nothing cleared the floor (spec 7.1)
+      metric       - the question asks for a figure this plant's data holds.
+                     Answered from pandas, never from a model, and carries the
+                     day to switch the dashboard to.
+      general      - the corpus does not cover it, so a model answered from
+                     general knowledge. Never used for factory-data questions:
+                     those become "metric", because a model inventing an OEE
+                     figure is the worst failure available to this app.
+      off_topic    - nothing cleared the floor and no general answer applies
+                     (spec 7.1)
     """
 
     query: str
-    kind: Literal["results", "conversation", "off_topic"] = "results"
+    kind: Literal["results", "conversation", "metric", "general", "off_topic"] = "results"
     results: List[SOPResult] = []
-    # Conversational reply. Non-null only when kind == "conversation".
+    # The spoken answer. Set on "conversation" (canned, no model) and on
+    # "general" (model-written).
     reply: Optional[str] = None
+    # Non-null only on "general": the label the UI must show, so a model's
+    # opinion is never mistaken for plant procedure.
+    disclaimer: Optional[str] = None
+    # Non-null only on "metric": the day the answer is about. The UI offers to
+    # switch the dashboard to it, which is the actual answer to "what was
+    # yesterday's OEE" - the number plus the day it belongs to.
+    metric_day: Optional[date] = None
+    # True when metric_day is already the day on screen, so the UI can say
+    # "above" instead of offering a redundant jump.
+    metric_is_current: bool = False
     # Clickable example questions, all guaranteed to retrieve. Shown on the
     # conversation and off_topic paths, empty on results.
     suggestions: List[str] = []
+    # Set when the answer came from joining this query to the previous one, so
+    # the UI can say so rather than appearing to answer a fragment by magic.
+    resolved_from: Optional[str] = None
     # Kept for the existing UI: set whenever kind != "results".
     fallback_message: Optional[str] = None
 
@@ -80,6 +116,37 @@ class SopDocument(ApiModel):
     revision: str
     department: str
     markdown: str
+
+
+class DocumentMetaModel(ApiModel):
+    """One document the assistant can answer from. All COMPUTED.
+
+    `source` is the only thing separating a hand-authored SOP from an uploaded
+    manual anywhere in the system: both are chunked, embedded, cited and
+    viewed identically.
+    """
+
+    doc_id: str
+    title: str
+    source: Literal["sop", "upload"]
+    format: str
+    department: str = ""
+    revision: str = ""
+    original_name: str = ""
+    stored_name: str = ""
+    size_bytes: int = 0
+    sha256: str = ""
+    uploaded_at: str = ""
+    chunks: int = 0
+    chars: int = 0
+
+
+class DocumentListResponse(ApiModel):
+    documents: List[DocumentMetaModel]
+    # Advertised by the API so the file picker and the validator can never
+    # disagree about what is allowed.
+    accepted_formats: List[str]
+    max_bytes: int
 
 
 class ExplainRequest(ApiModel):
@@ -282,7 +349,9 @@ ROOT_CAUSE_SCHEMA = {
         "hypotheses": {
             "type": "array",
             "minItems": 2,
-            "maxItems": 4,
+            # 3, not 4. The panel surfaces only the top one, and each extra
+            # hypothesis is ~90 generated tokens - roughly two seconds.
+            "maxItems": 3,
             "items": {
                 "type": "object",
                 "properties": {
@@ -293,7 +362,7 @@ ROOT_CAUSE_SCHEMA = {
                     "supporting_evidence": {
                         "type": "array",
                         "minItems": 1,
-                        "maxItems": 3,
+                        "maxItems": 2,
                         "items": {"type": "string"},
                     },
                     "recommended_action": {"type": "string"},
@@ -307,6 +376,27 @@ ROOT_CAUSE_SCHEMA = {
     },
     "required": ["summary", "hypotheses"],
 }
+
+
+# --- GET /api/days -----------------------------------------------------------
+
+
+class DaysResponse(ApiModel):
+    """Every day the dataset holds, for the calendar picker. All COMPUTED.
+
+    The picker must not offer a day with no production behind it: selecting one
+    would render an empty briefing that looks like a bug rather than a gap.
+    """
+
+    days: List[date]
+    latest: date
+    earliest: date
+    # The real calendar date, and how far the newest record lags it. The
+    # dataset is a committed snapshot that does not advance on its own, so
+    # without this the header would show a two-day-old shift as if it were
+    # today's.
+    today: date
+    days_behind: int
 
 
 # --- GET /api/kpis -----------------------------------------------------------
@@ -370,6 +460,12 @@ class InventoryItem(ApiModel):
     daily_usage: int
     days_of_cover: float
     below_reorder: bool
+    # Plain-language additions. "Days of cover" is stock-controller vocabulary;
+    # a shift lead needs to know whether to raise a requisition and for how
+    # much, which is what these three answer.
+    status: Literal["reorder_now", "order_this_week", "ok"]
+    runs_out_on: date
+    suggested_order_qty: int
 
 
 class Inventory(ApiModel):
@@ -378,6 +474,12 @@ class Inventory(ApiModel):
     parts_tracked: int
     parts_below_reorder: int
     lowest_days_of_cover: float
+    # The part that runs out first, named. The bare "lowest cover 4.4 days"
+    # gave a supervisor a number with nothing to chase.
+    soonest_part_id: str
+    soonest_description: str
+    soonest_days: float
+    soonest_runs_out_on: date
     items: list[InventoryItem]
 
 

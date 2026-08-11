@@ -21,23 +21,24 @@ Every figure below was calculated from the plant data before you were called.
 
 ## What to write
 
-A one-sentence `summary` naming the single most likely cause.
+A `summary` of one short sentence naming the single most likely cause.
 
-Then 2 to 4 `hypotheses`, most likely first. Each has:
+Then 2 or 3 `hypotheses`, most likely first. Each has:
 
 - `rank` — 1 for the most likely, then 2, 3, 4.
 - `cause` — the mechanism, in the language a maintenance technician uses.
   "Shielding gas flow dropped below setpoint", not "gas issue".
 - `confidence` — `high`, `medium` or `low`. Use `high` only when the evidence
   above points at it directly. At most one hypothesis should be `high`.
-- `reasoning` — why the evidence supports this. If the SOPs name it as a
-  common cause, say so and cite the document id.
-- `supporting_evidence` — 1 to 3 labels copied **exactly** from the evidence
+- `reasoning` — why the evidence supports this, in ONE sentence. If the
+  SOPs name it as a common cause, say so and cite the document id.
+- `supporting_evidence` — 1 or 2 labels copied **exactly** from the evidence
   list above, e.g. "PM recurrence" or "SENSOR_FAULT 9 min after". These are
   matched against that list, so a label you invent is discarded and your
   hypothesis loses its support.
-- `recommended_action` — the first thing to check or do, taken from the SOP
-  steps where one applies. Concrete enough to hand to a technician.
+- `recommended_action` — the first thing to check or do, in ONE sentence,
+  taken from the SOP steps where one applies. Concrete enough to hand to a
+  technician.
 
 ## Rules
 

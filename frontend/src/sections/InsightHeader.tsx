@@ -26,8 +26,15 @@ const SEVERITY_COLOR: Record<Severity, string> = {
  * Generation runs ~10s, so the skeleton is load-bearing, not polish.
  * Narrative is nullable; render nothing in this slot if it comes back null.
  */
-export default function InsightHeader({ className }: { className?: string }) {
-  const { data, loading } = useFetch(api.insights)
+export default function InsightHeader({
+  className,
+  day,
+}: {
+  className?: string
+  /** ISO date, or null for the newest day. Keys the fetch. */
+  day?: string | null
+}) {
+  const { data, loading } = useFetch(() => api.insights(day), day ?? 'latest')
 
   return (
     <Card size="lg" className={cn('flex flex-col', className)}>
