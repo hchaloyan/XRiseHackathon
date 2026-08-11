@@ -8,6 +8,7 @@ real numbers (spec 5).
 
 from __future__ import annotations
 
+import time
 from datetime import date
 
 from fastapi import APIRouter
@@ -24,6 +25,16 @@ from app.schemas import (
 from app.services import kpi_engine
 
 router = APIRouter()
+
+# The dataset is committed JSON and never changes at runtime, so the same day
+# always yields the same figures and therefore the same narrative. Generating
+# it once per day value rather than once per page load takes the briefing from
+# 12-15s to instant on every load after the first.
+#
+# This is not the prewarm cache spec D3 rules out - that one is about a
+# throwaway call whose output must be discarded. This caches a real response
+# whose inputs are provably static. Pass ?refresh=true to regenerate.
+_cache: dict[date, InsightResponse] = {}
 
 
 def _pct(value: float | None) -> str:
@@ -89,8 +100,14 @@ def _facts_block(facts: dict) -> str:
 
 
 @router.get("/insights", response_model=InsightResponse)
-def get_insights(day: date | None = None) -> InsightResponse:
-    facts = kpi_engine.insight_facts(day)
+def get_insights(day: date | None = None, refresh: bool = False) -> InsightResponse:
+    resolved = day or kpi_engine.latest_day()
+    if not refresh:
+        hit = _cache.get(resolved)
+        if hit is not None:
+            return hit
+
+    facts = kpi_engine.insight_facts(resolved)
 
     response = InsightResponse(
         day=facts["day"],
@@ -108,10 +125,14 @@ def get_insights(day: date | None = None) -> InsightResponse:
         day=str(facts["day"]),
         facts=_facts_block(facts),
     )
+    started = time.perf_counter()
     result = get_client().complete(prompt, INSIGHTS_SCHEMA, timeout=settings.insights_timeout)
+    print(f"[insights] generation took {time.perf_counter() - started:.1f}s")
 
     if result is None:
-        return response  # computed-only; the header still renders
+        # Not cached: a transient model failure should not pin an empty
+        # narrative to this day for the rest of the session.
+        return response
 
     raw_callouts = result.get("callouts") or []
     callouts = [
@@ -131,4 +152,20 @@ def get_insights(day: date | None = None) -> InsightResponse:
     response.headline = result.get("headline")
     response.narrative = result.get("narrative")
     response.callouts = callouts or None
+
+    _cache[resolved] = response
     return response
+
+
+def warm(day: date | None = None) -> None:
+    """Populate the cache so the first page load is instant.
+
+    Called on a background thread at startup: a 12-15s blocking generation
+    would delay the server accepting requests, and under --reload it would
+    run again on every code change.
+    """
+    try:
+        get_insights(day)
+        print("[insights] cache warmed")
+    except Exception as exc:
+        print(f"[insights] warm failed (non-fatal): {type(exc).__name__}: {exc}")

@@ -30,7 +30,9 @@ def render_prompt(template_name: str, **values: str) -> str:
 
 class LLMClient(ABC):
     @abstractmethod
-    def complete(self, prompt: str, schema: dict, timeout: int) -> dict | None:
+    def complete(
+        self, prompt: str, schema: dict, timeout: int, max_tokens: int = 450
+    ) -> dict | None:
         """Return parsed JSON matching `schema`, or None on failure.
 
         Never raises for model-side problems. Returning None is what lets
