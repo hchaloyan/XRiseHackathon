@@ -8,6 +8,7 @@ import type {
   KpiResponse,
   RootCauseResponse,
   SearchResponse,
+  SopDocument,
 } from './types'
 
 const BASE_URL = import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:8000'
@@ -88,4 +89,7 @@ export const api = {
   /** Model reasoning over the exact chunks the user already has on screen. */
   explain: (query: string, sopIds: string[]) =>
     post<ExplainResponse>('/api/explain', { query, sopIds }),
+
+  /** The whole document behind a result. Read from disk, no model, no index. */
+  sop: (docId: string) => request<SopDocument>(`/api/sops/${encodeURIComponent(docId)}`),
 }
