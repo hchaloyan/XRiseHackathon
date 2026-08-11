@@ -7,6 +7,8 @@ facts and documents; it produces ordering and prose.
 
 from __future__ import annotations
 
+import time
+
 from fastapi import APIRouter, HTTPException
 
 from app.config import settings
@@ -25,7 +27,21 @@ from app.services.knowledge_base import get_knowledge_base
 
 router = APIRouter()
 
-SOP_CHUNKS = 3
+# 2, not 3. A third section is a few hundred tokens of prefill for a document
+# the top hypothesis rarely cites.
+SOP_CHUNKS = 2
+
+# Same reasoning as the insights cache: the dataset is committed JSON, so the
+# same event always assembles the same evidence and therefore the same ranking.
+# Without this every click costs a generation, and a page reload throws away the
+# client-side Map and costs it again - which lands squarely on the drill-down,
+# the one beat of the demo where a spinner is most expensive.
+_cache: dict[str, RootCauseResponse] = {}
+
+# How many rows to have ready before anyone clicks. The whole day is 23 events
+# and ~70s of generation; the two or three a supervisor actually opens are the
+# biggest ones, and they are ready within seconds.
+WARM_EVENTS = 3
 
 
 def _evidence_items(bundle: dict) -> list[Evidence]:
@@ -138,7 +154,12 @@ def _event_text(event: dict) -> str:
 
 
 @router.post("/root-cause", response_model=RootCauseResponse)
-def analyze_root_cause(payload: RootCauseRequest) -> RootCauseResponse:
+def analyze_root_cause(payload: RootCauseRequest, refresh: bool = False) -> RootCauseResponse:
+    if not refresh:
+        hit = _cache.get(payload.event_id)
+        if hit is not None:
+            return hit
+
     bundle = rc.assemble(payload.event_id)
     if bundle is None:
         raise HTTPException(status_code=404, detail=f"No event {payload.event_id}")
@@ -201,11 +222,15 @@ def analyze_root_cause(payload: RootCauseRequest) -> RootCauseResponse:
         ),
         sops=sop_text,
     )
+    started = time.perf_counter()
     result = get_client().complete(
-        prompt, ROOT_CAUSE_SCHEMA, timeout=settings.root_cause_timeout
+        prompt, ROOT_CAUSE_SCHEMA, timeout=settings.root_cause_timeout, max_tokens=380
     )
+    print(f"[root_cause] {payload.event_id} generated in {time.perf_counter() - started:.1f}s")
 
     if result is None:
+        # Not cached: a transient model failure must not pin an empty analysis
+        # to this event for the rest of the session.
         return response  # evidence and citations still render
 
     known_labels = {e.label for e in evidence}
@@ -233,4 +258,44 @@ def analyze_root_cause(payload: RootCauseRequest) -> RootCauseResponse:
 
     response.summary = result.get("summary")
     response.hypotheses = hypotheses or None
+
+    _cache[payload.event_id] = response
     return response
+
+
+def warm(day=None, limit: int = WARM_EVENTS) -> None:
+    """Pre-generate the rows most likely to be clicked.
+
+    Ranked by size, not by recency: the row a supervisor opens is the one that
+    cost the most time or scrapped the most parts, and that is also the row a
+    demo opens. Runs on the startup thread AFTER the briefing, so the two never
+    compete for the model.
+    """
+    try:
+        from app.services import kpi_engine
+
+        events = kpi_engine.events(day or kpi_engine.latest_day())
+
+        def weight(event: dict) -> float:
+            if event["kind"] == "downtime":
+                # Planned maintenance is the one stoppage nobody investigates -
+                # it is on the schedule. Ranking by raw minutes put a 87-minute
+                # PM ahead of the changeover overrun that actually has a story,
+                # so PM is excluded rather than merely down-weighted.
+                if event.get("reason_code") == "PM":
+                    return 0.0
+                return float(event.get("duration_minutes") or 0)
+            # Defect counts and minutes are different units, so quality events
+            # are scaled onto the same axis rather than always losing to them.
+            return float(event.get("defect_count") or 0) * 3.0
+
+        ranked = [e for e in sorted(events, key=weight, reverse=True) if weight(e) > 0]
+        for event in ranked[:limit]:
+            started = time.perf_counter()
+            analyze_root_cause(RootCauseRequest(event_id=event["event_id"]))
+            print(
+                f"[root_cause] warmed {event['event_id']} "
+                f"({event['kind']}, {time.perf_counter() - started:.1f}s)"
+            )
+    except Exception as exc:
+        print(f"[root_cause] warm failed (non-fatal): {type(exc).__name__}: {exc}")

@@ -102,6 +102,28 @@ TYPE_PROFILE = {
         "reasons": ["BUILD_FAILURE", "MATERIAL_STARVE", "CHANGEOVER", "PM", "SENSOR_FAULT"],
         "defects": ["LAYER_DELAM", "WARP", "DIM_OOT", "POROSITY"],
     },
+    # The FINISHING and PACKAGING lines, added by seed_append.py. Their profiles
+    # live here rather than in that script so there is ONE taxonomy: the tests,
+    # the SOPs and the root-cause evidence all key off these reason codes and
+    # defect names, and a second table would let them drift apart silently.
+    "Powder Coating": {
+        "cycle": (55.0, 120.0),
+        "keywords": ["powder coating", "coating", "paint", "booth", "cure oven", "finishing"],
+        "reasons": ["CHANGEOVER", "MATERIAL_STARVE", "PM", "SENSOR_FAULT", "JAM"],
+        "defects": ["ORANGE_PEEL", "THIN_COAT", "CONTAMINATION", "SCRATCH"],
+    },
+    "Parts Washing": {
+        "cycle": (40.0, 90.0),
+        "keywords": ["parts washer", "wash", "degrease", "aqueous", "cleaning", "finishing"],
+        "reasons": ["PM", "MATERIAL_STARVE", "SENSOR_FAULT", "JAM", "CHANGEOVER"],
+        "defects": ["RESIDUE", "WATER_SPOT", "CONTAMINATION"],
+    },
+    "Packaging": {
+        "cycle": (18.0, 45.0),
+        "keywords": ["packaging", "case packer", "carton", "palletiser", "labeller", "boxing"],
+        "reasons": ["JAM", "MATERIAL_STARVE", "CHANGEOVER", "PM", "ROBOT_FAULT"],
+        "defects": ["LABEL_MISPLACED", "CARTON_CRUSH", "MISSING_ITEM"],
+    },
 }
 
 # Canonical reason codes -> duration range in minutes. One taxonomy plant-wide,

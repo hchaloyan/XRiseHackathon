@@ -44,19 +44,25 @@ class LLMClient(ABC):
         """Throwaway call that makes the model resident. Ignores its own result."""
 
 
-_client: LLMClient | None = None
+_clients: dict[str, LLMClient] = {}
 
 
-def get_client() -> LLMClient:
-    """Provider is a one-variable change: settings.llm_provider."""
-    global _client
-    if _client is None:
-        if settings.llm_provider == "hosted":
+def get_client(provider: str | None = None) -> LLMClient:
+    """Provider is a one-variable change: settings.llm_provider.
+
+    `provider` overrides that for a single call site. Only the general-answer
+    path uses it, so the plant-data endpoints keep running on whatever
+    llm_provider says even when a hosted key is present - no figure computed
+    from this factory's data should depend on someone else's uptime.
+    """
+    name = provider or settings.llm_provider
+    if name not in _clients:
+        if name == "hosted":
             from app.llm.hosted_client import HostedClient
 
-            _client = HostedClient()
+            _clients[name] = HostedClient()
         else:
             from app.llm.ollama_client import OllamaClient
 
-            _client = OllamaClient()
-    return _client
+            _clients[name] = OllamaClient()
+    return _clients[name]

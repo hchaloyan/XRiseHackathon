@@ -36,39 +36,63 @@ class HostedClient(LLMClient):
                 "and endpoints will degrade to computed-only."
             )
 
-    def complete(
-        self, prompt: str, schema: dict, timeout: int = 30, max_tokens: int = 450
-    ) -> dict | None:
-        payload = {
+    def _payload(self, prompt: str, schema: dict, max_tokens: int, mode: str) -> dict:
+        payload: dict = {
             "model": self.model,
             "messages": [{"role": "user", "content": prompt}],
             "temperature": 0.2,
             "max_tokens": max_tokens,
-            # Structured output by schema, not by prompting (rule 3).
-            "response_format": {
-                "type": "json_schema",
-                "json_schema": {
-                    "name": "response",
-                    "schema": schema,
-                    "strict": False,
-                },
-            },
         }
+        if mode == "json_schema":
+            # Structured output by schema, not by prompting (rule 3).
+            payload["response_format"] = {
+                "type": "json_schema",
+                "json_schema": {"name": "response", "schema": schema, "strict": False},
+            }
+        else:
+            # Not every hosted model accepts json_schema - Groq supports it on
+            # some models and rejects it with a 400 on others. json_object is
+            # universal, so the shape moves into the prompt for that case.
+            payload["response_format"] = {"type": "json_object"}
+            payload["messages"] = [
+                {
+                    "role": "user",
+                    "content": (
+                        f"{prompt}\n\nReturn JSON matching exactly this schema, "
+                        f"with no extra keys:\n{json.dumps(schema)}"
+                    ),
+                }
+            ]
+        return payload
 
-        try:
-            response = httpx.post(
-                f"{self.base_url}/chat/completions",
-                headers={
-                    "Authorization": f"Bearer {self.api_key}",
-                    "Content-Type": "application/json",
-                },
-                json=payload,
-                timeout=timeout,
-            )
-            response.raise_for_status()
-            body = response.json()
-        except Exception as exc:
-            print(f"[llm] hosted call failed: {type(exc).__name__}: {exc}")
+    def complete(
+        self, prompt: str, schema: dict, timeout: int = 30, max_tokens: int = 450
+    ) -> dict | None:
+        body = None
+        for mode in ("json_schema", "json_object"):
+            try:
+                response = httpx.post(
+                    f"{self.base_url}/chat/completions",
+                    headers={
+                        "Authorization": f"Bearer {self.api_key}",
+                        "Content-Type": "application/json",
+                    },
+                    json=self._payload(prompt, schema, max_tokens, mode),
+                    timeout=timeout,
+                )
+                # A 400 usually means this model will not take json_schema.
+                # Retry once in the universal mode before giving up.
+                if response.status_code == 400 and mode == "json_schema":
+                    print("[llm] hosted rejected json_schema, retrying as json_object")
+                    continue
+                response.raise_for_status()
+                body = response.json()
+                break
+            except Exception as exc:
+                print(f"[llm] hosted call failed: {type(exc).__name__}: {exc}")
+                return None
+
+        if body is None:
             return None
 
         try:

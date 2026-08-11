@@ -4,10 +4,24 @@ from datetime import date
 
 from fastapi import APIRouter
 
-from app.schemas import KpiResponse
+from app.schemas import DaysResponse, KpiResponse
 from app.services import kpi_engine
 
 router = APIRouter()
+
+
+@router.get("/days", response_model=DaysResponse)
+def get_days() -> DaysResponse:
+    """Which days the picker may offer. Days with no production are absent."""
+    days = sorted({point["day"] for point in kpi_engine.trend()})
+    today = date.today()
+    return DaysResponse(
+        days=days,
+        latest=days[-1],
+        earliest=days[0],
+        today=today,
+        days_behind=max((today - days[-1]).days, 0),
+    )
 
 
 @router.get("/kpis", response_model=KpiResponse)

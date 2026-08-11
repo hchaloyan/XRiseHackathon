@@ -18,6 +18,7 @@ from chromadb.api.models.Collection import Collection
 from ollama import Client as OllamaSDK
 
 from app.config import settings
+from app.services.query_expansion import expand as expand_query
 
 COLLECTION_NAME = "sops"
 
@@ -39,17 +40,13 @@ _COLLECTION_META = {"hnsw:space": "cosine", "index_version": INDEX_VERSION}
 INCLUDE_QUERY = cast(Any, ["documents", "metadatas", "distances"])
 INCLUDE_GET = cast(Any, ["documents", "metadatas"])
 
-# Words that name a factory metric rather than a procedure. The lexical
-# fallback refuses any query containing one, because several of them do occur
-# in SOP prose - "downtime" is in six documents - and a bare metric word
-# retrieving a maintenance procedure is exactly the rule 8 failure the
-# similarity floor exists to prevent. OEE, availability and inventory appear in
-# none of the SOPs, but they are listed for the day someone adds a document
-# that mentions them.
-METRIC_TERMS = frozenset({
-    "oee", "scrap", "downtime", "availability", "performance", "utilisation",
-    "utilization", "throughput", "yield", "inventory", "uptime",
-})
+# Words that name a factory metric rather than a procedure. Defined once, in
+# query_expansion, and used by both guards: expansion refuses to enrich such a
+# query, and the lexical fallback refuses to match one. Several do occur in SOP
+# prose - "downtime" is in six documents - so without these guards a bare
+# metric word retrieves a maintenance procedure, which is the rule 8 failure
+# the similarity floor exists to prevent.
+from app.services.query_expansion import METRIC_TERMS  # noqa: E402  (re-exported)
 
 _ollama = OllamaSDK(host=settings.ollama_host)
 
@@ -74,7 +71,24 @@ def read_sop(doc_id: str) -> dict | None:
             "department": meta.get("department", ""),
             "markdown": body,
         }
-    return None
+
+    # Not a hand-authored SOP: an upload. The viewer must open a cited PDF as
+    # readily as a cited SOP, or citations become second-class the moment they
+    # point at something a user added. Imported late - documents imports this
+    # module for chunking.
+    from app.services.documents import get_meta, get_text
+
+    meta_row = get_meta(wanted)
+    text = get_text(wanted) if meta_row else None
+    if meta_row is None or text is None:
+        return None
+    return {
+        "doc_id": meta_row.doc_id,
+        "title": meta_row.title,
+        "revision": meta_row.revision,
+        "department": meta_row.department,
+        "markdown": text,
+    }
 
 
 def embed_texts(texts: list[str], prefix: str) -> Any:
@@ -98,15 +112,19 @@ def embed_query(text: str) -> Any:
     return embed_texts([text], QUERY_PREFIX)[0]
 
 
-# "SOP 1", "sop-001", "SOP_23". Anchored on the SOP token so a bare number or a
-# machine id (M-22) never trips it.
-_DOC_REFERENCE = re.compile(r"\bSOP[\s\-_]*(\d{1,3})\b", re.IGNORECASE)
+# "SOP 1", "sop-001", "DOC-4". Anchored on the prefix token so a bare number or
+# a machine id (M-22) never trips it. Uploads get DOC ids, and naming one must
+# work exactly like naming an SOP - that is what makes an uploaded manual a
+# first-class citizen rather than a second search path.
+_DOC_REFERENCE = re.compile(r"\b(SOP|DOC)[\s\-_]*(\d{1,3})\b", re.IGNORECASE)
 
 
 def _doc_reference(query: str) -> str | None:
     """The doc_id a query names outright, or None."""
     match = _DOC_REFERENCE.search(query)
-    return f"SOP-{int(match.group(1)):03d}" if match else None
+    if not match:
+        return None
+    return f"{match.group(1).upper()}-{int(match.group(2)):03d}"
 
 
 class KnowledgeBase:
@@ -124,8 +142,87 @@ class KnowledgeBase:
 
     # ---------------------------------------------------------------- indexing
 
-    def index_sops(self, sops_dir: str | None = None, force: bool = False) -> int:
-        """Read markdown SOPs, chunk, embed, index. Idempotent unless force=True."""
+    def index_document(
+        self,
+        doc_id: str,
+        title: str,
+        text: str,
+        department: str = "",
+        revision: str = "",
+        source: str = "sop",
+    ) -> int:
+        """Chunk, embed and add ONE document. Returns the chunk count.
+
+        The unit of indexing is a document, not a file on disk, which is what
+        lets an uploaded PDF and a hand-written SOP take the same path. Callers
+        supply already-extracted text; this method never touches the
+        filesystem.
+
+        Adding is incremental: uploading a manual costs one embedding batch,
+        not a rebuild of the whole index.
+        """
+        # Scope statements answer nothing - they just name the machines and
+        # defect codes the document covers. Indexed, they outranked the
+        # procedure that actually answers ("what causes porosity" returned
+        # SOP-008's blurb instead of its WELD_POROSITY steps) because they
+        # are short and densely on-topic, and they pulled in factory-data
+        # questions for the same reason.
+        chunks = [
+            c
+            for c in self._chunk_document(text, doc_id)
+            if not c["section"].lower().startswith("purpose")
+        ]
+        if not chunks:
+            return 0
+
+        # Re-indexing the same doc_id must replace, never duplicate.
+        self.remove_document(doc_id)
+
+        # Embed the chunk WITH its document identity and heading; store the
+        # raw body. Without this the doc_id and title exist only in Chroma
+        # metadata, so nothing in the vector space knows a chunk belongs to
+        # "SOP-002 Preventive Maintenance" - "tell me about preventive
+        # maintenance" retrieved SOP-003. Display is unaffected.
+        vectors = embed_texts(
+            [f"{doc_id} {title} - {c['section']}\n\n{c['text']}" for c in chunks],
+            DOC_PREFIX,
+        )
+
+        # One batched add per document, not one call per chunk.
+        self.collection.add(
+            ids=[c["id"] for c in chunks],
+            documents=[c["text"] for c in chunks],
+            embeddings=vectors,
+            metadatas=[
+                {
+                    "doc_id": doc_id,
+                    "title": title,
+                    "section": c["section"],
+                    "revision": revision,
+                    "department": department,
+                    "source": source,
+                }
+                for c in chunks
+            ],
+        )
+        self._lexical_cache = None  # the new chunks must be literally matchable
+        return len(chunks)
+
+    def remove_document(self, doc_id: str) -> None:
+        """Drop every chunk of one document. Safe when it was never indexed."""
+        try:
+            self.collection.delete(where={"doc_id": doc_id})
+            self._lexical_cache = None
+        except Exception as exc:
+            print(f"[kb] delete {doc_id} failed: {type(exc).__name__}: {exc}")
+
+    def index_all(self, force: bool = False) -> int:
+        """Index every registered document. Idempotent unless force=True.
+
+        Sources are whatever documents.indexable() yields - the SOP corpus and
+        any uploads - so a rebuild restores uploaded manuals too rather than
+        quietly dropping them.
+        """
         if force:
             self.reset()
 
@@ -139,64 +236,26 @@ class KnowledgeBase:
             print(f"[kb] already indexed ({existing} chunks)")
             return existing
 
-        sops_path = Path(sops_dir or settings.sop_dir)
-        files = sorted(sops_path.glob("*.md"))
-        if not files:
-            print(f"[kb] WARNING: no .md files found in {sops_path}")
-            return 0
+        # Imported here: documents imports this module for chunking, so a
+        # module-level import would be circular.
+        from app.services.documents import indexable
 
-        print(f"[kb] indexing {len(files)} SOPs from {sops_path}")
+        count = 0
+        for doc in indexable():
+            added = self.index_document(**doc)
+            count += 1
+            print(f"[kb]   {doc['doc_id']} {doc['title'][:48]} -> {added} chunks")
 
-        for sop_file in files:
-            meta, body = self._parse_front_matter(sop_file.read_text(encoding="utf-8"))
-            doc_id = meta.get("doc_id") or sop_file.stem
-            title = meta.get("title") or sop_file.stem
-
-            # Scope statements answer nothing - they just name the machines and
-            # defect codes the document covers. Indexed, they outranked the
-            # procedure that actually answers ("what causes porosity" returned
-            # SOP-008's blurb instead of its WELD_POROSITY steps) because they
-            # are short and densely on-topic, and they pulled in factory-data
-            # questions for the same reason.
-            chunks = [
-                c
-                for c in self._chunk_document(body, doc_id)
-                if not c["section"].lower().startswith("purpose")
-            ]
-            if not chunks:
-                continue
-
-            # Embed the chunk WITH its document identity and heading; store the
-            # raw body. Without this the doc_id and title exist only in Chroma
-            # metadata, so nothing in the vector space knows a chunk belongs to
-            # "SOP-002 Preventive Maintenance" - "tell me about preventive
-            # maintenance" retrieved SOP-003. Display is unaffected.
-            vectors = embed_texts(
-                [f"{doc_id} {title} - {c['section']}\n\n{c['text']}" for c in chunks],
-                DOC_PREFIX,
-            )
-
-            # One batched add per document, not one call per chunk.
-            self.collection.add(
-                ids=[c["id"] for c in chunks],
-                documents=[c["text"] for c in chunks],
-                embeddings=vectors,
-                metadatas=[
-                    {
-                        "doc_id": doc_id,
-                        "title": title,
-                        "section": c["section"],
-                        "revision": meta.get("revision", ""),
-                        "department": meta.get("department", ""),
-                    }
-                    for c in chunks
-                ],
-            )
-            print(f"[kb]   {doc_id} {title} -> {len(chunks)} chunks")
+        if count == 0:
+            print("[kb] WARNING: no documents found to index")
 
         total = self.collection.count()
-        print(f"[kb] done, {total} chunks in collection")
+        print(f"[kb] done, {total} chunks from {count} documents")
         return total
+
+    # Kept so existing callers and calibrate_kb.py keep working.
+    def index_sops(self, sops_dir: str | None = None, force: bool = False) -> int:
+        return self.index_all(force=force)
 
     def reset(self) -> None:
         """Drop and recreate the collection. Use after editing SOPs."""
@@ -421,8 +480,12 @@ class KnowledgeBase:
             if rows:
                 return rows
 
+        # Embed the EXPANDED query: the corpus mixes mold/mould, spells out the
+        # abbreviations operators type, and barely mentions machine ids. The
+        # raw query is what the user sees echoed back; this is only what the
+        # vectors see. See query_expansion for the measured gaps.
         raw = self.collection.query(
-            query_embeddings=[embed_query(query)],
+            query_embeddings=[embed_query(expand_query(query))],
             # Over-fetch. Sections of one SOP are similar to each other, so a
             # single document otherwise sweeps the whole top-k and the user
             # reads the same procedure four times.
@@ -492,5 +555,5 @@ def get_knowledge_base() -> KnowledgeBase:
     global _kb
     if _kb is None:
         _kb = KnowledgeBase()
-        _kb.index_sops()
+        _kb.index_all()
     return _kb

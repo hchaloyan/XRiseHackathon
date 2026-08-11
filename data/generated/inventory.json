@@ -115,5 +115,68 @@
     "on_hand": 21,
     "reorder_point": 15,
     "daily_usage": 2
+  },
+  {
+    "part_id": "RM-4001",
+    "description": "Polyester powder coat, RAL 7016 grey, 20kg box",
+    "line": "FINISHING",
+    "uom": "BOX",
+    "on_hand": 46,
+    "reorder_point": 30,
+    "daily_usage": 6
+  },
+  {
+    "part_id": "CN-4002",
+    "description": "Alkaline degreaser concentrate",
+    "line": "FINISHING",
+    "uom": "L",
+    "on_hand": 88,
+    "reorder_point": 60,
+    "daily_usage": 9
+  },
+  {
+    "part_id": "CN-4003",
+    "description": "Iron phosphate pretreatment",
+    "line": "FINISHING",
+    "uom": "L",
+    "on_hand": 51,
+    "reorder_point": 55,
+    "daily_usage": 7
+  },
+  {
+    "part_id": "HW-4004",
+    "description": "Coating hooks, zinc, 300mm",
+    "line": "FINISHING",
+    "uom": "EA",
+    "on_hand": 940,
+    "reorder_point": 500,
+    "daily_usage": 60
+  },
+  {
+    "part_id": "PK-5001",
+    "description": "Corrugated carton, 400x300x200",
+    "line": "PACKAGING",
+    "uom": "EA",
+    "on_hand": 2100,
+    "reorder_point": 1500,
+    "daily_usage": 260
+  },
+  {
+    "part_id": "PK-5002",
+    "description": "Pallet, heat-treated, 1200x1000",
+    "line": "PACKAGING",
+    "uom": "EA",
+    "on_hand": 74,
+    "reorder_point": 90,
+    "daily_usage": 12
+  },
+  {
+    "part_id": "PK-5003",
+    "description": "Product label roll, 100x75mm",
+    "line": "PACKAGING",
+    "uom": "ROLL",
+    "on_hand": 31,
+    "reorder_point": 20,
+    "daily_usage": 4
   }
 ]
