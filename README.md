@@ -19,6 +19,25 @@ ollama serve
 
 Python 3.11+ and Node 20+.
 
+## Run as a desktop app
+
+One process in a native window. Uvicorn serves the API *and* the built UI on the
+same origin in a background thread — no second dev server, no CORS, no browser
+chrome. Build the UI once, then launch:
+
+```bash
+cd frontend && npm install && npm run build && cd ..
+python run.py            # or double-click start.bat on Windows
+```
+
+The window opens once the model pre-warm finishes. Closing it stops the server.
+
+`python run.py --browser` opens the default browser instead — the fallback if
+the native window misbehaves on an unfamiliar machine.
+
+The window renders `frontend/dist`, not your working tree, so rebuild after any
+UI change. Use the two-server setup below for hot reload while developing.
+
 ## Setup
 
 No `.env` needed — every setting defaults correctly in `backend/app/config.py`.
@@ -36,7 +55,7 @@ pip install -r requirements.txt
 uvicorn app.main:app --reload --port 8000
 ```
 
-**Frontend** (`:5173`):
+**Frontend** (`:5173`, hot reload — talks to `:8000` via `VITE_API_BASE_URL`):
 
 ```bash
 cd frontend
