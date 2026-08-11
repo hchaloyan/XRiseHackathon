@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { CalendarDays, ChevronLeft, ChevronRight } from 'lucide-react'
 import { useDay } from '../lib/day'
 import { cn } from '../lib/cn'
@@ -12,6 +13,12 @@ import { cn } from '../lib/cn'
  *
  * Not a modal: a popover anchored under the date in the header, dismissed by
  * clicking outside or pressing Escape.
+ *
+ * The popover is portaled to <body> rather than rendered in place, and that is
+ * load-bearing, not tidiness. The header carries backdrop-filter, which makes
+ * it a backdrop root: a descendant's own backdrop-filter can only sample
+ * within it, so an in-place popover blurs nothing and reads as flat tint. Out
+ * at the body it samples the page and frosts properly, like the ask bar.
  */
 
 const WEEKDAYS = ['M', 'T', 'W', 'T', 'F', 'S', 'S']
@@ -29,24 +36,47 @@ function parse(value: string): Date {
   return new Date(y, m - 1, d)
 }
 
+/** Viewport coords for the portaled popover, measured off the picker.
+ *  clientWidth, not innerWidth: it excludes the scrollbar gutter, and so does
+ *  the containing block a fixed element's `right` resolves against. innerWidth
+ *  would shift the popover left by the gutter. */
+function anchorTo(el: HTMLElement) {
+  const r = el.getBoundingClientRect()
+  return { top: r.bottom + 8, right: document.documentElement.clientWidth - r.right }
+}
+
 export default function DayPicker({ daysBehind = 0 }: { daysBehind?: number }) {
   const { day, setDay, days, latest } = useDay()
   const [open, setOpen] = useState(false)
   const [month, setMonth] = useState<Date | null>(null)
   const rootRef = useRef<HTMLDivElement>(null)
+  const popRef = useRef<HTMLDivElement>(null)
+  /** Taken when the popover opens, re-taken while it is open and the window
+      resizes. */
+  const [anchor, setAnchor] = useState<{ top: number; right: number } | null>(null)
 
   const selected = day ?? latest
   const selectable = new Set(days)
 
   useEffect(() => {
     if (!open) return
+    // Taken once on open, so the popover would hang where the picker used to be
+    // if the window were dragged narrower with the calendar showing.
+    const onResize = () => rootRef.current && setAnchor(anchorTo(rootRef.current))
+    window.addEventListener('resize', onResize)
     const onDown = (e: MouseEvent) => {
-      if (!rootRef.current?.contains(e.target as Node)) setOpen(false)
+      // Both refs: the popover is portaled, so it is no longer inside rootRef
+      // and a click on a date would otherwise read as a click outside.
+      const target = e.target as Node
+      if (!rootRef.current?.contains(target) && !popRef.current?.contains(target)) {
+        setOpen(false)
+      }
     }
     const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setOpen(false)
     document.addEventListener('mousedown', onDown)
     document.addEventListener('keydown', onKey)
     return () => {
+      window.removeEventListener('resize', onResize)
       document.removeEventListener('mousedown', onDown)
       document.removeEventListener('keydown', onKey)
     }
@@ -74,6 +104,25 @@ export default function DayPicker({ daysBehind = 0 }: { daysBehind?: number }) {
 
   return (
     <div ref={rootRef} className="relative flex items-center gap-1">
+      {/* The dataset is a snapshot and does not advance on its own. Saying
+          "latest" when the newest shift is days old would present stale numbers
+          as current, which is the one thing a briefing must not do.
+
+          It sits left of the arrows rather than inside the date button: the
+          picker is right-anchored, so a note that appears and disappears out
+          here extends leftward and leaves the controls where they were.
+
+          The header's outer columns are 1fr each, so under about 1100px this
+          note has nowhere left to extend and wraps onto two and then three
+          lines, taking the whole app bar with it. Below xl it is dropped
+          instead: the date is still on screen, and the briefing says the same
+          thing in a sentence directly beneath the header. */}
+      {day === null && (
+        <span className="mr-1 hidden text-[12px] text-faint xl:inline">
+          {daysBehind > 0 ? `(latest on file · ${daysBehind}d ago)` : '(latest)'}
+        </span>
+      )}
+
       <button
         type="button"
         onClick={() => jump(-1)}
@@ -87,6 +136,7 @@ export default function DayPicker({ daysBehind = 0 }: { daysBehind?: number }) {
       <button
         type="button"
         onClick={() => {
+          setAnchor(anchorTo(rootRef.current!))
           setMonth(parse(selected))
           setOpen((v) => !v)
         }}
@@ -94,21 +144,19 @@ export default function DayPicker({ daysBehind = 0 }: { daysBehind?: number }) {
         className="flex cursor-pointer items-center gap-2 rounded px-2 py-1 text-[15px] text-muted transition-colors duration-150 hover:bg-white/10 hover:text-hi focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none"
       >
         <CalendarDays size={15} aria-hidden className="text-faint" />
-        {parse(selected).toLocaleDateString(undefined, {
-          weekday: 'short',
-          day: 'numeric',
-          month: 'short',
-        })}
-        {/* The dataset is a snapshot and does not advance on its own. Saying
-            "latest" when the newest shift is days old would present stale
-            numbers as current, which is the one thing a briefing must not do. */}
-        {day === null && (
-          <span className="text-[12px] text-faint">
-            {daysBehind > 0
-              ? `(latest on file · ${daysBehind}d ago)`
-              : '(latest)'}
-          </span>
-        )}
+        {/* Fixed width, or the arrows shuffle every time the date changes —
+            "Fri, Jul 3" and "Mon, May 11" are not the same width in a
+            proportional face. 88px clears the widest of all 366 strings this
+            format produces (86.75px, "Mon, May 11", Inter at 15px); re-measure
+            if the size or format changes. tabular-nums holds the digits still
+            within it. */}
+        <span className="w-[88px] text-center tabular-nums">
+          {parse(selected).toLocaleDateString(undefined, {
+            weekday: 'short',
+            day: 'numeric',
+            month: 'short',
+          })}
+        </span>
       </button>
 
       <button
@@ -121,8 +169,16 @@ export default function DayPicker({ daysBehind = 0 }: { daysBehind?: number }) {
         <ChevronRight size={15} aria-hidden />
       </button>
 
-      {open && (
-        <div className="glass-bar absolute top-full right-0 z-50 mt-2 w-72 rounded-xl border border-line p-3 shadow-glow">
+      {open && anchor && createPortal(
+        // Same recipe as the ask bar in its opened state — glass-bar,
+        // rounded-2xl, and the accent border plus glow it takes on focus-within
+        // — so the two things a supervisor opens mid-briefing announce
+        // themselves the same way.
+        <div
+          ref={popRef}
+          style={{ top: anchor.top, right: anchor.right }}
+          className="glass-bar fixed z-50 w-72 rounded-2xl border border-accent/50 p-3 shadow-glow"
+        >
           <div className="flex items-center justify-between">
             <button
               type="button"
@@ -193,7 +249,8 @@ export default function DayPicker({ daysBehind = 0 }: { daysBehind?: number }) {
               Jump to most recent
             </button>
           )}
-        </div>
+        </div>,
+        document.body,
       )}
     </div>
   )

@@ -20,9 +20,20 @@ import RootCausePanel from './RootCausePanel'
 /* Time · Machine · Line · Reason · Impact · Note · chevron.
    Impact is right-aligned, so its number ends hard against the column edge and
    the grid gap alone is not enough to keep it off the note. NOTE_PAD adds that
-   separation on the Note side, where there is slack to spend. */
-const COLS =
-  'grid grid-cols-[3.25rem_minmax(0,1.4fr)_5.5rem_9rem_4.5rem_minmax(0,1.6fr)_1.25rem] items-center gap-3'
+   separation on the Note side, where there is slack to spend.
+
+   Five of the seven columns are fixed, so narrowing the window takes it out of
+   Machine and Note alone. Under 1024px that leaves the note showing three
+   words, so Line goes first: a machine belongs to exactly one line and its id
+   is already under its name, which makes this the only column that repeats
+   something the row has said. Shift goes with it, and is the one loss — it
+   reappears in the row's own expansion, under "Line and shift". */
+const LINE_COL = 'hidden lg:block'
+
+const COLS = cn(
+  'grid grid-cols-[3.25rem_minmax(0,1.4fr)_9rem_4.5rem_minmax(0,1.6fr)_1.25rem] items-center gap-3',
+  'lg:grid-cols-[3.25rem_minmax(0,1.4fr)_5.5rem_9rem_4.5rem_minmax(0,1.6fr)_1.25rem]',
+)
 
 const NOTE_PAD = 'pl-6'
 
@@ -80,7 +91,7 @@ export default function EventTable({
       <div className={cn(COLS, 'label-caps mt-4 border-b border-white/5 px-5 pb-2')} aria-hidden>
         <span>Time</span>
         <span>Machine</span>
-        <span>Line</span>
+        <span className={LINE_COL}>Line</span>
         <span>Reason</span>
         <span className="text-right">Impact</span>
         <span className={NOTE_PAD}>Note</span>
@@ -126,7 +137,7 @@ export default function EventTable({
                   <span className="label-caps">{event.machineId}</span>
                 </span>
 
-                <span className="font-mono text-[12px] text-muted">
+                <span className={cn(LINE_COL, 'font-mono text-[12px] text-muted')}>
                   {event.line}
                   <span className="ml-1.5 text-white/30">{event.shift}</span>
                 </span>
