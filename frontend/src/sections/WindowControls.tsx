@@ -6,11 +6,13 @@ import { cn } from '../lib/cn'
  * Caption buttons for the frameless window (run.py passes `frameless=True`).
  * These are the only way to minimize, maximize or close the app.
  *
- * VS Code's geometry: square 46×36 buttons, flush into the top-right corner,
- * no gap and no radius. Anything softer stops reading as window chrome and
- * starts reading as content. Only the glyph treatment is ours — hairline
- * strokes, faint until hovered, the accent glow the rest of the app already
- * uses for emphasis.
+ * Windows' geometry: a block of buttons flush into the top-right corner, no
+ * gap and no radius. Anything softer stops reading as window chrome and starts
+ * reading as content. 56×44 — wide rather than tall, so the hover fill is a
+ * broad landing area in the corner instead of a full-height column competing
+ * with the bar it sits in. Only the glyph treatment is ours — hairline strokes,
+ * faint until hovered, the accent glow the rest of the app already uses for
+ * emphasis.
  */
 
 declare global {
@@ -106,7 +108,7 @@ function CaptionButton({
       title={label}
       onClick={onClick}
       className={cn(
-        'group grid h-9 w-12 place-items-center text-faint transition-colors duration-150',
+        'group grid h-11 w-14 place-items-center text-faint transition-colors duration-150',
         'focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none focus-visible:ring-inset',
         // Close goes solid on hover, the way every OS does it. The other two
         // take the same 5% white overlay as any other interaction state.
