@@ -39,7 +39,42 @@ _COLLECTION_META = {"hnsw:space": "cosine", "index_version": INDEX_VERSION}
 INCLUDE_QUERY = cast(Any, ["documents", "metadatas", "distances"])
 INCLUDE_GET = cast(Any, ["documents", "metadatas"])
 
+# Words that name a factory metric rather than a procedure. The lexical
+# fallback refuses any query containing one, because several of them do occur
+# in SOP prose - "downtime" is in six documents - and a bare metric word
+# retrieving a maintenance procedure is exactly the rule 8 failure the
+# similarity floor exists to prevent. OEE, availability and inventory appear in
+# none of the SOPs, but they are listed for the day someone adds a document
+# that mentions them.
+METRIC_TERMS = frozenset({
+    "oee", "scrap", "downtime", "availability", "performance", "utilisation",
+    "utilization", "throughput", "yield", "inventory", "uptime",
+})
+
 _ollama = OllamaSDK(host=settings.ollama_host)
+
+
+def read_sop(doc_id: str) -> dict | None:
+    """The whole document as written, for the in-app viewer.
+
+    Read from disk rather than reassembled from chunks: chunking splits on
+    headings and drops nothing, but stitching pieces back together would put
+    the viewer's fidelity at the mercy of the indexer.
+    """
+    wanted = doc_id.strip().upper()
+    for path in sorted(Path(settings.sop_dir).glob("*.md")):
+        raw = path.read_text(encoding="utf-8")
+        meta, body = KnowledgeBase._parse_front_matter(raw)
+        if (meta.get("doc_id") or path.stem).upper() != wanted:
+            continue
+        return {
+            "doc_id": meta.get("doc_id", path.stem),
+            "title": meta.get("title", path.stem),
+            "revision": meta.get("revision", ""),
+            "department": meta.get("department", ""),
+            "markdown": body,
+        }
+    return None
 
 
 def embed_texts(texts: list[str], prefix: str) -> Any:
@@ -84,6 +119,8 @@ class KnowledgeBase:
             metadata=_COLLECTION_META,
             embedding_function=None,  # we always supply vectors ourselves
         )
+        # Built on first lexical lookup, invalidated by reset().
+        self._lexical_cache: list[dict] | None = None
 
     # ---------------------------------------------------------------- indexing
 
@@ -172,6 +209,7 @@ class KnowledgeBase:
             metadata=_COLLECTION_META,
             embedding_function=None,
         )
+        self._lexical_cache = None  # would otherwise survive the reindex
 
     # ---------------------------------------------------------------- parsing
 
@@ -273,6 +311,91 @@ class KnowledgeBase:
         rows.sort(key=lambda r: int(r["id"].rsplit("#", 1)[-1]))
         return rows
 
+    def _all_chunks(self) -> list[dict]:
+        """Every chunk, cached. 61 chunks - small enough to scan in Python."""
+        if self._lexical_cache is None:
+            got = self.collection.get(include=INCLUDE_GET)
+            ids = got.get("ids") or []
+            documents = got.get("documents") or []
+            metadatas = got.get("metadatas") or []
+            self._lexical_cache = [
+                {
+                    "id": chunk_id,
+                    "content": documents[i],
+                    "metadata": dict(metadatas[i] or {}),
+                    # Precomputed once: title and section are weighted more
+                    # heavily than body text, so a term in a heading wins.
+                    "haystack": (
+                        f"{(metadatas[i] or {}).get('title', '')} "
+                        f"{(metadatas[i] or {}).get('section', '')} "
+                        f"{documents[i]}"
+                    ).lower(),
+                    "heading": (
+                        f"{(metadatas[i] or {}).get('title', '')} "
+                        f"{(metadatas[i] or {}).get('section', '')}"
+                    ).lower(),
+                }
+                for i, chunk_id in enumerate(ids)
+            ]
+        return self._lexical_cache
+
+    def lexical_search(self, query: str, top_k: int) -> list[dict]:
+        """Substring fallback for terse queries the embedding cannot place.
+
+        "3d", "sls", "recoater" carry almost no semantic signal at two or
+        three characters, so they land above the distance floor and get
+        rejected even though the corpus plainly contains them. A literal term
+        match recovers exactly those cases.
+
+        Runs only when vector search returned nothing, so it can never
+        outrank a real semantic match. Guarded by METRIC_TERMS as well:
+        "downtime" appears in six SOPs, and letting a bare metric word
+        retrieve a maintenance procedure is the rule 8 failure the similarity
+        floor exists to prevent.
+        """
+        terms = [t for t in re.findall(r"[a-z0-9]+", query.lower()) if len(t) >= 2]
+        if not terms or any(t in METRIC_TERMS for t in terms):
+            return []
+
+        scored = []
+        for chunk in self._all_chunks():
+            hits = sum(1 for t in terms if t in chunk["haystack"])
+            if hits != len(terms):
+                continue  # every term must appear; partial matches are noise
+            heading_hits = sum(1 for t in terms if t in chunk["heading"])
+            scored.append((heading_hits, chunk))
+
+        if not scored:
+            return []
+
+        # Heading matches first, then document order for stability.
+        scored.sort(key=lambda pair: (-pair[0], pair[1]["id"]))
+
+        results = []
+        seen: set[str] = set()
+        for _, chunk in scored:
+            meta = chunk["metadata"]
+            doc_id = meta.get("doc_id", chunk["id"].split("#")[0])
+            if doc_id in seen:
+                continue
+            seen.add(doc_id)
+            results.append(
+                {
+                    "id": chunk["id"],
+                    "doc_id": doc_id,
+                    "title": meta.get("title", ""),
+                    "section": meta.get("section", "General"),
+                    "content": chunk["content"],
+                    # A literal term match, not a similarity judgement - same
+                    # convention as _by_doc_id.
+                    "distance": 0.0,
+                    "metadata": meta,
+                }
+            )
+            if len(results) == top_k:
+                break
+        return results
+
     def search(self, query: str, top_k: int | None = None) -> list[dict]:
         """Return the best-matching chunk per SOP, above the similarity floor.
 
@@ -342,6 +465,12 @@ class KnowledgeBase:
             )
             if len(results) == k:
                 break
+
+        # Nothing cleared the floor. Before declaring the query off-topic, try
+        # a literal term match - this is what rescues "3d" and "sls".
+        if not results:
+            return self.lexical_search(query, k)
+
         return results
 
     def debug_distances(self, queries: list[str], top_k: int = 4) -> None:

@@ -17,14 +17,14 @@ Every number below is already calculated. Use these figures and no others.
 A `headline` of one sentence: the state of the plant yesterday and the single
 thing that most needs attention today.
 
-A `narrative` of 2 to 4 sentences expanding on it. What drove the numbers,
-and what changed since the day before.
+A `narrative` of exactly 2 sentences expanding on it. What drove the numbers,
+and what changed since the day before. Do not exceed two sentences.
 
-Then 2 to 4 `callouts`, most severe first. Each has:
+Then 2 or 3 `callouts`, most severe first. Each has:
 
 - `title` — a short label, 3 to 6 words. "Changeover overrun on MOLDING".
-- `detail` — what happened and what to do about it this morning. Concrete and
-  assignable, not "monitor the situation". One or two sentences.
+- `detail` — what happened and what to do about it this morning, in ONE
+  sentence. Concrete and assignable, not "monitor the situation".
 - `severity` — `high`, `medium` or `low`. Reserve `high` for something
   costing real output today. At most one callout should be `high`.
 - `metric` — the single figure that makes the case, copied exactly as it

@@ -4,9 +4,12 @@ Two steps, deliberately separate (the "medium" design):
   1. /api/search  - retrieval only. No model. Fast enough to feel instant.
   2. /api/explain - model reasoning over chunks the user already saw.
 
-Rule 8 holds: neither endpoint classifies intent. Off-corpus queries are
-handled by the similarity floor in knowledge_base.search(), which returns
-nothing, and we reply with the fixed redirect string.
+Rule 8 holds: nothing here routes a *question* between document search and
+factory data. /api/search has a conversational shell in front of it, but it
+only intercepts whole-query pattern matches that are not questions at all
+(greetings, thanks, "what can you do"), by regex and never by a model. Real
+queries fall through to retrieval, and off-corpus ones are still caught by
+the similarity floor in knowledge_base.search().
 """
 
 from __future__ import annotations
@@ -23,9 +26,11 @@ from app.schemas import (
     ExplainStep,
     SearchRequest,
     SearchResponse,
+    SopDocument,
     SOPResult,
 )
-from app.services.knowledge_base import INCLUDE_GET, get_knowledge_base
+from app.services import conversation
+from app.services.knowledge_base import INCLUDE_GET, get_knowledge_base, read_sop
 
 # No prefix here - main.py applies /api to every router uniformly.
 router = APIRouter(tags=["search"])
@@ -39,19 +44,40 @@ def _as_context(chunks: list[dict]) -> str:
 
 @router.post("/search", response_model=SearchResponse)
 def search_sops(payload: SearchRequest) -> SearchResponse:
-    """Retrieval only. No LLM call, so this stays sub-second."""
+    """Conversational shell first, then retrieval. No LLM call on either path,
+    so this stays sub-second."""
     query = payload.query.strip()
-    if len(query) < 3:
+    if len(query) < 2:
         raise HTTPException(status_code=400, detail="Query too short")
 
+    # Track 1: greetings, thanks, "what can you do". Whole-query pattern
+    # matches only, so a real question never lands here. No model, no
+    # embedding - this returns in about a millisecond.
+    turn = conversation.match(query)
+    if turn is not None:
+        return SearchResponse(
+            query=query,
+            kind="conversation",
+            reply=turn.reply,
+            suggestions=turn.suggestions,
+            fallback_message=turn.reply,  # existing UI renders this field
+        )
+
+    # Track 2: retrieval.
     chunks = get_knowledge_base().search(query, top_k=settings.retrieval_top_k)
 
     if not chunks:
         # Either the corpus is empty or nothing cleared max_match_distance.
-        return SearchResponse(query=query, results=[], fallback_message=OFF_TOPIC_MESSAGE)
+        return SearchResponse(
+            query=query,
+            kind="off_topic",
+            suggestions=conversation.EXAMPLE_QUESTIONS,
+            fallback_message=OFF_TOPIC_MESSAGE,
+        )
 
     return SearchResponse(
         query=query,
+        kind="results",
         results=[
             SOPResult(
                 id=c["id"],
@@ -65,6 +91,15 @@ def search_sops(payload: SearchRequest) -> SearchResponse:
         ],
         fallback_message=None,
     )
+
+
+@router.get("/sops/{doc_id}", response_model=SopDocument)
+def get_sop(doc_id: str) -> SopDocument:
+    """The full document behind a result, for the in-app viewer."""
+    doc = read_sop(doc_id)
+    if doc is None:
+        raise HTTPException(status_code=404, detail=f"No SOP {doc_id}")
+    return SopDocument(**doc)
 
 
 @router.post("/explain", response_model=ExplainResponse)

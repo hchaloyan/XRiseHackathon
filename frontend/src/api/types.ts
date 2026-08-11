@@ -19,11 +19,39 @@ export interface SopResult {
   distance: number
 }
 
+/**
+ * One shape for all three outcomes. Switch on `kind`:
+ *
+ *   'results'      — sections cleared the similarity floor; render `results`.
+ *   'conversation' — a greeting or capability question. Render `reply` as a
+ *                    chat line and `suggestions` as clickable chips. Matched
+ *                    by regex server-side: no model, ~1ms, never intercepts
+ *                    a real question.
+ *   'off_topic'    — nothing cleared the floor (spec 7.1). Render
+ *                    `fallbackMessage` plus `suggestions`.
+ *
+ * `fallbackMessage` is set on both non-results paths, so a UI that only
+ * reads it still behaves correctly and simply ignores the richer fields.
+ */
 export interface SearchResponse {
   query: string
+  kind: 'results' | 'conversation' | 'off_topic'
   results: SopResult[]
-  /** Non-null only when nothing cleared the similarity floor (spec 7.1). */
+  /** Non-null only when kind === 'conversation'. */
+  reply: string | null
+  /** Example questions, all guaranteed to retrieve. Empty on 'results'. */
+  suggestions: string[]
   fallbackMessage: string | null
+}
+
+/** GET /api/sops/{docId} — the whole document, for the in-app viewer. */
+export interface SopDocument {
+  docId: string
+  title: string
+  revision: string
+  department: string
+  /** Raw markdown, front matter already stripped. */
+  markdown: string
 }
 
 export interface ExplainStep {
