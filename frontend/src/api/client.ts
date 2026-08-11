@@ -10,7 +10,13 @@ import type {
   SearchResponse,
 } from './types'
 
-const BASE_URL = import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:8000'
+/**
+ * Dev runs on :5173 and must name the backend absolutely. The packaged desktop
+ * app is served BY the backend, so it must not: the window is opened at
+ * 127.0.0.1 and a baked "localhost" URL is a different origin to the browser,
+ * which CORS then blocks. Relative paths make the question moot.
+ */
+const BASE_URL = import.meta.env.VITE_API_BASE_URL ?? (import.meta.env.DEV ? 'http://localhost:8000' : '')
 
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
   const res = await fetch(`${BASE_URL}${path}`, {
