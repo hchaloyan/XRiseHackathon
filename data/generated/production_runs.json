@@ -1,19 +1,3851 @@
 [
   {
+    "run_id": "RUN-0337",
+    "machine_id": "M-11",
+    "start": "2026-07-11T06:00:00",
+    "end": "2026-07-11T14:00:00",
+    "good_count": 445,
+    "total_count": 445
+  },
+  {
+    "run_id": "RUN-0339",
+    "machine_id": "M-12",
+    "start": "2026-07-11T06:00:00",
+    "end": "2026-07-11T14:00:00",
+    "good_count": 794,
+    "total_count": 794
+  },
+  {
+    "run_id": "RUN-0341",
+    "machine_id": "M-13",
+    "start": "2026-07-11T06:00:00",
+    "end": "2026-07-11T14:00:00",
+    "good_count": 642,
+    "total_count": 642
+  },
+  {
+    "run_id": "RUN-0343",
+    "machine_id": "M-14",
+    "start": "2026-07-11T06:00:00",
+    "end": "2026-07-11T14:00:00",
+    "good_count": 649,
+    "total_count": 649
+  },
+  {
+    "run_id": "RUN-0345",
+    "machine_id": "M-21",
+    "start": "2026-07-11T06:00:00",
+    "end": "2026-07-11T14:00:00",
+    "good_count": 78,
+    "total_count": 79
+  },
+  {
+    "run_id": "RUN-0347",
+    "machine_id": "M-22",
+    "start": "2026-07-11T06:00:00",
+    "end": "2026-07-11T14:00:00",
+    "good_count": 81,
+    "total_count": 81
+  },
+  {
+    "run_id": "RUN-0349",
+    "machine_id": "M-23",
+    "start": "2026-07-11T06:00:00",
+    "end": "2026-07-11T14:00:00",
+    "good_count": 68,
+    "total_count": 68
+  },
+  {
+    "run_id": "RUN-0351",
+    "machine_id": "M-24",
+    "start": "2026-07-11T06:00:00",
+    "end": "2026-07-11T14:00:00",
+    "good_count": 141,
+    "total_count": 146
+  },
+  {
+    "run_id": "RUN-0353",
+    "machine_id": "M-31",
+    "start": "2026-07-11T06:00:00",
+    "end": "2026-07-11T14:00:00",
+    "good_count": 358,
+    "total_count": 372
+  },
+  {
+    "run_id": "RUN-0355",
+    "machine_id": "M-32",
+    "start": "2026-07-11T06:00:00",
+    "end": "2026-07-11T14:00:00",
+    "good_count": 1130,
+    "total_count": 1130
+  },
+  {
+    "run_id": "RUN-0357",
+    "machine_id": "M-33",
+    "start": "2026-07-11T06:00:00",
+    "end": "2026-07-11T14:00:00",
+    "good_count": 19,
+    "total_count": 19
+  },
+  {
+    "run_id": "RUN-0359",
+    "machine_id": "M-34",
+    "start": "2026-07-11T06:00:00",
+    "end": "2026-07-11T14:00:00",
+    "good_count": 18,
+    "total_count": 18
+  },
+  {
+    "run_id": "RUN-0361",
+    "machine_id": "M-41",
+    "start": "2026-07-11T06:00:00",
+    "end": "2026-07-11T14:00:00",
+    "good_count": 331,
+    "total_count": 331
+  },
+  {
+    "run_id": "RUN-0363",
+    "machine_id": "M-42",
+    "start": "2026-07-11T06:00:00",
+    "end": "2026-07-11T14:00:00",
+    "good_count": 412,
+    "total_count": 412
+  },
+  {
+    "run_id": "RUN-0365",
+    "machine_id": "M-51",
+    "start": "2026-07-11T06:00:00",
+    "end": "2026-07-11T14:00:00",
+    "good_count": 545,
+    "total_count": 545
+  },
+  {
+    "run_id": "RUN-0338",
+    "machine_id": "M-11",
+    "start": "2026-07-11T14:00:00",
+    "end": "2026-07-11T22:00:00",
+    "good_count": 457,
+    "total_count": 457
+  },
+  {
+    "run_id": "RUN-0340",
+    "machine_id": "M-12",
+    "start": "2026-07-11T14:00:00",
+    "end": "2026-07-11T22:00:00",
+    "good_count": 881,
+    "total_count": 881
+  },
+  {
+    "run_id": "RUN-0342",
+    "machine_id": "M-13",
+    "start": "2026-07-11T14:00:00",
+    "end": "2026-07-11T22:00:00",
+    "good_count": 600,
+    "total_count": 600
+  },
+  {
+    "run_id": "RUN-0344",
+    "machine_id": "M-14",
+    "start": "2026-07-11T14:00:00",
+    "end": "2026-07-11T22:00:00",
+    "good_count": 499,
+    "total_count": 523
+  },
+  {
+    "run_id": "RUN-0346",
+    "machine_id": "M-21",
+    "start": "2026-07-11T14:00:00",
+    "end": "2026-07-11T22:00:00",
+    "good_count": 77,
+    "total_count": 77
+  },
+  {
+    "run_id": "RUN-0348",
+    "machine_id": "M-22",
+    "start": "2026-07-11T14:00:00",
+    "end": "2026-07-11T22:00:00",
+    "good_count": 62,
+    "total_count": 62
+  },
+  {
+    "run_id": "RUN-0350",
+    "machine_id": "M-23",
+    "start": "2026-07-11T14:00:00",
+    "end": "2026-07-11T22:00:00",
+    "good_count": 62,
+    "total_count": 63
+  },
+  {
+    "run_id": "RUN-0352",
+    "machine_id": "M-24",
+    "start": "2026-07-11T14:00:00",
+    "end": "2026-07-11T22:00:00",
+    "good_count": 181,
+    "total_count": 181
+  },
+  {
+    "run_id": "RUN-0354",
+    "machine_id": "M-31",
+    "start": "2026-07-11T14:00:00",
+    "end": "2026-07-11T22:00:00",
+    "good_count": 351,
+    "total_count": 351
+  },
+  {
+    "run_id": "RUN-0356",
+    "machine_id": "M-32",
+    "start": "2026-07-11T14:00:00",
+    "end": "2026-07-11T22:00:00",
+    "good_count": 975,
+    "total_count": 975
+  },
+  {
+    "run_id": "RUN-0358",
+    "machine_id": "M-33",
+    "start": "2026-07-11T14:00:00",
+    "end": "2026-07-11T22:00:00",
+    "good_count": 21,
+    "total_count": 21
+  },
+  {
+    "run_id": "RUN-0360",
+    "machine_id": "M-34",
+    "start": "2026-07-11T14:00:00",
+    "end": "2026-07-11T22:00:00",
+    "good_count": 18,
+    "total_count": 18
+  },
+  {
+    "run_id": "RUN-0362",
+    "machine_id": "M-41",
+    "start": "2026-07-11T14:00:00",
+    "end": "2026-07-11T22:00:00",
+    "good_count": 391,
+    "total_count": 391
+  },
+  {
+    "run_id": "RUN-0364",
+    "machine_id": "M-42",
+    "start": "2026-07-11T14:00:00",
+    "end": "2026-07-11T22:00:00",
+    "good_count": 417,
+    "total_count": 426
+  },
+  {
+    "run_id": "RUN-0366",
+    "machine_id": "M-51",
+    "start": "2026-07-11T14:00:00",
+    "end": "2026-07-11T22:00:00",
+    "good_count": 519,
+    "total_count": 519
+  },
+  {
+    "run_id": "RUN-0367",
+    "machine_id": "M-11",
+    "start": "2026-07-12T06:00:00",
+    "end": "2026-07-12T14:00:00",
+    "good_count": 452,
+    "total_count": 452
+  },
+  {
+    "run_id": "RUN-0369",
+    "machine_id": "M-12",
+    "start": "2026-07-12T06:00:00",
+    "end": "2026-07-12T14:00:00",
+    "good_count": 845,
+    "total_count": 845
+  },
+  {
+    "run_id": "RUN-0371",
+    "machine_id": "M-13",
+    "start": "2026-07-12T06:00:00",
+    "end": "2026-07-12T14:00:00",
+    "good_count": 623,
+    "total_count": 623
+  },
+  {
+    "run_id": "RUN-0373",
+    "machine_id": "M-14",
+    "start": "2026-07-12T06:00:00",
+    "end": "2026-07-12T14:00:00",
+    "good_count": 601,
+    "total_count": 622
+  },
+  {
+    "run_id": "RUN-0375",
+    "machine_id": "M-21",
+    "start": "2026-07-12T06:00:00",
+    "end": "2026-07-12T14:00:00",
+    "good_count": 74,
+    "total_count": 74
+  },
+  {
+    "run_id": "RUN-0377",
+    "machine_id": "M-22",
+    "start": "2026-07-12T06:00:00",
+    "end": "2026-07-12T14:00:00",
+    "good_count": 75,
+    "total_count": 75
+  },
+  {
+    "run_id": "RUN-0379",
+    "machine_id": "M-23",
+    "start": "2026-07-12T06:00:00",
+    "end": "2026-07-12T14:00:00",
+    "good_count": 67,
+    "total_count": 67
+  },
+  {
+    "run_id": "RUN-0381",
+    "machine_id": "M-24",
+    "start": "2026-07-12T06:00:00",
+    "end": "2026-07-12T14:00:00",
+    "good_count": 174,
+    "total_count": 180
+  },
+  {
+    "run_id": "RUN-0383",
+    "machine_id": "M-31",
+    "start": "2026-07-12T06:00:00",
+    "end": "2026-07-12T14:00:00",
+    "good_count": 385,
+    "total_count": 385
+  },
+  {
+    "run_id": "RUN-0385",
+    "machine_id": "M-32",
+    "start": "2026-07-12T06:00:00",
+    "end": "2026-07-12T14:00:00",
+    "good_count": 1079,
+    "total_count": 1079
+  },
+  {
+    "run_id": "RUN-0387",
+    "machine_id": "M-33",
+    "start": "2026-07-12T06:00:00",
+    "end": "2026-07-12T14:00:00",
+    "good_count": 15,
+    "total_count": 15
+  },
+  {
+    "run_id": "RUN-0389",
+    "machine_id": "M-34",
+    "start": "2026-07-12T06:00:00",
+    "end": "2026-07-12T14:00:00",
+    "good_count": 18,
+    "total_count": 18
+  },
+  {
+    "run_id": "RUN-0391",
+    "machine_id": "M-41",
+    "start": "2026-07-12T06:00:00",
+    "end": "2026-07-12T14:00:00",
+    "good_count": 362,
+    "total_count": 362
+  },
+  {
+    "run_id": "RUN-0393",
+    "machine_id": "M-42",
+    "start": "2026-07-12T06:00:00",
+    "end": "2026-07-12T14:00:00",
+    "good_count": 468,
+    "total_count": 480
+  },
+  {
+    "run_id": "RUN-0395",
+    "machine_id": "M-51",
+    "start": "2026-07-12T06:00:00",
+    "end": "2026-07-12T14:00:00",
+    "good_count": 521,
+    "total_count": 521
+  },
+  {
+    "run_id": "RUN-0368",
+    "machine_id": "M-11",
+    "start": "2026-07-12T14:00:00",
+    "end": "2026-07-12T22:00:00",
+    "good_count": 419,
+    "total_count": 419
+  },
+  {
+    "run_id": "RUN-0370",
+    "machine_id": "M-12",
+    "start": "2026-07-12T14:00:00",
+    "end": "2026-07-12T22:00:00",
+    "good_count": 807,
+    "total_count": 807
+  },
+  {
+    "run_id": "RUN-0372",
+    "machine_id": "M-13",
+    "start": "2026-07-12T14:00:00",
+    "end": "2026-07-12T22:00:00",
+    "good_count": 614,
+    "total_count": 614
+  },
+  {
+    "run_id": "RUN-0374",
+    "machine_id": "M-14",
+    "start": "2026-07-12T14:00:00",
+    "end": "2026-07-12T22:00:00",
+    "good_count": 412,
+    "total_count": 412
+  },
+  {
+    "run_id": "RUN-0376",
+    "machine_id": "M-21",
+    "start": "2026-07-12T14:00:00",
+    "end": "2026-07-12T22:00:00",
+    "good_count": 70,
+    "total_count": 70
+  },
+  {
+    "run_id": "RUN-0378",
+    "machine_id": "M-22",
+    "start": "2026-07-12T14:00:00",
+    "end": "2026-07-12T22:00:00",
+    "good_count": 83,
+    "total_count": 83
+  },
+  {
+    "run_id": "RUN-0380",
+    "machine_id": "M-23",
+    "start": "2026-07-12T14:00:00",
+    "end": "2026-07-12T22:00:00",
+    "good_count": 61,
+    "total_count": 62
+  },
+  {
+    "run_id": "RUN-0382",
+    "machine_id": "M-24",
+    "start": "2026-07-12T14:00:00",
+    "end": "2026-07-12T22:00:00",
+    "good_count": 174,
+    "total_count": 174
+  },
+  {
+    "run_id": "RUN-0384",
+    "machine_id": "M-31",
+    "start": "2026-07-12T14:00:00",
+    "end": "2026-07-12T22:00:00",
+    "good_count": 353,
+    "total_count": 353
+  },
+  {
+    "run_id": "RUN-0386",
+    "machine_id": "M-32",
+    "start": "2026-07-12T14:00:00",
+    "end": "2026-07-12T22:00:00",
+    "good_count": 1052,
+    "total_count": 1052
+  },
+  {
+    "run_id": "RUN-0388",
+    "machine_id": "M-33",
+    "start": "2026-07-12T14:00:00",
+    "end": "2026-07-12T22:00:00",
+    "good_count": 22,
+    "total_count": 22
+  },
+  {
+    "run_id": "RUN-0390",
+    "machine_id": "M-34",
+    "start": "2026-07-12T14:00:00",
+    "end": "2026-07-12T22:00:00",
+    "good_count": 19,
+    "total_count": 19
+  },
+  {
+    "run_id": "RUN-0392",
+    "machine_id": "M-41",
+    "start": "2026-07-12T14:00:00",
+    "end": "2026-07-12T22:00:00",
+    "good_count": 337,
+    "total_count": 337
+  },
+  {
+    "run_id": "RUN-0394",
+    "machine_id": "M-42",
+    "start": "2026-07-12T14:00:00",
+    "end": "2026-07-12T22:00:00",
+    "good_count": 428,
+    "total_count": 428
+  },
+  {
+    "run_id": "RUN-0396",
+    "machine_id": "M-51",
+    "start": "2026-07-12T14:00:00",
+    "end": "2026-07-12T22:00:00",
+    "good_count": 612,
+    "total_count": 612
+  },
+  {
+    "run_id": "RUN-0397",
+    "machine_id": "M-11",
+    "start": "2026-07-13T06:00:00",
+    "end": "2026-07-13T14:00:00",
+    "good_count": 450,
+    "total_count": 450
+  },
+  {
+    "run_id": "RUN-0399",
+    "machine_id": "M-12",
+    "start": "2026-07-13T06:00:00",
+    "end": "2026-07-13T14:00:00",
+    "good_count": 786,
+    "total_count": 786
+  },
+  {
+    "run_id": "RUN-0401",
+    "machine_id": "M-13",
+    "start": "2026-07-13T06:00:00",
+    "end": "2026-07-13T14:00:00",
+    "good_count": 563,
+    "total_count": 563
+  },
+  {
+    "run_id": "RUN-0403",
+    "machine_id": "M-14",
+    "start": "2026-07-13T06:00:00",
+    "end": "2026-07-13T14:00:00",
+    "good_count": 631,
+    "total_count": 631
+  },
+  {
+    "run_id": "RUN-0405",
+    "machine_id": "M-21",
+    "start": "2026-07-13T06:00:00",
+    "end": "2026-07-13T14:00:00",
+    "good_count": 69,
+    "total_count": 69
+  },
+  {
+    "run_id": "RUN-0407",
+    "machine_id": "M-22",
+    "start": "2026-07-13T06:00:00",
+    "end": "2026-07-13T14:00:00",
+    "good_count": 79,
+    "total_count": 79
+  },
+  {
+    "run_id": "RUN-0409",
+    "machine_id": "M-23",
+    "start": "2026-07-13T06:00:00",
+    "end": "2026-07-13T14:00:00",
+    "good_count": 62,
+    "total_count": 62
+  },
+  {
+    "run_id": "RUN-0411",
+    "machine_id": "M-24",
+    "start": "2026-07-13T06:00:00",
+    "end": "2026-07-13T14:00:00",
+    "good_count": 179,
+    "total_count": 179
+  },
+  {
+    "run_id": "RUN-0413",
+    "machine_id": "M-31",
+    "start": "2026-07-13T06:00:00",
+    "end": "2026-07-13T14:00:00",
+    "good_count": 353,
+    "total_count": 353
+  },
+  {
+    "run_id": "RUN-0415",
+    "machine_id": "M-32",
+    "start": "2026-07-13T06:00:00",
+    "end": "2026-07-13T14:00:00",
+    "good_count": 951,
+    "total_count": 986
+  },
+  {
+    "run_id": "RUN-0417",
+    "machine_id": "M-33",
+    "start": "2026-07-13T06:00:00",
+    "end": "2026-07-13T14:00:00",
+    "good_count": 21,
+    "total_count": 21
+  },
+  {
+    "run_id": "RUN-0419",
+    "machine_id": "M-34",
+    "start": "2026-07-13T06:00:00",
+    "end": "2026-07-13T14:00:00",
+    "good_count": 19,
+    "total_count": 19
+  },
+  {
+    "run_id": "RUN-0421",
+    "machine_id": "M-41",
+    "start": "2026-07-13T06:00:00",
+    "end": "2026-07-13T14:00:00",
+    "good_count": 417,
+    "total_count": 417
+  },
+  {
+    "run_id": "RUN-0423",
+    "machine_id": "M-42",
+    "start": "2026-07-13T06:00:00",
+    "end": "2026-07-13T14:00:00",
+    "good_count": 349,
+    "total_count": 364
+  },
+  {
+    "run_id": "RUN-0425",
+    "machine_id": "M-51",
+    "start": "2026-07-13T06:00:00",
+    "end": "2026-07-13T14:00:00",
+    "good_count": 495,
+    "total_count": 508
+  },
+  {
+    "run_id": "RUN-0398",
+    "machine_id": "M-11",
+    "start": "2026-07-13T14:00:00",
+    "end": "2026-07-13T22:00:00",
+    "good_count": 486,
+    "total_count": 486
+  },
+  {
+    "run_id": "RUN-0400",
+    "machine_id": "M-12",
+    "start": "2026-07-13T14:00:00",
+    "end": "2026-07-13T22:00:00",
+    "good_count": 834,
+    "total_count": 834
+  },
+  {
+    "run_id": "RUN-0402",
+    "machine_id": "M-13",
+    "start": "2026-07-13T14:00:00",
+    "end": "2026-07-13T22:00:00",
+    "good_count": 596,
+    "total_count": 596
+  },
+  {
+    "run_id": "RUN-0404",
+    "machine_id": "M-14",
+    "start": "2026-07-13T14:00:00",
+    "end": "2026-07-13T22:00:00",
+    "good_count": 606,
+    "total_count": 606
+  },
+  {
+    "run_id": "RUN-0406",
+    "machine_id": "M-21",
+    "start": "2026-07-13T14:00:00",
+    "end": "2026-07-13T22:00:00",
+    "good_count": 82,
+    "total_count": 82
+  },
+  {
+    "run_id": "RUN-0408",
+    "machine_id": "M-22",
+    "start": "2026-07-13T14:00:00",
+    "end": "2026-07-13T22:00:00",
+    "good_count": 81,
+    "total_count": 81
+  },
+  {
+    "run_id": "RUN-0410",
+    "machine_id": "M-23",
+    "start": "2026-07-13T14:00:00",
+    "end": "2026-07-13T22:00:00",
+    "good_count": 54,
+    "total_count": 54
+  },
+  {
+    "run_id": "RUN-0412",
+    "machine_id": "M-24",
+    "start": "2026-07-13T14:00:00",
+    "end": "2026-07-13T22:00:00",
+    "good_count": 180,
+    "total_count": 180
+  },
+  {
+    "run_id": "RUN-0414",
+    "machine_id": "M-31",
+    "start": "2026-07-13T14:00:00",
+    "end": "2026-07-13T22:00:00",
+    "good_count": 305,
+    "total_count": 305
+  },
+  {
+    "run_id": "RUN-0416",
+    "machine_id": "M-32",
+    "start": "2026-07-13T14:00:00",
+    "end": "2026-07-13T22:00:00",
+    "good_count": 1108,
+    "total_count": 1108
+  },
+  {
+    "run_id": "RUN-0418",
+    "machine_id": "M-33",
+    "start": "2026-07-13T14:00:00",
+    "end": "2026-07-13T22:00:00",
+    "good_count": 21,
+    "total_count": 21
+  },
+  {
+    "run_id": "RUN-0420",
+    "machine_id": "M-34",
+    "start": "2026-07-13T14:00:00",
+    "end": "2026-07-13T22:00:00",
+    "good_count": 18,
+    "total_count": 18
+  },
+  {
+    "run_id": "RUN-0422",
+    "machine_id": "M-41",
+    "start": "2026-07-13T14:00:00",
+    "end": "2026-07-13T22:00:00",
+    "good_count": 342,
+    "total_count": 342
+  },
+  {
+    "run_id": "RUN-0424",
+    "machine_id": "M-42",
+    "start": "2026-07-13T14:00:00",
+    "end": "2026-07-13T22:00:00",
+    "good_count": 408,
+    "total_count": 408
+  },
+  {
+    "run_id": "RUN-0426",
+    "machine_id": "M-51",
+    "start": "2026-07-13T14:00:00",
+    "end": "2026-07-13T22:00:00",
+    "good_count": 543,
+    "total_count": 543
+  },
+  {
+    "run_id": "RUN-0427",
+    "machine_id": "M-11",
+    "start": "2026-07-14T06:00:00",
+    "end": "2026-07-14T14:00:00",
+    "good_count": 438,
+    "total_count": 438
+  },
+  {
+    "run_id": "RUN-0429",
+    "machine_id": "M-12",
+    "start": "2026-07-14T06:00:00",
+    "end": "2026-07-14T14:00:00",
+    "good_count": 809,
+    "total_count": 809
+  },
+  {
+    "run_id": "RUN-0431",
+    "machine_id": "M-13",
+    "start": "2026-07-14T06:00:00",
+    "end": "2026-07-14T14:00:00",
+    "good_count": 595,
+    "total_count": 595
+  },
+  {
+    "run_id": "RUN-0433",
+    "machine_id": "M-14",
+    "start": "2026-07-14T06:00:00",
+    "end": "2026-07-14T14:00:00",
+    "good_count": 627,
+    "total_count": 627
+  },
+  {
+    "run_id": "RUN-0435",
+    "machine_id": "M-21",
+    "start": "2026-07-14T06:00:00",
+    "end": "2026-07-14T14:00:00",
+    "good_count": 71,
+    "total_count": 71
+  },
+  {
+    "run_id": "RUN-0437",
+    "machine_id": "M-22",
+    "start": "2026-07-14T06:00:00",
+    "end": "2026-07-14T14:00:00",
+    "good_count": 81,
+    "total_count": 81
+  },
+  {
+    "run_id": "RUN-0439",
+    "machine_id": "M-23",
+    "start": "2026-07-14T06:00:00",
+    "end": "2026-07-14T14:00:00",
+    "good_count": 65,
+    "total_count": 65
+  },
+  {
+    "run_id": "RUN-0441",
+    "machine_id": "M-24",
+    "start": "2026-07-14T06:00:00",
+    "end": "2026-07-14T14:00:00",
+    "good_count": 151,
+    "total_count": 151
+  },
+  {
+    "run_id": "RUN-0443",
+    "machine_id": "M-31",
+    "start": "2026-07-14T06:00:00",
+    "end": "2026-07-14T14:00:00",
+    "good_count": 396,
+    "total_count": 396
+  },
+  {
+    "run_id": "RUN-0445",
+    "machine_id": "M-32",
+    "start": "2026-07-14T06:00:00",
+    "end": "2026-07-14T14:00:00",
+    "good_count": 1068,
+    "total_count": 1115
+  },
+  {
+    "run_id": "RUN-0447",
+    "machine_id": "M-33",
+    "start": "2026-07-14T06:00:00",
+    "end": "2026-07-14T14:00:00",
+    "good_count": 23,
+    "total_count": 23
+  },
+  {
+    "run_id": "RUN-0449",
+    "machine_id": "M-34",
+    "start": "2026-07-14T06:00:00",
+    "end": "2026-07-14T14:00:00",
+    "good_count": 21,
+    "total_count": 21
+  },
+  {
+    "run_id": "RUN-0451",
+    "machine_id": "M-41",
+    "start": "2026-07-14T06:00:00",
+    "end": "2026-07-14T14:00:00",
+    "good_count": 303,
+    "total_count": 303
+  },
+  {
+    "run_id": "RUN-0453",
+    "machine_id": "M-42",
+    "start": "2026-07-14T06:00:00",
+    "end": "2026-07-14T14:00:00",
+    "good_count": 410,
+    "total_count": 410
+  },
+  {
+    "run_id": "RUN-0455",
+    "machine_id": "M-51",
+    "start": "2026-07-14T06:00:00",
+    "end": "2026-07-14T14:00:00",
+    "good_count": 608,
+    "total_count": 608
+  },
+  {
+    "run_id": "RUN-0428",
+    "machine_id": "M-11",
+    "start": "2026-07-14T14:00:00",
+    "end": "2026-07-14T22:00:00",
+    "good_count": 387,
+    "total_count": 404
+  },
+  {
+    "run_id": "RUN-0430",
+    "machine_id": "M-12",
+    "start": "2026-07-14T14:00:00",
+    "end": "2026-07-14T22:00:00",
+    "good_count": 864,
+    "total_count": 864
+  },
+  {
+    "run_id": "RUN-0432",
+    "machine_id": "M-13",
+    "start": "2026-07-14T14:00:00",
+    "end": "2026-07-14T22:00:00",
+    "good_count": 679,
+    "total_count": 679
+  },
+  {
+    "run_id": "RUN-0434",
+    "machine_id": "M-14",
+    "start": "2026-07-14T14:00:00",
+    "end": "2026-07-14T22:00:00",
+    "good_count": 618,
+    "total_count": 618
+  },
+  {
+    "run_id": "RUN-0436",
+    "machine_id": "M-21",
+    "start": "2026-07-14T14:00:00",
+    "end": "2026-07-14T22:00:00",
+    "good_count": 76,
+    "total_count": 76
+  },
+  {
+    "run_id": "RUN-0438",
+    "machine_id": "M-22",
+    "start": "2026-07-14T14:00:00",
+    "end": "2026-07-14T22:00:00",
+    "good_count": 75,
+    "total_count": 75
+  },
+  {
+    "run_id": "RUN-0440",
+    "machine_id": "M-23",
+    "start": "2026-07-14T14:00:00",
+    "end": "2026-07-14T22:00:00",
+    "good_count": 70,
+    "total_count": 70
+  },
+  {
+    "run_id": "RUN-0442",
+    "machine_id": "M-24",
+    "start": "2026-07-14T14:00:00",
+    "end": "2026-07-14T22:00:00",
+    "good_count": 145,
+    "total_count": 145
+  },
+  {
+    "run_id": "RUN-0444",
+    "machine_id": "M-31",
+    "start": "2026-07-14T14:00:00",
+    "end": "2026-07-14T22:00:00",
+    "good_count": 377,
+    "total_count": 377
+  },
+  {
+    "run_id": "RUN-0446",
+    "machine_id": "M-32",
+    "start": "2026-07-14T14:00:00",
+    "end": "2026-07-14T22:00:00",
+    "good_count": 1075,
+    "total_count": 1075
+  },
+  {
+    "run_id": "RUN-0448",
+    "machine_id": "M-33",
+    "start": "2026-07-14T14:00:00",
+    "end": "2026-07-14T22:00:00",
+    "good_count": 20,
+    "total_count": 20
+  },
+  {
+    "run_id": "RUN-0450",
+    "machine_id": "M-34",
+    "start": "2026-07-14T14:00:00",
+    "end": "2026-07-14T22:00:00",
+    "good_count": 17,
+    "total_count": 17
+  },
+  {
+    "run_id": "RUN-0452",
+    "machine_id": "M-41",
+    "start": "2026-07-14T14:00:00",
+    "end": "2026-07-14T22:00:00",
+    "good_count": 372,
+    "total_count": 372
+  },
+  {
+    "run_id": "RUN-0454",
+    "machine_id": "M-42",
+    "start": "2026-07-14T14:00:00",
+    "end": "2026-07-14T22:00:00",
+    "good_count": 418,
+    "total_count": 418
+  },
+  {
+    "run_id": "RUN-0456",
+    "machine_id": "M-51",
+    "start": "2026-07-14T14:00:00",
+    "end": "2026-07-14T22:00:00",
+    "good_count": 461,
+    "total_count": 461
+  },
+  {
+    "run_id": "RUN-0457",
+    "machine_id": "M-11",
+    "start": "2026-07-15T06:00:00",
+    "end": "2026-07-15T14:00:00",
+    "good_count": 425,
+    "total_count": 425
+  },
+  {
+    "run_id": "RUN-0459",
+    "machine_id": "M-12",
+    "start": "2026-07-15T06:00:00",
+    "end": "2026-07-15T14:00:00",
+    "good_count": 802,
+    "total_count": 802
+  },
+  {
+    "run_id": "RUN-0461",
+    "machine_id": "M-13",
+    "start": "2026-07-15T06:00:00",
+    "end": "2026-07-15T14:00:00",
+    "good_count": 602,
+    "total_count": 602
+  },
+  {
+    "run_id": "RUN-0463",
+    "machine_id": "M-14",
+    "start": "2026-07-15T06:00:00",
+    "end": "2026-07-15T14:00:00",
+    "good_count": 633,
+    "total_count": 633
+  },
+  {
+    "run_id": "RUN-0465",
+    "machine_id": "M-21",
+    "start": "2026-07-15T06:00:00",
+    "end": "2026-07-15T14:00:00",
+    "good_count": 82,
+    "total_count": 82
+  },
+  {
+    "run_id": "RUN-0467",
+    "machine_id": "M-22",
+    "start": "2026-07-15T06:00:00",
+    "end": "2026-07-15T14:00:00",
+    "good_count": 72,
+    "total_count": 72
+  },
+  {
+    "run_id": "RUN-0469",
+    "machine_id": "M-23",
+    "start": "2026-07-15T06:00:00",
+    "end": "2026-07-15T14:00:00",
+    "good_count": 59,
+    "total_count": 60
+  },
+  {
+    "run_id": "RUN-0471",
+    "machine_id": "M-24",
+    "start": "2026-07-15T06:00:00",
+    "end": "2026-07-15T14:00:00",
+    "good_count": 175,
+    "total_count": 175
+  },
+  {
+    "run_id": "RUN-0473",
+    "machine_id": "M-31",
+    "start": "2026-07-15T06:00:00",
+    "end": "2026-07-15T14:00:00",
+    "good_count": 387,
+    "total_count": 387
+  },
+  {
+    "run_id": "RUN-0475",
+    "machine_id": "M-32",
+    "start": "2026-07-15T06:00:00",
+    "end": "2026-07-15T14:00:00",
+    "good_count": 1143,
+    "total_count": 1143
+  },
+  {
+    "run_id": "RUN-0477",
+    "machine_id": "M-33",
+    "start": "2026-07-15T06:00:00",
+    "end": "2026-07-15T14:00:00",
+    "good_count": 17,
+    "total_count": 17
+  },
+  {
+    "run_id": "RUN-0479",
+    "machine_id": "M-34",
+    "start": "2026-07-15T06:00:00",
+    "end": "2026-07-15T14:00:00",
+    "good_count": 19,
+    "total_count": 19
+  },
+  {
+    "run_id": "RUN-0481",
+    "machine_id": "M-41",
+    "start": "2026-07-15T06:00:00",
+    "end": "2026-07-15T14:00:00",
+    "good_count": 370,
+    "total_count": 370
+  },
+  {
+    "run_id": "RUN-0483",
+    "machine_id": "M-42",
+    "start": "2026-07-15T06:00:00",
+    "end": "2026-07-15T14:00:00",
+    "good_count": 409,
+    "total_count": 409
+  },
+  {
+    "run_id": "RUN-0485",
+    "machine_id": "M-51",
+    "start": "2026-07-15T06:00:00",
+    "end": "2026-07-15T14:00:00",
+    "good_count": 579,
+    "total_count": 579
+  },
+  {
+    "run_id": "RUN-0458",
+    "machine_id": "M-11",
+    "start": "2026-07-15T14:00:00",
+    "end": "2026-07-15T22:00:00",
+    "good_count": 439,
+    "total_count": 439
+  },
+  {
+    "run_id": "RUN-0460",
+    "machine_id": "M-12",
+    "start": "2026-07-15T14:00:00",
+    "end": "2026-07-15T22:00:00",
+    "good_count": 806,
+    "total_count": 806
+  },
+  {
+    "run_id": "RUN-0462",
+    "machine_id": "M-13",
+    "start": "2026-07-15T14:00:00",
+    "end": "2026-07-15T22:00:00",
+    "good_count": 635,
+    "total_count": 635
+  },
+  {
+    "run_id": "RUN-0464",
+    "machine_id": "M-14",
+    "start": "2026-07-15T14:00:00",
+    "end": "2026-07-15T22:00:00",
+    "good_count": 639,
+    "total_count": 639
+  },
+  {
+    "run_id": "RUN-0466",
+    "machine_id": "M-21",
+    "start": "2026-07-15T14:00:00",
+    "end": "2026-07-15T22:00:00",
+    "good_count": 67,
+    "total_count": 67
+  },
+  {
+    "run_id": "RUN-0468",
+    "machine_id": "M-22",
+    "start": "2026-07-15T14:00:00",
+    "end": "2026-07-15T22:00:00",
+    "good_count": 85,
+    "total_count": 85
+  },
+  {
+    "run_id": "RUN-0470",
+    "machine_id": "M-23",
+    "start": "2026-07-15T14:00:00",
+    "end": "2026-07-15T22:00:00",
+    "good_count": 68,
+    "total_count": 68
+  },
+  {
+    "run_id": "RUN-0472",
+    "machine_id": "M-24",
+    "start": "2026-07-15T14:00:00",
+    "end": "2026-07-15T22:00:00",
+    "good_count": 156,
+    "total_count": 156
+  },
+  {
+    "run_id": "RUN-0474",
+    "machine_id": "M-31",
+    "start": "2026-07-15T14:00:00",
+    "end": "2026-07-15T22:00:00",
+    "good_count": 330,
+    "total_count": 330
+  },
+  {
+    "run_id": "RUN-0476",
+    "machine_id": "M-32",
+    "start": "2026-07-15T14:00:00",
+    "end": "2026-07-15T22:00:00",
+    "good_count": 980,
+    "total_count": 1007
+  },
+  {
+    "run_id": "RUN-0478",
+    "machine_id": "M-33",
+    "start": "2026-07-15T14:00:00",
+    "end": "2026-07-15T22:00:00",
+    "good_count": 21,
+    "total_count": 21
+  },
+  {
+    "run_id": "RUN-0480",
+    "machine_id": "M-34",
+    "start": "2026-07-15T14:00:00",
+    "end": "2026-07-15T22:00:00",
+    "good_count": 19,
+    "total_count": 19
+  },
+  {
+    "run_id": "RUN-0482",
+    "machine_id": "M-41",
+    "start": "2026-07-15T14:00:00",
+    "end": "2026-07-15T22:00:00",
+    "good_count": 403,
+    "total_count": 403
+  },
+  {
+    "run_id": "RUN-0484",
+    "machine_id": "M-42",
+    "start": "2026-07-15T14:00:00",
+    "end": "2026-07-15T22:00:00",
+    "good_count": 410,
+    "total_count": 410
+  },
+  {
+    "run_id": "RUN-0486",
+    "machine_id": "M-51",
+    "start": "2026-07-15T14:00:00",
+    "end": "2026-07-15T22:00:00",
+    "good_count": 491,
+    "total_count": 491
+  },
+  {
+    "run_id": "RUN-0487",
+    "machine_id": "M-11",
+    "start": "2026-07-16T06:00:00",
+    "end": "2026-07-16T14:00:00",
+    "good_count": 370,
+    "total_count": 370
+  },
+  {
+    "run_id": "RUN-0489",
+    "machine_id": "M-12",
+    "start": "2026-07-16T06:00:00",
+    "end": "2026-07-16T14:00:00",
+    "good_count": 610,
+    "total_count": 610
+  },
+  {
+    "run_id": "RUN-0491",
+    "machine_id": "M-13",
+    "start": "2026-07-16T06:00:00",
+    "end": "2026-07-16T14:00:00",
+    "good_count": 618,
+    "total_count": 618
+  },
+  {
+    "run_id": "RUN-0493",
+    "machine_id": "M-14",
+    "start": "2026-07-16T06:00:00",
+    "end": "2026-07-16T14:00:00",
+    "good_count": 647,
+    "total_count": 647
+  },
+  {
+    "run_id": "RUN-0495",
+    "machine_id": "M-21",
+    "start": "2026-07-16T06:00:00",
+    "end": "2026-07-16T14:00:00",
+    "good_count": 73,
+    "total_count": 73
+  },
+  {
+    "run_id": "RUN-0497",
+    "machine_id": "M-22",
+    "start": "2026-07-16T06:00:00",
+    "end": "2026-07-16T14:00:00",
+    "good_count": 85,
+    "total_count": 87
+  },
+  {
+    "run_id": "RUN-0499",
+    "machine_id": "M-23",
+    "start": "2026-07-16T06:00:00",
+    "end": "2026-07-16T14:00:00",
+    "good_count": 59,
+    "total_count": 60
+  },
+  {
+    "run_id": "RUN-0501",
+    "machine_id": "M-24",
+    "start": "2026-07-16T06:00:00",
+    "end": "2026-07-16T14:00:00",
+    "good_count": 168,
+    "total_count": 168
+  },
+  {
+    "run_id": "RUN-0503",
+    "machine_id": "M-31",
+    "start": "2026-07-16T06:00:00",
+    "end": "2026-07-16T14:00:00",
+    "good_count": 357,
+    "total_count": 357
+  },
+  {
+    "run_id": "RUN-0505",
+    "machine_id": "M-32",
+    "start": "2026-07-16T06:00:00",
+    "end": "2026-07-16T14:00:00",
+    "good_count": 1151,
+    "total_count": 1151
+  },
+  {
+    "run_id": "RUN-0507",
+    "machine_id": "M-33",
+    "start": "2026-07-16T06:00:00",
+    "end": "2026-07-16T14:00:00",
+    "good_count": 21,
+    "total_count": 21
+  },
+  {
+    "run_id": "RUN-0509",
+    "machine_id": "M-34",
+    "start": "2026-07-16T06:00:00",
+    "end": "2026-07-16T14:00:00",
+    "good_count": 18,
+    "total_count": 18
+  },
+  {
+    "run_id": "RUN-0511",
+    "machine_id": "M-41",
+    "start": "2026-07-16T06:00:00",
+    "end": "2026-07-16T14:00:00",
+    "good_count": 325,
+    "total_count": 325
+  },
+  {
+    "run_id": "RUN-0513",
+    "machine_id": "M-42",
+    "start": "2026-07-16T06:00:00",
+    "end": "2026-07-16T14:00:00",
+    "good_count": 406,
+    "total_count": 406
+  },
+  {
+    "run_id": "RUN-0515",
+    "machine_id": "M-51",
+    "start": "2026-07-16T06:00:00",
+    "end": "2026-07-16T14:00:00",
+    "good_count": 562,
+    "total_count": 562
+  },
+  {
+    "run_id": "RUN-0488",
+    "machine_id": "M-11",
+    "start": "2026-07-16T14:00:00",
+    "end": "2026-07-16T22:00:00",
+    "good_count": 382,
+    "total_count": 382
+  },
+  {
+    "run_id": "RUN-0490",
+    "machine_id": "M-12",
+    "start": "2026-07-16T14:00:00",
+    "end": "2026-07-16T22:00:00",
+    "good_count": 774,
+    "total_count": 774
+  },
+  {
+    "run_id": "RUN-0492",
+    "machine_id": "M-13",
+    "start": "2026-07-16T14:00:00",
+    "end": "2026-07-16T22:00:00",
+    "good_count": 584,
+    "total_count": 584
+  },
+  {
+    "run_id": "RUN-0494",
+    "machine_id": "M-14",
+    "start": "2026-07-16T14:00:00",
+    "end": "2026-07-16T22:00:00",
+    "good_count": 587,
+    "total_count": 605
+  },
+  {
+    "run_id": "RUN-0496",
+    "machine_id": "M-21",
+    "start": "2026-07-16T14:00:00",
+    "end": "2026-07-16T22:00:00",
+    "good_count": 79,
+    "total_count": 79
+  },
+  {
+    "run_id": "RUN-0498",
+    "machine_id": "M-22",
+    "start": "2026-07-16T14:00:00",
+    "end": "2026-07-16T22:00:00",
+    "good_count": 77,
+    "total_count": 77
+  },
+  {
+    "run_id": "RUN-0500",
+    "machine_id": "M-23",
+    "start": "2026-07-16T14:00:00",
+    "end": "2026-07-16T22:00:00",
+    "good_count": 62,
+    "total_count": 64
+  },
+  {
+    "run_id": "RUN-0502",
+    "machine_id": "M-24",
+    "start": "2026-07-16T14:00:00",
+    "end": "2026-07-16T22:00:00",
+    "good_count": 168,
+    "total_count": 168
+  },
+  {
+    "run_id": "RUN-0504",
+    "machine_id": "M-31",
+    "start": "2026-07-16T14:00:00",
+    "end": "2026-07-16T22:00:00",
+    "good_count": 376,
+    "total_count": 376
+  },
+  {
+    "run_id": "RUN-0506",
+    "machine_id": "M-32",
+    "start": "2026-07-16T14:00:00",
+    "end": "2026-07-16T22:00:00",
+    "good_count": 1036,
+    "total_count": 1070
+  },
+  {
+    "run_id": "RUN-0508",
+    "machine_id": "M-33",
+    "start": "2026-07-16T14:00:00",
+    "end": "2026-07-16T22:00:00",
+    "good_count": 17,
+    "total_count": 17
+  },
+  {
+    "run_id": "RUN-0510",
+    "machine_id": "M-34",
+    "start": "2026-07-16T14:00:00",
+    "end": "2026-07-16T22:00:00",
+    "good_count": 18,
+    "total_count": 18
+  },
+  {
+    "run_id": "RUN-0512",
+    "machine_id": "M-41",
+    "start": "2026-07-16T14:00:00",
+    "end": "2026-07-16T22:00:00",
+    "good_count": 371,
+    "total_count": 371
+  },
+  {
+    "run_id": "RUN-0514",
+    "machine_id": "M-42",
+    "start": "2026-07-16T14:00:00",
+    "end": "2026-07-16T22:00:00",
+    "good_count": 445,
+    "total_count": 445
+  },
+  {
+    "run_id": "RUN-0516",
+    "machine_id": "M-51",
+    "start": "2026-07-16T14:00:00",
+    "end": "2026-07-16T22:00:00",
+    "good_count": 484,
+    "total_count": 484
+  },
+  {
+    "run_id": "RUN-0517",
+    "machine_id": "M-11",
+    "start": "2026-07-17T06:00:00",
+    "end": "2026-07-17T14:00:00",
+    "good_count": 401,
+    "total_count": 401
+  },
+  {
+    "run_id": "RUN-0519",
+    "machine_id": "M-12",
+    "start": "2026-07-17T06:00:00",
+    "end": "2026-07-17T14:00:00",
+    "good_count": 765,
+    "total_count": 787
+  },
+  {
+    "run_id": "RUN-0521",
+    "machine_id": "M-13",
+    "start": "2026-07-17T06:00:00",
+    "end": "2026-07-17T14:00:00",
+    "good_count": 564,
+    "total_count": 564
+  },
+  {
+    "run_id": "RUN-0523",
+    "machine_id": "M-14",
+    "start": "2026-07-17T06:00:00",
+    "end": "2026-07-17T14:00:00",
+    "good_count": 617,
+    "total_count": 617
+  },
+  {
+    "run_id": "RUN-0525",
+    "machine_id": "M-21",
+    "start": "2026-07-17T06:00:00",
+    "end": "2026-07-17T14:00:00",
+    "good_count": 66,
+    "total_count": 66
+  },
+  {
+    "run_id": "RUN-0527",
+    "machine_id": "M-22",
+    "start": "2026-07-17T06:00:00",
+    "end": "2026-07-17T14:00:00",
+    "good_count": 70,
+    "total_count": 70
+  },
+  {
+    "run_id": "RUN-0529",
+    "machine_id": "M-23",
+    "start": "2026-07-17T06:00:00",
+    "end": "2026-07-17T14:00:00",
+    "good_count": 62,
+    "total_count": 64
+  },
+  {
+    "run_id": "RUN-0531",
+    "machine_id": "M-24",
+    "start": "2026-07-17T06:00:00",
+    "end": "2026-07-17T14:00:00",
+    "good_count": 139,
+    "total_count": 139
+  },
+  {
+    "run_id": "RUN-0533",
+    "machine_id": "M-31",
+    "start": "2026-07-17T06:00:00",
+    "end": "2026-07-17T14:00:00",
+    "good_count": 399,
+    "total_count": 399
+  },
+  {
+    "run_id": "RUN-0535",
+    "machine_id": "M-32",
+    "start": "2026-07-17T06:00:00",
+    "end": "2026-07-17T14:00:00",
+    "good_count": 986,
+    "total_count": 986
+  },
+  {
+    "run_id": "RUN-0537",
+    "machine_id": "M-33",
+    "start": "2026-07-17T06:00:00",
+    "end": "2026-07-17T14:00:00",
+    "good_count": 22,
+    "total_count": 22
+  },
+  {
+    "run_id": "RUN-0539",
+    "machine_id": "M-34",
+    "start": "2026-07-17T06:00:00",
+    "end": "2026-07-17T14:00:00",
+    "good_count": 20,
+    "total_count": 20
+  },
+  {
+    "run_id": "RUN-0541",
+    "machine_id": "M-41",
+    "start": "2026-07-17T06:00:00",
+    "end": "2026-07-17T14:00:00",
+    "good_count": 383,
+    "total_count": 392
+  },
+  {
+    "run_id": "RUN-0543",
+    "machine_id": "M-42",
+    "start": "2026-07-17T06:00:00",
+    "end": "2026-07-17T14:00:00",
+    "good_count": 445,
+    "total_count": 445
+  },
+  {
+    "run_id": "RUN-0545",
+    "machine_id": "M-51",
+    "start": "2026-07-17T06:00:00",
+    "end": "2026-07-17T14:00:00",
+    "good_count": 525,
+    "total_count": 538
+  },
+  {
+    "run_id": "RUN-0518",
+    "machine_id": "M-11",
+    "start": "2026-07-17T14:00:00",
+    "end": "2026-07-17T22:00:00",
+    "good_count": 458,
+    "total_count": 458
+  },
+  {
+    "run_id": "RUN-0520",
+    "machine_id": "M-12",
+    "start": "2026-07-17T14:00:00",
+    "end": "2026-07-17T22:00:00",
+    "good_count": 795,
+    "total_count": 795
+  },
+  {
+    "run_id": "RUN-0522",
+    "machine_id": "M-13",
+    "start": "2026-07-17T14:00:00",
+    "end": "2026-07-17T22:00:00",
+    "good_count": 630,
+    "total_count": 630
+  },
+  {
+    "run_id": "RUN-0524",
+    "machine_id": "M-14",
+    "start": "2026-07-17T14:00:00",
+    "end": "2026-07-17T22:00:00",
+    "good_count": 601,
+    "total_count": 601
+  },
+  {
+    "run_id": "RUN-0526",
+    "machine_id": "M-21",
+    "start": "2026-07-17T14:00:00",
+    "end": "2026-07-17T22:00:00",
+    "good_count": 67,
+    "total_count": 67
+  },
+  {
+    "run_id": "RUN-0528",
+    "machine_id": "M-22",
+    "start": "2026-07-17T14:00:00",
+    "end": "2026-07-17T22:00:00",
+    "good_count": 73,
+    "total_count": 73
+  },
+  {
+    "run_id": "RUN-0530",
+    "machine_id": "M-23",
+    "start": "2026-07-17T14:00:00",
+    "end": "2026-07-17T22:00:00",
+    "good_count": 49,
+    "total_count": 49
+  },
+  {
+    "run_id": "RUN-0532",
+    "machine_id": "M-24",
+    "start": "2026-07-17T14:00:00",
+    "end": "2026-07-17T22:00:00",
+    "good_count": 144,
+    "total_count": 144
+  },
+  {
+    "run_id": "RUN-0534",
+    "machine_id": "M-31",
+    "start": "2026-07-17T14:00:00",
+    "end": "2026-07-17T22:00:00",
+    "good_count": 343,
+    "total_count": 343
+  },
+  {
+    "run_id": "RUN-0536",
+    "machine_id": "M-32",
+    "start": "2026-07-17T14:00:00",
+    "end": "2026-07-17T22:00:00",
+    "good_count": 1152,
+    "total_count": 1152
+  },
+  {
+    "run_id": "RUN-0538",
+    "machine_id": "M-33",
+    "start": "2026-07-17T14:00:00",
+    "end": "2026-07-17T22:00:00",
+    "good_count": 18,
+    "total_count": 18
+  },
+  {
+    "run_id": "RUN-0540",
+    "machine_id": "M-34",
+    "start": "2026-07-17T14:00:00",
+    "end": "2026-07-17T22:00:00",
+    "good_count": 19,
+    "total_count": 19
+  },
+  {
+    "run_id": "RUN-0542",
+    "machine_id": "M-41",
+    "start": "2026-07-17T14:00:00",
+    "end": "2026-07-17T22:00:00",
+    "good_count": 345,
+    "total_count": 360
+  },
+  {
+    "run_id": "RUN-0544",
+    "machine_id": "M-42",
+    "start": "2026-07-17T14:00:00",
+    "end": "2026-07-17T22:00:00",
+    "good_count": 430,
+    "total_count": 430
+  },
+  {
+    "run_id": "RUN-0546",
+    "machine_id": "M-51",
+    "start": "2026-07-17T14:00:00",
+    "end": "2026-07-17T22:00:00",
+    "good_count": 542,
+    "total_count": 542
+  },
+  {
+    "run_id": "RUN-0547",
+    "machine_id": "M-11",
+    "start": "2026-07-18T06:00:00",
+    "end": "2026-07-18T14:00:00",
+    "good_count": 427,
+    "total_count": 447
+  },
+  {
+    "run_id": "RUN-0549",
+    "machine_id": "M-12",
+    "start": "2026-07-18T06:00:00",
+    "end": "2026-07-18T14:00:00",
+    "good_count": 690,
+    "total_count": 690
+  },
+  {
+    "run_id": "RUN-0551",
+    "machine_id": "M-13",
+    "start": "2026-07-18T06:00:00",
+    "end": "2026-07-18T14:00:00",
+    "good_count": 541,
+    "total_count": 565
+  },
+  {
+    "run_id": "RUN-0553",
+    "machine_id": "M-14",
+    "start": "2026-07-18T06:00:00",
+    "end": "2026-07-18T14:00:00",
+    "good_count": 589,
+    "total_count": 589
+  },
+  {
+    "run_id": "RUN-0555",
+    "machine_id": "M-21",
+    "start": "2026-07-18T06:00:00",
+    "end": "2026-07-18T14:00:00",
+    "good_count": 78,
+    "total_count": 78
+  },
+  {
+    "run_id": "RUN-0557",
+    "machine_id": "M-22",
+    "start": "2026-07-18T06:00:00",
+    "end": "2026-07-18T14:00:00",
+    "good_count": 79,
+    "total_count": 79
+  },
+  {
+    "run_id": "RUN-0559",
+    "machine_id": "M-23",
+    "start": "2026-07-18T06:00:00",
+    "end": "2026-07-18T14:00:00",
+    "good_count": 70,
+    "total_count": 70
+  },
+  {
+    "run_id": "RUN-0561",
+    "machine_id": "M-24",
+    "start": "2026-07-18T06:00:00",
+    "end": "2026-07-18T14:00:00",
+    "good_count": 164,
+    "total_count": 164
+  },
+  {
+    "run_id": "RUN-0563",
+    "machine_id": "M-31",
+    "start": "2026-07-18T06:00:00",
+    "end": "2026-07-18T14:00:00",
+    "good_count": 346,
+    "total_count": 346
+  },
+  {
+    "run_id": "RUN-0565",
+    "machine_id": "M-32",
+    "start": "2026-07-18T06:00:00",
+    "end": "2026-07-18T14:00:00",
+    "good_count": 1084,
+    "total_count": 1084
+  },
+  {
+    "run_id": "RUN-0567",
+    "machine_id": "M-33",
+    "start": "2026-07-18T06:00:00",
+    "end": "2026-07-18T14:00:00",
+    "good_count": 22,
+    "total_count": 22
+  },
+  {
+    "run_id": "RUN-0569",
+    "machine_id": "M-34",
+    "start": "2026-07-18T06:00:00",
+    "end": "2026-07-18T14:00:00",
+    "good_count": 18,
+    "total_count": 18
+  },
+  {
+    "run_id": "RUN-0571",
+    "machine_id": "M-41",
+    "start": "2026-07-18T06:00:00",
+    "end": "2026-07-18T14:00:00",
+    "good_count": 333,
+    "total_count": 333
+  },
+  {
+    "run_id": "RUN-0573",
+    "machine_id": "M-42",
+    "start": "2026-07-18T06:00:00",
+    "end": "2026-07-18T14:00:00",
+    "good_count": 403,
+    "total_count": 403
+  },
+  {
+    "run_id": "RUN-0575",
+    "machine_id": "M-51",
+    "start": "2026-07-18T06:00:00",
+    "end": "2026-07-18T14:00:00",
+    "good_count": 487,
+    "total_count": 487
+  },
+  {
+    "run_id": "RUN-0548",
+    "machine_id": "M-11",
+    "start": "2026-07-18T14:00:00",
+    "end": "2026-07-18T22:00:00",
+    "good_count": 386,
+    "total_count": 386
+  },
+  {
+    "run_id": "RUN-0550",
+    "machine_id": "M-12",
+    "start": "2026-07-18T14:00:00",
+    "end": "2026-07-18T22:00:00",
+    "good_count": 800,
+    "total_count": 800
+  },
+  {
+    "run_id": "RUN-0552",
+    "machine_id": "M-13",
+    "start": "2026-07-18T14:00:00",
+    "end": "2026-07-18T22:00:00",
+    "good_count": 583,
+    "total_count": 583
+  },
+  {
+    "run_id": "RUN-0554",
+    "machine_id": "M-14",
+    "start": "2026-07-18T14:00:00",
+    "end": "2026-07-18T22:00:00",
+    "good_count": 646,
+    "total_count": 646
+  },
+  {
+    "run_id": "RUN-0556",
+    "machine_id": "M-21",
+    "start": "2026-07-18T14:00:00",
+    "end": "2026-07-18T22:00:00",
+    "good_count": 68,
+    "total_count": 68
+  },
+  {
+    "run_id": "RUN-0558",
+    "machine_id": "M-22",
+    "start": "2026-07-18T14:00:00",
+    "end": "2026-07-18T22:00:00",
+    "good_count": 74,
+    "total_count": 76
+  },
+  {
+    "run_id": "RUN-0560",
+    "machine_id": "M-23",
+    "start": "2026-07-18T14:00:00",
+    "end": "2026-07-18T22:00:00",
+    "good_count": 71,
+    "total_count": 71
+  },
+  {
+    "run_id": "RUN-0562",
+    "machine_id": "M-24",
+    "start": "2026-07-18T14:00:00",
+    "end": "2026-07-18T22:00:00",
+    "good_count": 162,
+    "total_count": 162
+  },
+  {
+    "run_id": "RUN-0564",
+    "machine_id": "M-31",
+    "start": "2026-07-18T14:00:00",
+    "end": "2026-07-18T22:00:00",
+    "good_count": 340,
+    "total_count": 340
+  },
+  {
+    "run_id": "RUN-0566",
+    "machine_id": "M-32",
+    "start": "2026-07-18T14:00:00",
+    "end": "2026-07-18T22:00:00",
+    "good_count": 1110,
+    "total_count": 1110
+  },
+  {
+    "run_id": "RUN-0568",
+    "machine_id": "M-33",
+    "start": "2026-07-18T14:00:00",
+    "end": "2026-07-18T22:00:00",
+    "good_count": 19,
+    "total_count": 19
+  },
+  {
+    "run_id": "RUN-0570",
+    "machine_id": "M-34",
+    "start": "2026-07-18T14:00:00",
+    "end": "2026-07-18T22:00:00",
+    "good_count": 17,
+    "total_count": 17
+  },
+  {
+    "run_id": "RUN-0572",
+    "machine_id": "M-41",
+    "start": "2026-07-18T14:00:00",
+    "end": "2026-07-18T22:00:00",
+    "good_count": 362,
+    "total_count": 374
+  },
+  {
+    "run_id": "RUN-0574",
+    "machine_id": "M-42",
+    "start": "2026-07-18T14:00:00",
+    "end": "2026-07-18T22:00:00",
+    "good_count": 426,
+    "total_count": 426
+  },
+  {
+    "run_id": "RUN-0576",
+    "machine_id": "M-51",
+    "start": "2026-07-18T14:00:00",
+    "end": "2026-07-18T22:00:00",
+    "good_count": 499,
+    "total_count": 499
+  },
+  {
+    "run_id": "RUN-0577",
+    "machine_id": "M-11",
+    "start": "2026-07-19T06:00:00",
+    "end": "2026-07-19T14:00:00",
+    "good_count": 401,
+    "total_count": 401
+  },
+  {
+    "run_id": "RUN-0579",
+    "machine_id": "M-12",
+    "start": "2026-07-19T06:00:00",
+    "end": "2026-07-19T14:00:00",
+    "good_count": 736,
+    "total_count": 764
+  },
+  {
+    "run_id": "RUN-0581",
+    "machine_id": "M-13",
+    "start": "2026-07-19T06:00:00",
+    "end": "2026-07-19T14:00:00",
+    "good_count": 616,
+    "total_count": 616
+  },
+  {
+    "run_id": "RUN-0583",
+    "machine_id": "M-14",
+    "start": "2026-07-19T06:00:00",
+    "end": "2026-07-19T14:00:00",
+    "good_count": 626,
+    "total_count": 626
+  },
+  {
+    "run_id": "RUN-0585",
+    "machine_id": "M-21",
+    "start": "2026-07-19T06:00:00",
+    "end": "2026-07-19T14:00:00",
+    "good_count": 67,
+    "total_count": 67
+  },
+  {
+    "run_id": "RUN-0587",
+    "machine_id": "M-22",
+    "start": "2026-07-19T06:00:00",
+    "end": "2026-07-19T14:00:00",
+    "good_count": 68,
+    "total_count": 68
+  },
+  {
+    "run_id": "RUN-0589",
+    "machine_id": "M-23",
+    "start": "2026-07-19T06:00:00",
+    "end": "2026-07-19T14:00:00",
+    "good_count": 62,
+    "total_count": 62
+  },
+  {
+    "run_id": "RUN-0591",
+    "machine_id": "M-24",
+    "start": "2026-07-19T06:00:00",
+    "end": "2026-07-19T14:00:00",
+    "good_count": 180,
+    "total_count": 180
+  },
+  {
+    "run_id": "RUN-0593",
+    "machine_id": "M-31",
+    "start": "2026-07-19T06:00:00",
+    "end": "2026-07-19T14:00:00",
+    "good_count": 394,
+    "total_count": 394
+  },
+  {
+    "run_id": "RUN-0595",
+    "machine_id": "M-32",
+    "start": "2026-07-19T06:00:00",
+    "end": "2026-07-19T14:00:00",
+    "good_count": 1148,
+    "total_count": 1193
+  },
+  {
+    "run_id": "RUN-0597",
+    "machine_id": "M-33",
+    "start": "2026-07-19T06:00:00",
+    "end": "2026-07-19T14:00:00",
+    "good_count": 22,
+    "total_count": 22
+  },
+  {
+    "run_id": "RUN-0599",
+    "machine_id": "M-34",
+    "start": "2026-07-19T06:00:00",
+    "end": "2026-07-19T14:00:00",
+    "good_count": 21,
+    "total_count": 21
+  },
+  {
+    "run_id": "RUN-0601",
+    "machine_id": "M-41",
+    "start": "2026-07-19T06:00:00",
+    "end": "2026-07-19T14:00:00",
+    "good_count": 375,
+    "total_count": 375
+  },
+  {
+    "run_id": "RUN-0603",
+    "machine_id": "M-42",
+    "start": "2026-07-19T06:00:00",
+    "end": "2026-07-19T14:00:00",
+    "good_count": 408,
+    "total_count": 408
+  },
+  {
+    "run_id": "RUN-0605",
+    "machine_id": "M-51",
+    "start": "2026-07-19T06:00:00",
+    "end": "2026-07-19T14:00:00",
+    "good_count": 519,
+    "total_count": 519
+  },
+  {
+    "run_id": "RUN-0578",
+    "machine_id": "M-11",
+    "start": "2026-07-19T14:00:00",
+    "end": "2026-07-19T22:00:00",
+    "good_count": 460,
+    "total_count": 460
+  },
+  {
+    "run_id": "RUN-0580",
+    "machine_id": "M-12",
+    "start": "2026-07-19T14:00:00",
+    "end": "2026-07-19T22:00:00",
+    "good_count": 801,
+    "total_count": 841
+  },
+  {
+    "run_id": "RUN-0582",
+    "machine_id": "M-13",
+    "start": "2026-07-19T14:00:00",
+    "end": "2026-07-19T22:00:00",
+    "good_count": 644,
+    "total_count": 644
+  },
+  {
+    "run_id": "RUN-0584",
+    "machine_id": "M-14",
+    "start": "2026-07-19T14:00:00",
+    "end": "2026-07-19T22:00:00",
+    "good_count": 543,
+    "total_count": 570
+  },
+  {
+    "run_id": "RUN-0586",
+    "machine_id": "M-21",
+    "start": "2026-07-19T14:00:00",
+    "end": "2026-07-19T22:00:00",
+    "good_count": 75,
+    "total_count": 75
+  },
+  {
+    "run_id": "RUN-0588",
+    "machine_id": "M-22",
+    "start": "2026-07-19T14:00:00",
+    "end": "2026-07-19T22:00:00",
+    "good_count": 72,
+    "total_count": 75
+  },
+  {
+    "run_id": "RUN-0590",
+    "machine_id": "M-23",
+    "start": "2026-07-19T14:00:00",
+    "end": "2026-07-19T22:00:00",
+    "good_count": 58,
+    "total_count": 58
+  },
+  {
+    "run_id": "RUN-0592",
+    "machine_id": "M-24",
+    "start": "2026-07-19T14:00:00",
+    "end": "2026-07-19T22:00:00",
+    "good_count": 165,
+    "total_count": 165
+  },
+  {
+    "run_id": "RUN-0594",
+    "machine_id": "M-31",
+    "start": "2026-07-19T14:00:00",
+    "end": "2026-07-19T22:00:00",
+    "good_count": 339,
+    "total_count": 339
+  },
+  {
+    "run_id": "RUN-0596",
+    "machine_id": "M-32",
+    "start": "2026-07-19T14:00:00",
+    "end": "2026-07-19T22:00:00",
+    "good_count": 946,
+    "total_count": 946
+  },
+  {
+    "run_id": "RUN-0598",
+    "machine_id": "M-33",
+    "start": "2026-07-19T14:00:00",
+    "end": "2026-07-19T22:00:00",
+    "good_count": 23,
+    "total_count": 23
+  },
+  {
+    "run_id": "RUN-0600",
+    "machine_id": "M-34",
+    "start": "2026-07-19T14:00:00",
+    "end": "2026-07-19T22:00:00",
+    "good_count": 18,
+    "total_count": 18
+  },
+  {
+    "run_id": "RUN-0602",
+    "machine_id": "M-41",
+    "start": "2026-07-19T14:00:00",
+    "end": "2026-07-19T22:00:00",
+    "good_count": 385,
+    "total_count": 385
+  },
+  {
+    "run_id": "RUN-0604",
+    "machine_id": "M-42",
+    "start": "2026-07-19T14:00:00",
+    "end": "2026-07-19T22:00:00",
+    "good_count": 367,
+    "total_count": 367
+  },
+  {
+    "run_id": "RUN-0606",
+    "machine_id": "M-51",
+    "start": "2026-07-19T14:00:00",
+    "end": "2026-07-19T22:00:00",
+    "good_count": 549,
+    "total_count": 549
+  },
+  {
+    "run_id": "RUN-0607",
+    "machine_id": "M-11",
+    "start": "2026-07-20T06:00:00",
+    "end": "2026-07-20T14:00:00",
+    "good_count": 473,
+    "total_count": 473
+  },
+  {
+    "run_id": "RUN-0609",
+    "machine_id": "M-12",
+    "start": "2026-07-20T06:00:00",
+    "end": "2026-07-20T14:00:00",
+    "good_count": 748,
+    "total_count": 778
+  },
+  {
+    "run_id": "RUN-0611",
+    "machine_id": "M-13",
+    "start": "2026-07-20T06:00:00",
+    "end": "2026-07-20T14:00:00",
+    "good_count": 612,
+    "total_count": 634
+  },
+  {
+    "run_id": "RUN-0613",
+    "machine_id": "M-14",
+    "start": "2026-07-20T06:00:00",
+    "end": "2026-07-20T14:00:00",
+    "good_count": 660,
+    "total_count": 680
+  },
+  {
+    "run_id": "RUN-0615",
+    "machine_id": "M-21",
+    "start": "2026-07-20T06:00:00",
+    "end": "2026-07-20T14:00:00",
+    "good_count": 80,
+    "total_count": 80
+  },
+  {
+    "run_id": "RUN-0617",
+    "machine_id": "M-22",
+    "start": "2026-07-20T06:00:00",
+    "end": "2026-07-20T14:00:00",
+    "good_count": 78,
+    "total_count": 78
+  },
+  {
+    "run_id": "RUN-0619",
+    "machine_id": "M-23",
+    "start": "2026-07-20T06:00:00",
+    "end": "2026-07-20T14:00:00",
+    "good_count": 64,
+    "total_count": 64
+  },
+  {
+    "run_id": "RUN-0621",
+    "machine_id": "M-24",
+    "start": "2026-07-20T06:00:00",
+    "end": "2026-07-20T14:00:00",
+    "good_count": 194,
+    "total_count": 194
+  },
+  {
+    "run_id": "RUN-0623",
+    "machine_id": "M-31",
+    "start": "2026-07-20T06:00:00",
+    "end": "2026-07-20T14:00:00",
+    "good_count": 281,
+    "total_count": 281
+  },
+  {
+    "run_id": "RUN-0625",
+    "machine_id": "M-32",
+    "start": "2026-07-20T06:00:00",
+    "end": "2026-07-20T14:00:00",
+    "good_count": 1105,
+    "total_count": 1145
+  },
+  {
+    "run_id": "RUN-0627",
+    "machine_id": "M-33",
+    "start": "2026-07-20T06:00:00",
+    "end": "2026-07-20T14:00:00",
+    "good_count": 21,
+    "total_count": 21
+  },
+  {
+    "run_id": "RUN-0629",
+    "machine_id": "M-34",
+    "start": "2026-07-20T06:00:00",
+    "end": "2026-07-20T14:00:00",
+    "good_count": 18,
+    "total_count": 18
+  },
+  {
+    "run_id": "RUN-0631",
+    "machine_id": "M-41",
+    "start": "2026-07-20T06:00:00",
+    "end": "2026-07-20T14:00:00",
+    "good_count": 345,
+    "total_count": 345
+  },
+  {
+    "run_id": "RUN-0633",
+    "machine_id": "M-42",
+    "start": "2026-07-20T06:00:00",
+    "end": "2026-07-20T14:00:00",
+    "good_count": 406,
+    "total_count": 406
+  },
+  {
+    "run_id": "RUN-0635",
+    "machine_id": "M-51",
+    "start": "2026-07-20T06:00:00",
+    "end": "2026-07-20T14:00:00",
+    "good_count": 496,
+    "total_count": 496
+  },
+  {
+    "run_id": "RUN-0608",
+    "machine_id": "M-11",
+    "start": "2026-07-20T14:00:00",
+    "end": "2026-07-20T22:00:00",
+    "good_count": 410,
+    "total_count": 410
+  },
+  {
+    "run_id": "RUN-0610",
+    "machine_id": "M-12",
+    "start": "2026-07-20T14:00:00",
+    "end": "2026-07-20T22:00:00",
+    "good_count": 832,
+    "total_count": 832
+  },
+  {
+    "run_id": "RUN-0612",
+    "machine_id": "M-13",
+    "start": "2026-07-20T14:00:00",
+    "end": "2026-07-20T22:00:00",
+    "good_count": 589,
+    "total_count": 589
+  },
+  {
+    "run_id": "RUN-0614",
+    "machine_id": "M-14",
+    "start": "2026-07-20T14:00:00",
+    "end": "2026-07-20T22:00:00",
+    "good_count": 652,
+    "total_count": 652
+  },
+  {
+    "run_id": "RUN-0616",
+    "machine_id": "M-21",
+    "start": "2026-07-20T14:00:00",
+    "end": "2026-07-20T22:00:00",
+    "good_count": 72,
+    "total_count": 72
+  },
+  {
+    "run_id": "RUN-0618",
+    "machine_id": "M-22",
+    "start": "2026-07-20T14:00:00",
+    "end": "2026-07-20T22:00:00",
+    "good_count": 83,
+    "total_count": 83
+  },
+  {
+    "run_id": "RUN-0620",
+    "machine_id": "M-23",
+    "start": "2026-07-20T14:00:00",
+    "end": "2026-07-20T22:00:00",
+    "good_count": 63,
+    "total_count": 63
+  },
+  {
+    "run_id": "RUN-0622",
+    "machine_id": "M-24",
+    "start": "2026-07-20T14:00:00",
+    "end": "2026-07-20T22:00:00",
+    "good_count": 173,
+    "total_count": 173
+  },
+  {
+    "run_id": "RUN-0624",
+    "machine_id": "M-31",
+    "start": "2026-07-20T14:00:00",
+    "end": "2026-07-20T22:00:00",
+    "good_count": 417,
+    "total_count": 417
+  },
+  {
+    "run_id": "RUN-0626",
+    "machine_id": "M-32",
+    "start": "2026-07-20T14:00:00",
+    "end": "2026-07-20T22:00:00",
+    "good_count": 950,
+    "total_count": 950
+  },
+  {
+    "run_id": "RUN-0628",
+    "machine_id": "M-33",
+    "start": "2026-07-20T14:00:00",
+    "end": "2026-07-20T22:00:00",
+    "good_count": 22,
+    "total_count": 22
+  },
+  {
+    "run_id": "RUN-0630",
+    "machine_id": "M-34",
+    "start": "2026-07-20T14:00:00",
+    "end": "2026-07-20T22:00:00",
+    "good_count": 21,
+    "total_count": 21
+  },
+  {
+    "run_id": "RUN-0632",
+    "machine_id": "M-41",
+    "start": "2026-07-20T14:00:00",
+    "end": "2026-07-20T22:00:00",
+    "good_count": 361,
+    "total_count": 361
+  },
+  {
+    "run_id": "RUN-0634",
+    "machine_id": "M-42",
+    "start": "2026-07-20T14:00:00",
+    "end": "2026-07-20T22:00:00",
+    "good_count": 419,
+    "total_count": 419
+  },
+  {
+    "run_id": "RUN-0636",
+    "machine_id": "M-51",
+    "start": "2026-07-20T14:00:00",
+    "end": "2026-07-20T22:00:00",
+    "good_count": 528,
+    "total_count": 548
+  },
+  {
+    "run_id": "RUN-0637",
+    "machine_id": "M-11",
+    "start": "2026-07-21T06:00:00",
+    "end": "2026-07-21T14:00:00",
+    "good_count": 444,
+    "total_count": 444
+  },
+  {
+    "run_id": "RUN-0639",
+    "machine_id": "M-12",
+    "start": "2026-07-21T06:00:00",
+    "end": "2026-07-21T14:00:00",
+    "good_count": 797,
+    "total_count": 797
+  },
+  {
+    "run_id": "RUN-0641",
+    "machine_id": "M-13",
+    "start": "2026-07-21T06:00:00",
+    "end": "2026-07-21T14:00:00",
+    "good_count": 574,
+    "total_count": 574
+  },
+  {
+    "run_id": "RUN-0643",
+    "machine_id": "M-14",
+    "start": "2026-07-21T06:00:00",
+    "end": "2026-07-21T14:00:00",
+    "good_count": 598,
+    "total_count": 614
+  },
+  {
+    "run_id": "RUN-0645",
+    "machine_id": "M-21",
+    "start": "2026-07-21T06:00:00",
+    "end": "2026-07-21T14:00:00",
+    "good_count": 75,
+    "total_count": 77
+  },
+  {
+    "run_id": "RUN-0647",
+    "machine_id": "M-22",
+    "start": "2026-07-21T06:00:00",
+    "end": "2026-07-21T14:00:00",
+    "good_count": 74,
+    "total_count": 74
+  },
+  {
+    "run_id": "RUN-0649",
+    "machine_id": "M-23",
+    "start": "2026-07-21T06:00:00",
+    "end": "2026-07-21T14:00:00",
+    "good_count": 64,
+    "total_count": 64
+  },
+  {
+    "run_id": "RUN-0651",
+    "machine_id": "M-24",
+    "start": "2026-07-21T06:00:00",
+    "end": "2026-07-21T14:00:00",
+    "good_count": 173,
+    "total_count": 179
+  },
+  {
+    "run_id": "RUN-0653",
+    "machine_id": "M-31",
+    "start": "2026-07-21T06:00:00",
+    "end": "2026-07-21T14:00:00",
+    "good_count": 393,
+    "total_count": 393
+  },
+  {
+    "run_id": "RUN-0655",
+    "machine_id": "M-32",
+    "start": "2026-07-21T06:00:00",
+    "end": "2026-07-21T14:00:00",
+    "good_count": 1125,
+    "total_count": 1153
+  },
+  {
+    "run_id": "RUN-0657",
+    "machine_id": "M-33",
+    "start": "2026-07-21T06:00:00",
+    "end": "2026-07-21T14:00:00",
+    "good_count": 18,
+    "total_count": 18
+  },
+  {
+    "run_id": "RUN-0659",
+    "machine_id": "M-34",
+    "start": "2026-07-21T06:00:00",
+    "end": "2026-07-21T14:00:00",
+    "good_count": 19,
+    "total_count": 19
+  },
+  {
+    "run_id": "RUN-0661",
+    "machine_id": "M-41",
+    "start": "2026-07-21T06:00:00",
+    "end": "2026-07-21T14:00:00",
+    "good_count": 366,
+    "total_count": 366
+  },
+  {
+    "run_id": "RUN-0663",
+    "machine_id": "M-42",
+    "start": "2026-07-21T06:00:00",
+    "end": "2026-07-21T14:00:00",
+    "good_count": 365,
+    "total_count": 365
+  },
+  {
+    "run_id": "RUN-0665",
+    "machine_id": "M-51",
+    "start": "2026-07-21T06:00:00",
+    "end": "2026-07-21T14:00:00",
+    "good_count": 511,
+    "total_count": 511
+  },
+  {
+    "run_id": "RUN-0638",
+    "machine_id": "M-11",
+    "start": "2026-07-21T14:00:00",
+    "end": "2026-07-21T22:00:00",
+    "good_count": 474,
+    "total_count": 483
+  },
+  {
+    "run_id": "RUN-0640",
+    "machine_id": "M-12",
+    "start": "2026-07-21T14:00:00",
+    "end": "2026-07-21T22:00:00",
+    "good_count": 847,
+    "total_count": 847
+  },
+  {
+    "run_id": "RUN-0642",
+    "machine_id": "M-13",
+    "start": "2026-07-21T14:00:00",
+    "end": "2026-07-21T22:00:00",
+    "good_count": 579,
+    "total_count": 579
+  },
+  {
+    "run_id": "RUN-0644",
+    "machine_id": "M-14",
+    "start": "2026-07-21T14:00:00",
+    "end": "2026-07-21T22:00:00",
+    "good_count": 644,
+    "total_count": 644
+  },
+  {
+    "run_id": "RUN-0646",
+    "machine_id": "M-21",
+    "start": "2026-07-21T14:00:00",
+    "end": "2026-07-21T22:00:00",
+    "good_count": 69,
+    "total_count": 70
+  },
+  {
+    "run_id": "RUN-0648",
+    "machine_id": "M-22",
+    "start": "2026-07-21T14:00:00",
+    "end": "2026-07-21T22:00:00",
+    "good_count": 70,
+    "total_count": 70
+  },
+  {
+    "run_id": "RUN-0650",
+    "machine_id": "M-23",
+    "start": "2026-07-21T14:00:00",
+    "end": "2026-07-21T22:00:00",
+    "good_count": 60,
+    "total_count": 60
+  },
+  {
+    "run_id": "RUN-0652",
+    "machine_id": "M-24",
+    "start": "2026-07-21T14:00:00",
+    "end": "2026-07-21T22:00:00",
+    "good_count": 163,
+    "total_count": 163
+  },
+  {
+    "run_id": "RUN-0654",
+    "machine_id": "M-31",
+    "start": "2026-07-21T14:00:00",
+    "end": "2026-07-21T22:00:00",
+    "good_count": 324,
+    "total_count": 324
+  },
+  {
+    "run_id": "RUN-0656",
+    "machine_id": "M-32",
+    "start": "2026-07-21T14:00:00",
+    "end": "2026-07-21T22:00:00",
+    "good_count": 880,
+    "total_count": 880
+  },
+  {
+    "run_id": "RUN-0658",
+    "machine_id": "M-33",
+    "start": "2026-07-21T14:00:00",
+    "end": "2026-07-21T22:00:00",
+    "good_count": 24,
+    "total_count": 24
+  },
+  {
+    "run_id": "RUN-0660",
+    "machine_id": "M-34",
+    "start": "2026-07-21T14:00:00",
+    "end": "2026-07-21T22:00:00",
+    "good_count": 17,
+    "total_count": 17
+  },
+  {
+    "run_id": "RUN-0662",
+    "machine_id": "M-41",
+    "start": "2026-07-21T14:00:00",
+    "end": "2026-07-21T22:00:00",
+    "good_count": 408,
+    "total_count": 408
+  },
+  {
+    "run_id": "RUN-0664",
+    "machine_id": "M-42",
+    "start": "2026-07-21T14:00:00",
+    "end": "2026-07-21T22:00:00",
+    "good_count": 382,
+    "total_count": 382
+  },
+  {
+    "run_id": "RUN-0666",
+    "machine_id": "M-51",
+    "start": "2026-07-21T14:00:00",
+    "end": "2026-07-21T22:00:00",
+    "good_count": 525,
+    "total_count": 525
+  },
+  {
+    "run_id": "RUN-0667",
+    "machine_id": "M-11",
+    "start": "2026-07-22T06:00:00",
+    "end": "2026-07-22T14:00:00",
+    "good_count": 428,
+    "total_count": 428
+  },
+  {
+    "run_id": "RUN-0669",
+    "machine_id": "M-12",
+    "start": "2026-07-22T06:00:00",
+    "end": "2026-07-22T14:00:00",
+    "good_count": 783,
+    "total_count": 783
+  },
+  {
+    "run_id": "RUN-0671",
+    "machine_id": "M-13",
+    "start": "2026-07-22T06:00:00",
+    "end": "2026-07-22T14:00:00",
+    "good_count": 585,
+    "total_count": 585
+  },
+  {
+    "run_id": "RUN-0673",
+    "machine_id": "M-14",
+    "start": "2026-07-22T06:00:00",
+    "end": "2026-07-22T14:00:00",
+    "good_count": 612,
+    "total_count": 612
+  },
+  {
+    "run_id": "RUN-0675",
+    "machine_id": "M-21",
+    "start": "2026-07-22T06:00:00",
+    "end": "2026-07-22T14:00:00",
+    "good_count": 66,
+    "total_count": 66
+  },
+  {
+    "run_id": "RUN-0677",
+    "machine_id": "M-22",
+    "start": "2026-07-22T06:00:00",
+    "end": "2026-07-22T14:00:00",
+    "good_count": 80,
+    "total_count": 80
+  },
+  {
+    "run_id": "RUN-0679",
+    "machine_id": "M-23",
+    "start": "2026-07-22T06:00:00",
+    "end": "2026-07-22T14:00:00",
+    "good_count": 66,
+    "total_count": 66
+  },
+  {
+    "run_id": "RUN-0681",
+    "machine_id": "M-24",
+    "start": "2026-07-22T06:00:00",
+    "end": "2026-07-22T14:00:00",
+    "good_count": 173,
+    "total_count": 173
+  },
+  {
+    "run_id": "RUN-0683",
+    "machine_id": "M-31",
+    "start": "2026-07-22T06:00:00",
+    "end": "2026-07-22T14:00:00",
+    "good_count": 306,
+    "total_count": 306
+  },
+  {
+    "run_id": "RUN-0685",
+    "machine_id": "M-32",
+    "start": "2026-07-22T06:00:00",
+    "end": "2026-07-22T14:00:00",
+    "good_count": 1047,
+    "total_count": 1047
+  },
+  {
+    "run_id": "RUN-0687",
+    "machine_id": "M-33",
+    "start": "2026-07-22T06:00:00",
+    "end": "2026-07-22T14:00:00",
+    "good_count": 16,
+    "total_count": 16
+  },
+  {
+    "run_id": "RUN-0689",
+    "machine_id": "M-34",
+    "start": "2026-07-22T06:00:00",
+    "end": "2026-07-22T14:00:00",
+    "good_count": 17,
+    "total_count": 17
+  },
+  {
+    "run_id": "RUN-0691",
+    "machine_id": "M-41",
+    "start": "2026-07-22T06:00:00",
+    "end": "2026-07-22T14:00:00",
+    "good_count": 415,
+    "total_count": 415
+  },
+  {
+    "run_id": "RUN-0693",
+    "machine_id": "M-42",
+    "start": "2026-07-22T06:00:00",
+    "end": "2026-07-22T14:00:00",
+    "good_count": 365,
+    "total_count": 365
+  },
+  {
+    "run_id": "RUN-0695",
+    "machine_id": "M-51",
+    "start": "2026-07-22T06:00:00",
+    "end": "2026-07-22T14:00:00",
+    "good_count": 573,
+    "total_count": 573
+  },
+  {
+    "run_id": "RUN-0668",
+    "machine_id": "M-11",
+    "start": "2026-07-22T14:00:00",
+    "end": "2026-07-22T22:00:00",
+    "good_count": 474,
+    "total_count": 474
+  },
+  {
+    "run_id": "RUN-0670",
+    "machine_id": "M-12",
+    "start": "2026-07-22T14:00:00",
+    "end": "2026-07-22T22:00:00",
+    "good_count": 836,
+    "total_count": 836
+  },
+  {
+    "run_id": "RUN-0672",
+    "machine_id": "M-13",
+    "start": "2026-07-22T14:00:00",
+    "end": "2026-07-22T22:00:00",
+    "good_count": 588,
+    "total_count": 618
+  },
+  {
+    "run_id": "RUN-0674",
+    "machine_id": "M-14",
+    "start": "2026-07-22T14:00:00",
+    "end": "2026-07-22T22:00:00",
+    "good_count": 615,
+    "total_count": 615
+  },
+  {
+    "run_id": "RUN-0676",
+    "machine_id": "M-21",
+    "start": "2026-07-22T14:00:00",
+    "end": "2026-07-22T22:00:00",
+    "good_count": 74,
+    "total_count": 76
+  },
+  {
+    "run_id": "RUN-0678",
+    "machine_id": "M-22",
+    "start": "2026-07-22T14:00:00",
+    "end": "2026-07-22T22:00:00",
+    "good_count": 68,
+    "total_count": 68
+  },
+  {
+    "run_id": "RUN-0680",
+    "machine_id": "M-23",
+    "start": "2026-07-22T14:00:00",
+    "end": "2026-07-22T22:00:00",
+    "good_count": 72,
+    "total_count": 74
+  },
+  {
+    "run_id": "RUN-0682",
+    "machine_id": "M-24",
+    "start": "2026-07-22T14:00:00",
+    "end": "2026-07-22T22:00:00",
+    "good_count": 159,
+    "total_count": 159
+  },
+  {
+    "run_id": "RUN-0684",
+    "machine_id": "M-31",
+    "start": "2026-07-22T14:00:00",
+    "end": "2026-07-22T22:00:00",
+    "good_count": 375,
+    "total_count": 375
+  },
+  {
+    "run_id": "RUN-0686",
+    "machine_id": "M-32",
+    "start": "2026-07-22T14:00:00",
+    "end": "2026-07-22T22:00:00",
+    "good_count": 1173,
+    "total_count": 1231
+  },
+  {
+    "run_id": "RUN-0688",
+    "machine_id": "M-33",
+    "start": "2026-07-22T14:00:00",
+    "end": "2026-07-22T22:00:00",
+    "good_count": 24,
+    "total_count": 24
+  },
+  {
+    "run_id": "RUN-0690",
+    "machine_id": "M-34",
+    "start": "2026-07-22T14:00:00",
+    "end": "2026-07-22T22:00:00",
+    "good_count": 17,
+    "total_count": 17
+  },
+  {
+    "run_id": "RUN-0692",
+    "machine_id": "M-41",
+    "start": "2026-07-22T14:00:00",
+    "end": "2026-07-22T22:00:00",
+    "good_count": 400,
+    "total_count": 400
+  },
+  {
+    "run_id": "RUN-0694",
+    "machine_id": "M-42",
+    "start": "2026-07-22T14:00:00",
+    "end": "2026-07-22T22:00:00",
+    "good_count": 406,
+    "total_count": 423
+  },
+  {
+    "run_id": "RUN-0696",
+    "machine_id": "M-51",
+    "start": "2026-07-22T14:00:00",
+    "end": "2026-07-22T22:00:00",
+    "good_count": 549,
+    "total_count": 549
+  },
+  {
+    "run_id": "RUN-0697",
+    "machine_id": "M-11",
+    "start": "2026-07-23T06:00:00",
+    "end": "2026-07-23T14:00:00",
+    "good_count": 442,
+    "total_count": 442
+  },
+  {
+    "run_id": "RUN-0699",
+    "machine_id": "M-12",
+    "start": "2026-07-23T06:00:00",
+    "end": "2026-07-23T14:00:00",
+    "good_count": 778,
+    "total_count": 778
+  },
+  {
+    "run_id": "RUN-0701",
+    "machine_id": "M-13",
+    "start": "2026-07-23T06:00:00",
+    "end": "2026-07-23T14:00:00",
+    "good_count": 632,
+    "total_count": 632
+  },
+  {
+    "run_id": "RUN-0703",
+    "machine_id": "M-14",
+    "start": "2026-07-23T06:00:00",
+    "end": "2026-07-23T14:00:00",
+    "good_count": 432,
+    "total_count": 432
+  },
+  {
+    "run_id": "RUN-0705",
+    "machine_id": "M-21",
+    "start": "2026-07-23T06:00:00",
+    "end": "2026-07-23T14:00:00",
+    "good_count": 70,
+    "total_count": 72
+  },
+  {
+    "run_id": "RUN-0707",
+    "machine_id": "M-22",
+    "start": "2026-07-23T06:00:00",
+    "end": "2026-07-23T14:00:00",
+    "good_count": 74,
+    "total_count": 74
+  },
+  {
+    "run_id": "RUN-0709",
+    "machine_id": "M-23",
+    "start": "2026-07-23T06:00:00",
+    "end": "2026-07-23T14:00:00",
+    "good_count": 62,
+    "total_count": 62
+  },
+  {
+    "run_id": "RUN-0711",
+    "machine_id": "M-24",
+    "start": "2026-07-23T06:00:00",
+    "end": "2026-07-23T14:00:00",
+    "good_count": 174,
+    "total_count": 174
+  },
+  {
+    "run_id": "RUN-0713",
+    "machine_id": "M-31",
+    "start": "2026-07-23T06:00:00",
+    "end": "2026-07-23T14:00:00",
+    "good_count": 359,
+    "total_count": 359
+  },
+  {
+    "run_id": "RUN-0715",
+    "machine_id": "M-32",
+    "start": "2026-07-23T06:00:00",
+    "end": "2026-07-23T14:00:00",
+    "good_count": 1117,
+    "total_count": 1117
+  },
+  {
+    "run_id": "RUN-0717",
+    "machine_id": "M-33",
+    "start": "2026-07-23T06:00:00",
+    "end": "2026-07-23T14:00:00",
+    "good_count": 20,
+    "total_count": 20
+  },
+  {
+    "run_id": "RUN-0719",
+    "machine_id": "M-34",
+    "start": "2026-07-23T06:00:00",
+    "end": "2026-07-23T14:00:00",
+    "good_count": 18,
+    "total_count": 18
+  },
+  {
+    "run_id": "RUN-0721",
+    "machine_id": "M-41",
+    "start": "2026-07-23T06:00:00",
+    "end": "2026-07-23T14:00:00",
+    "good_count": 319,
+    "total_count": 319
+  },
+  {
+    "run_id": "RUN-0723",
+    "machine_id": "M-42",
+    "start": "2026-07-23T06:00:00",
+    "end": "2026-07-23T14:00:00",
+    "good_count": 385,
+    "total_count": 385
+  },
+  {
+    "run_id": "RUN-0725",
+    "machine_id": "M-51",
+    "start": "2026-07-23T06:00:00",
+    "end": "2026-07-23T14:00:00",
+    "good_count": 501,
+    "total_count": 501
+  },
+  {
+    "run_id": "RUN-0698",
+    "machine_id": "M-11",
+    "start": "2026-07-23T14:00:00",
+    "end": "2026-07-23T22:00:00",
+    "good_count": 432,
+    "total_count": 432
+  },
+  {
+    "run_id": "RUN-0700",
+    "machine_id": "M-12",
+    "start": "2026-07-23T14:00:00",
+    "end": "2026-07-23T22:00:00",
+    "good_count": 896,
+    "total_count": 896
+  },
+  {
+    "run_id": "RUN-0702",
+    "machine_id": "M-13",
+    "start": "2026-07-23T14:00:00",
+    "end": "2026-07-23T22:00:00",
+    "good_count": 636,
+    "total_count": 636
+  },
+  {
+    "run_id": "RUN-0704",
+    "machine_id": "M-14",
+    "start": "2026-07-23T14:00:00",
+    "end": "2026-07-23T22:00:00",
+    "good_count": 623,
+    "total_count": 623
+  },
+  {
+    "run_id": "RUN-0706",
+    "machine_id": "M-21",
+    "start": "2026-07-23T14:00:00",
+    "end": "2026-07-23T22:00:00",
+    "good_count": 78,
+    "total_count": 78
+  },
+  {
+    "run_id": "RUN-0708",
+    "machine_id": "M-22",
+    "start": "2026-07-23T14:00:00",
+    "end": "2026-07-23T22:00:00",
+    "good_count": 84,
+    "total_count": 84
+  },
+  {
+    "run_id": "RUN-0710",
+    "machine_id": "M-23",
+    "start": "2026-07-23T14:00:00",
+    "end": "2026-07-23T22:00:00",
+    "good_count": 64,
+    "total_count": 64
+  },
+  {
+    "run_id": "RUN-0712",
+    "machine_id": "M-24",
+    "start": "2026-07-23T14:00:00",
+    "end": "2026-07-23T22:00:00",
+    "good_count": 163,
+    "total_count": 163
+  },
+  {
+    "run_id": "RUN-0714",
+    "machine_id": "M-31",
+    "start": "2026-07-23T14:00:00",
+    "end": "2026-07-23T22:00:00",
+    "good_count": 256,
+    "total_count": 256
+  },
+  {
+    "run_id": "RUN-0716",
+    "machine_id": "M-32",
+    "start": "2026-07-23T14:00:00",
+    "end": "2026-07-23T22:00:00",
+    "good_count": 978,
+    "total_count": 1015
+  },
+  {
+    "run_id": "RUN-0718",
+    "machine_id": "M-33",
+    "start": "2026-07-23T14:00:00",
+    "end": "2026-07-23T22:00:00",
+    "good_count": 15,
+    "total_count": 15
+  },
+  {
+    "run_id": "RUN-0720",
+    "machine_id": "M-34",
+    "start": "2026-07-23T14:00:00",
+    "end": "2026-07-23T22:00:00",
+    "good_count": 18,
+    "total_count": 18
+  },
+  {
+    "run_id": "RUN-0722",
+    "machine_id": "M-41",
+    "start": "2026-07-23T14:00:00",
+    "end": "2026-07-23T22:00:00",
+    "good_count": 389,
+    "total_count": 389
+  },
+  {
+    "run_id": "RUN-0724",
+    "machine_id": "M-42",
+    "start": "2026-07-23T14:00:00",
+    "end": "2026-07-23T22:00:00",
+    "good_count": 412,
+    "total_count": 412
+  },
+  {
+    "run_id": "RUN-0726",
+    "machine_id": "M-51",
+    "start": "2026-07-23T14:00:00",
+    "end": "2026-07-23T22:00:00",
+    "good_count": 531,
+    "total_count": 531
+  },
+  {
+    "run_id": "RUN-0727",
+    "machine_id": "M-11",
+    "start": "2026-07-24T06:00:00",
+    "end": "2026-07-24T14:00:00",
+    "good_count": 465,
+    "total_count": 465
+  },
+  {
+    "run_id": "RUN-0729",
+    "machine_id": "M-12",
+    "start": "2026-07-24T06:00:00",
+    "end": "2026-07-24T14:00:00",
+    "good_count": 809,
+    "total_count": 836
+  },
+  {
+    "run_id": "RUN-0731",
+    "machine_id": "M-13",
+    "start": "2026-07-24T06:00:00",
+    "end": "2026-07-24T14:00:00",
+    "good_count": 562,
+    "total_count": 562
+  },
+  {
+    "run_id": "RUN-0733",
+    "machine_id": "M-14",
+    "start": "2026-07-24T06:00:00",
+    "end": "2026-07-24T14:00:00",
+    "good_count": 627,
+    "total_count": 627
+  },
+  {
+    "run_id": "RUN-0735",
+    "machine_id": "M-21",
+    "start": "2026-07-24T06:00:00",
+    "end": "2026-07-24T14:00:00",
+    "good_count": 73,
+    "total_count": 73
+  },
+  {
+    "run_id": "RUN-0737",
+    "machine_id": "M-22",
+    "start": "2026-07-24T06:00:00",
+    "end": "2026-07-24T14:00:00",
+    "good_count": 85,
+    "total_count": 85
+  },
+  {
+    "run_id": "RUN-0739",
+    "machine_id": "M-23",
+    "start": "2026-07-24T06:00:00",
+    "end": "2026-07-24T14:00:00",
+    "good_count": 64,
+    "total_count": 64
+  },
+  {
+    "run_id": "RUN-0741",
+    "machine_id": "M-24",
+    "start": "2026-07-24T06:00:00",
+    "end": "2026-07-24T14:00:00",
+    "good_count": 175,
+    "total_count": 175
+  },
+  {
+    "run_id": "RUN-0743",
+    "machine_id": "M-31",
+    "start": "2026-07-24T06:00:00",
+    "end": "2026-07-24T14:00:00",
+    "good_count": 341,
+    "total_count": 341
+  },
+  {
+    "run_id": "RUN-0745",
+    "machine_id": "M-32",
+    "start": "2026-07-24T06:00:00",
+    "end": "2026-07-24T14:00:00",
+    "good_count": 1099,
+    "total_count": 1099
+  },
+  {
+    "run_id": "RUN-0747",
+    "machine_id": "M-33",
+    "start": "2026-07-24T06:00:00",
+    "end": "2026-07-24T14:00:00",
+    "good_count": 21,
+    "total_count": 21
+  },
+  {
+    "run_id": "RUN-0749",
+    "machine_id": "M-34",
+    "start": "2026-07-24T06:00:00",
+    "end": "2026-07-24T14:00:00",
+    "good_count": 19,
+    "total_count": 19
+  },
+  {
+    "run_id": "RUN-0751",
+    "machine_id": "M-41",
+    "start": "2026-07-24T06:00:00",
+    "end": "2026-07-24T14:00:00",
+    "good_count": 366,
+    "total_count": 366
+  },
+  {
+    "run_id": "RUN-0753",
+    "machine_id": "M-42",
+    "start": "2026-07-24T06:00:00",
+    "end": "2026-07-24T14:00:00",
+    "good_count": 476,
+    "total_count": 476
+  },
+  {
+    "run_id": "RUN-0755",
+    "machine_id": "M-51",
+    "start": "2026-07-24T06:00:00",
+    "end": "2026-07-24T14:00:00",
+    "good_count": 560,
+    "total_count": 587
+  },
+  {
+    "run_id": "RUN-0728",
+    "machine_id": "M-11",
+    "start": "2026-07-24T14:00:00",
+    "end": "2026-07-24T22:00:00",
+    "good_count": 456,
+    "total_count": 477
+  },
+  {
+    "run_id": "RUN-0730",
+    "machine_id": "M-12",
+    "start": "2026-07-24T14:00:00",
+    "end": "2026-07-24T22:00:00",
+    "good_count": 828,
+    "total_count": 828
+  },
+  {
+    "run_id": "RUN-0732",
+    "machine_id": "M-13",
+    "start": "2026-07-24T14:00:00",
+    "end": "2026-07-24T22:00:00",
+    "good_count": 566,
+    "total_count": 566
+  },
+  {
+    "run_id": "RUN-0734",
+    "machine_id": "M-14",
+    "start": "2026-07-24T14:00:00",
+    "end": "2026-07-24T22:00:00",
+    "good_count": 586,
+    "total_count": 586
+  },
+  {
+    "run_id": "RUN-0736",
+    "machine_id": "M-21",
+    "start": "2026-07-24T14:00:00",
+    "end": "2026-07-24T22:00:00",
+    "good_count": 67,
+    "total_count": 67
+  },
+  {
+    "run_id": "RUN-0738",
+    "machine_id": "M-22",
+    "start": "2026-07-24T14:00:00",
+    "end": "2026-07-24T22:00:00",
+    "good_count": 88,
+    "total_count": 89
+  },
+  {
+    "run_id": "RUN-0740",
+    "machine_id": "M-23",
+    "start": "2026-07-24T14:00:00",
+    "end": "2026-07-24T22:00:00",
+    "good_count": 75,
+    "total_count": 78
+  },
+  {
+    "run_id": "RUN-0742",
+    "machine_id": "M-24",
+    "start": "2026-07-24T14:00:00",
+    "end": "2026-07-24T22:00:00",
+    "good_count": 182,
+    "total_count": 191
+  },
+  {
+    "run_id": "RUN-0744",
+    "machine_id": "M-31",
+    "start": "2026-07-24T14:00:00",
+    "end": "2026-07-24T22:00:00",
+    "good_count": 329,
+    "total_count": 329
+  },
+  {
+    "run_id": "RUN-0746",
+    "machine_id": "M-32",
+    "start": "2026-07-24T14:00:00",
+    "end": "2026-07-24T22:00:00",
+    "good_count": 1109,
+    "total_count": 1109
+  },
+  {
+    "run_id": "RUN-0748",
+    "machine_id": "M-33",
+    "start": "2026-07-24T14:00:00",
+    "end": "2026-07-24T22:00:00",
+    "good_count": 23,
+    "total_count": 23
+  },
+  {
+    "run_id": "RUN-0750",
+    "machine_id": "M-34",
+    "start": "2026-07-24T14:00:00",
+    "end": "2026-07-24T22:00:00",
+    "good_count": 20,
+    "total_count": 20
+  },
+  {
+    "run_id": "RUN-0752",
+    "machine_id": "M-41",
+    "start": "2026-07-24T14:00:00",
+    "end": "2026-07-24T22:00:00",
+    "good_count": 325,
+    "total_count": 325
+  },
+  {
+    "run_id": "RUN-0754",
+    "machine_id": "M-42",
+    "start": "2026-07-24T14:00:00",
+    "end": "2026-07-24T22:00:00",
+    "good_count": 369,
+    "total_count": 369
+  },
+  {
+    "run_id": "RUN-0756",
+    "machine_id": "M-51",
+    "start": "2026-07-24T14:00:00",
+    "end": "2026-07-24T22:00:00",
+    "good_count": 489,
+    "total_count": 489
+  },
+  {
+    "run_id": "RUN-0757",
+    "machine_id": "M-11",
+    "start": "2026-07-25T06:00:00",
+    "end": "2026-07-25T14:00:00",
+    "good_count": 458,
+    "total_count": 458
+  },
+  {
+    "run_id": "RUN-0759",
+    "machine_id": "M-12",
+    "start": "2026-07-25T06:00:00",
+    "end": "2026-07-25T14:00:00",
+    "good_count": 816,
+    "total_count": 816
+  },
+  {
+    "run_id": "RUN-0761",
+    "machine_id": "M-13",
+    "start": "2026-07-25T06:00:00",
+    "end": "2026-07-25T14:00:00",
+    "good_count": 673,
+    "total_count": 673
+  },
+  {
+    "run_id": "RUN-0763",
+    "machine_id": "M-14",
+    "start": "2026-07-25T06:00:00",
+    "end": "2026-07-25T14:00:00",
+    "good_count": 659,
+    "total_count": 659
+  },
+  {
+    "run_id": "RUN-0765",
+    "machine_id": "M-21",
+    "start": "2026-07-25T06:00:00",
+    "end": "2026-07-25T14:00:00",
+    "good_count": 81,
+    "total_count": 82
+  },
+  {
+    "run_id": "RUN-0767",
+    "machine_id": "M-22",
+    "start": "2026-07-25T06:00:00",
+    "end": "2026-07-25T14:00:00",
+    "good_count": 72,
+    "total_count": 72
+  },
+  {
+    "run_id": "RUN-0769",
+    "machine_id": "M-23",
+    "start": "2026-07-25T06:00:00",
+    "end": "2026-07-25T14:00:00",
+    "good_count": 69,
+    "total_count": 69
+  },
+  {
+    "run_id": "RUN-0771",
+    "machine_id": "M-24",
+    "start": "2026-07-25T06:00:00",
+    "end": "2026-07-25T14:00:00",
+    "good_count": 175,
+    "total_count": 175
+  },
+  {
+    "run_id": "RUN-0773",
+    "machine_id": "M-31",
+    "start": "2026-07-25T06:00:00",
+    "end": "2026-07-25T14:00:00",
+    "good_count": 366,
+    "total_count": 366
+  },
+  {
+    "run_id": "RUN-0775",
+    "machine_id": "M-32",
+    "start": "2026-07-25T06:00:00",
+    "end": "2026-07-25T14:00:00",
+    "good_count": 1237,
+    "total_count": 1237
+  },
+  {
+    "run_id": "RUN-0777",
+    "machine_id": "M-33",
+    "start": "2026-07-25T06:00:00",
+    "end": "2026-07-25T14:00:00",
+    "good_count": 17,
+    "total_count": 17
+  },
+  {
+    "run_id": "RUN-0779",
+    "machine_id": "M-34",
+    "start": "2026-07-25T06:00:00",
+    "end": "2026-07-25T14:00:00",
+    "good_count": 18,
+    "total_count": 18
+  },
+  {
+    "run_id": "RUN-0781",
+    "machine_id": "M-41",
+    "start": "2026-07-25T06:00:00",
+    "end": "2026-07-25T14:00:00",
+    "good_count": 369,
+    "total_count": 382
+  },
+  {
+    "run_id": "RUN-0783",
+    "machine_id": "M-42",
+    "start": "2026-07-25T06:00:00",
+    "end": "2026-07-25T14:00:00",
+    "good_count": 376,
+    "total_count": 394
+  },
+  {
+    "run_id": "RUN-0785",
+    "machine_id": "M-51",
+    "start": "2026-07-25T06:00:00",
+    "end": "2026-07-25T14:00:00",
+    "good_count": 534,
+    "total_count": 534
+  },
+  {
+    "run_id": "RUN-0758",
+    "machine_id": "M-11",
+    "start": "2026-07-25T14:00:00",
+    "end": "2026-07-25T22:00:00",
+    "good_count": 453,
+    "total_count": 453
+  },
+  {
+    "run_id": "RUN-0760",
+    "machine_id": "M-12",
+    "start": "2026-07-25T14:00:00",
+    "end": "2026-07-25T22:00:00",
+    "good_count": 813,
+    "total_count": 813
+  },
+  {
+    "run_id": "RUN-0762",
+    "machine_id": "M-13",
+    "start": "2026-07-25T14:00:00",
+    "end": "2026-07-25T22:00:00",
+    "good_count": 566,
+    "total_count": 566
+  },
+  {
+    "run_id": "RUN-0764",
+    "machine_id": "M-14",
+    "start": "2026-07-25T14:00:00",
+    "end": "2026-07-25T22:00:00",
+    "good_count": 609,
+    "total_count": 609
+  },
+  {
+    "run_id": "RUN-0766",
+    "machine_id": "M-21",
+    "start": "2026-07-25T14:00:00",
+    "end": "2026-07-25T22:00:00",
+    "good_count": 67,
+    "total_count": 67
+  },
+  {
+    "run_id": "RUN-0768",
+    "machine_id": "M-22",
+    "start": "2026-07-25T14:00:00",
+    "end": "2026-07-25T22:00:00",
+    "good_count": 74,
+    "total_count": 74
+  },
+  {
+    "run_id": "RUN-0770",
+    "machine_id": "M-23",
+    "start": "2026-07-25T14:00:00",
+    "end": "2026-07-25T22:00:00",
+    "good_count": 64,
+    "total_count": 64
+  },
+  {
+    "run_id": "RUN-0772",
+    "machine_id": "M-24",
+    "start": "2026-07-25T14:00:00",
+    "end": "2026-07-25T22:00:00",
+    "good_count": 177,
+    "total_count": 177
+  },
+  {
+    "run_id": "RUN-0774",
+    "machine_id": "M-31",
+    "start": "2026-07-25T14:00:00",
+    "end": "2026-07-25T22:00:00",
+    "good_count": 368,
+    "total_count": 368
+  },
+  {
+    "run_id": "RUN-0776",
+    "machine_id": "M-32",
+    "start": "2026-07-25T14:00:00",
+    "end": "2026-07-25T22:00:00",
+    "good_count": 1014,
+    "total_count": 1014
+  },
+  {
+    "run_id": "RUN-0778",
+    "machine_id": "M-33",
+    "start": "2026-07-25T14:00:00",
+    "end": "2026-07-25T22:00:00",
+    "good_count": 21,
+    "total_count": 21
+  },
+  {
+    "run_id": "RUN-0780",
+    "machine_id": "M-34",
+    "start": "2026-07-25T14:00:00",
+    "end": "2026-07-25T22:00:00",
+    "good_count": 20,
+    "total_count": 20
+  },
+  {
+    "run_id": "RUN-0782",
+    "machine_id": "M-41",
+    "start": "2026-07-25T14:00:00",
+    "end": "2026-07-25T22:00:00",
+    "good_count": 413,
+    "total_count": 413
+  },
+  {
+    "run_id": "RUN-0784",
+    "machine_id": "M-42",
+    "start": "2026-07-25T14:00:00",
+    "end": "2026-07-25T22:00:00",
+    "good_count": 428,
+    "total_count": 438
+  },
+  {
+    "run_id": "RUN-0786",
+    "machine_id": "M-51",
+    "start": "2026-07-25T14:00:00",
+    "end": "2026-07-25T22:00:00",
+    "good_count": 469,
+    "total_count": 469
+  },
+  {
+    "run_id": "RUN-0787",
+    "machine_id": "M-11",
+    "start": "2026-07-26T06:00:00",
+    "end": "2026-07-26T14:00:00",
+    "good_count": 438,
+    "total_count": 450
+  },
+  {
+    "run_id": "RUN-0789",
+    "machine_id": "M-12",
+    "start": "2026-07-26T06:00:00",
+    "end": "2026-07-26T14:00:00",
+    "good_count": 791,
+    "total_count": 791
+  },
+  {
+    "run_id": "RUN-0791",
+    "machine_id": "M-13",
+    "start": "2026-07-26T06:00:00",
+    "end": "2026-07-26T14:00:00",
+    "good_count": 614,
+    "total_count": 614
+  },
+  {
+    "run_id": "RUN-0793",
+    "machine_id": "M-14",
+    "start": "2026-07-26T06:00:00",
+    "end": "2026-07-26T14:00:00",
+    "good_count": 633,
+    "total_count": 633
+  },
+  {
+    "run_id": "RUN-0795",
+    "machine_id": "M-21",
+    "start": "2026-07-26T06:00:00",
+    "end": "2026-07-26T14:00:00",
+    "good_count": 64,
+    "total_count": 66
+  },
+  {
+    "run_id": "RUN-0797",
+    "machine_id": "M-22",
+    "start": "2026-07-26T06:00:00",
+    "end": "2026-07-26T14:00:00",
+    "good_count": 81,
+    "total_count": 81
+  },
+  {
+    "run_id": "RUN-0799",
+    "machine_id": "M-23",
+    "start": "2026-07-26T06:00:00",
+    "end": "2026-07-26T14:00:00",
+    "good_count": 64,
+    "total_count": 64
+  },
+  {
+    "run_id": "RUN-0801",
+    "machine_id": "M-24",
+    "start": "2026-07-26T06:00:00",
+    "end": "2026-07-26T14:00:00",
+    "good_count": 118,
+    "total_count": 118
+  },
+  {
+    "run_id": "RUN-0803",
+    "machine_id": "M-31",
+    "start": "2026-07-26T06:00:00",
+    "end": "2026-07-26T14:00:00",
+    "good_count": 308,
+    "total_count": 308
+  },
+  {
+    "run_id": "RUN-0805",
+    "machine_id": "M-32",
+    "start": "2026-07-26T06:00:00",
+    "end": "2026-07-26T14:00:00",
+    "good_count": 1183,
+    "total_count": 1183
+  },
+  {
+    "run_id": "RUN-0807",
+    "machine_id": "M-33",
+    "start": "2026-07-26T06:00:00",
+    "end": "2026-07-26T14:00:00",
+    "good_count": 22,
+    "total_count": 22
+  },
+  {
+    "run_id": "RUN-0809",
+    "machine_id": "M-34",
+    "start": "2026-07-26T06:00:00",
+    "end": "2026-07-26T14:00:00",
+    "good_count": 15,
+    "total_count": 15
+  },
+  {
+    "run_id": "RUN-0811",
+    "machine_id": "M-41",
+    "start": "2026-07-26T06:00:00",
+    "end": "2026-07-26T14:00:00",
+    "good_count": 369,
+    "total_count": 369
+  },
+  {
+    "run_id": "RUN-0813",
+    "machine_id": "M-42",
+    "start": "2026-07-26T06:00:00",
+    "end": "2026-07-26T14:00:00",
+    "good_count": 385,
+    "total_count": 385
+  },
+  {
+    "run_id": "RUN-0815",
+    "machine_id": "M-51",
+    "start": "2026-07-26T06:00:00",
+    "end": "2026-07-26T14:00:00",
+    "good_count": 609,
+    "total_count": 609
+  },
+  {
+    "run_id": "RUN-0788",
+    "machine_id": "M-11",
+    "start": "2026-07-26T14:00:00",
+    "end": "2026-07-26T22:00:00",
+    "good_count": 431,
+    "total_count": 431
+  },
+  {
+    "run_id": "RUN-0790",
+    "machine_id": "M-12",
+    "start": "2026-07-26T14:00:00",
+    "end": "2026-07-26T22:00:00",
+    "good_count": 722,
+    "total_count": 737
+  },
+  {
+    "run_id": "RUN-0792",
+    "machine_id": "M-13",
+    "start": "2026-07-26T14:00:00",
+    "end": "2026-07-26T22:00:00",
+    "good_count": 600,
+    "total_count": 600
+  },
+  {
+    "run_id": "RUN-0794",
+    "machine_id": "M-14",
+    "start": "2026-07-26T14:00:00",
+    "end": "2026-07-26T22:00:00",
+    "good_count": 564,
+    "total_count": 564
+  },
+  {
+    "run_id": "RUN-0796",
+    "machine_id": "M-21",
+    "start": "2026-07-26T14:00:00",
+    "end": "2026-07-26T22:00:00",
+    "good_count": 77,
+    "total_count": 77
+  },
+  {
+    "run_id": "RUN-0798",
+    "machine_id": "M-22",
+    "start": "2026-07-26T14:00:00",
+    "end": "2026-07-26T22:00:00",
+    "good_count": 80,
+    "total_count": 80
+  },
+  {
+    "run_id": "RUN-0800",
+    "machine_id": "M-23",
+    "start": "2026-07-26T14:00:00",
+    "end": "2026-07-26T22:00:00",
+    "good_count": 71,
+    "total_count": 71
+  },
+  {
+    "run_id": "RUN-0802",
+    "machine_id": "M-24",
+    "start": "2026-07-26T14:00:00",
+    "end": "2026-07-26T22:00:00",
+    "good_count": 180,
+    "total_count": 180
+  },
+  {
+    "run_id": "RUN-0804",
+    "machine_id": "M-31",
+    "start": "2026-07-26T14:00:00",
+    "end": "2026-07-26T22:00:00",
+    "good_count": 346,
+    "total_count": 346
+  },
+  {
+    "run_id": "RUN-0806",
+    "machine_id": "M-32",
+    "start": "2026-07-26T14:00:00",
+    "end": "2026-07-26T22:00:00",
+    "good_count": 1184,
+    "total_count": 1184
+  },
+  {
+    "run_id": "RUN-0808",
+    "machine_id": "M-33",
+    "start": "2026-07-26T14:00:00",
+    "end": "2026-07-26T22:00:00",
+    "good_count": 25,
+    "total_count": 25
+  },
+  {
+    "run_id": "RUN-0810",
+    "machine_id": "M-34",
+    "start": "2026-07-26T14:00:00",
+    "end": "2026-07-26T22:00:00",
+    "good_count": 18,
+    "total_count": 18
+  },
+  {
+    "run_id": "RUN-0812",
+    "machine_id": "M-41",
+    "start": "2026-07-26T14:00:00",
+    "end": "2026-07-26T22:00:00",
+    "good_count": 333,
+    "total_count": 333
+  },
+  {
+    "run_id": "RUN-0814",
+    "machine_id": "M-42",
+    "start": "2026-07-26T14:00:00",
+    "end": "2026-07-26T22:00:00",
+    "good_count": 430,
+    "total_count": 430
+  },
+  {
+    "run_id": "RUN-0816",
+    "machine_id": "M-51",
+    "start": "2026-07-26T14:00:00",
+    "end": "2026-07-26T22:00:00",
+    "good_count": 482,
+    "total_count": 482
+  },
+  {
     "run_id": "RUN-0001",
     "machine_id": "M-11",
     "start": "2026-07-27T06:00:00",
     "end": "2026-07-27T14:00:00",
     "good_count": 444,
     "total_count": 444
-  },
-  {
-    "run_id": "RUN-0002",
-    "machine_id": "M-11",
-    "start": "2026-07-27T14:00:00",
-    "end": "2026-07-27T22:00:00",
-    "good_count": 399,
-    "total_count": 408
   },
   {
     "run_id": "RUN-0003",
@@ -24,28 +3856,12 @@
     "total_count": 710
   },
   {
-    "run_id": "RUN-0004",
-    "machine_id": "M-12",
-    "start": "2026-07-27T14:00:00",
-    "end": "2026-07-27T22:00:00",
-    "good_count": 847,
-    "total_count": 847
-  },
-  {
     "run_id": "RUN-0005",
     "machine_id": "M-13",
     "start": "2026-07-27T06:00:00",
     "end": "2026-07-27T14:00:00",
     "good_count": 651,
     "total_count": 651
-  },
-  {
-    "run_id": "RUN-0006",
-    "machine_id": "M-13",
-    "start": "2026-07-27T14:00:00",
-    "end": "2026-07-27T22:00:00",
-    "good_count": 650,
-    "total_count": 650
   },
   {
     "run_id": "RUN-0007",
@@ -56,28 +3872,12 @@
     "total_count": 658
   },
   {
-    "run_id": "RUN-0008",
-    "machine_id": "M-14",
-    "start": "2026-07-27T14:00:00",
-    "end": "2026-07-27T22:00:00",
-    "good_count": 671,
-    "total_count": 671
-  },
-  {
     "run_id": "RUN-0009",
     "machine_id": "M-21",
     "start": "2026-07-27T06:00:00",
     "end": "2026-07-27T14:00:00",
     "good_count": 74,
     "total_count": 74
-  },
-  {
-    "run_id": "RUN-0010",
-    "machine_id": "M-21",
-    "start": "2026-07-27T14:00:00",
-    "end": "2026-07-27T22:00:00",
-    "good_count": 77,
-    "total_count": 78
   },
   {
     "run_id": "RUN-0011",
@@ -88,28 +3888,12 @@
     "total_count": 90
   },
   {
-    "run_id": "RUN-0012",
-    "machine_id": "M-22",
-    "start": "2026-07-27T14:00:00",
-    "end": "2026-07-27T22:00:00",
-    "good_count": 63,
-    "total_count": 63
-  },
-  {
     "run_id": "RUN-0013",
     "machine_id": "M-23",
     "start": "2026-07-27T06:00:00",
     "end": "2026-07-27T14:00:00",
     "good_count": 59,
     "total_count": 61
-  },
-  {
-    "run_id": "RUN-0014",
-    "machine_id": "M-23",
-    "start": "2026-07-27T14:00:00",
-    "end": "2026-07-27T22:00:00",
-    "good_count": 67,
-    "total_count": 68
   },
   {
     "run_id": "RUN-0015",
@@ -120,28 +3904,12 @@
     "total_count": 171
   },
   {
-    "run_id": "RUN-0016",
-    "machine_id": "M-24",
-    "start": "2026-07-27T14:00:00",
-    "end": "2026-07-27T22:00:00",
-    "good_count": 182,
-    "total_count": 182
-  },
-  {
     "run_id": "RUN-0017",
     "machine_id": "M-31",
     "start": "2026-07-27T06:00:00",
     "end": "2026-07-27T14:00:00",
     "good_count": 375,
     "total_count": 386
-  },
-  {
-    "run_id": "RUN-0018",
-    "machine_id": "M-31",
-    "start": "2026-07-27T14:00:00",
-    "end": "2026-07-27T22:00:00",
-    "good_count": 367,
-    "total_count": 367
   },
   {
     "run_id": "RUN-0019",
@@ -152,14 +3920,6 @@
     "total_count": 1011
   },
   {
-    "run_id": "RUN-0020",
-    "machine_id": "M-32",
-    "start": "2026-07-27T14:00:00",
-    "end": "2026-07-27T22:00:00",
-    "good_count": 1188,
-    "total_count": 1188
-  },
-  {
     "run_id": "RUN-0021",
     "machine_id": "M-33",
     "start": "2026-07-27T06:00:00",
@@ -168,18 +3928,122 @@
     "total_count": 22
   },
   {
-    "run_id": "RUN-0022",
-    "machine_id": "M-33",
-    "start": "2026-07-27T14:00:00",
-    "end": "2026-07-27T22:00:00",
-    "good_count": 19,
-    "total_count": 19
-  },
-  {
     "run_id": "RUN-0023",
     "machine_id": "M-34",
     "start": "2026-07-27T06:00:00",
     "end": "2026-07-27T14:00:00",
+    "good_count": 19,
+    "total_count": 19
+  },
+  {
+    "run_id": "RUN-0817",
+    "machine_id": "M-41",
+    "start": "2026-07-27T06:00:00",
+    "end": "2026-07-27T14:00:00",
+    "good_count": 349,
+    "total_count": 349
+  },
+  {
+    "run_id": "RUN-0819",
+    "machine_id": "M-42",
+    "start": "2026-07-27T06:00:00",
+    "end": "2026-07-27T14:00:00",
+    "good_count": 405,
+    "total_count": 405
+  },
+  {
+    "run_id": "RUN-0821",
+    "machine_id": "M-51",
+    "start": "2026-07-27T06:00:00",
+    "end": "2026-07-27T14:00:00",
+    "good_count": 552,
+    "total_count": 552
+  },
+  {
+    "run_id": "RUN-0002",
+    "machine_id": "M-11",
+    "start": "2026-07-27T14:00:00",
+    "end": "2026-07-27T22:00:00",
+    "good_count": 399,
+    "total_count": 408
+  },
+  {
+    "run_id": "RUN-0004",
+    "machine_id": "M-12",
+    "start": "2026-07-27T14:00:00",
+    "end": "2026-07-27T22:00:00",
+    "good_count": 847,
+    "total_count": 847
+  },
+  {
+    "run_id": "RUN-0006",
+    "machine_id": "M-13",
+    "start": "2026-07-27T14:00:00",
+    "end": "2026-07-27T22:00:00",
+    "good_count": 650,
+    "total_count": 650
+  },
+  {
+    "run_id": "RUN-0008",
+    "machine_id": "M-14",
+    "start": "2026-07-27T14:00:00",
+    "end": "2026-07-27T22:00:00",
+    "good_count": 671,
+    "total_count": 671
+  },
+  {
+    "run_id": "RUN-0010",
+    "machine_id": "M-21",
+    "start": "2026-07-27T14:00:00",
+    "end": "2026-07-27T22:00:00",
+    "good_count": 77,
+    "total_count": 78
+  },
+  {
+    "run_id": "RUN-0012",
+    "machine_id": "M-22",
+    "start": "2026-07-27T14:00:00",
+    "end": "2026-07-27T22:00:00",
+    "good_count": 63,
+    "total_count": 63
+  },
+  {
+    "run_id": "RUN-0014",
+    "machine_id": "M-23",
+    "start": "2026-07-27T14:00:00",
+    "end": "2026-07-27T22:00:00",
+    "good_count": 67,
+    "total_count": 68
+  },
+  {
+    "run_id": "RUN-0016",
+    "machine_id": "M-24",
+    "start": "2026-07-27T14:00:00",
+    "end": "2026-07-27T22:00:00",
+    "good_count": 182,
+    "total_count": 182
+  },
+  {
+    "run_id": "RUN-0018",
+    "machine_id": "M-31",
+    "start": "2026-07-27T14:00:00",
+    "end": "2026-07-27T22:00:00",
+    "good_count": 367,
+    "total_count": 367
+  },
+  {
+    "run_id": "RUN-0020",
+    "machine_id": "M-32",
+    "start": "2026-07-27T14:00:00",
+    "end": "2026-07-27T22:00:00",
+    "good_count": 1188,
+    "total_count": 1188
+  },
+  {
+    "run_id": "RUN-0022",
+    "machine_id": "M-33",
+    "start": "2026-07-27T14:00:00",
+    "end": "2026-07-27T22:00:00",
     "good_count": 19,
     "total_count": 19
   },
@@ -192,20 +4056,36 @@
     "total_count": 19
   },
   {
+    "run_id": "RUN-0818",
+    "machine_id": "M-41",
+    "start": "2026-07-27T14:00:00",
+    "end": "2026-07-27T22:00:00",
+    "good_count": 322,
+    "total_count": 322
+  },
+  {
+    "run_id": "RUN-0820",
+    "machine_id": "M-42",
+    "start": "2026-07-27T14:00:00",
+    "end": "2026-07-27T22:00:00",
+    "good_count": 404,
+    "total_count": 404
+  },
+  {
+    "run_id": "RUN-0822",
+    "machine_id": "M-51",
+    "start": "2026-07-27T14:00:00",
+    "end": "2026-07-27T22:00:00",
+    "good_count": 506,
+    "total_count": 506
+  },
+  {
     "run_id": "RUN-0025",
     "machine_id": "M-11",
     "start": "2026-07-28T06:00:00",
     "end": "2026-07-28T14:00:00",
     "good_count": 473,
     "total_count": 488
-  },
-  {
-    "run_id": "RUN-0026",
-    "machine_id": "M-11",
-    "start": "2026-07-28T14:00:00",
-    "end": "2026-07-28T22:00:00",
-    "good_count": 480,
-    "total_count": 480
   },
   {
     "run_id": "RUN-0027",
@@ -216,28 +4096,12 @@
     "total_count": 771
   },
   {
-    "run_id": "RUN-0028",
-    "machine_id": "M-12",
-    "start": "2026-07-28T14:00:00",
-    "end": "2026-07-28T22:00:00",
-    "good_count": 751,
-    "total_count": 751
-  },
-  {
     "run_id": "RUN-0029",
     "machine_id": "M-13",
     "start": "2026-07-28T06:00:00",
     "end": "2026-07-28T14:00:00",
     "good_count": 643,
     "total_count": 643
-  },
-  {
-    "run_id": "RUN-0030",
-    "machine_id": "M-13",
-    "start": "2026-07-28T14:00:00",
-    "end": "2026-07-28T22:00:00",
-    "good_count": 635,
-    "total_count": 635
   },
   {
     "run_id": "RUN-0031",
@@ -248,28 +4112,12 @@
     "total_count": 570
   },
   {
-    "run_id": "RUN-0032",
-    "machine_id": "M-14",
-    "start": "2026-07-28T14:00:00",
-    "end": "2026-07-28T22:00:00",
-    "good_count": 619,
-    "total_count": 635
-  },
-  {
     "run_id": "RUN-0033",
     "machine_id": "M-21",
     "start": "2026-07-28T06:00:00",
     "end": "2026-07-28T14:00:00",
     "good_count": 72,
     "total_count": 72
-  },
-  {
-    "run_id": "RUN-0034",
-    "machine_id": "M-21",
-    "start": "2026-07-28T14:00:00",
-    "end": "2026-07-28T22:00:00",
-    "good_count": 74,
-    "total_count": 74
   },
   {
     "run_id": "RUN-0035",
@@ -280,28 +4128,12 @@
     "total_count": 76
   },
   {
-    "run_id": "RUN-0036",
-    "machine_id": "M-22",
-    "start": "2026-07-28T14:00:00",
-    "end": "2026-07-28T22:00:00",
-    "good_count": 60,
-    "total_count": 60
-  },
-  {
     "run_id": "RUN-0037",
     "machine_id": "M-23",
     "start": "2026-07-28T06:00:00",
     "end": "2026-07-28T14:00:00",
     "good_count": 68,
     "total_count": 68
-  },
-  {
-    "run_id": "RUN-0038",
-    "machine_id": "M-23",
-    "start": "2026-07-28T14:00:00",
-    "end": "2026-07-28T22:00:00",
-    "good_count": 63,
-    "total_count": 65
   },
   {
     "run_id": "RUN-0039",
@@ -312,28 +4144,12 @@
     "total_count": 166
   },
   {
-    "run_id": "RUN-0040",
-    "machine_id": "M-24",
-    "start": "2026-07-28T14:00:00",
-    "end": "2026-07-28T22:00:00",
-    "good_count": 171,
-    "total_count": 171
-  },
-  {
     "run_id": "RUN-0041",
     "machine_id": "M-31",
     "start": "2026-07-28T06:00:00",
     "end": "2026-07-28T14:00:00",
     "good_count": 325,
     "total_count": 341
-  },
-  {
-    "run_id": "RUN-0042",
-    "machine_id": "M-31",
-    "start": "2026-07-28T14:00:00",
-    "end": "2026-07-28T22:00:00",
-    "good_count": 356,
-    "total_count": 364
   },
   {
     "run_id": "RUN-0043",
@@ -344,26 +4160,10 @@
     "total_count": 1131
   },
   {
-    "run_id": "RUN-0044",
-    "machine_id": "M-32",
-    "start": "2026-07-28T14:00:00",
-    "end": "2026-07-28T22:00:00",
-    "good_count": 1043,
-    "total_count": 1043
-  },
-  {
     "run_id": "RUN-0045",
     "machine_id": "M-33",
     "start": "2026-07-28T06:00:00",
     "end": "2026-07-28T14:00:00",
-    "good_count": 22,
-    "total_count": 22
-  },
-  {
-    "run_id": "RUN-0046",
-    "machine_id": "M-33",
-    "start": "2026-07-28T14:00:00",
-    "end": "2026-07-28T22:00:00",
     "good_count": 22,
     "total_count": 22
   },
@@ -376,12 +4176,148 @@
     "total_count": 19
   },
   {
+    "run_id": "RUN-0823",
+    "machine_id": "M-41",
+    "start": "2026-07-28T06:00:00",
+    "end": "2026-07-28T14:00:00",
+    "good_count": 363,
+    "total_count": 363
+  },
+  {
+    "run_id": "RUN-0825",
+    "machine_id": "M-42",
+    "start": "2026-07-28T06:00:00",
+    "end": "2026-07-28T14:00:00",
+    "good_count": 425,
+    "total_count": 425
+  },
+  {
+    "run_id": "RUN-0827",
+    "machine_id": "M-51",
+    "start": "2026-07-28T06:00:00",
+    "end": "2026-07-28T14:00:00",
+    "good_count": 520,
+    "total_count": 520
+  },
+  {
+    "run_id": "RUN-0026",
+    "machine_id": "M-11",
+    "start": "2026-07-28T14:00:00",
+    "end": "2026-07-28T22:00:00",
+    "good_count": 480,
+    "total_count": 480
+  },
+  {
+    "run_id": "RUN-0028",
+    "machine_id": "M-12",
+    "start": "2026-07-28T14:00:00",
+    "end": "2026-07-28T22:00:00",
+    "good_count": 751,
+    "total_count": 751
+  },
+  {
+    "run_id": "RUN-0030",
+    "machine_id": "M-13",
+    "start": "2026-07-28T14:00:00",
+    "end": "2026-07-28T22:00:00",
+    "good_count": 635,
+    "total_count": 635
+  },
+  {
+    "run_id": "RUN-0032",
+    "machine_id": "M-14",
+    "start": "2026-07-28T14:00:00",
+    "end": "2026-07-28T22:00:00",
+    "good_count": 619,
+    "total_count": 635
+  },
+  {
+    "run_id": "RUN-0034",
+    "machine_id": "M-21",
+    "start": "2026-07-28T14:00:00",
+    "end": "2026-07-28T22:00:00",
+    "good_count": 74,
+    "total_count": 74
+  },
+  {
+    "run_id": "RUN-0036",
+    "machine_id": "M-22",
+    "start": "2026-07-28T14:00:00",
+    "end": "2026-07-28T22:00:00",
+    "good_count": 60,
+    "total_count": 60
+  },
+  {
+    "run_id": "RUN-0038",
+    "machine_id": "M-23",
+    "start": "2026-07-28T14:00:00",
+    "end": "2026-07-28T22:00:00",
+    "good_count": 63,
+    "total_count": 65
+  },
+  {
+    "run_id": "RUN-0040",
+    "machine_id": "M-24",
+    "start": "2026-07-28T14:00:00",
+    "end": "2026-07-28T22:00:00",
+    "good_count": 171,
+    "total_count": 171
+  },
+  {
+    "run_id": "RUN-0042",
+    "machine_id": "M-31",
+    "start": "2026-07-28T14:00:00",
+    "end": "2026-07-28T22:00:00",
+    "good_count": 356,
+    "total_count": 364
+  },
+  {
+    "run_id": "RUN-0044",
+    "machine_id": "M-32",
+    "start": "2026-07-28T14:00:00",
+    "end": "2026-07-28T22:00:00",
+    "good_count": 1043,
+    "total_count": 1043
+  },
+  {
+    "run_id": "RUN-0046",
+    "machine_id": "M-33",
+    "start": "2026-07-28T14:00:00",
+    "end": "2026-07-28T22:00:00",
+    "good_count": 22,
+    "total_count": 22
+  },
+  {
     "run_id": "RUN-0048",
     "machine_id": "M-34",
     "start": "2026-07-28T14:00:00",
     "end": "2026-07-28T22:00:00",
     "good_count": 18,
     "total_count": 18
+  },
+  {
+    "run_id": "RUN-0824",
+    "machine_id": "M-41",
+    "start": "2026-07-28T14:00:00",
+    "end": "2026-07-28T22:00:00",
+    "good_count": 355,
+    "total_count": 370
+  },
+  {
+    "run_id": "RUN-0826",
+    "machine_id": "M-42",
+    "start": "2026-07-28T14:00:00",
+    "end": "2026-07-28T22:00:00",
+    "good_count": 413,
+    "total_count": 413
+  },
+  {
+    "run_id": "RUN-0828",
+    "machine_id": "M-51",
+    "start": "2026-07-28T14:00:00",
+    "end": "2026-07-28T22:00:00",
+    "good_count": 521,
+    "total_count": 521
   },
   {
     "run_id": "RUN-0049",
@@ -392,28 +4328,12 @@
     "total_count": 442
   },
   {
-    "run_id": "RUN-0050",
-    "machine_id": "M-11",
-    "start": "2026-07-29T14:00:00",
-    "end": "2026-07-29T22:00:00",
-    "good_count": 454,
-    "total_count": 454
-  },
-  {
     "run_id": "RUN-0051",
     "machine_id": "M-12",
     "start": "2026-07-29T06:00:00",
     "end": "2026-07-29T14:00:00",
     "good_count": 821,
     "total_count": 821
-  },
-  {
-    "run_id": "RUN-0052",
-    "machine_id": "M-12",
-    "start": "2026-07-29T14:00:00",
-    "end": "2026-07-29T22:00:00",
-    "good_count": 798,
-    "total_count": 798
   },
   {
     "run_id": "RUN-0053",
@@ -424,28 +4344,12 @@
     "total_count": 624
   },
   {
-    "run_id": "RUN-0054",
-    "machine_id": "M-13",
-    "start": "2026-07-29T14:00:00",
-    "end": "2026-07-29T22:00:00",
-    "good_count": 593,
-    "total_count": 593
-  },
-  {
     "run_id": "RUN-0055",
     "machine_id": "M-14",
     "start": "2026-07-29T06:00:00",
     "end": "2026-07-29T14:00:00",
     "good_count": 655,
     "total_count": 655
-  },
-  {
-    "run_id": "RUN-0056",
-    "machine_id": "M-14",
-    "start": "2026-07-29T14:00:00",
-    "end": "2026-07-29T22:00:00",
-    "good_count": 677,
-    "total_count": 677
   },
   {
     "run_id": "RUN-0057",
@@ -456,28 +4360,12 @@
     "total_count": 64
   },
   {
-    "run_id": "RUN-0058",
-    "machine_id": "M-21",
-    "start": "2026-07-29T14:00:00",
-    "end": "2026-07-29T22:00:00",
-    "good_count": 76,
-    "total_count": 76
-  },
-  {
     "run_id": "RUN-0059",
     "machine_id": "M-22",
     "start": "2026-07-29T06:00:00",
     "end": "2026-07-29T14:00:00",
     "good_count": 78,
     "total_count": 78
-  },
-  {
-    "run_id": "RUN-0060",
-    "machine_id": "M-22",
-    "start": "2026-07-29T14:00:00",
-    "end": "2026-07-29T22:00:00",
-    "good_count": 74,
-    "total_count": 74
   },
   {
     "run_id": "RUN-0061",
@@ -488,28 +4376,12 @@
     "total_count": 54
   },
   {
-    "run_id": "RUN-0062",
-    "machine_id": "M-23",
-    "start": "2026-07-29T14:00:00",
-    "end": "2026-07-29T22:00:00",
-    "good_count": 66,
-    "total_count": 66
-  },
-  {
     "run_id": "RUN-0063",
     "machine_id": "M-24",
     "start": "2026-07-29T06:00:00",
     "end": "2026-07-29T14:00:00",
     "good_count": 184,
     "total_count": 184
-  },
-  {
-    "run_id": "RUN-0064",
-    "machine_id": "M-24",
-    "start": "2026-07-29T14:00:00",
-    "end": "2026-07-29T22:00:00",
-    "good_count": 172,
-    "total_count": 172
   },
   {
     "run_id": "RUN-0065",
@@ -520,28 +4392,12 @@
     "total_count": 379
   },
   {
-    "run_id": "RUN-0066",
-    "machine_id": "M-31",
-    "start": "2026-07-29T14:00:00",
-    "end": "2026-07-29T22:00:00",
-    "good_count": 365,
-    "total_count": 365
-  },
-  {
     "run_id": "RUN-0067",
     "machine_id": "M-32",
     "start": "2026-07-29T06:00:00",
     "end": "2026-07-29T14:00:00",
     "good_count": 1149,
     "total_count": 1149
-  },
-  {
-    "run_id": "RUN-0068",
-    "machine_id": "M-32",
-    "start": "2026-07-29T14:00:00",
-    "end": "2026-07-29T22:00:00",
-    "good_count": 1077,
-    "total_count": 1077
   },
   {
     "run_id": "RUN-0069",
@@ -552,20 +4408,124 @@
     "total_count": 18
   },
   {
-    "run_id": "RUN-0070",
-    "machine_id": "M-33",
-    "start": "2026-07-29T14:00:00",
-    "end": "2026-07-29T22:00:00",
-    "good_count": 22,
-    "total_count": 22
-  },
-  {
     "run_id": "RUN-0071",
     "machine_id": "M-34",
     "start": "2026-07-29T06:00:00",
     "end": "2026-07-29T14:00:00",
     "good_count": 18,
     "total_count": 18
+  },
+  {
+    "run_id": "RUN-0829",
+    "machine_id": "M-41",
+    "start": "2026-07-29T06:00:00",
+    "end": "2026-07-29T14:00:00",
+    "good_count": 334,
+    "total_count": 334
+  },
+  {
+    "run_id": "RUN-0831",
+    "machine_id": "M-42",
+    "start": "2026-07-29T06:00:00",
+    "end": "2026-07-29T14:00:00",
+    "good_count": 437,
+    "total_count": 437
+  },
+  {
+    "run_id": "RUN-0833",
+    "machine_id": "M-51",
+    "start": "2026-07-29T06:00:00",
+    "end": "2026-07-29T14:00:00",
+    "good_count": 465,
+    "total_count": 480
+  },
+  {
+    "run_id": "RUN-0050",
+    "machine_id": "M-11",
+    "start": "2026-07-29T14:00:00",
+    "end": "2026-07-29T22:00:00",
+    "good_count": 454,
+    "total_count": 454
+  },
+  {
+    "run_id": "RUN-0052",
+    "machine_id": "M-12",
+    "start": "2026-07-29T14:00:00",
+    "end": "2026-07-29T22:00:00",
+    "good_count": 798,
+    "total_count": 798
+  },
+  {
+    "run_id": "RUN-0054",
+    "machine_id": "M-13",
+    "start": "2026-07-29T14:00:00",
+    "end": "2026-07-29T22:00:00",
+    "good_count": 593,
+    "total_count": 593
+  },
+  {
+    "run_id": "RUN-0056",
+    "machine_id": "M-14",
+    "start": "2026-07-29T14:00:00",
+    "end": "2026-07-29T22:00:00",
+    "good_count": 677,
+    "total_count": 677
+  },
+  {
+    "run_id": "RUN-0058",
+    "machine_id": "M-21",
+    "start": "2026-07-29T14:00:00",
+    "end": "2026-07-29T22:00:00",
+    "good_count": 76,
+    "total_count": 76
+  },
+  {
+    "run_id": "RUN-0060",
+    "machine_id": "M-22",
+    "start": "2026-07-29T14:00:00",
+    "end": "2026-07-29T22:00:00",
+    "good_count": 74,
+    "total_count": 74
+  },
+  {
+    "run_id": "RUN-0062",
+    "machine_id": "M-23",
+    "start": "2026-07-29T14:00:00",
+    "end": "2026-07-29T22:00:00",
+    "good_count": 66,
+    "total_count": 66
+  },
+  {
+    "run_id": "RUN-0064",
+    "machine_id": "M-24",
+    "start": "2026-07-29T14:00:00",
+    "end": "2026-07-29T22:00:00",
+    "good_count": 172,
+    "total_count": 172
+  },
+  {
+    "run_id": "RUN-0066",
+    "machine_id": "M-31",
+    "start": "2026-07-29T14:00:00",
+    "end": "2026-07-29T22:00:00",
+    "good_count": 365,
+    "total_count": 365
+  },
+  {
+    "run_id": "RUN-0068",
+    "machine_id": "M-32",
+    "start": "2026-07-29T14:00:00",
+    "end": "2026-07-29T22:00:00",
+    "good_count": 1077,
+    "total_count": 1077
+  },
+  {
+    "run_id": "RUN-0070",
+    "machine_id": "M-33",
+    "start": "2026-07-29T14:00:00",
+    "end": "2026-07-29T22:00:00",
+    "good_count": 22,
+    "total_count": 22
   },
   {
     "run_id": "RUN-0072",
@@ -576,20 +4536,36 @@
     "total_count": 19
   },
   {
+    "run_id": "RUN-0830",
+    "machine_id": "M-41",
+    "start": "2026-07-29T14:00:00",
+    "end": "2026-07-29T22:00:00",
+    "good_count": 315,
+    "total_count": 315
+  },
+  {
+    "run_id": "RUN-0832",
+    "machine_id": "M-42",
+    "start": "2026-07-29T14:00:00",
+    "end": "2026-07-29T22:00:00",
+    "good_count": 440,
+    "total_count": 440
+  },
+  {
+    "run_id": "RUN-0834",
+    "machine_id": "M-51",
+    "start": "2026-07-29T14:00:00",
+    "end": "2026-07-29T22:00:00",
+    "good_count": 536,
+    "total_count": 536
+  },
+  {
     "run_id": "RUN-0073",
     "machine_id": "M-11",
     "start": "2026-07-30T06:00:00",
     "end": "2026-07-30T14:00:00",
     "good_count": 475,
     "total_count": 475
-  },
-  {
-    "run_id": "RUN-0074",
-    "machine_id": "M-11",
-    "start": "2026-07-30T14:00:00",
-    "end": "2026-07-30T22:00:00",
-    "good_count": 455,
-    "total_count": 455
   },
   {
     "run_id": "RUN-0075",
@@ -600,28 +4576,12 @@
     "total_count": 912
   },
   {
-    "run_id": "RUN-0076",
-    "machine_id": "M-12",
-    "start": "2026-07-30T14:00:00",
-    "end": "2026-07-30T22:00:00",
-    "good_count": 807,
-    "total_count": 835
-  },
-  {
     "run_id": "RUN-0077",
     "machine_id": "M-13",
     "start": "2026-07-30T06:00:00",
     "end": "2026-07-30T14:00:00",
     "good_count": 601,
     "total_count": 601
-  },
-  {
-    "run_id": "RUN-0078",
-    "machine_id": "M-13",
-    "start": "2026-07-30T14:00:00",
-    "end": "2026-07-30T22:00:00",
-    "good_count": 603,
-    "total_count": 603
   },
   {
     "run_id": "RUN-0079",
@@ -632,28 +4592,12 @@
     "total_count": 527
   },
   {
-    "run_id": "RUN-0080",
-    "machine_id": "M-14",
-    "start": "2026-07-30T14:00:00",
-    "end": "2026-07-30T22:00:00",
-    "good_count": 557,
-    "total_count": 568
-  },
-  {
     "run_id": "RUN-0081",
     "machine_id": "M-21",
     "start": "2026-07-30T06:00:00",
     "end": "2026-07-30T14:00:00",
     "good_count": 74,
     "total_count": 74
-  },
-  {
-    "run_id": "RUN-0082",
-    "machine_id": "M-21",
-    "start": "2026-07-30T14:00:00",
-    "end": "2026-07-30T22:00:00",
-    "good_count": 77,
-    "total_count": 77
   },
   {
     "run_id": "RUN-0083",
@@ -664,18 +4608,122 @@
     "total_count": 79
   },
   {
-    "run_id": "RUN-0084",
-    "machine_id": "M-22",
-    "start": "2026-07-30T14:00:00",
-    "end": "2026-07-30T22:00:00",
-    "good_count": 68,
-    "total_count": 68
-  },
-  {
     "run_id": "RUN-0085",
     "machine_id": "M-23",
     "start": "2026-07-30T06:00:00",
     "end": "2026-07-30T14:00:00",
+    "good_count": 68,
+    "total_count": 68
+  },
+  {
+    "run_id": "RUN-0087",
+    "machine_id": "M-24",
+    "start": "2026-07-30T06:00:00",
+    "end": "2026-07-30T14:00:00",
+    "good_count": 160,
+    "total_count": 167
+  },
+  {
+    "run_id": "RUN-0089",
+    "machine_id": "M-31",
+    "start": "2026-07-30T06:00:00",
+    "end": "2026-07-30T14:00:00",
+    "good_count": 361,
+    "total_count": 361
+  },
+  {
+    "run_id": "RUN-0091",
+    "machine_id": "M-32",
+    "start": "2026-07-30T06:00:00",
+    "end": "2026-07-30T14:00:00",
+    "good_count": 1158,
+    "total_count": 1158
+  },
+  {
+    "run_id": "RUN-0093",
+    "machine_id": "M-33",
+    "start": "2026-07-30T06:00:00",
+    "end": "2026-07-30T14:00:00",
+    "good_count": 20,
+    "total_count": 20
+  },
+  {
+    "run_id": "RUN-0095",
+    "machine_id": "M-34",
+    "start": "2026-07-30T06:00:00",
+    "end": "2026-07-30T14:00:00",
+    "good_count": 19,
+    "total_count": 19
+  },
+  {
+    "run_id": "RUN-0835",
+    "machine_id": "M-41",
+    "start": "2026-07-30T06:00:00",
+    "end": "2026-07-30T14:00:00",
+    "good_count": 420,
+    "total_count": 420
+  },
+  {
+    "run_id": "RUN-0837",
+    "machine_id": "M-42",
+    "start": "2026-07-30T06:00:00",
+    "end": "2026-07-30T14:00:00",
+    "good_count": 428,
+    "total_count": 446
+  },
+  {
+    "run_id": "RUN-0839",
+    "machine_id": "M-51",
+    "start": "2026-07-30T06:00:00",
+    "end": "2026-07-30T14:00:00",
+    "good_count": 539,
+    "total_count": 539
+  },
+  {
+    "run_id": "RUN-0074",
+    "machine_id": "M-11",
+    "start": "2026-07-30T14:00:00",
+    "end": "2026-07-30T22:00:00",
+    "good_count": 455,
+    "total_count": 455
+  },
+  {
+    "run_id": "RUN-0076",
+    "machine_id": "M-12",
+    "start": "2026-07-30T14:00:00",
+    "end": "2026-07-30T22:00:00",
+    "good_count": 807,
+    "total_count": 835
+  },
+  {
+    "run_id": "RUN-0078",
+    "machine_id": "M-13",
+    "start": "2026-07-30T14:00:00",
+    "end": "2026-07-30T22:00:00",
+    "good_count": 603,
+    "total_count": 603
+  },
+  {
+    "run_id": "RUN-0080",
+    "machine_id": "M-14",
+    "start": "2026-07-30T14:00:00",
+    "end": "2026-07-30T22:00:00",
+    "good_count": 557,
+    "total_count": 568
+  },
+  {
+    "run_id": "RUN-0082",
+    "machine_id": "M-21",
+    "start": "2026-07-30T14:00:00",
+    "end": "2026-07-30T22:00:00",
+    "good_count": 77,
+    "total_count": 77
+  },
+  {
+    "run_id": "RUN-0084",
+    "machine_id": "M-22",
+    "start": "2026-07-30T14:00:00",
+    "end": "2026-07-30T22:00:00",
     "good_count": 68,
     "total_count": 68
   },
@@ -688,28 +4736,12 @@
     "total_count": 77
   },
   {
-    "run_id": "RUN-0087",
-    "machine_id": "M-24",
-    "start": "2026-07-30T06:00:00",
-    "end": "2026-07-30T14:00:00",
-    "good_count": 160,
-    "total_count": 167
-  },
-  {
     "run_id": "RUN-0088",
     "machine_id": "M-24",
     "start": "2026-07-30T14:00:00",
     "end": "2026-07-30T22:00:00",
     "good_count": 191,
     "total_count": 191
-  },
-  {
-    "run_id": "RUN-0089",
-    "machine_id": "M-31",
-    "start": "2026-07-30T06:00:00",
-    "end": "2026-07-30T14:00:00",
-    "good_count": 361,
-    "total_count": 361
   },
   {
     "run_id": "RUN-0090",
@@ -720,28 +4752,12 @@
     "total_count": 339
   },
   {
-    "run_id": "RUN-0091",
-    "machine_id": "M-32",
-    "start": "2026-07-30T06:00:00",
-    "end": "2026-07-30T14:00:00",
-    "good_count": 1158,
-    "total_count": 1158
-  },
-  {
     "run_id": "RUN-0092",
     "machine_id": "M-32",
     "start": "2026-07-30T14:00:00",
     "end": "2026-07-30T22:00:00",
     "good_count": 1213,
     "total_count": 1213
-  },
-  {
-    "run_id": "RUN-0093",
-    "machine_id": "M-33",
-    "start": "2026-07-30T06:00:00",
-    "end": "2026-07-30T14:00:00",
-    "good_count": 20,
-    "total_count": 20
   },
   {
     "run_id": "RUN-0094",
@@ -752,20 +4768,36 @@
     "total_count": 23
   },
   {
-    "run_id": "RUN-0095",
-    "machine_id": "M-34",
-    "start": "2026-07-30T06:00:00",
-    "end": "2026-07-30T14:00:00",
-    "good_count": 19,
-    "total_count": 19
-  },
-  {
     "run_id": "RUN-0096",
     "machine_id": "M-34",
     "start": "2026-07-30T14:00:00",
     "end": "2026-07-30T22:00:00",
     "good_count": 19,
     "total_count": 19
+  },
+  {
+    "run_id": "RUN-0836",
+    "machine_id": "M-41",
+    "start": "2026-07-30T14:00:00",
+    "end": "2026-07-30T22:00:00",
+    "good_count": 395,
+    "total_count": 395
+  },
+  {
+    "run_id": "RUN-0838",
+    "machine_id": "M-42",
+    "start": "2026-07-30T14:00:00",
+    "end": "2026-07-30T22:00:00",
+    "good_count": 457,
+    "total_count": 473
+  },
+  {
+    "run_id": "RUN-0840",
+    "machine_id": "M-51",
+    "start": "2026-07-30T14:00:00",
+    "end": "2026-07-30T22:00:00",
+    "good_count": 512,
+    "total_count": 512
   },
   {
     "run_id": "RUN-0097",
@@ -776,28 +4808,12 @@
     "total_count": 436
   },
   {
-    "run_id": "RUN-0098",
-    "machine_id": "M-11",
-    "start": "2026-07-31T14:00:00",
-    "end": "2026-07-31T22:00:00",
-    "good_count": 437,
-    "total_count": 437
-  },
-  {
     "run_id": "RUN-0099",
     "machine_id": "M-12",
     "start": "2026-07-31T06:00:00",
     "end": "2026-07-31T14:00:00",
     "good_count": 845,
     "total_count": 862
-  },
-  {
-    "run_id": "RUN-0100",
-    "machine_id": "M-12",
-    "start": "2026-07-31T14:00:00",
-    "end": "2026-07-31T22:00:00",
-    "good_count": 871,
-    "total_count": 871
   },
   {
     "run_id": "RUN-0101",
@@ -808,28 +4824,12 @@
     "total_count": 556
   },
   {
-    "run_id": "RUN-0102",
-    "machine_id": "M-13",
-    "start": "2026-07-31T14:00:00",
-    "end": "2026-07-31T22:00:00",
-    "good_count": 590,
-    "total_count": 590
-  },
-  {
     "run_id": "RUN-0103",
     "machine_id": "M-14",
     "start": "2026-07-31T06:00:00",
     "end": "2026-07-31T14:00:00",
     "good_count": 509,
     "total_count": 509
-  },
-  {
-    "run_id": "RUN-0104",
-    "machine_id": "M-14",
-    "start": "2026-07-31T14:00:00",
-    "end": "2026-07-31T22:00:00",
-    "good_count": 652,
-    "total_count": 652
   },
   {
     "run_id": "RUN-0105",
@@ -840,28 +4840,12 @@
     "total_count": 67
   },
   {
-    "run_id": "RUN-0106",
-    "machine_id": "M-21",
-    "start": "2026-07-31T14:00:00",
-    "end": "2026-07-31T22:00:00",
-    "good_count": 70,
-    "total_count": 70
-  },
-  {
     "run_id": "RUN-0107",
     "machine_id": "M-22",
     "start": "2026-07-31T06:00:00",
     "end": "2026-07-31T14:00:00",
     "good_count": 85,
     "total_count": 85
-  },
-  {
-    "run_id": "RUN-0108",
-    "machine_id": "M-22",
-    "start": "2026-07-31T14:00:00",
-    "end": "2026-07-31T22:00:00",
-    "good_count": 68,
-    "total_count": 68
   },
   {
     "run_id": "RUN-0109",
@@ -872,28 +4856,12 @@
     "total_count": 70
   },
   {
-    "run_id": "RUN-0110",
-    "machine_id": "M-23",
-    "start": "2026-07-31T14:00:00",
-    "end": "2026-07-31T22:00:00",
-    "good_count": 61,
-    "total_count": 61
-  },
-  {
     "run_id": "RUN-0111",
     "machine_id": "M-24",
     "start": "2026-07-31T06:00:00",
     "end": "2026-07-31T14:00:00",
     "good_count": 143,
     "total_count": 143
-  },
-  {
-    "run_id": "RUN-0112",
-    "machine_id": "M-24",
-    "start": "2026-07-31T14:00:00",
-    "end": "2026-07-31T22:00:00",
-    "good_count": 153,
-    "total_count": 153
   },
   {
     "run_id": "RUN-0113",
@@ -904,28 +4872,12 @@
     "total_count": 388
   },
   {
-    "run_id": "RUN-0114",
-    "machine_id": "M-31",
-    "start": "2026-07-31T14:00:00",
-    "end": "2026-07-31T22:00:00",
-    "good_count": 309,
-    "total_count": 309
-  },
-  {
     "run_id": "RUN-0115",
     "machine_id": "M-32",
     "start": "2026-07-31T06:00:00",
     "end": "2026-07-31T14:00:00",
     "good_count": 1063,
     "total_count": 1110
-  },
-  {
-    "run_id": "RUN-0116",
-    "machine_id": "M-32",
-    "start": "2026-07-31T14:00:00",
-    "end": "2026-07-31T22:00:00",
-    "good_count": 1123,
-    "total_count": 1123
   },
   {
     "run_id": "RUN-0117",
@@ -936,20 +4888,124 @@
     "total_count": 22
   },
   {
-    "run_id": "RUN-0118",
-    "machine_id": "M-33",
-    "start": "2026-07-31T14:00:00",
-    "end": "2026-07-31T22:00:00",
-    "good_count": 21,
-    "total_count": 21
-  },
-  {
     "run_id": "RUN-0119",
     "machine_id": "M-34",
     "start": "2026-07-31T06:00:00",
     "end": "2026-07-31T14:00:00",
     "good_count": 20,
     "total_count": 20
+  },
+  {
+    "run_id": "RUN-0841",
+    "machine_id": "M-41",
+    "start": "2026-07-31T06:00:00",
+    "end": "2026-07-31T14:00:00",
+    "good_count": 339,
+    "total_count": 339
+  },
+  {
+    "run_id": "RUN-0843",
+    "machine_id": "M-42",
+    "start": "2026-07-31T06:00:00",
+    "end": "2026-07-31T14:00:00",
+    "good_count": 370,
+    "total_count": 370
+  },
+  {
+    "run_id": "RUN-0845",
+    "machine_id": "M-51",
+    "start": "2026-07-31T06:00:00",
+    "end": "2026-07-31T14:00:00",
+    "good_count": 540,
+    "total_count": 540
+  },
+  {
+    "run_id": "RUN-0098",
+    "machine_id": "M-11",
+    "start": "2026-07-31T14:00:00",
+    "end": "2026-07-31T22:00:00",
+    "good_count": 437,
+    "total_count": 437
+  },
+  {
+    "run_id": "RUN-0100",
+    "machine_id": "M-12",
+    "start": "2026-07-31T14:00:00",
+    "end": "2026-07-31T22:00:00",
+    "good_count": 871,
+    "total_count": 871
+  },
+  {
+    "run_id": "RUN-0102",
+    "machine_id": "M-13",
+    "start": "2026-07-31T14:00:00",
+    "end": "2026-07-31T22:00:00",
+    "good_count": 590,
+    "total_count": 590
+  },
+  {
+    "run_id": "RUN-0104",
+    "machine_id": "M-14",
+    "start": "2026-07-31T14:00:00",
+    "end": "2026-07-31T22:00:00",
+    "good_count": 652,
+    "total_count": 652
+  },
+  {
+    "run_id": "RUN-0106",
+    "machine_id": "M-21",
+    "start": "2026-07-31T14:00:00",
+    "end": "2026-07-31T22:00:00",
+    "good_count": 70,
+    "total_count": 70
+  },
+  {
+    "run_id": "RUN-0108",
+    "machine_id": "M-22",
+    "start": "2026-07-31T14:00:00",
+    "end": "2026-07-31T22:00:00",
+    "good_count": 68,
+    "total_count": 68
+  },
+  {
+    "run_id": "RUN-0110",
+    "machine_id": "M-23",
+    "start": "2026-07-31T14:00:00",
+    "end": "2026-07-31T22:00:00",
+    "good_count": 61,
+    "total_count": 61
+  },
+  {
+    "run_id": "RUN-0112",
+    "machine_id": "M-24",
+    "start": "2026-07-31T14:00:00",
+    "end": "2026-07-31T22:00:00",
+    "good_count": 153,
+    "total_count": 153
+  },
+  {
+    "run_id": "RUN-0114",
+    "machine_id": "M-31",
+    "start": "2026-07-31T14:00:00",
+    "end": "2026-07-31T22:00:00",
+    "good_count": 309,
+    "total_count": 309
+  },
+  {
+    "run_id": "RUN-0116",
+    "machine_id": "M-32",
+    "start": "2026-07-31T14:00:00",
+    "end": "2026-07-31T22:00:00",
+    "good_count": 1123,
+    "total_count": 1123
+  },
+  {
+    "run_id": "RUN-0118",
+    "machine_id": "M-33",
+    "start": "2026-07-31T14:00:00",
+    "end": "2026-07-31T22:00:00",
+    "good_count": 21,
+    "total_count": 21
   },
   {
     "run_id": "RUN-0120",
@@ -960,20 +5016,36 @@
     "total_count": 20
   },
   {
+    "run_id": "RUN-0842",
+    "machine_id": "M-41",
+    "start": "2026-07-31T14:00:00",
+    "end": "2026-07-31T22:00:00",
+    "good_count": 329,
+    "total_count": 329
+  },
+  {
+    "run_id": "RUN-0844",
+    "machine_id": "M-42",
+    "start": "2026-07-31T14:00:00",
+    "end": "2026-07-31T22:00:00",
+    "good_count": 408,
+    "total_count": 408
+  },
+  {
+    "run_id": "RUN-0846",
+    "machine_id": "M-51",
+    "start": "2026-07-31T14:00:00",
+    "end": "2026-07-31T22:00:00",
+    "good_count": 540,
+    "total_count": 540
+  },
+  {
     "run_id": "RUN-0121",
     "machine_id": "M-11",
     "start": "2026-08-01T06:00:00",
     "end": "2026-08-01T14:00:00",
     "good_count": 421,
     "total_count": 421
-  },
-  {
-    "run_id": "RUN-0122",
-    "machine_id": "M-11",
-    "start": "2026-08-01T14:00:00",
-    "end": "2026-08-01T22:00:00",
-    "good_count": 458,
-    "total_count": 458
   },
   {
     "run_id": "RUN-0123",
@@ -984,28 +5056,12 @@
     "total_count": 736
   },
   {
-    "run_id": "RUN-0124",
-    "machine_id": "M-12",
-    "start": "2026-08-01T14:00:00",
-    "end": "2026-08-01T22:00:00",
-    "good_count": 785,
-    "total_count": 785
-  },
-  {
     "run_id": "RUN-0125",
     "machine_id": "M-13",
     "start": "2026-08-01T06:00:00",
     "end": "2026-08-01T14:00:00",
     "good_count": 579,
     "total_count": 579
-  },
-  {
-    "run_id": "RUN-0126",
-    "machine_id": "M-13",
-    "start": "2026-08-01T14:00:00",
-    "end": "2026-08-01T22:00:00",
-    "good_count": 571,
-    "total_count": 571
   },
   {
     "run_id": "RUN-0127",
@@ -1016,28 +5072,12 @@
     "total_count": 688
   },
   {
-    "run_id": "RUN-0128",
-    "machine_id": "M-14",
-    "start": "2026-08-01T14:00:00",
-    "end": "2026-08-01T22:00:00",
-    "good_count": 590,
-    "total_count": 620
-  },
-  {
     "run_id": "RUN-0129",
     "machine_id": "M-21",
     "start": "2026-08-01T06:00:00",
     "end": "2026-08-01T14:00:00",
     "good_count": 68,
     "total_count": 68
-  },
-  {
-    "run_id": "RUN-0130",
-    "machine_id": "M-21",
-    "start": "2026-08-01T14:00:00",
-    "end": "2026-08-01T22:00:00",
-    "good_count": 79,
-    "total_count": 79
   },
   {
     "run_id": "RUN-0131",
@@ -1048,28 +5088,12 @@
     "total_count": 86
   },
   {
-    "run_id": "RUN-0132",
-    "machine_id": "M-22",
-    "start": "2026-08-01T14:00:00",
-    "end": "2026-08-01T22:00:00",
-    "good_count": 70,
-    "total_count": 70
-  },
-  {
     "run_id": "RUN-0133",
     "machine_id": "M-23",
     "start": "2026-08-01T06:00:00",
     "end": "2026-08-01T14:00:00",
     "good_count": 62,
     "total_count": 62
-  },
-  {
-    "run_id": "RUN-0134",
-    "machine_id": "M-23",
-    "start": "2026-08-01T14:00:00",
-    "end": "2026-08-01T22:00:00",
-    "good_count": 65,
-    "total_count": 65
   },
   {
     "run_id": "RUN-0135",
@@ -1080,28 +5104,12 @@
     "total_count": 162
   },
   {
-    "run_id": "RUN-0136",
-    "machine_id": "M-24",
-    "start": "2026-08-01T14:00:00",
-    "end": "2026-08-01T22:00:00",
-    "good_count": 156,
-    "total_count": 156
-  },
-  {
     "run_id": "RUN-0137",
     "machine_id": "M-31",
     "start": "2026-08-01T06:00:00",
     "end": "2026-08-01T14:00:00",
     "good_count": 336,
     "total_count": 347
-  },
-  {
-    "run_id": "RUN-0138",
-    "machine_id": "M-31",
-    "start": "2026-08-01T14:00:00",
-    "end": "2026-08-01T22:00:00",
-    "good_count": 354,
-    "total_count": 354
   },
   {
     "run_id": "RUN-0139",
@@ -1112,26 +5120,10 @@
     "total_count": 1084
   },
   {
-    "run_id": "RUN-0140",
-    "machine_id": "M-32",
-    "start": "2026-08-01T14:00:00",
-    "end": "2026-08-01T22:00:00",
-    "good_count": 1141,
-    "total_count": 1141
-  },
-  {
     "run_id": "RUN-0141",
     "machine_id": "M-33",
     "start": "2026-08-01T06:00:00",
     "end": "2026-08-01T14:00:00",
-    "good_count": 23,
-    "total_count": 23
-  },
-  {
-    "run_id": "RUN-0142",
-    "machine_id": "M-33",
-    "start": "2026-08-01T14:00:00",
-    "end": "2026-08-01T22:00:00",
     "good_count": 23,
     "total_count": 23
   },
@@ -1144,12 +5136,148 @@
     "total_count": 19
   },
   {
+    "run_id": "RUN-0847",
+    "machine_id": "M-41",
+    "start": "2026-08-01T06:00:00",
+    "end": "2026-08-01T14:00:00",
+    "good_count": 377,
+    "total_count": 377
+  },
+  {
+    "run_id": "RUN-0849",
+    "machine_id": "M-42",
+    "start": "2026-08-01T06:00:00",
+    "end": "2026-08-01T14:00:00",
+    "good_count": 452,
+    "total_count": 452
+  },
+  {
+    "run_id": "RUN-0851",
+    "machine_id": "M-51",
+    "start": "2026-08-01T06:00:00",
+    "end": "2026-08-01T14:00:00",
+    "good_count": 570,
+    "total_count": 570
+  },
+  {
+    "run_id": "RUN-0122",
+    "machine_id": "M-11",
+    "start": "2026-08-01T14:00:00",
+    "end": "2026-08-01T22:00:00",
+    "good_count": 458,
+    "total_count": 458
+  },
+  {
+    "run_id": "RUN-0124",
+    "machine_id": "M-12",
+    "start": "2026-08-01T14:00:00",
+    "end": "2026-08-01T22:00:00",
+    "good_count": 785,
+    "total_count": 785
+  },
+  {
+    "run_id": "RUN-0126",
+    "machine_id": "M-13",
+    "start": "2026-08-01T14:00:00",
+    "end": "2026-08-01T22:00:00",
+    "good_count": 571,
+    "total_count": 571
+  },
+  {
+    "run_id": "RUN-0128",
+    "machine_id": "M-14",
+    "start": "2026-08-01T14:00:00",
+    "end": "2026-08-01T22:00:00",
+    "good_count": 590,
+    "total_count": 620
+  },
+  {
+    "run_id": "RUN-0130",
+    "machine_id": "M-21",
+    "start": "2026-08-01T14:00:00",
+    "end": "2026-08-01T22:00:00",
+    "good_count": 79,
+    "total_count": 79
+  },
+  {
+    "run_id": "RUN-0132",
+    "machine_id": "M-22",
+    "start": "2026-08-01T14:00:00",
+    "end": "2026-08-01T22:00:00",
+    "good_count": 70,
+    "total_count": 70
+  },
+  {
+    "run_id": "RUN-0134",
+    "machine_id": "M-23",
+    "start": "2026-08-01T14:00:00",
+    "end": "2026-08-01T22:00:00",
+    "good_count": 65,
+    "total_count": 65
+  },
+  {
+    "run_id": "RUN-0136",
+    "machine_id": "M-24",
+    "start": "2026-08-01T14:00:00",
+    "end": "2026-08-01T22:00:00",
+    "good_count": 156,
+    "total_count": 156
+  },
+  {
+    "run_id": "RUN-0138",
+    "machine_id": "M-31",
+    "start": "2026-08-01T14:00:00",
+    "end": "2026-08-01T22:00:00",
+    "good_count": 354,
+    "total_count": 354
+  },
+  {
+    "run_id": "RUN-0140",
+    "machine_id": "M-32",
+    "start": "2026-08-01T14:00:00",
+    "end": "2026-08-01T22:00:00",
+    "good_count": 1141,
+    "total_count": 1141
+  },
+  {
+    "run_id": "RUN-0142",
+    "machine_id": "M-33",
+    "start": "2026-08-01T14:00:00",
+    "end": "2026-08-01T22:00:00",
+    "good_count": 23,
+    "total_count": 23
+  },
+  {
     "run_id": "RUN-0144",
     "machine_id": "M-34",
     "start": "2026-08-01T14:00:00",
     "end": "2026-08-01T22:00:00",
     "good_count": 18,
     "total_count": 18
+  },
+  {
+    "run_id": "RUN-0848",
+    "machine_id": "M-41",
+    "start": "2026-08-01T14:00:00",
+    "end": "2026-08-01T22:00:00",
+    "good_count": 383,
+    "total_count": 383
+  },
+  {
+    "run_id": "RUN-0850",
+    "machine_id": "M-42",
+    "start": "2026-08-01T14:00:00",
+    "end": "2026-08-01T22:00:00",
+    "good_count": 424,
+    "total_count": 424
+  },
+  {
+    "run_id": "RUN-0852",
+    "machine_id": "M-51",
+    "start": "2026-08-01T14:00:00",
+    "end": "2026-08-01T22:00:00",
+    "good_count": 474,
+    "total_count": 474
   },
   {
     "run_id": "RUN-0145",
@@ -1160,28 +5288,12 @@
     "total_count": 448
   },
   {
-    "run_id": "RUN-0146",
-    "machine_id": "M-11",
-    "start": "2026-08-02T14:00:00",
-    "end": "2026-08-02T22:00:00",
-    "good_count": 472,
-    "total_count": 472
-  },
-  {
     "run_id": "RUN-0147",
     "machine_id": "M-12",
     "start": "2026-08-02T06:00:00",
     "end": "2026-08-02T14:00:00",
     "good_count": 777,
     "total_count": 777
-  },
-  {
-    "run_id": "RUN-0148",
-    "machine_id": "M-12",
-    "start": "2026-08-02T14:00:00",
-    "end": "2026-08-02T22:00:00",
-    "good_count": 842,
-    "total_count": 869
   },
   {
     "run_id": "RUN-0149",
@@ -1192,27 +5304,11 @@
     "total_count": 557
   },
   {
-    "run_id": "RUN-0150",
-    "machine_id": "M-13",
-    "start": "2026-08-02T14:00:00",
-    "end": "2026-08-02T22:00:00",
-    "good_count": 562,
-    "total_count": 562
-  },
-  {
     "run_id": "RUN-0151",
     "machine_id": "M-14",
     "start": "2026-08-02T06:00:00",
     "end": "2026-08-02T14:00:00",
     "good_count": 611,
-    "total_count": 643
-  },
-  {
-    "run_id": "RUN-0152",
-    "machine_id": "M-14",
-    "start": "2026-08-02T14:00:00",
-    "end": "2026-08-02T22:00:00",
-    "good_count": 643,
     "total_count": 643
   },
   {
@@ -1224,28 +5320,12 @@
     "total_count": 80
   },
   {
-    "run_id": "RUN-0154",
-    "machine_id": "M-21",
-    "start": "2026-08-02T14:00:00",
-    "end": "2026-08-02T22:00:00",
-    "good_count": 82,
-    "total_count": 82
-  },
-  {
     "run_id": "RUN-0155",
     "machine_id": "M-22",
     "start": "2026-08-02T06:00:00",
     "end": "2026-08-02T14:00:00",
     "good_count": 76,
     "total_count": 76
-  },
-  {
-    "run_id": "RUN-0156",
-    "machine_id": "M-22",
-    "start": "2026-08-02T14:00:00",
-    "end": "2026-08-02T22:00:00",
-    "good_count": 65,
-    "total_count": 66
   },
   {
     "run_id": "RUN-0157",
@@ -1256,28 +5336,12 @@
     "total_count": 66
   },
   {
-    "run_id": "RUN-0158",
-    "machine_id": "M-23",
-    "start": "2026-08-02T14:00:00",
-    "end": "2026-08-02T22:00:00",
-    "good_count": 69,
-    "total_count": 69
-  },
-  {
     "run_id": "RUN-0159",
     "machine_id": "M-24",
     "start": "2026-08-02T06:00:00",
     "end": "2026-08-02T14:00:00",
     "good_count": 168,
     "total_count": 168
-  },
-  {
-    "run_id": "RUN-0160",
-    "machine_id": "M-24",
-    "start": "2026-08-02T14:00:00",
-    "end": "2026-08-02T22:00:00",
-    "good_count": 147,
-    "total_count": 147
   },
   {
     "run_id": "RUN-0161",
@@ -1288,14 +5352,6 @@
     "total_count": 377
   },
   {
-    "run_id": "RUN-0162",
-    "machine_id": "M-31",
-    "start": "2026-08-02T14:00:00",
-    "end": "2026-08-02T22:00:00",
-    "good_count": 356,
-    "total_count": 356
-  },
-  {
     "run_id": "RUN-0163",
     "machine_id": "M-32",
     "start": "2026-08-02T06:00:00",
@@ -1304,26 +5360,10 @@
     "total_count": 1284
   },
   {
-    "run_id": "RUN-0164",
-    "machine_id": "M-32",
-    "start": "2026-08-02T14:00:00",
-    "end": "2026-08-02T22:00:00",
-    "good_count": 1138,
-    "total_count": 1138
-  },
-  {
     "run_id": "RUN-0165",
     "machine_id": "M-33",
     "start": "2026-08-02T06:00:00",
     "end": "2026-08-02T14:00:00",
-    "good_count": 23,
-    "total_count": 23
-  },
-  {
-    "run_id": "RUN-0166",
-    "machine_id": "M-33",
-    "start": "2026-08-02T14:00:00",
-    "end": "2026-08-02T22:00:00",
     "good_count": 23,
     "total_count": 23
   },
@@ -1336,12 +5376,148 @@
     "total_count": 18
   },
   {
+    "run_id": "RUN-0853",
+    "machine_id": "M-41",
+    "start": "2026-08-02T06:00:00",
+    "end": "2026-08-02T14:00:00",
+    "good_count": 387,
+    "total_count": 407
+  },
+  {
+    "run_id": "RUN-0855",
+    "machine_id": "M-42",
+    "start": "2026-08-02T06:00:00",
+    "end": "2026-08-02T14:00:00",
+    "good_count": 454,
+    "total_count": 454
+  },
+  {
+    "run_id": "RUN-0857",
+    "machine_id": "M-51",
+    "start": "2026-08-02T06:00:00",
+    "end": "2026-08-02T14:00:00",
+    "good_count": 588,
+    "total_count": 588
+  },
+  {
+    "run_id": "RUN-0146",
+    "machine_id": "M-11",
+    "start": "2026-08-02T14:00:00",
+    "end": "2026-08-02T22:00:00",
+    "good_count": 472,
+    "total_count": 472
+  },
+  {
+    "run_id": "RUN-0148",
+    "machine_id": "M-12",
+    "start": "2026-08-02T14:00:00",
+    "end": "2026-08-02T22:00:00",
+    "good_count": 842,
+    "total_count": 869
+  },
+  {
+    "run_id": "RUN-0150",
+    "machine_id": "M-13",
+    "start": "2026-08-02T14:00:00",
+    "end": "2026-08-02T22:00:00",
+    "good_count": 562,
+    "total_count": 562
+  },
+  {
+    "run_id": "RUN-0152",
+    "machine_id": "M-14",
+    "start": "2026-08-02T14:00:00",
+    "end": "2026-08-02T22:00:00",
+    "good_count": 643,
+    "total_count": 643
+  },
+  {
+    "run_id": "RUN-0154",
+    "machine_id": "M-21",
+    "start": "2026-08-02T14:00:00",
+    "end": "2026-08-02T22:00:00",
+    "good_count": 82,
+    "total_count": 82
+  },
+  {
+    "run_id": "RUN-0156",
+    "machine_id": "M-22",
+    "start": "2026-08-02T14:00:00",
+    "end": "2026-08-02T22:00:00",
+    "good_count": 65,
+    "total_count": 66
+  },
+  {
+    "run_id": "RUN-0158",
+    "machine_id": "M-23",
+    "start": "2026-08-02T14:00:00",
+    "end": "2026-08-02T22:00:00",
+    "good_count": 69,
+    "total_count": 69
+  },
+  {
+    "run_id": "RUN-0160",
+    "machine_id": "M-24",
+    "start": "2026-08-02T14:00:00",
+    "end": "2026-08-02T22:00:00",
+    "good_count": 147,
+    "total_count": 147
+  },
+  {
+    "run_id": "RUN-0162",
+    "machine_id": "M-31",
+    "start": "2026-08-02T14:00:00",
+    "end": "2026-08-02T22:00:00",
+    "good_count": 356,
+    "total_count": 356
+  },
+  {
+    "run_id": "RUN-0164",
+    "machine_id": "M-32",
+    "start": "2026-08-02T14:00:00",
+    "end": "2026-08-02T22:00:00",
+    "good_count": 1138,
+    "total_count": 1138
+  },
+  {
+    "run_id": "RUN-0166",
+    "machine_id": "M-33",
+    "start": "2026-08-02T14:00:00",
+    "end": "2026-08-02T22:00:00",
+    "good_count": 23,
+    "total_count": 23
+  },
+  {
     "run_id": "RUN-0168",
     "machine_id": "M-34",
     "start": "2026-08-02T14:00:00",
     "end": "2026-08-02T22:00:00",
     "good_count": 19,
     "total_count": 19
+  },
+  {
+    "run_id": "RUN-0854",
+    "machine_id": "M-41",
+    "start": "2026-08-02T14:00:00",
+    "end": "2026-08-02T22:00:00",
+    "good_count": 383,
+    "total_count": 383
+  },
+  {
+    "run_id": "RUN-0856",
+    "machine_id": "M-42",
+    "start": "2026-08-02T14:00:00",
+    "end": "2026-08-02T22:00:00",
+    "good_count": 442,
+    "total_count": 442
+  },
+  {
+    "run_id": "RUN-0858",
+    "machine_id": "M-51",
+    "start": "2026-08-02T14:00:00",
+    "end": "2026-08-02T22:00:00",
+    "good_count": 553,
+    "total_count": 553
   },
   {
     "run_id": "RUN-0169",
@@ -1352,28 +5528,12 @@
     "total_count": 448
   },
   {
-    "run_id": "RUN-0170",
-    "machine_id": "M-11",
-    "start": "2026-08-03T14:00:00",
-    "end": "2026-08-03T22:00:00",
-    "good_count": 451,
-    "total_count": 451
-  },
-  {
     "run_id": "RUN-0171",
     "machine_id": "M-12",
     "start": "2026-08-03T06:00:00",
     "end": "2026-08-03T14:00:00",
     "good_count": 854,
     "total_count": 854
-  },
-  {
-    "run_id": "RUN-0172",
-    "machine_id": "M-12",
-    "start": "2026-08-03T14:00:00",
-    "end": "2026-08-03T22:00:00",
-    "good_count": 772,
-    "total_count": 772
   },
   {
     "run_id": "RUN-0173",
@@ -1384,28 +5544,12 @@
     "total_count": 556
   },
   {
-    "run_id": "RUN-0174",
-    "machine_id": "M-13",
-    "start": "2026-08-03T14:00:00",
-    "end": "2026-08-03T22:00:00",
-    "good_count": 544,
-    "total_count": 544
-  },
-  {
     "run_id": "RUN-0175",
     "machine_id": "M-14",
     "start": "2026-08-03T06:00:00",
     "end": "2026-08-03T14:00:00",
     "good_count": 688,
     "total_count": 688
-  },
-  {
-    "run_id": "RUN-0176",
-    "machine_id": "M-14",
-    "start": "2026-08-03T14:00:00",
-    "end": "2026-08-03T22:00:00",
-    "good_count": 660,
-    "total_count": 660
   },
   {
     "run_id": "RUN-0177",
@@ -1416,28 +5560,12 @@
     "total_count": 77
   },
   {
-    "run_id": "RUN-0178",
-    "machine_id": "M-21",
-    "start": "2026-08-03T14:00:00",
-    "end": "2026-08-03T22:00:00",
-    "good_count": 87,
-    "total_count": 87
-  },
-  {
     "run_id": "RUN-0179",
     "machine_id": "M-22",
     "start": "2026-08-03T06:00:00",
     "end": "2026-08-03T14:00:00",
     "good_count": 78,
     "total_count": 78
-  },
-  {
-    "run_id": "RUN-0180",
-    "machine_id": "M-22",
-    "start": "2026-08-03T14:00:00",
-    "end": "2026-08-03T22:00:00",
-    "good_count": 73,
-    "total_count": 73
   },
   {
     "run_id": "RUN-0181",
@@ -1448,28 +5576,12 @@
     "total_count": 65
   },
   {
-    "run_id": "RUN-0182",
-    "machine_id": "M-23",
-    "start": "2026-08-03T14:00:00",
-    "end": "2026-08-03T22:00:00",
-    "good_count": 70,
-    "total_count": 71
-  },
-  {
     "run_id": "RUN-0183",
     "machine_id": "M-24",
     "start": "2026-08-03T06:00:00",
     "end": "2026-08-03T14:00:00",
     "good_count": 166,
     "total_count": 166
-  },
-  {
-    "run_id": "RUN-0184",
-    "machine_id": "M-24",
-    "start": "2026-08-03T14:00:00",
-    "end": "2026-08-03T22:00:00",
-    "good_count": 162,
-    "total_count": 169
   },
   {
     "run_id": "RUN-0185",
@@ -1480,28 +5592,12 @@
     "total_count": 349
   },
   {
-    "run_id": "RUN-0186",
-    "machine_id": "M-31",
-    "start": "2026-08-03T14:00:00",
-    "end": "2026-08-03T22:00:00",
-    "good_count": 380,
-    "total_count": 380
-  },
-  {
     "run_id": "RUN-0187",
     "machine_id": "M-32",
     "start": "2026-08-03T06:00:00",
     "end": "2026-08-03T14:00:00",
     "good_count": 1122,
     "total_count": 1122
-  },
-  {
-    "run_id": "RUN-0188",
-    "machine_id": "M-32",
-    "start": "2026-08-03T14:00:00",
-    "end": "2026-08-03T22:00:00",
-    "good_count": 1181,
-    "total_count": 1181
   },
   {
     "run_id": "RUN-0189",
@@ -1512,20 +5608,124 @@
     "total_count": 19
   },
   {
-    "run_id": "RUN-0190",
-    "machine_id": "M-33",
-    "start": "2026-08-03T14:00:00",
-    "end": "2026-08-03T22:00:00",
-    "good_count": 23,
-    "total_count": 23
-  },
-  {
     "run_id": "RUN-0191",
     "machine_id": "M-34",
     "start": "2026-08-03T06:00:00",
     "end": "2026-08-03T14:00:00",
     "good_count": 20,
     "total_count": 20
+  },
+  {
+    "run_id": "RUN-0859",
+    "machine_id": "M-41",
+    "start": "2026-08-03T06:00:00",
+    "end": "2026-08-03T14:00:00",
+    "good_count": 315,
+    "total_count": 315
+  },
+  {
+    "run_id": "RUN-0861",
+    "machine_id": "M-42",
+    "start": "2026-08-03T06:00:00",
+    "end": "2026-08-03T14:00:00",
+    "good_count": 391,
+    "total_count": 391
+  },
+  {
+    "run_id": "RUN-0863",
+    "machine_id": "M-51",
+    "start": "2026-08-03T06:00:00",
+    "end": "2026-08-03T14:00:00",
+    "good_count": 529,
+    "total_count": 529
+  },
+  {
+    "run_id": "RUN-0170",
+    "machine_id": "M-11",
+    "start": "2026-08-03T14:00:00",
+    "end": "2026-08-03T22:00:00",
+    "good_count": 451,
+    "total_count": 451
+  },
+  {
+    "run_id": "RUN-0172",
+    "machine_id": "M-12",
+    "start": "2026-08-03T14:00:00",
+    "end": "2026-08-03T22:00:00",
+    "good_count": 772,
+    "total_count": 772
+  },
+  {
+    "run_id": "RUN-0174",
+    "machine_id": "M-13",
+    "start": "2026-08-03T14:00:00",
+    "end": "2026-08-03T22:00:00",
+    "good_count": 544,
+    "total_count": 544
+  },
+  {
+    "run_id": "RUN-0176",
+    "machine_id": "M-14",
+    "start": "2026-08-03T14:00:00",
+    "end": "2026-08-03T22:00:00",
+    "good_count": 660,
+    "total_count": 660
+  },
+  {
+    "run_id": "RUN-0178",
+    "machine_id": "M-21",
+    "start": "2026-08-03T14:00:00",
+    "end": "2026-08-03T22:00:00",
+    "good_count": 87,
+    "total_count": 87
+  },
+  {
+    "run_id": "RUN-0180",
+    "machine_id": "M-22",
+    "start": "2026-08-03T14:00:00",
+    "end": "2026-08-03T22:00:00",
+    "good_count": 73,
+    "total_count": 73
+  },
+  {
+    "run_id": "RUN-0182",
+    "machine_id": "M-23",
+    "start": "2026-08-03T14:00:00",
+    "end": "2026-08-03T22:00:00",
+    "good_count": 70,
+    "total_count": 71
+  },
+  {
+    "run_id": "RUN-0184",
+    "machine_id": "M-24",
+    "start": "2026-08-03T14:00:00",
+    "end": "2026-08-03T22:00:00",
+    "good_count": 162,
+    "total_count": 169
+  },
+  {
+    "run_id": "RUN-0186",
+    "machine_id": "M-31",
+    "start": "2026-08-03T14:00:00",
+    "end": "2026-08-03T22:00:00",
+    "good_count": 380,
+    "total_count": 380
+  },
+  {
+    "run_id": "RUN-0188",
+    "machine_id": "M-32",
+    "start": "2026-08-03T14:00:00",
+    "end": "2026-08-03T22:00:00",
+    "good_count": 1181,
+    "total_count": 1181
+  },
+  {
+    "run_id": "RUN-0190",
+    "machine_id": "M-33",
+    "start": "2026-08-03T14:00:00",
+    "end": "2026-08-03T22:00:00",
+    "good_count": 23,
+    "total_count": 23
   },
   {
     "run_id": "RUN-0192",
@@ -1536,20 +5736,36 @@
     "total_count": 19
   },
   {
+    "run_id": "RUN-0860",
+    "machine_id": "M-41",
+    "start": "2026-08-03T14:00:00",
+    "end": "2026-08-03T22:00:00",
+    "good_count": 383,
+    "total_count": 383
+  },
+  {
+    "run_id": "RUN-0862",
+    "machine_id": "M-42",
+    "start": "2026-08-03T14:00:00",
+    "end": "2026-08-03T22:00:00",
+    "good_count": 398,
+    "total_count": 410
+  },
+  {
+    "run_id": "RUN-0864",
+    "machine_id": "M-51",
+    "start": "2026-08-03T14:00:00",
+    "end": "2026-08-03T22:00:00",
+    "good_count": 547,
+    "total_count": 547
+  },
+  {
     "run_id": "RUN-0193",
     "machine_id": "M-11",
     "start": "2026-08-04T06:00:00",
     "end": "2026-08-04T14:00:00",
     "good_count": 466,
     "total_count": 466
-  },
-  {
-    "run_id": "RUN-0194",
-    "machine_id": "M-11",
-    "start": "2026-08-04T14:00:00",
-    "end": "2026-08-04T22:00:00",
-    "good_count": 420,
-    "total_count": 435
   },
   {
     "run_id": "RUN-0195",
@@ -1560,28 +5776,12 @@
     "total_count": 751
   },
   {
-    "run_id": "RUN-0196",
-    "machine_id": "M-12",
-    "start": "2026-08-04T14:00:00",
-    "end": "2026-08-04T22:00:00",
-    "good_count": 781,
-    "total_count": 781
-  },
-  {
     "run_id": "RUN-0197",
     "machine_id": "M-13",
     "start": "2026-08-04T06:00:00",
     "end": "2026-08-04T14:00:00",
     "good_count": 497,
     "total_count": 508
-  },
-  {
-    "run_id": "RUN-0198",
-    "machine_id": "M-13",
-    "start": "2026-08-04T14:00:00",
-    "end": "2026-08-04T22:00:00",
-    "good_count": 543,
-    "total_count": 543
   },
   {
     "run_id": "RUN-0199",
@@ -1592,14 +5792,6 @@
     "total_count": 700
   },
   {
-    "run_id": "RUN-0200",
-    "machine_id": "M-14",
-    "start": "2026-08-04T14:00:00",
-    "end": "2026-08-04T22:00:00",
-    "good_count": 600,
-    "total_count": 600
-  },
-  {
     "run_id": "RUN-0201",
     "machine_id": "M-21",
     "start": "2026-08-04T06:00:00",
@@ -1608,18 +5800,122 @@
     "total_count": 80
   },
   {
-    "run_id": "RUN-0202",
-    "machine_id": "M-21",
-    "start": "2026-08-04T14:00:00",
-    "end": "2026-08-04T22:00:00",
-    "good_count": 77,
-    "total_count": 77
-  },
-  {
     "run_id": "RUN-0203",
     "machine_id": "M-22",
     "start": "2026-08-04T06:00:00",
     "end": "2026-08-04T14:00:00",
+    "good_count": 77,
+    "total_count": 77
+  },
+  {
+    "run_id": "RUN-0205",
+    "machine_id": "M-23",
+    "start": "2026-08-04T06:00:00",
+    "end": "2026-08-04T14:00:00",
+    "good_count": 63,
+    "total_count": 63
+  },
+  {
+    "run_id": "RUN-0207",
+    "machine_id": "M-24",
+    "start": "2026-08-04T06:00:00",
+    "end": "2026-08-04T14:00:00",
+    "good_count": 158,
+    "total_count": 158
+  },
+  {
+    "run_id": "RUN-0209",
+    "machine_id": "M-31",
+    "start": "2026-08-04T06:00:00",
+    "end": "2026-08-04T14:00:00",
+    "good_count": 310,
+    "total_count": 338
+  },
+  {
+    "run_id": "RUN-0211",
+    "machine_id": "M-32",
+    "start": "2026-08-04T06:00:00",
+    "end": "2026-08-04T14:00:00",
+    "good_count": 1048,
+    "total_count": 1097
+  },
+  {
+    "run_id": "RUN-0213",
+    "machine_id": "M-33",
+    "start": "2026-08-04T06:00:00",
+    "end": "2026-08-04T14:00:00",
+    "good_count": 21,
+    "total_count": 21
+  },
+  {
+    "run_id": "RUN-0215",
+    "machine_id": "M-34",
+    "start": "2026-08-04T06:00:00",
+    "end": "2026-08-04T14:00:00",
+    "good_count": 18,
+    "total_count": 18
+  },
+  {
+    "run_id": "RUN-0865",
+    "machine_id": "M-41",
+    "start": "2026-08-04T06:00:00",
+    "end": "2026-08-04T14:00:00",
+    "good_count": 378,
+    "total_count": 378
+  },
+  {
+    "run_id": "RUN-0867",
+    "machine_id": "M-42",
+    "start": "2026-08-04T06:00:00",
+    "end": "2026-08-04T14:00:00",
+    "good_count": 439,
+    "total_count": 439
+  },
+  {
+    "run_id": "RUN-0869",
+    "machine_id": "M-51",
+    "start": "2026-08-04T06:00:00",
+    "end": "2026-08-04T14:00:00",
+    "good_count": 560,
+    "total_count": 560
+  },
+  {
+    "run_id": "RUN-0194",
+    "machine_id": "M-11",
+    "start": "2026-08-04T14:00:00",
+    "end": "2026-08-04T22:00:00",
+    "good_count": 420,
+    "total_count": 435
+  },
+  {
+    "run_id": "RUN-0196",
+    "machine_id": "M-12",
+    "start": "2026-08-04T14:00:00",
+    "end": "2026-08-04T22:00:00",
+    "good_count": 781,
+    "total_count": 781
+  },
+  {
+    "run_id": "RUN-0198",
+    "machine_id": "M-13",
+    "start": "2026-08-04T14:00:00",
+    "end": "2026-08-04T22:00:00",
+    "good_count": 543,
+    "total_count": 543
+  },
+  {
+    "run_id": "RUN-0200",
+    "machine_id": "M-14",
+    "start": "2026-08-04T14:00:00",
+    "end": "2026-08-04T22:00:00",
+    "good_count": 600,
+    "total_count": 600
+  },
+  {
+    "run_id": "RUN-0202",
+    "machine_id": "M-21",
+    "start": "2026-08-04T14:00:00",
+    "end": "2026-08-04T22:00:00",
     "good_count": 77,
     "total_count": 77
   },
@@ -1632,28 +5928,12 @@
     "total_count": 70
   },
   {
-    "run_id": "RUN-0205",
-    "machine_id": "M-23",
-    "start": "2026-08-04T06:00:00",
-    "end": "2026-08-04T14:00:00",
-    "good_count": 63,
-    "total_count": 63
-  },
-  {
     "run_id": "RUN-0206",
     "machine_id": "M-23",
     "start": "2026-08-04T14:00:00",
     "end": "2026-08-04T22:00:00",
     "good_count": 59,
     "total_count": 59
-  },
-  {
-    "run_id": "RUN-0207",
-    "machine_id": "M-24",
-    "start": "2026-08-04T06:00:00",
-    "end": "2026-08-04T14:00:00",
-    "good_count": 158,
-    "total_count": 158
   },
   {
     "run_id": "RUN-0208",
@@ -1664,28 +5944,12 @@
     "total_count": 163
   },
   {
-    "run_id": "RUN-0209",
-    "machine_id": "M-31",
-    "start": "2026-08-04T06:00:00",
-    "end": "2026-08-04T14:00:00",
-    "good_count": 310,
-    "total_count": 338
-  },
-  {
     "run_id": "RUN-0210",
     "machine_id": "M-31",
     "start": "2026-08-04T14:00:00",
     "end": "2026-08-04T22:00:00",
     "good_count": 311,
     "total_count": 339
-  },
-  {
-    "run_id": "RUN-0211",
-    "machine_id": "M-32",
-    "start": "2026-08-04T06:00:00",
-    "end": "2026-08-04T14:00:00",
-    "good_count": 1048,
-    "total_count": 1097
   },
   {
     "run_id": "RUN-0212",
@@ -1696,28 +5960,12 @@
     "total_count": 1199
   },
   {
-    "run_id": "RUN-0213",
-    "machine_id": "M-33",
-    "start": "2026-08-04T06:00:00",
-    "end": "2026-08-04T14:00:00",
-    "good_count": 21,
-    "total_count": 21
-  },
-  {
     "run_id": "RUN-0214",
     "machine_id": "M-33",
     "start": "2026-08-04T14:00:00",
     "end": "2026-08-04T22:00:00",
     "good_count": 22,
     "total_count": 22
-  },
-  {
-    "run_id": "RUN-0215",
-    "machine_id": "M-34",
-    "start": "2026-08-04T06:00:00",
-    "end": "2026-08-04T14:00:00",
-    "good_count": 18,
-    "total_count": 18
   },
   {
     "run_id": "RUN-0216",
@@ -1728,20 +5976,36 @@
     "total_count": 15
   },
   {
+    "run_id": "RUN-0866",
+    "machine_id": "M-41",
+    "start": "2026-08-04T14:00:00",
+    "end": "2026-08-04T22:00:00",
+    "good_count": 404,
+    "total_count": 404
+  },
+  {
+    "run_id": "RUN-0868",
+    "machine_id": "M-42",
+    "start": "2026-08-04T14:00:00",
+    "end": "2026-08-04T22:00:00",
+    "good_count": 405,
+    "total_count": 405
+  },
+  {
+    "run_id": "RUN-0870",
+    "machine_id": "M-51",
+    "start": "2026-08-04T14:00:00",
+    "end": "2026-08-04T22:00:00",
+    "good_count": 469,
+    "total_count": 469
+  },
+  {
     "run_id": "RUN-0217",
     "machine_id": "M-11",
     "start": "2026-08-05T06:00:00",
     "end": "2026-08-05T14:00:00",
     "good_count": 467,
     "total_count": 467
-  },
-  {
-    "run_id": "RUN-0218",
-    "machine_id": "M-11",
-    "start": "2026-08-05T14:00:00",
-    "end": "2026-08-05T22:00:00",
-    "good_count": 373,
-    "total_count": 391
   },
   {
     "run_id": "RUN-0219",
@@ -1752,28 +6016,12 @@
     "total_count": 806
   },
   {
-    "run_id": "RUN-0220",
-    "machine_id": "M-12",
-    "start": "2026-08-05T14:00:00",
-    "end": "2026-08-05T22:00:00",
-    "good_count": 808,
-    "total_count": 837
-  },
-  {
     "run_id": "RUN-0221",
     "machine_id": "M-13",
     "start": "2026-08-05T06:00:00",
     "end": "2026-08-05T14:00:00",
     "good_count": 509,
     "total_count": 532
-  },
-  {
-    "run_id": "RUN-0222",
-    "machine_id": "M-13",
-    "start": "2026-08-05T14:00:00",
-    "end": "2026-08-05T22:00:00",
-    "good_count": 533,
-    "total_count": 533
   },
   {
     "run_id": "RUN-0223",
@@ -1784,28 +6032,12 @@
     "total_count": 615
   },
   {
-    "run_id": "RUN-0224",
-    "machine_id": "M-14",
-    "start": "2026-08-05T14:00:00",
-    "end": "2026-08-05T22:00:00",
-    "good_count": 611,
-    "total_count": 611
-  },
-  {
     "run_id": "RUN-0225",
     "machine_id": "M-21",
     "start": "2026-08-05T06:00:00",
     "end": "2026-08-05T14:00:00",
     "good_count": 89,
     "total_count": 89
-  },
-  {
-    "run_id": "RUN-0226",
-    "machine_id": "M-21",
-    "start": "2026-08-05T14:00:00",
-    "end": "2026-08-05T22:00:00",
-    "good_count": 71,
-    "total_count": 71
   },
   {
     "run_id": "RUN-0227",
@@ -1816,28 +6048,12 @@
     "total_count": 64
   },
   {
-    "run_id": "RUN-0228",
-    "machine_id": "M-22",
-    "start": "2026-08-05T14:00:00",
-    "end": "2026-08-05T22:00:00",
-    "good_count": 68,
-    "total_count": 68
-  },
-  {
     "run_id": "RUN-0229",
     "machine_id": "M-23",
     "start": "2026-08-05T06:00:00",
     "end": "2026-08-05T14:00:00",
     "good_count": 64,
     "total_count": 64
-  },
-  {
-    "run_id": "RUN-0230",
-    "machine_id": "M-23",
-    "start": "2026-08-05T14:00:00",
-    "end": "2026-08-05T22:00:00",
-    "good_count": 65,
-    "total_count": 65
   },
   {
     "run_id": "RUN-0231",
@@ -1848,28 +6064,12 @@
     "total_count": 153
   },
   {
-    "run_id": "RUN-0232",
-    "machine_id": "M-24",
-    "start": "2026-08-05T14:00:00",
-    "end": "2026-08-05T22:00:00",
-    "good_count": 165,
-    "total_count": 171
-  },
-  {
     "run_id": "RUN-0233",
     "machine_id": "M-31",
     "start": "2026-08-05T06:00:00",
     "end": "2026-08-05T14:00:00",
     "good_count": 311,
     "total_count": 333
-  },
-  {
-    "run_id": "RUN-0234",
-    "machine_id": "M-31",
-    "start": "2026-08-05T14:00:00",
-    "end": "2026-08-05T22:00:00",
-    "good_count": 330,
-    "total_count": 353
   },
   {
     "run_id": "RUN-0235",
@@ -1880,28 +6080,12 @@
     "total_count": 1111
   },
   {
-    "run_id": "RUN-0236",
-    "machine_id": "M-32",
-    "start": "2026-08-05T14:00:00",
-    "end": "2026-08-05T22:00:00",
-    "good_count": 1140,
-    "total_count": 1140
-  },
-  {
     "run_id": "RUN-0237",
     "machine_id": "M-33",
     "start": "2026-08-05T06:00:00",
     "end": "2026-08-05T14:00:00",
     "good_count": 23,
     "total_count": 23
-  },
-  {
-    "run_id": "RUN-0238",
-    "machine_id": "M-33",
-    "start": "2026-08-05T14:00:00",
-    "end": "2026-08-05T22:00:00",
-    "good_count": 20,
-    "total_count": 20
   },
   {
     "run_id": "RUN-0239",
@@ -1912,12 +6096,148 @@
     "total_count": 19
   },
   {
+    "run_id": "RUN-0871",
+    "machine_id": "M-41",
+    "start": "2026-08-05T06:00:00",
+    "end": "2026-08-05T14:00:00",
+    "good_count": 369,
+    "total_count": 369
+  },
+  {
+    "run_id": "RUN-0873",
+    "machine_id": "M-42",
+    "start": "2026-08-05T06:00:00",
+    "end": "2026-08-05T14:00:00",
+    "good_count": 354,
+    "total_count": 354
+  },
+  {
+    "run_id": "RUN-0875",
+    "machine_id": "M-51",
+    "start": "2026-08-05T06:00:00",
+    "end": "2026-08-05T14:00:00",
+    "good_count": 569,
+    "total_count": 569
+  },
+  {
+    "run_id": "RUN-0218",
+    "machine_id": "M-11",
+    "start": "2026-08-05T14:00:00",
+    "end": "2026-08-05T22:00:00",
+    "good_count": 373,
+    "total_count": 391
+  },
+  {
+    "run_id": "RUN-0220",
+    "machine_id": "M-12",
+    "start": "2026-08-05T14:00:00",
+    "end": "2026-08-05T22:00:00",
+    "good_count": 808,
+    "total_count": 837
+  },
+  {
+    "run_id": "RUN-0222",
+    "machine_id": "M-13",
+    "start": "2026-08-05T14:00:00",
+    "end": "2026-08-05T22:00:00",
+    "good_count": 533,
+    "total_count": 533
+  },
+  {
+    "run_id": "RUN-0224",
+    "machine_id": "M-14",
+    "start": "2026-08-05T14:00:00",
+    "end": "2026-08-05T22:00:00",
+    "good_count": 611,
+    "total_count": 611
+  },
+  {
+    "run_id": "RUN-0226",
+    "machine_id": "M-21",
+    "start": "2026-08-05T14:00:00",
+    "end": "2026-08-05T22:00:00",
+    "good_count": 71,
+    "total_count": 71
+  },
+  {
+    "run_id": "RUN-0228",
+    "machine_id": "M-22",
+    "start": "2026-08-05T14:00:00",
+    "end": "2026-08-05T22:00:00",
+    "good_count": 68,
+    "total_count": 68
+  },
+  {
+    "run_id": "RUN-0230",
+    "machine_id": "M-23",
+    "start": "2026-08-05T14:00:00",
+    "end": "2026-08-05T22:00:00",
+    "good_count": 65,
+    "total_count": 65
+  },
+  {
+    "run_id": "RUN-0232",
+    "machine_id": "M-24",
+    "start": "2026-08-05T14:00:00",
+    "end": "2026-08-05T22:00:00",
+    "good_count": 165,
+    "total_count": 171
+  },
+  {
+    "run_id": "RUN-0234",
+    "machine_id": "M-31",
+    "start": "2026-08-05T14:00:00",
+    "end": "2026-08-05T22:00:00",
+    "good_count": 330,
+    "total_count": 353
+  },
+  {
+    "run_id": "RUN-0236",
+    "machine_id": "M-32",
+    "start": "2026-08-05T14:00:00",
+    "end": "2026-08-05T22:00:00",
+    "good_count": 1140,
+    "total_count": 1140
+  },
+  {
+    "run_id": "RUN-0238",
+    "machine_id": "M-33",
+    "start": "2026-08-05T14:00:00",
+    "end": "2026-08-05T22:00:00",
+    "good_count": 20,
+    "total_count": 20
+  },
+  {
     "run_id": "RUN-0240",
     "machine_id": "M-34",
     "start": "2026-08-05T14:00:00",
     "end": "2026-08-05T22:00:00",
     "good_count": 18,
     "total_count": 18
+  },
+  {
+    "run_id": "RUN-0872",
+    "machine_id": "M-41",
+    "start": "2026-08-05T14:00:00",
+    "end": "2026-08-05T22:00:00",
+    "good_count": 350,
+    "total_count": 350
+  },
+  {
+    "run_id": "RUN-0874",
+    "machine_id": "M-42",
+    "start": "2026-08-05T14:00:00",
+    "end": "2026-08-05T22:00:00",
+    "good_count": 367,
+    "total_count": 367
+  },
+  {
+    "run_id": "RUN-0876",
+    "machine_id": "M-51",
+    "start": "2026-08-05T14:00:00",
+    "end": "2026-08-05T22:00:00",
+    "good_count": 624,
+    "total_count": 624
   },
   {
     "run_id": "RUN-0241",
@@ -1928,28 +6248,12 @@
     "total_count": 432
   },
   {
-    "run_id": "RUN-0242",
-    "machine_id": "M-11",
-    "start": "2026-08-06T14:00:00",
-    "end": "2026-08-06T22:00:00",
-    "good_count": 462,
-    "total_count": 462
-  },
-  {
     "run_id": "RUN-0243",
     "machine_id": "M-12",
     "start": "2026-08-06T06:00:00",
     "end": "2026-08-06T14:00:00",
     "good_count": 845,
     "total_count": 845
-  },
-  {
-    "run_id": "RUN-0244",
-    "machine_id": "M-12",
-    "start": "2026-08-06T14:00:00",
-    "end": "2026-08-06T22:00:00",
-    "good_count": 852,
-    "total_count": 852
   },
   {
     "run_id": "RUN-0245",
@@ -1960,28 +6264,12 @@
     "total_count": 512
   },
   {
-    "run_id": "RUN-0246",
-    "machine_id": "M-13",
-    "start": "2026-08-06T14:00:00",
-    "end": "2026-08-06T22:00:00",
-    "good_count": 519,
-    "total_count": 519
-  },
-  {
     "run_id": "RUN-0247",
     "machine_id": "M-14",
     "start": "2026-08-06T06:00:00",
     "end": "2026-08-06T14:00:00",
     "good_count": 624,
     "total_count": 624
-  },
-  {
-    "run_id": "RUN-0248",
-    "machine_id": "M-14",
-    "start": "2026-08-06T14:00:00",
-    "end": "2026-08-06T22:00:00",
-    "good_count": 582,
-    "total_count": 582
   },
   {
     "run_id": "RUN-0249",
@@ -1992,28 +6280,12 @@
     "total_count": 76
   },
   {
-    "run_id": "RUN-0250",
-    "machine_id": "M-21",
-    "start": "2026-08-06T14:00:00",
-    "end": "2026-08-06T22:00:00",
-    "good_count": 69,
-    "total_count": 69
-  },
-  {
     "run_id": "RUN-0251",
     "machine_id": "M-22",
     "start": "2026-08-06T06:00:00",
     "end": "2026-08-06T14:00:00",
     "good_count": 73,
     "total_count": 73
-  },
-  {
-    "run_id": "RUN-0252",
-    "machine_id": "M-22",
-    "start": "2026-08-06T14:00:00",
-    "end": "2026-08-06T22:00:00",
-    "good_count": 66,
-    "total_count": 67
   },
   {
     "run_id": "RUN-0253",
@@ -2024,28 +6296,12 @@
     "total_count": 63
   },
   {
-    "run_id": "RUN-0254",
-    "machine_id": "M-23",
-    "start": "2026-08-06T14:00:00",
-    "end": "2026-08-06T22:00:00",
-    "good_count": 61,
-    "total_count": 62
-  },
-  {
     "run_id": "RUN-0255",
     "machine_id": "M-24",
     "start": "2026-08-06T06:00:00",
     "end": "2026-08-06T14:00:00",
     "good_count": 162,
     "total_count": 162
-  },
-  {
-    "run_id": "RUN-0256",
-    "machine_id": "M-24",
-    "start": "2026-08-06T14:00:00",
-    "end": "2026-08-06T22:00:00",
-    "good_count": 143,
-    "total_count": 143
   },
   {
     "run_id": "RUN-0257",
@@ -2056,28 +6312,12 @@
     "total_count": 309
   },
   {
-    "run_id": "RUN-0258",
-    "machine_id": "M-31",
-    "start": "2026-08-06T14:00:00",
-    "end": "2026-08-06T22:00:00",
-    "good_count": 316,
-    "total_count": 341
-  },
-  {
     "run_id": "RUN-0259",
     "machine_id": "M-32",
     "start": "2026-08-06T06:00:00",
     "end": "2026-08-06T14:00:00",
     "good_count": 1117,
     "total_count": 1117
-  },
-  {
-    "run_id": "RUN-0260",
-    "machine_id": "M-32",
-    "start": "2026-08-06T14:00:00",
-    "end": "2026-08-06T22:00:00",
-    "good_count": 1037,
-    "total_count": 1037
   },
   {
     "run_id": "RUN-0261",
@@ -2088,20 +6328,124 @@
     "total_count": 21
   },
   {
-    "run_id": "RUN-0262",
-    "machine_id": "M-33",
-    "start": "2026-08-06T14:00:00",
-    "end": "2026-08-06T22:00:00",
-    "good_count": 23,
-    "total_count": 23
-  },
-  {
     "run_id": "RUN-0263",
     "machine_id": "M-34",
     "start": "2026-08-06T06:00:00",
     "end": "2026-08-06T14:00:00",
     "good_count": 18,
     "total_count": 18
+  },
+  {
+    "run_id": "RUN-0877",
+    "machine_id": "M-41",
+    "start": "2026-08-06T06:00:00",
+    "end": "2026-08-06T14:00:00",
+    "good_count": 384,
+    "total_count": 384
+  },
+  {
+    "run_id": "RUN-0879",
+    "machine_id": "M-42",
+    "start": "2026-08-06T06:00:00",
+    "end": "2026-08-06T14:00:00",
+    "good_count": 467,
+    "total_count": 486
+  },
+  {
+    "run_id": "RUN-0881",
+    "machine_id": "M-51",
+    "start": "2026-08-06T06:00:00",
+    "end": "2026-08-06T14:00:00",
+    "good_count": 531,
+    "total_count": 554
+  },
+  {
+    "run_id": "RUN-0242",
+    "machine_id": "M-11",
+    "start": "2026-08-06T14:00:00",
+    "end": "2026-08-06T22:00:00",
+    "good_count": 462,
+    "total_count": 462
+  },
+  {
+    "run_id": "RUN-0244",
+    "machine_id": "M-12",
+    "start": "2026-08-06T14:00:00",
+    "end": "2026-08-06T22:00:00",
+    "good_count": 852,
+    "total_count": 852
+  },
+  {
+    "run_id": "RUN-0246",
+    "machine_id": "M-13",
+    "start": "2026-08-06T14:00:00",
+    "end": "2026-08-06T22:00:00",
+    "good_count": 519,
+    "total_count": 519
+  },
+  {
+    "run_id": "RUN-0248",
+    "machine_id": "M-14",
+    "start": "2026-08-06T14:00:00",
+    "end": "2026-08-06T22:00:00",
+    "good_count": 582,
+    "total_count": 582
+  },
+  {
+    "run_id": "RUN-0250",
+    "machine_id": "M-21",
+    "start": "2026-08-06T14:00:00",
+    "end": "2026-08-06T22:00:00",
+    "good_count": 69,
+    "total_count": 69
+  },
+  {
+    "run_id": "RUN-0252",
+    "machine_id": "M-22",
+    "start": "2026-08-06T14:00:00",
+    "end": "2026-08-06T22:00:00",
+    "good_count": 66,
+    "total_count": 67
+  },
+  {
+    "run_id": "RUN-0254",
+    "machine_id": "M-23",
+    "start": "2026-08-06T14:00:00",
+    "end": "2026-08-06T22:00:00",
+    "good_count": 61,
+    "total_count": 62
+  },
+  {
+    "run_id": "RUN-0256",
+    "machine_id": "M-24",
+    "start": "2026-08-06T14:00:00",
+    "end": "2026-08-06T22:00:00",
+    "good_count": 143,
+    "total_count": 143
+  },
+  {
+    "run_id": "RUN-0258",
+    "machine_id": "M-31",
+    "start": "2026-08-06T14:00:00",
+    "end": "2026-08-06T22:00:00",
+    "good_count": 316,
+    "total_count": 341
+  },
+  {
+    "run_id": "RUN-0260",
+    "machine_id": "M-32",
+    "start": "2026-08-06T14:00:00",
+    "end": "2026-08-06T22:00:00",
+    "good_count": 1037,
+    "total_count": 1037
+  },
+  {
+    "run_id": "RUN-0262",
+    "machine_id": "M-33",
+    "start": "2026-08-06T14:00:00",
+    "end": "2026-08-06T22:00:00",
+    "good_count": 23,
+    "total_count": 23
   },
   {
     "run_id": "RUN-0264",
@@ -2112,20 +6456,36 @@
     "total_count": 19
   },
   {
+    "run_id": "RUN-0878",
+    "machine_id": "M-41",
+    "start": "2026-08-06T14:00:00",
+    "end": "2026-08-06T22:00:00",
+    "good_count": 356,
+    "total_count": 356
+  },
+  {
+    "run_id": "RUN-0880",
+    "machine_id": "M-42",
+    "start": "2026-08-06T14:00:00",
+    "end": "2026-08-06T22:00:00",
+    "good_count": 437,
+    "total_count": 437
+  },
+  {
+    "run_id": "RUN-0882",
+    "machine_id": "M-51",
+    "start": "2026-08-06T14:00:00",
+    "end": "2026-08-06T22:00:00",
+    "good_count": 547,
+    "total_count": 547
+  },
+  {
     "run_id": "RUN-0265",
     "machine_id": "M-11",
     "start": "2026-08-07T06:00:00",
     "end": "2026-08-07T14:00:00",
     "good_count": 457,
     "total_count": 457
-  },
-  {
-    "run_id": "RUN-0266",
-    "machine_id": "M-11",
-    "start": "2026-08-07T14:00:00",
-    "end": "2026-08-07T22:00:00",
-    "good_count": 476,
-    "total_count": 476
   },
   {
     "run_id": "RUN-0267",
@@ -2136,28 +6496,12 @@
     "total_count": 767
   },
   {
-    "run_id": "RUN-0268",
-    "machine_id": "M-12",
-    "start": "2026-08-07T14:00:00",
-    "end": "2026-08-07T22:00:00",
-    "good_count": 823,
-    "total_count": 823
-  },
-  {
     "run_id": "RUN-0269",
     "machine_id": "M-13",
     "start": "2026-08-07T06:00:00",
     "end": "2026-08-07T14:00:00",
     "good_count": 505,
     "total_count": 505
-  },
-  {
-    "run_id": "RUN-0270",
-    "machine_id": "M-13",
-    "start": "2026-08-07T14:00:00",
-    "end": "2026-08-07T22:00:00",
-    "good_count": 502,
-    "total_count": 502
   },
   {
     "run_id": "RUN-0271",
@@ -2168,28 +6512,12 @@
     "total_count": 636
   },
   {
-    "run_id": "RUN-0272",
-    "machine_id": "M-14",
-    "start": "2026-08-07T14:00:00",
-    "end": "2026-08-07T22:00:00",
-    "good_count": 655,
-    "total_count": 655
-  },
-  {
     "run_id": "RUN-0273",
     "machine_id": "M-21",
     "start": "2026-08-07T06:00:00",
     "end": "2026-08-07T14:00:00",
     "good_count": 77,
     "total_count": 77
-  },
-  {
-    "run_id": "RUN-0274",
-    "machine_id": "M-21",
-    "start": "2026-08-07T14:00:00",
-    "end": "2026-08-07T22:00:00",
-    "good_count": 81,
-    "total_count": 81
   },
   {
     "run_id": "RUN-0275",
@@ -2200,28 +6528,12 @@
     "total_count": 76
   },
   {
-    "run_id": "RUN-0276",
-    "machine_id": "M-22",
-    "start": "2026-08-07T14:00:00",
-    "end": "2026-08-07T22:00:00",
-    "good_count": 75,
-    "total_count": 75
-  },
-  {
     "run_id": "RUN-0277",
     "machine_id": "M-23",
     "start": "2026-08-07T06:00:00",
     "end": "2026-08-07T14:00:00",
     "good_count": 68,
     "total_count": 68
-  },
-  {
-    "run_id": "RUN-0278",
-    "machine_id": "M-23",
-    "start": "2026-08-07T14:00:00",
-    "end": "2026-08-07T22:00:00",
-    "good_count": 64,
-    "total_count": 64
   },
   {
     "run_id": "RUN-0279",
@@ -2232,28 +6544,12 @@
     "total_count": 168
   },
   {
-    "run_id": "RUN-0280",
-    "machine_id": "M-24",
-    "start": "2026-08-07T14:00:00",
-    "end": "2026-08-07T22:00:00",
-    "good_count": 188,
-    "total_count": 188
-  },
-  {
     "run_id": "RUN-0281",
     "machine_id": "M-31",
     "start": "2026-08-07T06:00:00",
     "end": "2026-08-07T14:00:00",
     "good_count": 330,
     "total_count": 351
-  },
-  {
-    "run_id": "RUN-0282",
-    "machine_id": "M-31",
-    "start": "2026-08-07T14:00:00",
-    "end": "2026-08-07T22:00:00",
-    "good_count": 364,
-    "total_count": 385
   },
   {
     "run_id": "RUN-0283",
@@ -2264,28 +6560,12 @@
     "total_count": 1078
   },
   {
-    "run_id": "RUN-0284",
-    "machine_id": "M-32",
-    "start": "2026-08-07T14:00:00",
-    "end": "2026-08-07T22:00:00",
-    "good_count": 1143,
-    "total_count": 1143
-  },
-  {
     "run_id": "RUN-0285",
     "machine_id": "M-33",
     "start": "2026-08-07T06:00:00",
     "end": "2026-08-07T14:00:00",
     "good_count": 22,
     "total_count": 22
-  },
-  {
-    "run_id": "RUN-0286",
-    "machine_id": "M-33",
-    "start": "2026-08-07T14:00:00",
-    "end": "2026-08-07T22:00:00",
-    "good_count": 23,
-    "total_count": 23
   },
   {
     "run_id": "RUN-0287",
@@ -2296,12 +6576,148 @@
     "total_count": 18
   },
   {
+    "run_id": "RUN-0883",
+    "machine_id": "M-41",
+    "start": "2026-08-07T06:00:00",
+    "end": "2026-08-07T14:00:00",
+    "good_count": 394,
+    "total_count": 394
+  },
+  {
+    "run_id": "RUN-0885",
+    "machine_id": "M-42",
+    "start": "2026-08-07T06:00:00",
+    "end": "2026-08-07T14:00:00",
+    "good_count": 413,
+    "total_count": 413
+  },
+  {
+    "run_id": "RUN-0887",
+    "machine_id": "M-51",
+    "start": "2026-08-07T06:00:00",
+    "end": "2026-08-07T14:00:00",
+    "good_count": 582,
+    "total_count": 582
+  },
+  {
+    "run_id": "RUN-0266",
+    "machine_id": "M-11",
+    "start": "2026-08-07T14:00:00",
+    "end": "2026-08-07T22:00:00",
+    "good_count": 476,
+    "total_count": 476
+  },
+  {
+    "run_id": "RUN-0268",
+    "machine_id": "M-12",
+    "start": "2026-08-07T14:00:00",
+    "end": "2026-08-07T22:00:00",
+    "good_count": 823,
+    "total_count": 823
+  },
+  {
+    "run_id": "RUN-0270",
+    "machine_id": "M-13",
+    "start": "2026-08-07T14:00:00",
+    "end": "2026-08-07T22:00:00",
+    "good_count": 502,
+    "total_count": 502
+  },
+  {
+    "run_id": "RUN-0272",
+    "machine_id": "M-14",
+    "start": "2026-08-07T14:00:00",
+    "end": "2026-08-07T22:00:00",
+    "good_count": 655,
+    "total_count": 655
+  },
+  {
+    "run_id": "RUN-0274",
+    "machine_id": "M-21",
+    "start": "2026-08-07T14:00:00",
+    "end": "2026-08-07T22:00:00",
+    "good_count": 81,
+    "total_count": 81
+  },
+  {
+    "run_id": "RUN-0276",
+    "machine_id": "M-22",
+    "start": "2026-08-07T14:00:00",
+    "end": "2026-08-07T22:00:00",
+    "good_count": 75,
+    "total_count": 75
+  },
+  {
+    "run_id": "RUN-0278",
+    "machine_id": "M-23",
+    "start": "2026-08-07T14:00:00",
+    "end": "2026-08-07T22:00:00",
+    "good_count": 64,
+    "total_count": 64
+  },
+  {
+    "run_id": "RUN-0280",
+    "machine_id": "M-24",
+    "start": "2026-08-07T14:00:00",
+    "end": "2026-08-07T22:00:00",
+    "good_count": 188,
+    "total_count": 188
+  },
+  {
+    "run_id": "RUN-0282",
+    "machine_id": "M-31",
+    "start": "2026-08-07T14:00:00",
+    "end": "2026-08-07T22:00:00",
+    "good_count": 364,
+    "total_count": 385
+  },
+  {
+    "run_id": "RUN-0284",
+    "machine_id": "M-32",
+    "start": "2026-08-07T14:00:00",
+    "end": "2026-08-07T22:00:00",
+    "good_count": 1143,
+    "total_count": 1143
+  },
+  {
+    "run_id": "RUN-0286",
+    "machine_id": "M-33",
+    "start": "2026-08-07T14:00:00",
+    "end": "2026-08-07T22:00:00",
+    "good_count": 23,
+    "total_count": 23
+  },
+  {
     "run_id": "RUN-0288",
     "machine_id": "M-34",
     "start": "2026-08-07T14:00:00",
     "end": "2026-08-07T22:00:00",
     "good_count": 19,
     "total_count": 19
+  },
+  {
+    "run_id": "RUN-0884",
+    "machine_id": "M-41",
+    "start": "2026-08-07T14:00:00",
+    "end": "2026-08-07T22:00:00",
+    "good_count": 363,
+    "total_count": 363
+  },
+  {
+    "run_id": "RUN-0886",
+    "machine_id": "M-42",
+    "start": "2026-08-07T14:00:00",
+    "end": "2026-08-07T22:00:00",
+    "good_count": 393,
+    "total_count": 404
+  },
+  {
+    "run_id": "RUN-0888",
+    "machine_id": "M-51",
+    "start": "2026-08-07T14:00:00",
+    "end": "2026-08-07T22:00:00",
+    "good_count": 541,
+    "total_count": 541
   },
   {
     "run_id": "RUN-0289",
@@ -2312,28 +6728,12 @@
     "total_count": 458
   },
   {
-    "run_id": "RUN-0290",
-    "machine_id": "M-11",
-    "start": "2026-08-08T14:00:00",
-    "end": "2026-08-08T22:00:00",
-    "good_count": 463,
-    "total_count": 463
-  },
-  {
     "run_id": "RUN-0291",
     "machine_id": "M-12",
     "start": "2026-08-08T06:00:00",
     "end": "2026-08-08T14:00:00",
     "good_count": 818,
     "total_count": 818
-  },
-  {
-    "run_id": "RUN-0292",
-    "machine_id": "M-12",
-    "start": "2026-08-08T14:00:00",
-    "end": "2026-08-08T22:00:00",
-    "good_count": 787,
-    "total_count": 787
   },
   {
     "run_id": "RUN-0293",
@@ -2344,28 +6744,12 @@
     "total_count": 490
   },
   {
-    "run_id": "RUN-0294",
-    "machine_id": "M-13",
-    "start": "2026-08-08T14:00:00",
-    "end": "2026-08-08T22:00:00",
-    "good_count": 492,
-    "total_count": 492
-  },
-  {
     "run_id": "RUN-0295",
     "machine_id": "M-14",
     "start": "2026-08-08T06:00:00",
     "end": "2026-08-08T14:00:00",
     "good_count": 652,
     "total_count": 652
-  },
-  {
-    "run_id": "RUN-0296",
-    "machine_id": "M-14",
-    "start": "2026-08-08T14:00:00",
-    "end": "2026-08-08T22:00:00",
-    "good_count": 621,
-    "total_count": 621
   },
   {
     "run_id": "RUN-0297",
@@ -2376,28 +6760,12 @@
     "total_count": 78
   },
   {
-    "run_id": "RUN-0298",
-    "machine_id": "M-21",
-    "start": "2026-08-08T14:00:00",
-    "end": "2026-08-08T22:00:00",
-    "good_count": 81,
-    "total_count": 81
-  },
-  {
     "run_id": "RUN-0299",
     "machine_id": "M-22",
     "start": "2026-08-08T06:00:00",
     "end": "2026-08-08T14:00:00",
     "good_count": 85,
     "total_count": 85
-  },
-  {
-    "run_id": "RUN-0300",
-    "machine_id": "M-22",
-    "start": "2026-08-08T14:00:00",
-    "end": "2026-08-08T22:00:00",
-    "good_count": 67,
-    "total_count": 67
   },
   {
     "run_id": "RUN-0301",
@@ -2408,28 +6776,12 @@
     "total_count": 62
   },
   {
-    "run_id": "RUN-0302",
-    "machine_id": "M-23",
-    "start": "2026-08-08T14:00:00",
-    "end": "2026-08-08T22:00:00",
-    "good_count": 74,
-    "total_count": 74
-  },
-  {
     "run_id": "RUN-0303",
     "machine_id": "M-24",
     "start": "2026-08-08T06:00:00",
     "end": "2026-08-08T14:00:00",
     "good_count": 168,
     "total_count": 168
-  },
-  {
-    "run_id": "RUN-0304",
-    "machine_id": "M-24",
-    "start": "2026-08-08T14:00:00",
-    "end": "2026-08-08T22:00:00",
-    "good_count": 171,
-    "total_count": 171
   },
   {
     "run_id": "RUN-0305",
@@ -2440,28 +6792,12 @@
     "total_count": 371
   },
   {
-    "run_id": "RUN-0306",
-    "machine_id": "M-31",
-    "start": "2026-08-08T14:00:00",
-    "end": "2026-08-08T22:00:00",
-    "good_count": 341,
-    "total_count": 361
-  },
-  {
     "run_id": "RUN-0307",
     "machine_id": "M-32",
     "start": "2026-08-08T06:00:00",
     "end": "2026-08-08T14:00:00",
     "good_count": 1076,
     "total_count": 1076
-  },
-  {
-    "run_id": "RUN-0308",
-    "machine_id": "M-32",
-    "start": "2026-08-08T14:00:00",
-    "end": "2026-08-08T22:00:00",
-    "good_count": 1034,
-    "total_count": 1088
   },
   {
     "run_id": "RUN-0309",
@@ -2472,20 +6808,124 @@
     "total_count": 24
   },
   {
-    "run_id": "RUN-0310",
-    "machine_id": "M-33",
-    "start": "2026-08-08T14:00:00",
-    "end": "2026-08-08T22:00:00",
-    "good_count": 22,
-    "total_count": 22
-  },
-  {
     "run_id": "RUN-0311",
     "machine_id": "M-34",
     "start": "2026-08-08T06:00:00",
     "end": "2026-08-08T14:00:00",
     "good_count": 17,
     "total_count": 17
+  },
+  {
+    "run_id": "RUN-0889",
+    "machine_id": "M-41",
+    "start": "2026-08-08T06:00:00",
+    "end": "2026-08-08T14:00:00",
+    "good_count": 371,
+    "total_count": 371
+  },
+  {
+    "run_id": "RUN-0891",
+    "machine_id": "M-42",
+    "start": "2026-08-08T06:00:00",
+    "end": "2026-08-08T14:00:00",
+    "good_count": 460,
+    "total_count": 460
+  },
+  {
+    "run_id": "RUN-0893",
+    "machine_id": "M-51",
+    "start": "2026-08-08T06:00:00",
+    "end": "2026-08-08T14:00:00",
+    "good_count": 512,
+    "total_count": 512
+  },
+  {
+    "run_id": "RUN-0290",
+    "machine_id": "M-11",
+    "start": "2026-08-08T14:00:00",
+    "end": "2026-08-08T22:00:00",
+    "good_count": 463,
+    "total_count": 463
+  },
+  {
+    "run_id": "RUN-0292",
+    "machine_id": "M-12",
+    "start": "2026-08-08T14:00:00",
+    "end": "2026-08-08T22:00:00",
+    "good_count": 787,
+    "total_count": 787
+  },
+  {
+    "run_id": "RUN-0294",
+    "machine_id": "M-13",
+    "start": "2026-08-08T14:00:00",
+    "end": "2026-08-08T22:00:00",
+    "good_count": 492,
+    "total_count": 492
+  },
+  {
+    "run_id": "RUN-0296",
+    "machine_id": "M-14",
+    "start": "2026-08-08T14:00:00",
+    "end": "2026-08-08T22:00:00",
+    "good_count": 621,
+    "total_count": 621
+  },
+  {
+    "run_id": "RUN-0298",
+    "machine_id": "M-21",
+    "start": "2026-08-08T14:00:00",
+    "end": "2026-08-08T22:00:00",
+    "good_count": 81,
+    "total_count": 81
+  },
+  {
+    "run_id": "RUN-0300",
+    "machine_id": "M-22",
+    "start": "2026-08-08T14:00:00",
+    "end": "2026-08-08T22:00:00",
+    "good_count": 67,
+    "total_count": 67
+  },
+  {
+    "run_id": "RUN-0302",
+    "machine_id": "M-23",
+    "start": "2026-08-08T14:00:00",
+    "end": "2026-08-08T22:00:00",
+    "good_count": 74,
+    "total_count": 74
+  },
+  {
+    "run_id": "RUN-0304",
+    "machine_id": "M-24",
+    "start": "2026-08-08T14:00:00",
+    "end": "2026-08-08T22:00:00",
+    "good_count": 171,
+    "total_count": 171
+  },
+  {
+    "run_id": "RUN-0306",
+    "machine_id": "M-31",
+    "start": "2026-08-08T14:00:00",
+    "end": "2026-08-08T22:00:00",
+    "good_count": 341,
+    "total_count": 361
+  },
+  {
+    "run_id": "RUN-0308",
+    "machine_id": "M-32",
+    "start": "2026-08-08T14:00:00",
+    "end": "2026-08-08T22:00:00",
+    "good_count": 1034,
+    "total_count": 1088
+  },
+  {
+    "run_id": "RUN-0310",
+    "machine_id": "M-33",
+    "start": "2026-08-08T14:00:00",
+    "end": "2026-08-08T22:00:00",
+    "good_count": 22,
+    "total_count": 22
   },
   {
     "run_id": "RUN-0312",
@@ -2496,20 +6936,36 @@
     "total_count": 19
   },
   {
+    "run_id": "RUN-0890",
+    "machine_id": "M-41",
+    "start": "2026-08-08T14:00:00",
+    "end": "2026-08-08T22:00:00",
+    "good_count": 380,
+    "total_count": 380
+  },
+  {
+    "run_id": "RUN-0892",
+    "machine_id": "M-42",
+    "start": "2026-08-08T14:00:00",
+    "end": "2026-08-08T22:00:00",
+    "good_count": 425,
+    "total_count": 425
+  },
+  {
+    "run_id": "RUN-0894",
+    "machine_id": "M-51",
+    "start": "2026-08-08T14:00:00",
+    "end": "2026-08-08T22:00:00",
+    "good_count": 459,
+    "total_count": 471
+  },
+  {
     "run_id": "RUN-0313",
     "machine_id": "M-11",
     "start": "2026-08-09T06:00:00",
     "end": "2026-08-09T14:00:00",
     "good_count": 427,
     "total_count": 427
-  },
-  {
-    "run_id": "RUN-0314",
-    "machine_id": "M-11",
-    "start": "2026-08-09T14:00:00",
-    "end": "2026-08-09T22:00:00",
-    "good_count": 457,
-    "total_count": 457
   },
   {
     "run_id": "RUN-0315",
@@ -2520,28 +6976,12 @@
     "total_count": 810
   },
   {
-    "run_id": "RUN-0316",
-    "machine_id": "M-12",
-    "start": "2026-08-09T14:00:00",
-    "end": "2026-08-09T22:00:00",
-    "good_count": 784,
-    "total_count": 784
-  },
-  {
     "run_id": "RUN-0317",
     "machine_id": "M-13",
     "start": "2026-08-09T06:00:00",
     "end": "2026-08-09T14:00:00",
     "good_count": 490,
     "total_count": 490
-  },
-  {
-    "run_id": "RUN-0318",
-    "machine_id": "M-13",
-    "start": "2026-08-09T14:00:00",
-    "end": "2026-08-09T22:00:00",
-    "good_count": 482,
-    "total_count": 482
   },
   {
     "run_id": "RUN-0319",
@@ -2552,28 +6992,12 @@
     "total_count": 683
   },
   {
-    "run_id": "RUN-0320",
-    "machine_id": "M-14",
-    "start": "2026-08-09T14:00:00",
-    "end": "2026-08-09T22:00:00",
-    "good_count": 656,
-    "total_count": 656
-  },
-  {
     "run_id": "RUN-0321",
     "machine_id": "M-21",
     "start": "2026-08-09T06:00:00",
     "end": "2026-08-09T14:00:00",
     "good_count": 70,
     "total_count": 73
-  },
-  {
-    "run_id": "RUN-0322",
-    "machine_id": "M-21",
-    "start": "2026-08-09T14:00:00",
-    "end": "2026-08-09T22:00:00",
-    "good_count": 75,
-    "total_count": 75
   },
   {
     "run_id": "RUN-0323",
@@ -2584,28 +7008,12 @@
     "total_count": 81
   },
   {
-    "run_id": "RUN-0324",
-    "machine_id": "M-22",
-    "start": "2026-08-09T14:00:00",
-    "end": "2026-08-09T22:00:00",
-    "good_count": 74,
-    "total_count": 74
-  },
-  {
     "run_id": "RUN-0325",
     "machine_id": "M-23",
     "start": "2026-08-09T06:00:00",
     "end": "2026-08-09T14:00:00",
     "good_count": 60,
     "total_count": 60
-  },
-  {
-    "run_id": "RUN-0326",
-    "machine_id": "M-23",
-    "start": "2026-08-09T14:00:00",
-    "end": "2026-08-09T22:00:00",
-    "good_count": 62,
-    "total_count": 62
   },
   {
     "run_id": "RUN-0327",
@@ -2616,28 +7024,12 @@
     "total_count": 177
   },
   {
-    "run_id": "RUN-0328",
-    "machine_id": "M-24",
-    "start": "2026-08-09T14:00:00",
-    "end": "2026-08-09T22:00:00",
-    "good_count": 181,
-    "total_count": 181
-  },
-  {
     "run_id": "RUN-0329",
     "machine_id": "M-31",
     "start": "2026-08-09T06:00:00",
     "end": "2026-08-09T14:00:00",
     "good_count": 373,
     "total_count": 399
-  },
-  {
-    "run_id": "RUN-0330",
-    "machine_id": "M-31",
-    "start": "2026-08-09T14:00:00",
-    "end": "2026-08-09T22:00:00",
-    "good_count": 331,
-    "total_count": 361
   },
   {
     "run_id": "RUN-0331",
@@ -2648,28 +7040,12 @@
     "total_count": 1140
   },
   {
-    "run_id": "RUN-0332",
-    "machine_id": "M-32",
-    "start": "2026-08-09T14:00:00",
-    "end": "2026-08-09T22:00:00",
-    "good_count": 1109,
-    "total_count": 1154
-  },
-  {
     "run_id": "RUN-0333",
     "machine_id": "M-33",
     "start": "2026-08-09T06:00:00",
     "end": "2026-08-09T14:00:00",
     "good_count": 23,
     "total_count": 23
-  },
-  {
-    "run_id": "RUN-0334",
-    "machine_id": "M-33",
-    "start": "2026-08-09T14:00:00",
-    "end": "2026-08-09T22:00:00",
-    "good_count": 19,
-    "total_count": 19
   },
   {
     "run_id": "RUN-0335",
@@ -2680,11 +7056,147 @@
     "total_count": 19
   },
   {
+    "run_id": "RUN-0895",
+    "machine_id": "M-41",
+    "start": "2026-08-09T06:00:00",
+    "end": "2026-08-09T14:00:00",
+    "good_count": 395,
+    "total_count": 395
+  },
+  {
+    "run_id": "RUN-0897",
+    "machine_id": "M-42",
+    "start": "2026-08-09T06:00:00",
+    "end": "2026-08-09T14:00:00",
+    "good_count": 398,
+    "total_count": 398
+  },
+  {
+    "run_id": "RUN-0899",
+    "machine_id": "M-51",
+    "start": "2026-08-09T06:00:00",
+    "end": "2026-08-09T14:00:00",
+    "good_count": 463,
+    "total_count": 463
+  },
+  {
+    "run_id": "RUN-0314",
+    "machine_id": "M-11",
+    "start": "2026-08-09T14:00:00",
+    "end": "2026-08-09T22:00:00",
+    "good_count": 457,
+    "total_count": 457
+  },
+  {
+    "run_id": "RUN-0316",
+    "machine_id": "M-12",
+    "start": "2026-08-09T14:00:00",
+    "end": "2026-08-09T22:00:00",
+    "good_count": 784,
+    "total_count": 784
+  },
+  {
+    "run_id": "RUN-0318",
+    "machine_id": "M-13",
+    "start": "2026-08-09T14:00:00",
+    "end": "2026-08-09T22:00:00",
+    "good_count": 482,
+    "total_count": 482
+  },
+  {
+    "run_id": "RUN-0320",
+    "machine_id": "M-14",
+    "start": "2026-08-09T14:00:00",
+    "end": "2026-08-09T22:00:00",
+    "good_count": 656,
+    "total_count": 656
+  },
+  {
+    "run_id": "RUN-0322",
+    "machine_id": "M-21",
+    "start": "2026-08-09T14:00:00",
+    "end": "2026-08-09T22:00:00",
+    "good_count": 75,
+    "total_count": 75
+  },
+  {
+    "run_id": "RUN-0324",
+    "machine_id": "M-22",
+    "start": "2026-08-09T14:00:00",
+    "end": "2026-08-09T22:00:00",
+    "good_count": 74,
+    "total_count": 74
+  },
+  {
+    "run_id": "RUN-0326",
+    "machine_id": "M-23",
+    "start": "2026-08-09T14:00:00",
+    "end": "2026-08-09T22:00:00",
+    "good_count": 62,
+    "total_count": 62
+  },
+  {
+    "run_id": "RUN-0328",
+    "machine_id": "M-24",
+    "start": "2026-08-09T14:00:00",
+    "end": "2026-08-09T22:00:00",
+    "good_count": 181,
+    "total_count": 181
+  },
+  {
+    "run_id": "RUN-0330",
+    "machine_id": "M-31",
+    "start": "2026-08-09T14:00:00",
+    "end": "2026-08-09T22:00:00",
+    "good_count": 331,
+    "total_count": 361
+  },
+  {
+    "run_id": "RUN-0332",
+    "machine_id": "M-32",
+    "start": "2026-08-09T14:00:00",
+    "end": "2026-08-09T22:00:00",
+    "good_count": 1109,
+    "total_count": 1154
+  },
+  {
+    "run_id": "RUN-0334",
+    "machine_id": "M-33",
+    "start": "2026-08-09T14:00:00",
+    "end": "2026-08-09T22:00:00",
+    "good_count": 19,
+    "total_count": 19
+  },
+  {
     "run_id": "RUN-0336",
     "machine_id": "M-34",
     "start": "2026-08-09T14:00:00",
     "end": "2026-08-09T22:00:00",
     "good_count": 18,
     "total_count": 18
+  },
+  {
+    "run_id": "RUN-0896",
+    "machine_id": "M-41",
+    "start": "2026-08-09T14:00:00",
+    "end": "2026-08-09T22:00:00",
+    "good_count": 365,
+    "total_count": 365
+  },
+  {
+    "run_id": "RUN-0898",
+    "machine_id": "M-42",
+    "start": "2026-08-09T14:00:00",
+    "end": "2026-08-09T22:00:00",
+    "good_count": 432,
+    "total_count": 449
+  },
+  {
+    "run_id": "RUN-0900",
+    "machine_id": "M-51",
+    "start": "2026-08-09T14:00:00",
+    "end": "2026-08-09T22:00:00",
+    "good_count": 476,
+    "total_count": 476
   }
 ]

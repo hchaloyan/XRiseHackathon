@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from 'react'
-import { BookOpen, ChevronDown, FileText, Loader2, Search, X } from 'lucide-react'
+import { BarChart3, BookOpen, ChevronDown, FileText, Loader2, Search, X } from 'lucide-react'
 import { api } from '../api/client'
 import type { SearchResponse, SopDocument, SopResult } from '../api/types'
 import SopViewer from '../components/SopViewer'
@@ -7,6 +7,7 @@ import { Button } from '../components/ui/Button'
 import { Input } from '../components/ui/Input'
 import { SkeletonLines } from '../components/ui/Skeleton'
 import { cn } from '../lib/cn'
+import { useDay } from '../lib/day'
 
 /**
  * Persistent ask bar -> POST /api/search. Documents only (CLAUDE.md rule 8).
@@ -28,12 +29,21 @@ import { cn } from '../lib/cn'
  * by the backend's similarity floor, rather than a wrong answer.
  */
 export default function AskBar() {
+  const { setDay } = useDay()
   const [query, setQuery] = useState('')
   const [results, setResults] = useState<SopResult[] | null>(null)
   const [kind, setKind] = useState<SearchResponse['kind'] | null>(null)
   const [reply, setReply] = useState<string | null>(null)
+  const [disclaimer, setDisclaimer] = useState<string | null>(null)
+  const [metricDay, setMetricDay] = useState<string | null>(null)
   const [suggestions, setSuggestions] = useState<string[]>([])
   const [fallback, setFallback] = useState<string | null>(null)
+  // The last query that actually returned sections. Sent as context so a
+  // fragment like "what about the 500T?" can be resolved against it. Only
+  // successful queries are remembered — carrying a miss forward would drag a
+  // dead end into the next question.
+  const [lastAnswered, setLastAnswered] = useState<string | null>(null)
+  const [resolvedFrom, setResolvedFrom] = useState<string | null>(null)
   const [expandedId, setExpandedId] = useState<string | null>(null)
   const [searching, setSearching] = useState(false)
 
@@ -56,14 +66,21 @@ export default function AskBar() {
     setExpandedId(null)
     setFallback(null)
     setReply(null)
+    setDisclaimer(null)
+    setMetricDay(null)
     setSuggestions([])
+    setResolvedFrom(null)
     try {
-      const data = await api.search(q)
+      const data = await api.search(q, lastAnswered)
       setResults(data.results)
       setKind(data.kind)
       setReply(data.reply)
+      setDisclaimer(data.disclaimer)
+      setMetricDay(data.kind === 'metric' && !data.metricIsCurrent ? data.metricDay : null)
       setSuggestions(data.suggestions ?? [])
+      setResolvedFrom(data.resolvedFrom)
       setFallback(data.fallbackMessage)
+      if (data.kind === 'results') setLastAnswered(q)
     } catch (err) {
       console.error('[askbar] search failed:', err)
       setResults([])
@@ -105,10 +122,16 @@ export default function AskBar() {
     setResults(null)
     setKind(null)
     setReply(null)
+    setDisclaimer(null)
+    setMetricDay(null)
     setSuggestions([])
     setFallback(null)
     setExpandedId(null)
     setViewing(null)
+    setResolvedFrom(null)
+    // Dismissing ends the thread: the next question starts clean rather than
+    // being read as a follow-up to something no longer on screen.
+    setLastAnswered(null)
   }
 
   const open = searching || results !== null || viewing !== null
@@ -128,6 +151,14 @@ export default function AskBar() {
             <SkeletonLines lines={2} />
           ) : (
             <>
+              {/* Say so when a fragment was resolved against the previous
+                  question, rather than appearing to answer it by magic. */}
+              {resolvedFrom && results && results.length > 0 && (
+                <p className="mb-2 pr-8 text-[12px] text-faint">
+                  Following up on “{resolvedFrom}”
+                </p>
+              )}
+
               {results && results.length > 0 && (
                 <ul className="space-y-2 pr-8">
                   {results.map((r) => (
@@ -195,8 +226,48 @@ export default function AskBar() {
                 <p className="pr-8 text-sm leading-relaxed text-hi">{reply}</p>
               )}
 
+              {/* A figure from the plant's own data. Computed in pandas, so
+                  this is an answer rather than a redirect — and it carries the
+                  day, because "yesterday's OEE" is meaningless without it. */}
+              {kind === 'metric' && reply && (
+                <div className="mr-8 rounded-r-lg border-l-2 border-accent bg-white/[0.05] p-4">
+                  <p className="text-sm leading-relaxed text-hi">{reply}</p>
+                  {metricDay && (
+                    <Button
+                      type="button"
+                      size="sm"
+                      variant="outline"
+                      className="mt-3"
+                      onClick={() => {
+                        setDay(metricDay)
+                        dismiss()
+                      }}
+                    >
+                      <BarChart3 size={13} aria-hidden />
+                      Show the {metricDay} briefing
+                    </Button>
+                  )}
+                </div>
+              )}
+
+              {/* General knowledge — the SOPs do not cover this. The
+                  disclaimer is not decoration: without it a model's general
+                  answer reads as plant procedure. Dashed border and no accent
+                  glow, so it never looks as authoritative as a real citation. */}
+              {kind === 'general' && reply && (
+                <div className="mr-8 rounded-lg border border-dashed border-line bg-white/[0.03] p-3">
+                  <p className="label-caps mb-1.5 text-faint">
+                    {disclaimer ?? 'Not from your SOPs — general guidance.'}
+                  </p>
+                  <p className="text-sm leading-relaxed text-muted">{reply}</p>
+                </div>
+              )}
+
               {/* Spec 7.1 redirect, an empty corpus, or an unreachable API. */}
-              {kind !== 'conversation' && results?.length === 0 && (
+              {kind !== 'conversation' &&
+                kind !== 'general' &&
+                kind !== 'metric' &&
+                results?.length === 0 && (
                 <p className="pr-8 text-sm text-muted">
                   {fallback ?? 'No SOPs found. Try different keywords.'}
                 </p>

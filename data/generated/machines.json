@@ -197,5 +197,53 @@
     "line": "ASSEMBLY",
     "cell": "CELL-4",
     "ideal_cycle_time": 1203.2
+  },
+  {
+    "machine_id": "M-41",
+    "name": "Powder Coating Booth, Automatic",
+    "machine_type": "Powder Coating",
+    "keywords": [
+      "powder coating",
+      "coating",
+      "paint",
+      "booth",
+      "cure oven",
+      "finishing"
+    ],
+    "line": "FINISHING",
+    "cell": "CELL-1",
+    "ideal_cycle_time": 61.7
+  },
+  {
+    "machine_id": "M-42",
+    "name": "Aqueous Parts Washer, 3-Stage",
+    "machine_type": "Parts Washing",
+    "keywords": [
+      "parts washer",
+      "wash",
+      "degrease",
+      "aqueous",
+      "cleaning",
+      "finishing"
+    ],
+    "line": "FINISHING",
+    "cell": "CELL-2",
+    "ideal_cycle_time": 55.0
+  },
+  {
+    "machine_id": "M-51",
+    "name": "Automatic Case Packer",
+    "machine_type": "Packaging",
+    "keywords": [
+      "packaging",
+      "case packer",
+      "carton",
+      "palletiser",
+      "labeller",
+      "boxing"
+    ],
+    "line": "PACKAGING",
+    "cell": "CELL-1",
+    "ideal_cycle_time": 43.2
   }
 ]

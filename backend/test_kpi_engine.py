@@ -26,7 +26,7 @@ def test_plant_reconciles_with_machines():
     day = kpi_engine.latest_day()
     plant = kpi_engine.plant(day)
     machines = kpi_engine.by_machine(day)
-    assert len(machines) == 12
+    assert len(machines) == 15
     assert sum(m["total_count"] for m in machines) == plant["total_count"]
     assert sum(m["good_count"] for m in machines) == plant["good_count"]
     # Weighted, not averaged: the two differ, and the weighted one is correct.
@@ -101,6 +101,9 @@ def test_defects_match_the_process_that_made_them():
         "Robotic Welding": {"WELD_POROSITY", "UNDERCUT", "SPATTER", "MISALIGNMENT"},
         "Assembly": {"MISSING_FASTENER", "MISALIGNMENT", "SCRATCH"},
         "Additive Manufacturing": {"LAYER_DELAM", "WARP", "DIM_OOT", "POROSITY"},
+        "Powder Coating": {"ORANGE_PEEL", "THIN_COAT", "CONTAMINATION", "SCRATCH"},
+        "Parts Washing": {"RESIDUE", "WATER_SPOT", "CONTAMINATION"},
+        "Packaging": {"LABEL_MISPLACED", "CARTON_CRUSH", "MISSING_ITEM"},
     }
     for row in frames["quality_events"].itertuples():
         assert row.defect_type in allowed[types[row.machine_id]], row
@@ -119,7 +122,7 @@ def test_machines_are_searchable_by_keyword():
 
 def test_inventory_flags_short_parts():
     inv = kpi_engine.inventory(kpi_engine.latest_day())
-    assert inv["parts_tracked"] == 13
+    assert inv["parts_tracked"] == 20
     assert 0 < inv["parts_below_reorder"] < inv["parts_tracked"], "some short, not all"
     assert inv["items"] == sorted(inv["items"], key=lambda i: i["days_of_cover"])
     for item in inv["items"]:

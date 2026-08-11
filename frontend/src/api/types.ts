@@ -27,6 +27,14 @@ export interface SopResult {
  *                    chat line and `suggestions` as clickable chips. Matched
  *                    by regex server-side: no model, ~1ms, never intercepts
  *                    a real question.
+ *   'metric'       — asks for a figure the plant data holds. `reply` carries
+ *                    the computed number and `metricDay` the day it is from.
+ *                    Answered in pandas, never by a model.
+ *   'general'      — the SOPs do not cover it, so a hosted model answered from
+ *                    general knowledge. Render `reply` WITH `disclaimer`.
+ *                    Factory-data questions never land here; they keep the
+ *                    redirect, because a model inventing an OEE figure is the
+ *                    worst failure this app has available to it.
  *   'off_topic'    — nothing cleared the floor (spec 7.1). Render
  *                    `fallbackMessage` plus `suggestions`.
  *
@@ -35,13 +43,65 @@ export interface SopResult {
  */
 export interface SearchResponse {
   query: string
-  kind: 'results' | 'conversation' | 'off_topic'
+  kind: 'results' | 'conversation' | 'metric' | 'general' | 'off_topic'
   results: SopResult[]
-  /** Non-null only when kind === 'conversation'. */
+  /** The spoken answer. Set on 'conversation' and on 'general'. */
   reply: string | null
+  /**
+   * Non-null only on 'general'. MUST be rendered alongside `reply` — it is
+   * what stops a model's general knowledge being read as plant procedure.
+   */
+  disclaimer: string | null
+  /**
+   * Non-null only on 'metric'. The day the answer is about — the UI offers to
+   * move the dashboard there, which is the real answer to "what was
+   * yesterday's OEE": the figure, plus the day it belongs to.
+   */
+  metricDay: string | null
+  /** True when metricDay is already on screen, so no jump is offered. */
+  metricIsCurrent: boolean
   /** Example questions, all guaranteed to retrieve. Empty on 'results'. */
   suggestions: string[]
+  /**
+   * Set when the answer came from joining this query to the previous one —
+   * "what about the 500T?" resolved against what was already on screen. Show
+   * it, so the app never appears to answer a fragment by magic.
+   */
+  resolvedFrom: string | null
   fallbackMessage: string | null
+}
+
+/**
+ * GET /api/documents — everything the assistant can answer from.
+ *
+ * `source` is the ONLY thing separating a hand-authored SOP from an uploaded
+ * manual anywhere in the system. Both are chunked, embedded, cited and viewed
+ * identically, which is what makes an upload searchable the moment it lands.
+ */
+export interface DocumentMeta {
+  docId: string
+  title: string
+  source: 'sop' | 'upload'
+  /** ".pdf", ".docx", ".md", ".txt", ".csv" */
+  format: string
+  department: string
+  revision: string
+  originalName: string
+  storedName: string
+  sizeBytes: number
+  sha256: string
+  /** ISO timestamp. Empty for SOPs read off disk. */
+  uploadedAt: string
+  /** Sections in the vector index. 0 means it is listed but not searchable. */
+  chunks: number
+  chars: number
+}
+
+export interface DocumentListResponse {
+  documents: DocumentMeta[]
+  /** Advertised by the API so the picker and the validator cannot disagree. */
+  acceptedFormats: string[]
+  maxBytes: number
 }
 
 /** GET /api/sops/{docId} — the whole document, for the in-app viewer. */
@@ -70,6 +130,26 @@ export interface ExplainResponse {
 
 /* The insights and root-cause shapes are defined in full further down — the
    placeholders that used to sit here were superseded by them. */
+
+/**
+ * GET /api/days — which days the picker may offer.
+ *
+ * Days with no production are absent rather than empty: selecting one would
+ * render a briefing full of zeroes that reads as a bug, not as a gap.
+ */
+export interface DaysResponse {
+  days: string[]
+  latest: string
+  earliest: string
+  /** The real calendar date, from the server. */
+  today: string
+  /**
+   * How far the newest record lags today. Above 0 means the plant has not
+   * reported since — the header says so rather than presenting an old shift
+   * as the current one.
+   */
+  daysBehind: number
+}
 
 /** GET /api/kpis — all computed in pandas, none of it from the model. */
 
@@ -132,12 +212,22 @@ export interface InventoryItem {
   dailyUsage: number
   daysOfCover: number
   belowReorder: boolean
+  /** What to do, not what to interpret. */
+  status: 'reorder_now' | 'order_this_week' | 'ok'
+  /** ISO date this part hits zero at current usage. */
+  runsOutOn: string
+  suggestedOrderQty: number
 }
 
 export interface Inventory {
   partsTracked: number
   partsBelowReorder: number
   lowestDaysOfCover: number
+  /** The part that runs out first — named, so there is something to chase. */
+  soonestPartId: string
+  soonestDescription: string
+  soonestDays: number
+  soonestRunsOutOn: string
   items: InventoryItem[]
 }
 
