@@ -72,6 +72,16 @@ class SearchResponse(ApiModel):
     fallback_message: Optional[str] = None
 
 
+class SopDocument(ApiModel):
+    """A whole SOP, as written. COMPUTED - read from disk, no model."""
+
+    doc_id: str
+    title: str
+    revision: str
+    department: str
+    markdown: str
+
+
 class ExplainRequest(ApiModel):
     query: str
     sop_ids: List[str]  # chunk ids returned by /api/search

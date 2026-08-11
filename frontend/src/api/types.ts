@@ -44,6 +44,16 @@ export interface SearchResponse {
   fallbackMessage: string | null
 }
 
+/** GET /api/sops/{docId} — the whole document, for the in-app viewer. */
+export interface SopDocument {
+  docId: string
+  title: string
+  revision: string
+  department: string
+  /** Raw markdown, front matter already stripped. */
+  markdown: string
+}
+
 export interface ExplainStep {
   action: string
   why: string

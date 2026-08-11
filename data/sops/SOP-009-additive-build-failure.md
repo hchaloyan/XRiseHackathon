@@ -1,18 +1,22 @@
 ---
 doc_id: SOP-009
-title: Additive Manufacturing Build Failure Recovery
-revision: 1.5
+title: 3D Printer and Additive Manufacturing Build Failure Recovery
+revision: 1.6
 department: Additive
 ---
 
 # Purpose and scope
 
-Recovery from BUILD_FAILURE and build-related downtime on M-33 (FDM
-large-format) and M-34 (SLS powder-bed), both in ASSEMBLY. Builds run long
-and unattended, so a failure discovered late costs a full shift of machine
-time.
+Recovery from BUILD_FAILURE and build-related downtime on the two 3D printers
+in ASSEMBLY: M-33 Industrial 3D Printer FDM Large-Format, and M-34 Industrial
+3D Printer SLS Powder-Bed. Builds run long and unattended, so a failure
+discovered late costs a full shift of machine time.
 
-# M-33 FDM: part lifted off the plate
+Operators call these machines the 3D printers; the work order and the asset
+register call them additive manufacturing cells. Both names mean the same two
+assets.
+
+# M-33 FDM 3D printer: part lifted off the plate
 
 The most common failure mode. The part detaches or curls away from the bed
 mid-build.
@@ -28,14 +32,14 @@ mid-build.
 6. Confirm the nozzle is clear. A partially blocked nozzle under-extrudes the
    first layer and guarantees poor adhesion.
 
-# M-33 FDM: filament run-out
+# M-33 FDM 3D printer: filament run-out
 
 RM-3005 ABS filament, 1.75mm, 5kg spool. Estimate the filament required
 against the spool remaining before starting a long build. A spool that runs
 out mid-build is logged as MATERIAL_STARVE, not BUILD_FAILURE, and is
 covered by SOP-006.
 
-# M-34 SLS: recoater strike
+# M-34 SLS 3D printer: recoater strike
 
 The recoater blade contacts a curled part edge and aborts the build.
 

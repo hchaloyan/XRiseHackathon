@@ -22,6 +22,7 @@ from __future__ import annotations
 
 import re
 from dataclasses import dataclass
+from datetime import datetime
 
 # Shown as clickable chips whenever we have nothing better to offer. Drawn
 # from the SOP corpus so every one of them is guaranteed to retrieve.
@@ -89,16 +90,46 @@ _PATTERNS: list[tuple[str, re.Pattern[str]]] = [
     ),
 ]
 
-_REPLIES = {
-    "greeting": f"Morning. {_CAPABILITY}",
+def time_of_day(now: datetime | None = None) -> str:
+    """Morning / afternoon / evening, by the server's local clock.
+
+    Boundaries follow the shift pattern in the data rather than the clock
+    face: shift A starts 06:00 and shift B at 14:00 (see data_loader._shift),
+    so 14:00 is when this plant stops saying "morning".
+    """
+    hour = (now or datetime.now()).hour
+    if hour < 12:
+        return "morning"
+    if hour < 18:
+        return "afternoon"
+    return "evening"
+
+
+def _greeting_reply(now: datetime | None = None) -> str:
+    return f"Good {time_of_day(now)}. {_CAPABILITY}"
+
+
+def _farewell_reply(now: datetime | None = None) -> str:
+    # "Good shift" reads oddly on the way out of an evening shift.
+    return "Good shift." if time_of_day(now) == "morning" else "See you next shift."
+
+
+_STATIC_REPLIES = {
     "thanks": "Any time. Ask me anything else from the SOPs.",
-    "farewell": "Good shift.",
     "capability": _CAPABILITY,
     "identity": (
         "I am an assistant running on the plant's own documents. "
         f"{_CAPABILITY}"
     ),
 }
+
+
+def _reply_for(intent: str, now: datetime | None = None) -> str:
+    if intent == "greeting":
+        return _greeting_reply(now)
+    if intent == "farewell":
+        return _farewell_reply(now)
+    return _STATIC_REPLIES[intent]
 
 # Suggestions are worth showing when the user is oriented and looking for a
 # starting point, and noise when they are signing off.
@@ -115,8 +146,12 @@ def _normalise(query: str) -> str:
     return re.sub(r"\s+", " ", text)
 
 
-def match(query: str) -> ConversationTurn | None:
-    """Return a conversational turn, or None to fall through to retrieval."""
+def match(query: str, now: datetime | None = None) -> ConversationTurn | None:
+    """Return a conversational turn, or None to fall through to retrieval.
+
+    `now` is injectable so the time-of-day greeting can be tested without
+    waiting for the afternoon.
+    """
     text = _normalise(query)
     if not text or len(text.split()) > _MAX_WORDS:
         return None
@@ -125,7 +160,7 @@ def match(query: str) -> ConversationTurn | None:
         if pattern.match(text):
             return ConversationTurn(
                 intent=intent,
-                reply=_REPLIES[intent],
+                reply=_reply_for(intent, now),
                 suggestions=EXAMPLE_QUESTIONS if intent in _WITH_SUGGESTIONS else [],
             )
     return None

@@ -26,10 +26,11 @@ from app.schemas import (
     ExplainStep,
     SearchRequest,
     SearchResponse,
+    SopDocument,
     SOPResult,
 )
 from app.services import conversation
-from app.services.knowledge_base import INCLUDE_GET, get_knowledge_base
+from app.services.knowledge_base import INCLUDE_GET, get_knowledge_base, read_sop
 
 # No prefix here - main.py applies /api to every router uniformly.
 router = APIRouter(tags=["search"])
@@ -90,6 +91,15 @@ def search_sops(payload: SearchRequest) -> SearchResponse:
         ],
         fallback_message=None,
     )
+
+
+@router.get("/sops/{doc_id}", response_model=SopDocument)
+def get_sop(doc_id: str) -> SopDocument:
+    """The full document behind a result, for the in-app viewer."""
+    doc = read_sop(doc_id)
+    if doc is None:
+        raise HTTPException(status_code=404, detail=f"No SOP {doc_id}")
+    return SopDocument(**doc)
 
 
 @router.post("/explain", response_model=ExplainResponse)

@@ -1,20 +1,20 @@
 import { useState, type FormEvent } from 'react'
-import { ChevronDown, FileText, Loader2, Search, Sparkles, X } from 'lucide-react'
+import { BookOpen, ChevronDown, FileText, Loader2, Search, X } from 'lucide-react'
 import { api } from '../api/client'
-import type { ExplainResponse, SearchResponse, SopResult } from '../api/types'
+import type { SearchResponse, SopDocument, SopResult } from '../api/types'
+import SopViewer from '../components/SopViewer'
 import { Button } from '../components/ui/Button'
 import { Input } from '../components/ui/Input'
 import { SkeletonLines } from '../components/ui/Skeleton'
 import { cn } from '../lib/cn'
 
 /**
- * Persistent ask bar -> POST /api/search, then POST /api/explain. Documents
- * only (CLAUDE.md rule 8).
+ * Persistent ask bar -> POST /api/search. Documents only (CLAUDE.md rule 8).
  *
- * Two steps on purpose. Retrieval runs first and has no model in it, so SOP
- * sections appear almost instantly; the model is only invoked when the user
- * expands a section and asks for it. That keeps the slow, failure-prone part
- * opt-in, and it never blocks the first result.
+ * No model runs on this path at all. Retrieval returns the matching sections,
+ * and "View in SOP-00X" opens the source document from disk. An earlier
+ * "Explain step by step" button re-summarised text already on screen, which
+ * cost 3 seconds and added nothing.
  *
  * Fixed to the bottom of the viewport and rendered by the layout, so it
  * survives both scrolling and screen changes. It floats as a self-contained
@@ -34,10 +34,14 @@ export default function AskBar() {
   const [reply, setReply] = useState<string | null>(null)
   const [suggestions, setSuggestions] = useState<string[]>([])
   const [fallback, setFallback] = useState<string | null>(null)
-  const [explanation, setExplanation] = useState<ExplainResponse | null>(null)
   const [expandedId, setExpandedId] = useState<string | null>(null)
   const [searching, setSearching] = useState(false)
-  const [explaining, setExplaining] = useState(false)
+
+  // In-app document view. `viewing` holds the section to scroll to; the
+  // document itself is cached so reopening the same SOP is instant.
+  const [viewing, setViewing] = useState<{ docId: string; section: string } | null>(null)
+  const [doc, setDoc] = useState<SopDocument | null>(null)
+  const [loadingDoc, setLoadingDoc] = useState(false)
 
   // Two, not three: the backend's floor is two characters so that "hi" and
   // "yo" reach the conversational shell.
@@ -49,7 +53,6 @@ export default function AskBar() {
     if (q.length < 2) return
 
     setSearching(true)
-    setExplanation(null)
     setExpandedId(null)
     setFallback(null)
     setReply(null)
@@ -77,21 +80,24 @@ export default function AskBar() {
     void runSearch(query)
   }
 
-  /** Chips put their text in the box first, so the query the user "asked" is
-   *  the one /api/explain later receives. */
+  /** Chips put their text in the box, so the input reflects what was asked. */
   function onSuggestion(text: string) {
     setQuery(text)
     void runSearch(text)
   }
 
-  async function onExplain(sopIds: string[]) {
-    setExplaining(true)
+  async function onView(docId: string, section: string) {
+    setViewing({ docId, section })
+    if (doc?.docId === docId) return // already loaded; the effect re-scrolls
+    setLoadingDoc(true)
+    setDoc(null)
     try {
-      setExplanation(await api.explain(query.trim(), sopIds))
+      setDoc(await api.sop(docId))
     } catch (err) {
-      console.error('[askbar] explain failed:', err)
+      console.error('[askbar] document load failed:', err)
+      setViewing(null)
     } finally {
-      setExplaining(false)
+      setLoadingDoc(false)
     }
   }
 
@@ -101,17 +107,24 @@ export default function AskBar() {
     setReply(null)
     setSuggestions([])
     setFallback(null)
-    setExplanation(null)
     setExpandedId(null)
+    setViewing(null)
   }
 
-  const open = searching || results !== null
+  const open = searching || results !== null || viewing !== null
 
   return (
     <div className="fixed bottom-6 left-1/2 z-50 w-[min(100%-2rem,42rem)] -translate-x-1/2">
       {open && (
         <div className="glass-bar relative mb-2 max-h-[45vh] overflow-y-auto rounded-2xl border border-line p-4">
-          {searching ? (
+          {viewing ? (
+            <SopViewer
+              doc={doc}
+              section={viewing.section}
+              loading={loadingDoc}
+              onBack={() => setViewing(null)}
+            />
+          ) : searching ? (
             <SkeletonLines lines={2} />
           ) : (
             <>
@@ -125,13 +138,14 @@ export default function AskBar() {
                         aria-expanded={expandedId === r.id}
                         className="flex w-full cursor-pointer items-start justify-between gap-3 p-3 text-left transition-colors duration-150 hover:bg-white/5 focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none"
                       >
-                        <span className="min-w-0">
-                          <span className="flex flex-wrap items-center gap-2">
-                            <FileText size={12} className="shrink-0 text-accent" aria-hidden />
-                            <span className="data-figure text-[12px] text-accent">{r.docId}</span>
-                            <span className="text-xs text-hi">{r.title}</span>
-                          </span>
-                          <span className="mt-0.5 block text-[12px] text-faint">{r.section}</span>
+                        {/* Document id and section on one line. Summarising a
+                            single SOP returns several of its sections, and
+                            repeating the document title on every row said
+                            nothing — the section is the part that differs. */}
+                        <span className="flex min-w-0 flex-wrap items-center gap-2">
+                          <FileText size={12} className="shrink-0 text-accent" aria-hidden />
+                          <span className="data-figure text-[12px] text-accent">{r.docId}</span>
+                          <span className="text-xs text-hi">{r.section}</span>
                         </span>
                         <ChevronDown
                           size={14}
@@ -148,70 +162,30 @@ export default function AskBar() {
                           <p className="text-[12px] leading-relaxed whitespace-pre-line text-muted">
                             {r.content}
                           </p>
+                          {/* The section text is already on screen above, so
+                              re-explaining it added a slow model call for no
+                              new information. Opening the source document is
+                              the thing a supervisor actually wants next. */}
                           <Button
                             type="button"
                             size="sm"
                             variant="outline"
-                            onClick={() => onExplain([r.id])}
-                            disabled={explaining}
+                            onClick={() => onView(r.docId, r.section)}
+                            disabled={loadingDoc}
                             className="mt-3"
                           >
-                            {explaining ? (
+                            {loadingDoc ? (
                               <Loader2 size={13} className="animate-spin" aria-hidden />
                             ) : (
-                              <Sparkles size={13} aria-hidden />
+                              <BookOpen size={13} aria-hidden />
                             )}
-                            Explain step by step
+                            View in {r.docId}
                           </Button>
                         </div>
                       )}
                     </li>
                   ))}
                 </ul>
-              )}
-
-              {/* Generated. Sources always render; everything above them may be
-                  null if the model failed, and the SOP text is unaffected. */}
-              {explanation && (
-                <div className="mt-3 rounded-r-lg border-l-2 border-accent bg-white/[0.05] p-4 shadow-glow">
-                  {explanation.explanation ? (
-                    <>
-                      <p className="text-sm leading-relaxed text-hi">{explanation.explanation}</p>
-
-                      {explanation.steps && (
-                        <ol className="mt-3 space-y-1.5">
-                          {explanation.steps.map((step, i) => (
-                            <li key={i} className="flex gap-2.5 text-xs leading-relaxed">
-                              <span className="data-figure shrink-0 text-accent">{i + 1}.</span>
-                              <span>
-                                <span className="text-hi">{step.action}</span>
-                                <span className="text-muted"> — {step.why}</span>
-                              </span>
-                            </li>
-                          ))}
-                        </ol>
-                      )}
-
-                      {explanation.commonMistake && (
-                        <p className="mt-3 border-t border-line pt-3 text-xs leading-relaxed text-muted">
-                          <span className="text-error">Common mistake: </span>
-                          {explanation.commonMistake}
-                        </p>
-                      )}
-                    </>
-                  ) : (
-                    <p className="text-xs text-muted">
-                      Explanation unavailable. The SOP text above is unchanged.
-                    </p>
-                  )}
-
-                  <p className="mt-3 text-[12px] text-faint">
-                    Sources: {explanation.sources.join(', ')}
-                    {explanation.estimatedMinutes !== null && (
-                      <> · est. {explanation.estimatedMinutes} min</>
-                    )}
-                  </p>
-                </div>
               )}
 
               {/* Conversational turn — a greeting or "what can you do".
