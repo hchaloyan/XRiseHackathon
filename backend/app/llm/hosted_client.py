@@ -16,6 +16,7 @@ Groq, Together, a teammate's vLLM server). Set in backend/.env:
 from __future__ import annotations
 
 import json
+from typing import Any
 
 import httpx
 
@@ -36,8 +37,10 @@ class HostedClient(LLMClient):
                 "and endpoints will degrade to computed-only."
             )
 
-    def _payload(self, prompt: str, schema: dict, max_tokens: int, mode: str) -> dict:
-        payload: dict = {
+    def _payload(
+        self, prompt: str, schema: dict[str, Any], max_tokens: int, mode: str
+    ) -> dict[str, Any]:
+        payload: dict[str, Any] = {
             "model": self.model,
             "messages": [{"role": "user", "content": prompt}],
             "temperature": 0.2,
@@ -66,8 +69,8 @@ class HostedClient(LLMClient):
         return payload
 
     def complete(
-        self, prompt: str, schema: dict, timeout: int = 30, max_tokens: int = 450
-    ) -> dict | None:
+        self, prompt: str, schema: dict[str, Any], timeout: int = 30, max_tokens: int = 450
+    ) -> dict[str, Any] | None:
         body = None
         for mode in ("json_schema", "json_object"):
             try:

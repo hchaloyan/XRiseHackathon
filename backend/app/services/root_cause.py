@@ -9,6 +9,7 @@ nothing in front of manufacturing judges.
 from __future__ import annotations
 
 from datetime import timedelta
+from typing import Any
 
 import pandas as pd
 
@@ -47,7 +48,7 @@ SOP_QUERIES = {
 }
 
 
-def _machine_row(machine_id: str) -> dict:
+def _machine_row(machine_id: str) -> dict[str, Any]:
     machines = load()["machines"].set_index("machine_id")
     row = machines.loc[machine_id]
     return {
@@ -59,7 +60,7 @@ def _machine_row(machine_id: str) -> dict:
     }
 
 
-def find_event(event_id: str) -> dict | None:
+def find_event(event_id: str) -> dict[str, Any] | None:
     """Locate a downtime or quality event by id and normalise its shape."""
     frames = load()
 
@@ -102,7 +103,7 @@ def find_event(event_id: str) -> dict | None:
     return None
 
 
-def _history(event: dict) -> dict:
+def _history(event: dict[str, Any]) -> dict[str, Any]:
     """How often has this happened before, on this machine and this line?"""
     frames = load()
     machines = frames["machines"][["machine_id", "line", "machine_type"]]
@@ -145,7 +146,7 @@ def _history(event: dict) -> dict:
     }
 
 
-def _nearby(event: dict) -> dict:
+def _nearby(event: dict[str, Any]) -> dict[str, Any]:
     """Other events on the same machine or line within +/- WINDOW.
 
     This is where the interesting correlations live: a MATERIAL_STARVE an
@@ -203,7 +204,7 @@ def _nearby(event: dict) -> dict:
     }
 
 
-def _shift_context(event: dict) -> dict:
+def _shift_context(event: dict[str, Any]) -> dict[str, Any]:
     """What the machine's day looked like around the event."""
     frames = load()
     day = event["day"]
@@ -237,7 +238,7 @@ def _shift_context(event: dict) -> dict:
     }
 
 
-def _inventory_context(event: dict) -> dict | None:
+def _inventory_context(event: dict[str, Any]) -> dict[str, Any] | None:
     """Only relevant for starvation, but cheap enough to always compute."""
     frames = load()
     items = frames["inventory"]
@@ -264,14 +265,14 @@ def _inventory_context(event: dict) -> dict | None:
     }
 
 
-def sop_query(event: dict) -> str:
+def sop_query(event: dict[str, Any]) -> str:
     """Deterministic retrieval terms for this event's SOP citations."""
     key = event["reason_code"] or event["defect_type"] or ""
     base = SOP_QUERIES.get(key, key.replace("_", " ").lower())
     return f"{base} {event['machine_type']}".strip()
 
 
-def assemble(event_id: str) -> dict | None:
+def assemble(event_id: str) -> dict[str, Any] | None:
     """All evidence for one event. Pure pandas - no model has run yet."""
     event = find_event(event_id)
     if event is None:

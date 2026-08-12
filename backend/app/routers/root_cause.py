@@ -8,6 +8,7 @@ facts and documents; it produces ordering and prose.
 from __future__ import annotations
 
 import time
+from typing import Any
 
 from fastapi import APIRouter, HTTPException
 
@@ -20,6 +21,7 @@ from app.schemas import (
     Hypothesis,
     RootCauseRequest,
     RootCauseResponse,
+    Severity,
     SopCitation,
 )
 from app.services import root_cause as rc
@@ -44,7 +46,7 @@ _cache: dict[str, RootCauseResponse] = {}
 WARM_EVENTS = 3
 
 
-def _evidence_items(bundle: dict) -> list[Evidence]:
+def _evidence_items(bundle: dict[str, Any]) -> list[Evidence]:
     """Flatten the assembled evidence into display rows.
 
     `label` is what the model quotes in supporting_evidence, so labels are
@@ -136,7 +138,7 @@ def _evidence_items(bundle: dict) -> list[Evidence]:
     return items
 
 
-def _event_text(event: dict) -> str:
+def _event_text(event: dict[str, Any]) -> str:
     parts = [
         f"Event {event['event_id']} ({event['kind']}) on {event['machine_id']} "
         f"{event['name']}, a {event['machine_type']} machine on the {event['line']} line",
@@ -169,7 +171,7 @@ def analyze_root_cause(payload: RootCauseRequest, refresh: bool = False) -> Root
 
     # Retrieve SOP sections deterministically from the reason code / defect
     # type, not from the operator's phrasing. Retrieval failures are not fatal.
-    chunks: list[dict] = []
+    chunks: list[dict[str, Any]] = []
     try:
         chunks = get_knowledge_base().search(rc.sop_query(event), top_k=SOP_CHUNKS)
     except Exception as exc:
@@ -234,15 +236,17 @@ def analyze_root_cause(payload: RootCauseRequest, refresh: bool = False) -> Root
         return response  # evidence and citations still render
 
     known_labels = {e.label for e in evidence}
-    raw = result.get("hypotheses") or []
+    raw: list[dict[str, Any]] = result.get("hypotheses") or []
+
+    def _confidence(h: dict[str, Any]) -> Severity:
+        value = h.get("confidence")
+        return value if value in ("high", "medium", "low") else "low"
+
     hypotheses = [
         Hypothesis(
             rank=int(h.get("rank") or i),
             cause=str(h.get("cause", "")),
-            confidence=(
-                h.get("confidence") if h.get("confidence") in ("high", "medium", "low")
-                else "low"
-            ),
+            confidence=_confidence(h),
             reasoning=str(h.get("reasoning", "")),
             # Drop invented labels - the UI highlights these against the
             # evidence list, and a label that matches nothing highlights nothing.
@@ -276,7 +280,7 @@ def warm(day=None, limit: int = WARM_EVENTS) -> None:
 
         events = kpi_engine.events(day or kpi_engine.latest_day())
 
-        def weight(event: dict) -> float:
+        def weight(event: dict[str, Any]) -> float:
             if event["kind"] == "downtime":
                 # Planned maintenance is the one stoppage nobody investigates -
                 # it is on the schedule. Ranking by raw minutes put a 87-minute

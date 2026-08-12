@@ -13,6 +13,7 @@ classic way to put a wrong number on stage.
 """
 
 from datetime import date, timedelta
+from typing import Any, cast
 
 import numpy as np
 import pandas as pd
@@ -100,7 +101,7 @@ def trend() -> list[dict]:
     ]
 
 
-def events(day: date) -> list[dict]:
+def events(day: date) -> list[dict[str, Any]]:
     """Downtime + quality rows for one day, newest first. Each is expandable
     into root cause on the frontend (rule 7), so both kinds share one shape."""
     frames = load()
@@ -123,13 +124,13 @@ def events(day: date) -> list[dict]:
          "start": r.start, "shift": r.shift,
          "duration_minutes": round(r.duration_minutes, 1), "reason_code": r.reason_code,
          "operator_note": r.operator_note, "defect_type": None, "defect_count": None}
-        for r in downtime.itertuples()
+        for r in cast(Any, downtime.itertuples())
     ] + [
         {"event_id": r.event_id, "kind": "quality", **about(r.machine_id),
          "start": r.timestamp, "shift": r.shift,
          "duration_minutes": None, "reason_code": None, "operator_note": None,
          "defect_type": r.defect_type, "defect_count": int(r.count)}
-        for r in quality.itertuples()
+        for r in cast(Any, quality.itertuples())
     ]
     return sorted(rows, key=lambda r: r["start"], reverse=True)
 
@@ -217,7 +218,7 @@ def downtime_by_reason(day: date) -> list[dict]:
     return [
         {"reason_code": r.reason_code, "minutes": round(float(r.minutes), 1),
          "events": int(r.events)}
-        for r in grouped.itertuples()
+        for r in cast(Any, grouped.itertuples())
     ]
 
 
@@ -235,7 +236,7 @@ def defects_by_type(day: date) -> list[dict]:
     )
     return [
         {"defect_type": r.defect_type, "count": int(r.defect_count)}
-        for r in grouped.itertuples()
+        for r in cast(Any, grouped.itertuples())
     ]
 
 
