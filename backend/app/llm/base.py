@@ -10,6 +10,7 @@ minItems/maxItems - see spec 8.
 
 from abc import ABC, abstractmethod
 from pathlib import Path
+from typing import Any
 
 from app.config import settings
 
@@ -31,8 +32,8 @@ def render_prompt(template_name: str, **values: str) -> str:
 class LLMClient(ABC):
     @abstractmethod
     def complete(
-        self, prompt: str, schema: dict, timeout: int, max_tokens: int = 450
-    ) -> dict | None:
+        self, prompt: str, schema: dict[str, Any], timeout: int, max_tokens: int = 450
+    ) -> dict[str, Any] | None:
         """Return parsed JSON matching `schema`, or None on failure.
 
         Never raises for model-side problems. Returning None is what lets
