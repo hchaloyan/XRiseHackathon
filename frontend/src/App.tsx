@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, type MouseEvent as ReactMouseEvent } from 'react'
 import { Activity } from 'lucide-react'
 import { NavLink, Outlet, Route, Routes, useOutletContext } from 'react-router'
 import { api } from './api/client'
@@ -61,6 +61,35 @@ export default function App() {
   )
 }
 
+/**
+ * Windows restores a maximized window the moment its title bar is dragged, and
+ * pywebview's drag region only ever moves the window — so the restore is ours.
+ *
+ * It waits for real movement rather than firing on mousedown: a plain click on
+ * the bar, and the first half of the double-click that maximizes, must not
+ * resize the app. Nothing else changes — pywebview's own mousemove handler goes
+ * on placing the window under the cursor, at whatever size it now has.
+ */
+function restoreOnDrag(e: ReactMouseEvent) {
+  const { screenX, screenY } = e
+
+  const onMove = (move: MouseEvent) => {
+    if (Math.hypot(move.screenX - screenX, move.screenY - screenY) < 8) return
+    stop()
+    const chrome = window.pywebview?.api
+    // Asked rather than tracked: Aero Snap and Win+Up maximize without telling
+    // the page, and restoring an already-restored window would move it.
+    void chrome?.maximized().then((isMax) => isMax && chrome.maximize())
+  }
+  const stop = () => {
+    window.removeEventListener('mousemove', onMove)
+    window.removeEventListener('mouseup', stop)
+  }
+
+  window.addEventListener('mousemove', onMove)
+  window.addEventListener('mouseup', stop)
+}
+
 function Shell() {
   const { day, setDays } = useDay()
   // Every fetch below is keyed on `day`, so changing it in the picker — or in
@@ -107,6 +136,7 @@ function Shell() {
             reaches here. */}
         <div
           className="pywebview-drag-region absolute inset-0"
+          onMouseDown={restoreOnDrag}
           onDoubleClick={() => void window.pywebview?.api.maximize()}
         />
         <WindowControls className="absolute top-0 right-0 z-10" />
