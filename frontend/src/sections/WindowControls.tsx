@@ -58,17 +58,22 @@ export default function WindowControls({ className }: { className?: string }) {
 
   return (
     <div className={cn('flex', className)}>
-      <CaptionButton icon={Minus} label="Minimize" onClick={() => api.minimize()} />
+      <CaptionButton icon={Minus} halfPixel label="Minimize" onClick={() => api.minimize()} />
       {/* Two offset squares for restore, one for maximize — the Windows
           convention, and Lucide's Copy is exactly that glyph.
 
           `sharp` only while the square is showing. Copy's back square is an
           outline whose corners are curves baked into the path, so squaring off
           its front rect alone would leave one glyph rounded at one corner and
-          hard at the other. */}
+          hard at the other.
+
+          Mirrored, because Copy stacks its front square to the bottom-RIGHT
+          and Windows puts restore's front square to the bottom-left. Square is
+          symmetric, so the flip is only worth doing while Copy is showing. */}
       <CaptionButton
         icon={maximized ? Copy : Square}
         sharp={!maximized}
+        flip={maximized}
         label={maximized ? 'Restore' : 'Maximize'}
         onClick={() => api.maximize().then(setMaximized)}
       />
@@ -90,6 +95,8 @@ function CaptionButton({
   label,
   size = 14,
   sharp,
+  halfPixel,
+  flip,
   danger,
   onClick,
 }: {
@@ -98,6 +105,18 @@ function CaptionButton({
   size?: number
   /** Square off the glyph's corners. Every Lucide rect ships with rx=2. */
   sharp?: boolean
+  /** Shift the glyph half a pixel down its box.
+   *
+   *  Minus is one horizontal stroke at the exact centre of the 24-unit box, so
+   *  it renders at y=7.0 of a 14px glyph centred in a 44px button — a pixel
+   *  boundary. A 0.7px hairline landing there splits evenly across two rows and
+   *  each gets a third of the ink, which reads as a paler grey than the other
+   *  two glyphs rather than as a thinner line. Half a pixel down puts it inside
+   *  one row at full strength. Only for glyphs whose strokes land on integers;
+   *  Square's edges already fall between them, and X is diagonal. */
+  halfPixel?: boolean
+  /** Mirror the glyph left-to-right. */
+  flip?: boolean
   danger?: boolean
   onClick: () => void
 }) {
@@ -126,6 +145,8 @@ function CaptionButton({
           // rx is a real CSS property on SVG geometry in Chromium, so this
           // overrides the attribute Lucide bakes in — no forked icon needed.
           sharp && '[&_rect]:[rx:0]',
+          halfPixel && 'translate-y-[0.5px]',
+          flip && '-scale-x-100',
           !danger && 'group-hover:drop-shadow-[0_0_5px_var(--color-accent)]',
         )}
       />
