@@ -455,7 +455,7 @@ class KnowledgeBase:
                 break
         return results
 
-    def search(self, query: str, top_k: int | None = None) -> list[dict]:
+    def search(self, query: str, top_k: int | None = None) -> list[dict[str, Any]]:
         """Return the best-matching chunk per SOP, above the similarity floor.
 
         One result per document, most relevant section only. Empty list means
@@ -509,7 +509,7 @@ class KnowledgeBase:
             if distance > settings.max_match_distance:
                 continue
             meta = dict(metadatas[i] or {})
-            doc_id = meta.get("doc_id", chunk_id.split("#")[0])
+            doc_id = str(meta.get("doc_id", chunk_id.split("#")[0]))
             # Chroma returns ascending distance, so the first chunk seen from a
             # document is its best one.
             if doc_id in seen:

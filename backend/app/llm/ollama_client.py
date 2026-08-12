@@ -10,6 +10,7 @@ Contract notes (CLAUDE.md rules 2 and 3):
 from __future__ import annotations
 
 import json
+from typing import Any
 
 from ollama import Client as OllamaSDK
 
@@ -32,8 +33,8 @@ class OllamaClient(LLMClient):
         self.model = model or settings.llm_model
 
     def complete(
-        self, prompt: str, schema: dict, timeout: int = 30, max_tokens: int = 450
-    ) -> dict | None:
+        self, prompt: str, schema: dict[str, Any], timeout: int = 30, max_tokens: int = 450
+    ) -> dict[str, Any] | None:
         try:
             response = _client(timeout).chat(
                 model=self.model,
