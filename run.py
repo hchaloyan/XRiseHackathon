@@ -73,22 +73,33 @@ class _Chrome:
         self._window.destroy()
 
 
-def _make_resizable(window) -> None:
-    """Frameless costs the window its resize edges as well as its title bar:
-    WinForms sets FormBorderStyle.None, which drops WS_THICKFRAME, and every
-    edge then hit-tests as client area — the window is stuck at its start size.
+def _restore_window_styles(window) -> None:
+    """Frameless costs the window more than its title bar. WinForms sets
+    FormBorderStyle.None, which drops three style bits the shell reads, and the
+    window stops behaving like an application window in ways that have nothing
+    to do with how it is painted. All three go back on; none of them draws
+    anything, because there is no caption for Windows to draw into.
 
-    Putting that one style bit back is most of the fix. Windows draws the resize
-    zones, the sizing cursors and Aero Snap off it, none of which a CSS grip
-    inside the page could offer, and the content still hit-tests as client so
-    the drag strip and caption buttons are untouched.
+    WS_THICKFRAME is the resize edges. Without it every edge hit-tests as client
+    area and the window is stuck at its start size. Windows draws the resize
+    zones, the sizing cursors and Aero Snap off this bit, none of which a CSS
+    grip inside the page could offer, and the content still hit-tests as client
+    so the drag strip and caption buttons are untouched.
+
+    WS_MINIMIZEBOX is what the shell checks before it will minimize a window
+    from its taskbar button. Without it, clicking the button of an app that is
+    already up front just re-activates it instead of minimizing, which is the
+    one taskbar gesture every other window on the machine honours.
+
+    WS_MAXIMIZEBOX is the same story for the system menu — Alt+Space and the
+    taskbar button's right-click menu grey out Maximize without it.
 
     The bit costs a sizing frame. Left, right and bottom fall outside the
     visible window and cost nothing, but the top edge is painted, and painted
     directly above the app bar: a 7px band the page cannot reach. Colouring it
     to match the bar hid it at rest and not in motion — the close button's red
     hover stopped 7px short of the window's corner, which is the one place a
-    caption button is expected to run right into. `_reclaim_top_frame` below
+    caption button is expected to run right into. `_install_frame_handler` below
     gives that band back to the page.
     """
     if sys.platform != "win32":
@@ -98,16 +109,22 @@ def _make_resizable(window) -> None:
 
     user32 = ctypes.windll.user32
     hwnd = window.native.Handle.ToInt32()
-    GWL_STYLE, WS_THICKFRAME = -16, 0x00040000
+    GWL_STYLE = -16
+    WS_MAXIMIZEBOX, WS_MINIMIZEBOX, WS_THICKFRAME = 0x00010000, 0x00020000, 0x00040000
     # NOSIZE | NOMOVE | NOZORDER | FRAMECHANGED: recalculate the frame in place.
     SWP_FLAGS = 0x0001 | 0x0002 | 0x0004 | 0x0020
 
     user32.SetWindowLongW(
-        hwnd, GWL_STYLE, user32.GetWindowLongW(hwnd, GWL_STYLE) | WS_THICKFRAME
+        hwnd,
+        GWL_STYLE,
+        user32.GetWindowLongW(hwnd, GWL_STYLE)
+        | WS_THICKFRAME
+        | WS_MINIMIZEBOX
+        | WS_MAXIMIZEBOX,
     )
     # Before the SetWindowPos below, so the frame recalculation it forces is
     # already running through our handler.
-    _reclaim_top_frame(hwnd)
+    _install_frame_handler(hwnd)
     user32.SetWindowPos(hwnd, 0, 0, 0, 0, 0, SWP_FLAGS)
 
     # BORDER_COLOR is the 1px outline around the whole window. It takes the app
@@ -130,9 +147,17 @@ def _make_resizable(window) -> None:
 _WNDPROC_REF = None
 
 
-def _reclaim_top_frame(hwnd: int) -> None:
-    """Extend the client area over the top sizing frame, so the page reaches the
-    window's real top edge.
+def _install_frame_handler(hwnd: int) -> None:
+    """Answer the two frame messages WinForms gets wrong for a frameless window.
+
+    WM_GETMINMAXINFO — where a window states how large it may maximize. The
+    default for a borderless window is the whole monitor, taskbar included,
+    which is fullscreen behaviour on a button that only says maximize. Answered
+    with the monitor's work area instead, read fresh each time so the window
+    still does the right thing after being dragged to a second screen.
+
+    WM_NCCALCSIZE — extend the client area over the top sizing frame, so the
+    page reaches the window's real top edge.
 
     WM_NCCALCSIZE is where a window is asked how much of itself is frame. Let
     the stock handler answer, then push the top back to where it started: the
@@ -156,7 +181,9 @@ def _reclaim_top_frame(hwnd: int) -> None:
     import ctypes
 
     user32 = ctypes.windll.user32
-    GWLP_WNDPROC, WM_NCCALCSIZE = -4, 0x0083
+    GWLP_WNDPROC, WM_NCCALCSIZE, WM_GETMINMAXINFO = -4, 0x0083, 0x0024
+    MONITOR_DEFAULTTONEAREST = 2
+    SM_CXSIZEFRAME, SM_CYSIZEFRAME, SM_CXPADDEDBORDER = 32, 33, 92
 
     class RECT(ctypes.Structure):
         _fields_ = [
@@ -168,6 +195,26 @@ def _reclaim_top_frame(hwnd: int) -> None:
 
     class NCCALCSIZE_PARAMS(ctypes.Structure):
         _fields_ = [("rgrc", RECT * 3), ("lppos", ctypes.c_void_p)]
+
+    class POINT(ctypes.Structure):
+        _fields_ = [("x", ctypes.c_long), ("y", ctypes.c_long)]
+
+    class MINMAXINFO(ctypes.Structure):
+        _fields_ = [
+            ("ptReserved", POINT),
+            ("ptMaxSize", POINT),
+            ("ptMaxPosition", POINT),
+            ("ptMinTrackSize", POINT),
+            ("ptMaxTrackSize", POINT),
+        ]
+
+    class MONITORINFO(ctypes.Structure):
+        _fields_ = [
+            ("cbSize", ctypes.c_ulong),
+            ("rcMonitor", RECT),
+            ("rcWork", RECT),
+            ("dwFlags", ctypes.c_ulong),
+        ]
 
     LRESULT = ctypes.c_ssize_t
     WNDPROC = ctypes.WINFUNCTYPE(
@@ -196,6 +243,13 @@ def _reclaim_top_frame(hwnd: int) -> None:
             LRESULT,
         ),
         (user32.IsZoomed, [ctypes.c_void_p], ctypes.c_bool),
+        (
+            user32.MonitorFromWindow,
+            [ctypes.c_void_p, ctypes.c_ulong],
+            ctypes.c_void_p,
+        ),
+        (user32.GetMonitorInfoW, [ctypes.c_void_p, ctypes.c_void_p], ctypes.c_bool),
+        (user32.GetSystemMetrics, [ctypes.c_int], ctypes.c_int),
     ):
         fn.argtypes, fn.restype = argtypes, restype
 
@@ -205,6 +259,31 @@ def _reclaim_top_frame(hwnd: int) -> None:
 
     def proc(window_handle, message, wparam, lparam):
         try:
+            if message == WM_GETMINMAXINFO:
+                monitor = user32.MonitorFromWindow(window_handle, MONITOR_DEFAULTTONEAREST)
+                info = MONITORINFO()
+                info.cbSize = ctypes.sizeof(MONITORINFO)
+                if user32.GetMonitorInfoW(monitor, ctypes.byref(info)):
+                    work, screen = info.rcWork, info.rcMonitor
+                    # Reproduce what Windows does for a normal thick-framed
+                    # window: overhang the target by the frame on every side so
+                    # the CLIENT lands flush on it, borders off-screen. Without
+                    # this the frame is inset instead and a few pixels of
+                    # desktop show through down each edge.
+                    pad_x = user32.GetSystemMetrics(SM_CXSIZEFRAME) + user32.GetSystemMetrics(
+                        SM_CXPADDEDBORDER
+                    )
+                    pad_y = user32.GetSystemMetrics(SM_CYSIZEFRAME) + user32.GetSystemMetrics(
+                        SM_CXPADDEDBORDER
+                    )
+                    mmi = MINMAXINFO.from_address(lparam)
+                    # ptMaxPosition is relative to the monitor, not the desktop.
+                    mmi.ptMaxPosition.x = work.left - screen.left - pad_x
+                    mmi.ptMaxPosition.y = work.top - screen.top - pad_y
+                    mmi.ptMaxSize.x = (work.right - work.left) + pad_x * 2
+                    mmi.ptMaxSize.y = (work.bottom - work.top) + pad_y * 2
+                    return 0
+
             if message == WM_NCCALCSIZE and wparam and not user32.IsZoomed(window_handle):
                 params = NCCALCSIZE_PARAMS.from_address(lparam)
                 top = params.rgrc[0].top
@@ -305,12 +384,12 @@ def main() -> None:
 
     window.events.maximized += announce_state
     window.events.restored += announce_state
-    # Not webview.start(_make_resizable, window): that runs the moment the GUI
-    # loop starts, which is before the form exists and `window.native` is still
-    # None. `shown` is the first point there is a handle to restyle. It hands
-    # the window over because the parameter is named `window` — pywebview reads
-    # the handler's signature to decide what to pass it.
-    window.events.shown += _make_resizable
+    # Not webview.start(_restore_window_styles, window): that runs the moment
+    # the GUI loop starts, which is before the form exists and `window.native`
+    # is still None. `shown` is the first point there is a handle to restyle. It
+    # hands the window over because the parameter is named `window` — pywebview
+    # reads the handler's signature to decide what to pass it.
+    window.events.shown += _restore_window_styles
 
     # Taskbar icon. Without this the winforms backend falls back to extracting
     # one from sys.executable, i.e. the app shows up as the Python logo. The
