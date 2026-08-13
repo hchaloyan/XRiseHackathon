@@ -1,7 +1,8 @@
-import { useEffect, useState } from 'react'
-import { AlertTriangle, Info, Loader2, Sparkles, TrendingDown } from 'lucide-react'
+import { useEffect, useRef, useState } from 'react'
+import { AlertTriangle, FileText, Info, Loader2, Sparkles, TrendingDown } from 'lucide-react'
 import { api } from '../api/client'
-import type { Callout, InsightResponse, Severity } from '../api/types'
+import type { Callout, InsightResponse, KpiResponse, Severity } from '../api/types'
+import ReportDialog from '../components/ReportDialog'
 import { Badge } from '../components/ui/Badge'
 import { Button } from '../components/ui/Button'
 import { Card, CardLabel } from '../components/ui/Card'
@@ -35,26 +36,61 @@ const SEVERITY_COLOR: Record<Severity, string> = {
 export default function InsightHeader({
   className,
   day,
+  kpis,
 }: {
   className?: string
   /** ISO date, or null for the newest day. */
   day?: string | null
+  /** Already loaded by the shell; the report dialog renders from it rather
+   *  than fetching the same snapshot a second time. */
+  kpis?: KpiResponse | null
 }) {
+  const [reportOpen, setReportOpen] = useState(false)
   const [data, setData] = useState<InsightResponse | null>(null)
   const [loading, setLoading] = useState(false)
 
+  /**
+   * The day the in-flight request belongs to.
+   *
+   * Generation takes ~10s uncached, which is long enough to change the date
+   * halfway through, and that used to break in two ways at once: `loading`
+   * was never cleared, so the button stayed disabled and the new day could
+   * not be generated at all; and when the old reply finally landed it was
+   * written over whichever day was now on screen — Thursday's narrative
+   * above Wednesday's events, with nothing to indicate it.
+   *
+   * A ref, not state: the resolving request must read the day as it is NOW,
+   * not the value captured when the closure was created.
+   */
+  const wantedDay = useRef<string | null | undefined>(day)
+
   // A briefing belongs to the day it was generated for: moving the picker
   // clears it rather than leaving Thursday's narrative over Wednesday's events.
-  useEffect(() => setData(null), [day])
+  useEffect(() => {
+    wantedDay.current = day
+    setData(null)
+    setReportOpen(false)
+    // Abandon any in-flight request. Its reply is now for a day nobody is
+    // looking at, and leaving this true is what jammed the button.
+    setLoading(false)
+  }, [day])
 
   async function generate() {
+    const requested = day
     setLoading(true)
     try {
-      setData(await api.insights(day))
+      const result = await api.insights(requested)
+      // Landed after the user moved on: drop it rather than render the wrong
+      // day's briefing. The backend caches by day, so nothing is wasted —
+      // coming back to this date returns instantly.
+      if (wantedDay.current !== requested) return
+      setData(result)
     } finally {
-      // api.insights falls back to the fixture rather than throwing, so there
-      // is no failure branch to render — only a spinner to put away.
-      setLoading(false)
+      if (wantedDay.current === requested) {
+        // api.insights falls back to the fixture rather than throwing, so
+        // there is no failure branch to render — only a spinner to put away.
+        setLoading(false)
+      }
     }
   }
 
@@ -113,7 +149,24 @@ export default function InsightHeader({
               ))}
             </ul>
           )}
+
+          {/* The summary is the answer; the report is the working behind it.
+              Offered after reading, not instead of it — and it opens instantly,
+              because everything in it is already computed and on the client. */}
+          <Button variant="outline" onClick={() => setReportOpen(true)} className="mt-5 self-start">
+            <FileText size={15} aria-hidden />
+            View full report
+          </Button>
         </>
+      )}
+
+      {reportOpen && (
+        <ReportDialog
+          day={day ?? null}
+          kpis={kpis ?? null}
+          insight={data}
+          onClose={() => setReportOpen(false)}
+        />
       )}
     </Card>
   )
