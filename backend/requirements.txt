@@ -11,3 +11,5 @@ pywebview>=5.0   # native window for run.py; uses the OS webview, bundles nothin
 pypdf>=5.0          # PDF text extraction for uploaded documents
 python-docx>=1.1    # .docx text extraction
 python-multipart>=0.0.9  # FastAPI needs this to parse file uploads
+reportlab>=4.0      # shift report PDF
+openpyxl>=3.1       # shift report Excel

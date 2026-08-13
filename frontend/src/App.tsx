@@ -243,7 +243,7 @@ function BriefingScreen() {
           ) : '—'}. Showing the most recent shift on file.
         </p>
       )}
-      <InsightHeader day={day} />
+      <InsightHeader day={day} kpis={kpis} />
       <EventTable events={kpis?.events ?? []} loading={loading} />
     </div>
   )
