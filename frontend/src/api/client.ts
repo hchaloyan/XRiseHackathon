@@ -145,4 +145,11 @@ export const api = {
   /** A plain href — downloads must survive a right-click, not need JS. */
   documentDownloadUrl: (docId: string) =>
     `${BASE_URL}/api/documents/${encodeURIComponent(docId)}/download`,
+
+  /**
+   * Shift report download. Also a plain href, for the same reason.
+   * `format` is pdf | xlsx | mis. Omitting the day exports the newest.
+   */
+  reportUrl: (format: string, day?: string | null) =>
+    `${BASE_URL}/api/report?format=${format}${day ? `&day=${day}` : ''}`,
 }
