@@ -256,6 +256,16 @@ def main() -> None:
     # which will not render this app; `--browser` is the escape hatch.
     import webview
 
+    # The taskbar groups buttons by AppUserModelID, and a process hosted by
+    # python.exe inherits Python's — so the button shows the Python icon no
+    # matter what the window's own icon is set to. Claiming an ID of our own
+    # detaches the button and lets it use the window icon. Has to happen before
+    # the window exists; after, the button is already grouped.
+    if sys.platform == "win32":
+        import ctypes
+
+        ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID("mfgx.ai.app")
+
     chrome = _Chrome()
     window = webview.create_window(
         "MFGX AI",
@@ -302,7 +312,12 @@ def main() -> None:
     # the handler's signature to decide what to pass it.
     window.events.shown += _make_resizable
 
-    webview.start()
+    # Taskbar icon. Without this the winforms backend falls back to extracting
+    # one from sys.executable, i.e. the app shows up as the Python logo. The
+    # window is frameless so this never appears in a title bar — taskbar and
+    # Alt-Tab are the whole point. Absolute, because main() already chdir'd
+    # into backend/. Regenerate with `python make_icon.py`.
+    webview.start(icon=str(ROOT / "frontend" / "public" / "favicon.ico"))
 
 
 if __name__ == "__main__":
