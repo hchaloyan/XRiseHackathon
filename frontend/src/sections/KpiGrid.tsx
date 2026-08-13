@@ -15,8 +15,10 @@ import { deltaVsMean, minutes, pct } from '../lib/format'
  */
 
 /** Recharts takes SVG attributes, not classes — this is the one place the
- *  accent token has to be repeated as a literal. Matches --color-accent. */
+ *  colour tokens have to be repeated as literals. Match index.css. */
 const ACCENT = '#C4A6FF'
+const POSITIVE = '#a5d6a7'
+const ERROR = '#cf6679'
 
 type MetricKey = 'oee' | 'availability' | 'scrapRate' | 'downtimeMinutes'
 
@@ -124,28 +126,40 @@ function MetricCard({
       )}
 
       <div className="mt-3 h-10">
-        <Sparkline data={kpis.trend} metricKey={metric.key} />
+        <Sparkline
+          data={kpis.trend}
+          metricKey={metric.key}
+          color={!delta || delta.direction === 'flat' ? ACCENT : improved ? POSITIVE : ERROR}
+        />
       </div>
     </Card>
   )
 }
 
-function Sparkline({ data, metricKey }: { data: TrendPoint[]; metricKey: MetricKey }) {
+function Sparkline({
+  data,
+  metricKey,
+  color,
+}: {
+  data: TrendPoint[]
+  metricKey: MetricKey
+  color: string
+}) {
   const gradientId = `spark-${metricKey}`
   return (
     <ResponsiveContainer width="100%" height="100%">
       <AreaChart data={data} margin={{ top: 2, right: 0, bottom: 0, left: 0 }}>
         <defs>
           <linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor={ACCENT} stopOpacity={0.18} />
-            <stop offset="100%" stopColor={ACCENT} stopOpacity={0} />
+            <stop offset="0%" stopColor={color} stopOpacity={0.18} />
+            <stop offset="100%" stopColor={color} stopOpacity={0} />
           </linearGradient>
         </defs>
         <YAxis hide domain={['dataMin', 'dataMax']} />
         <Area
           type="monotone"
           dataKey={metricKey}
-          stroke={ACCENT}
+          stroke={color}
           strokeWidth={1.5}
           fill={`url(#${gradientId})`}
           isAnimationActive={false}
