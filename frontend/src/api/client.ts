@@ -32,6 +32,91 @@ const BASE_URL = import.meta.env.VITE_API_BASE_URL ?? (import.meta.env.DEV ? 'ht
  */
 export const DEMO = import.meta.env.VITE_DEMO === '1'
 
+/**
+ * What the preview can and cannot do, in three honest tiers.
+ *
+ *   'live'        — really running, right now, in your browser. All of the
+ *                   arithmetic: KPIs, charts, the event table, inventory, and
+ *                   ask-bar summaries. Same code as the desktop app.
+ *   'recorded'    — a real model produced this, once, and it was committed to
+ *                   fixtures.json. It is genuine output, but it is a playback,
+ *                   not a generation. This is the tier that most needs saying
+ *                   out loud: it is indistinguishable from live unless labelled.
+ *   'unavailable' — needs a local model, a vector index or the file system, so
+ *                   the preview cannot do it at all.
+ *
+ * Everything that renders a caveat reads from here, so the banner and the
+ * inline badges cannot drift apart as the app keeps changing.
+ */
+export type DemoState = 'live' | 'recorded' | 'unavailable'
+
+export interface DemoCapability {
+  name: string
+  state: DemoState
+  note: string
+}
+
+export const DEMO_CAPABILITIES: DemoCapability[] = [
+  {
+    name: 'KPIs, charts, events, inventory',
+    state: 'live',
+    note: 'computed in the browser from committed plant data',
+  },
+  {
+    name: 'Ask-bar shift summaries',
+    state: 'live',
+    note: 'pure arithmetic, so it runs here exactly as it does in the app',
+  },
+  {
+    name: 'Briefing narrative and callouts',
+    state: 'recorded',
+    note: 'real model output, captured once and replayed',
+  },
+  {
+    name: 'Root cause on two sample rows',
+    state: 'recorded',
+    note: 'DT-0112 and QC-0071 only',
+  },
+  {
+    name: 'Root cause on every other row',
+    state: 'unavailable',
+    note: 'evidence still shows; the ranking needs the model',
+  },
+  {
+    name: 'SOP and document search',
+    state: 'unavailable',
+    note: 'needs the embedding model and vector index',
+  },
+  {
+    name: 'Document upload and exports',
+    state: 'unavailable',
+    note: 'needs the backend and its file system',
+  },
+]
+
+/**
+ * The inline wording, kept beside the map so the two are edited together.
+ * Deliberately plain: a judge should learn what is missing in one read, and
+ * should never suspect the app is quietly hiding something.
+ */
+export const DEMO_NOTES = {
+  briefing: 'Recorded model output, replayed. In the app this is generated live in about 10s.',
+  rootCause: 'Recorded analysis for this row, replayed. Generated live in the app.',
+  rootCauseMissing:
+    'The preview ships recorded analysis for two rows only (DT-0112 and QC-0071). ' +
+    'The evidence above is computed and real; ranking this row needs the local model.',
+  search: 'Document search is off in the preview: it needs the embedding model and vector index.',
+  document: 'The preview lists the corpus but cannot open document bodies — those live on disk.',
+  upload: 'Upload needs the backend, which no static host can provide.',
+  export: 'Exports are rendered by the backend, so they are disabled here.',
+} as const
+
+/**
+ * Rows that really do have recorded analysis. Read from the fixture itself so
+ * this can never claim a row the preview cannot actually show.
+ */
+export const DEMO_ROOT_CAUSE_IDS: string[] = Object.keys(fixtures.rootCause ?? {})
+
 /** Fixture-only response for the paths that have no canned data of their own. */
 function demoOnly<T>(value: T): Promise<T> {
   return Promise.resolve(value)
@@ -95,6 +180,11 @@ const DEMO_SOPS = [
   'Case Packer Jam Clearing and Label Recovery',
   'Finishing and Packaging Preventive Maintenance',
 ]
+
+/** SOP-001..SOP-015 -> title, so the viewer can name what it cannot open. */
+const DEMO_SOPS_BY_ID: Record<string, string> = Object.fromEntries(
+  DEMO_SOPS.map((title, i) => [`SOP-${String(i + 1).padStart(3, '0')}`, title]),
+)
 
 export const api = {
   /** Available days for the picker. No fixture: an empty list just disables
@@ -210,7 +300,23 @@ export const api = {
     post<ExplainResponse>('/api/explain', { query, sopIds }),
 
   /** The whole document behind a result. Read from disk, no model, no index. */
-  sop: (docId: string) => request<SopDocument>(`/api/sops/${encodeURIComponent(docId)}`),
+  sop: (docId: string) => {
+    if (DEMO) {
+      // Explain, rather than failing into "this document could not be opened",
+      // which reads as a bug rather than as a boundary of the preview.
+      return demoOnly<SopDocument>({
+        docId,
+        title: DEMO_SOPS_BY_ID[docId] ?? docId,
+        revision: '',
+        department: '',
+        markdown:
+          `**Not available in this preview.**\n\n${DEMO_NOTES.document}\n\n` +
+          `${docId} is one of 15 procedures the running app indexes, chunks and ` +
+          `cites by section. Clone the repo and start the desktop app to read it.`,
+      })
+    }
+    return request<SopDocument>(`/api/sops/${encodeURIComponent(docId)}`)
+  },
 
   documents: () => {
     if (DEMO) {

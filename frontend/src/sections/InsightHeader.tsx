@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
 import { AlertTriangle, FileText, Info, Loader2, Sparkles, TrendingDown } from 'lucide-react'
-import { api } from '../api/client'
+import { api, DEMO_NOTES } from '../api/client'
 import type { Callout, InsightResponse, KpiResponse, Severity } from '../api/types'
 import ReportDialog from '../components/ReportDialog'
 import { Badge } from '../components/ui/Badge'
+import PreviewTag from '../components/ui/PreviewTag'
 import { Button } from '../components/ui/Button'
 import { Card, CardLabel } from '../components/ui/Card'
 import { Skeleton, SkeletonLines } from '../components/ui/Skeleton'
@@ -122,6 +123,14 @@ export default function InsightHeader({
         </>
       ) : (
         <>
+          {/* Above the headline, not below it: in the preview this narrative is
+              a replay of one real generation, and it is otherwise
+              indistinguishable from the live thing. Renders nothing outside
+              the preview build. */}
+          <PreviewTag state="recorded" className="mt-3">
+            {DEMO_NOTES.briefing}
+          </PreviewTag>
+
           {/* The largest thing on the screen. Weight and size carry it —
               87% white, no gradient. */}
           {data.headline && (

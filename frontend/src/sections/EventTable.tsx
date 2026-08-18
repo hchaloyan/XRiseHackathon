@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { ChevronRight } from 'lucide-react'
+import { DEMO, DEMO_ROOT_CAUSE_IDS } from '../api/client'
 import type { EventRow } from '../api/types'
 import { Badge } from '../components/ui/Badge'
 import { Card, CardLabel } from '../components/ui/Card'
@@ -88,6 +89,17 @@ export default function EventTable({
         </div>
       </div>
 
+      {/* Without this a judge clicks a row at random, gets evidence with no
+          ranking, and concludes root cause is broken. Point at the two rows
+          that carry a recorded analysis instead. */}
+      {DEMO && (
+        <p className="mt-2 px-5 text-[11px] text-faint">
+          <span className="mr-1.5 inline-block h-1.5 w-1.5 rounded-full bg-accent align-middle" />
+          marks the {DEMO_ROOT_CAUSE_IDS.length} rows with a recorded root-cause analysis. Every
+          other row expands to real computed evidence, but the ranking needs the local model.
+        </p>
+      )}
+
       <div className={cn(COLS, 'label-caps mt-4 border-b border-white/5 px-5 pb-2')} aria-hidden>
         <span>Time</span>
         <span>Machine</span>
@@ -142,12 +154,18 @@ export default function EventTable({
                   <span className="ml-1.5 text-white/30">{event.shift}</span>
                 </span>
 
-                <span>
+                <span className="flex items-center gap-1.5">
                   {/* Uniform white: the reason is a label, not a severity, and
                       the filter above now carries the downtime/quality split. */}
                   <Badge className="text-hi">
                     {humanizeCode(event.reasonCode ?? event.defectType ?? '—')}
                   </Badge>
+                  {DEMO && DEMO_ROOT_CAUSE_IDS.includes(event.eventId) && (
+                    <span
+                      title="Recorded root-cause analysis available in this preview"
+                      className="h-1.5 w-1.5 shrink-0 rounded-full bg-accent"
+                    />
+                  )}
                 </span>
 
                 <span className="data-figure text-right text-xs text-accent">

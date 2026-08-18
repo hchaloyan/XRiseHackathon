@@ -5,9 +5,11 @@
 # models and a persistent vector index, none of which fit a static host. The
 # banner in the app says so, so nobody mistakes sample data for live data.
 #
-# Ask-bar summaries DO work in the preview: they are arithmetic over the same
-# fixture the dashboard draws, so client.ts computes them rather than faking
-# them. Retrieval and generation stay off, because faking those would be a lie.
+# Three states, all labelled in the UI from DEMO_CAPABILITIES in client.ts:
+# arithmetic (KPIs, charts, summaries) really runs; the briefing narrative and
+# two root-cause rows are real model output replayed from fixtures and are
+# badged as recordings; retrieval, upload and exports are off and their controls
+# are disabled. Nothing is faked and nothing fails silently.
 name: Deploy preview to Pages
 
 on:

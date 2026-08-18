@@ -1,7 +1,7 @@
 import { useEffect, type MouseEvent as ReactMouseEvent } from 'react'
 import { Activity } from 'lucide-react'
 import { NavLink, Outlet, Route, Routes, useOutletContext } from 'react-router'
-import { api, DEMO } from './api/client'
+import { api, DEMO, DEMO_CAPABILITIES } from './api/client'
 import type { KpiResponse } from './api/types'
 import DayPicker from './components/DayPicker'
 import ScrollOverlay from './components/ScrollOverlay'
@@ -203,17 +203,49 @@ function Shell() {
         </div>
       </header>
 
-      {/* Says what this is, once, at the top. A preview that looks live is
-          worse than no preview: every figure below is real committed sample
-          data, but nothing here is being generated. */}
+      {/* Says what this is, once, at the top.
+          A preview that looks live is worse than no preview. The hard case is
+          not the parts that are switched off — those are obvious — it is the
+          briefing narrative and the two root-cause rows, which replay real
+          recorded model output and are indistinguishable from a live
+          generation unless we say so. Hence three tiers rather than two, and
+          hence the inline badges further down the page for anyone who scrolls
+          straight past this. */}
       {DEMO && (
         <div className="border-b border-accent/30 bg-accent/10">
-          <p className="mx-auto max-w-7xl px-6 py-2 text-[12px] text-hi">
-            <span className="font-medium">Static preview.</span> Real data, real
-            calculations. Ask bar summaries work here because they are pure arithmetic; AI
-            generation and document search are switched off, since they need a local model
-            and a vector index. Clone and run it to see those live.
-          </p>
+          <div className="mx-auto max-w-7xl px-6 py-2.5">
+            <p className="text-[12px] text-hi">
+              <span className="font-medium">Static preview.</span> There is no backend behind
+              this page, so some of the app is running and some of it is a recording. Here is
+              exactly which is which.
+            </p>
+
+            <ul className="mt-2 flex flex-wrap gap-x-5 gap-y-1.5">
+              {DEMO_CAPABILITIES.map((c) => (
+                <li key={c.name} className="flex items-center gap-1.5 text-[11px]">
+                  <span
+                    aria-hidden
+                    className={cn(
+                      'h-1.5 w-1.5 shrink-0 rounded-full',
+                      c.state === 'live'
+                        ? 'bg-positive'
+                        : c.state === 'recorded'
+                          ? 'bg-accent'
+                          : 'bg-line',
+                    )}
+                  />
+                  <span className="text-hi">{c.name}</span>
+                  <span className="text-faint">— {c.note}</span>
+                </li>
+              ))}
+            </ul>
+
+            <p className="mt-2 text-[11px] text-faint">
+              Green is really executing in your browser. Amber is genuine model output captured
+              once and replayed. Grey needs a local model, a vector index or the file system.
+              Clone the repo and run the desktop app to see all of it live.
+            </p>
+          </div>
         </div>
       )}
 

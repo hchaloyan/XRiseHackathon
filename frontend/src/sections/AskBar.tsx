@@ -1,10 +1,11 @@
 import { useState, type FormEvent } from 'react'
 import { BarChart3, BookOpen, ChevronDown, ClipboardList, FileText, Loader2, Search, X } from 'lucide-react'
-import { api } from '../api/client'
+import { api, DEMO, DEMO_NOTES } from '../api/client'
 import type { SearchResponse, SopDocument, SopResult } from '../api/types'
 import SopViewer from '../components/SopViewer'
 import { Button } from '../components/ui/Button'
 import { Input } from '../components/ui/Input'
+import PreviewTag from '../components/ui/PreviewTag'
 import { SkeletonLines } from '../components/ui/Skeleton'
 import { cn } from '../lib/cn'
 import { useDay } from '../lib/day'
@@ -235,7 +236,15 @@ export default function AskBar() {
                   Matched by regex server-side, so this costs no model call
                   and returns in about a millisecond. */}
               {kind === 'conversation' && reply && (
-                <p className="pr-8 text-sm leading-relaxed text-hi">{reply}</p>
+                <>
+                  <p className="pr-8 text-sm leading-relaxed text-hi">{reply}</p>
+                  {/* Every non-summary query lands here in the preview, so this
+                      is where a judge learns retrieval is off rather than
+                      concluding the corpus is empty. */}
+                  <PreviewTag state="unavailable" className="mt-2.5 pr-8">
+                    {DEMO_NOTES.search}
+                  </PreviewTag>
+                </>
               )}
 
               {/* "What happened?" answered in the chat rather than pointed at.
@@ -255,6 +264,12 @@ export default function AskBar() {
                       </li>
                     ))}
                   </ul>
+                  {DEMO && (
+                    <p className="mt-3 border-t border-line pt-2.5 text-[11px] text-faint">
+                      Computed live in your browser from the same data the dashboard is
+                      drawing. No model involved, which is why it works in this preview.
+                    </p>
+                  )}
                   {metricDay && (
                     <Button
                       type="button"

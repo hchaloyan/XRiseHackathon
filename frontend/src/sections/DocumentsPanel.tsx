@@ -8,7 +8,7 @@ import {
   Trash2,
   Upload,
 } from 'lucide-react'
-import { api } from '../api/client'
+import { api, DEMO, DEMO_NOTES } from '../api/client'
 import type { DocumentMeta } from '../api/types'
 import SopViewer from '../components/SopViewer'
 import { Button } from '../components/ui/Button'
@@ -131,11 +131,15 @@ export default function DocumentsPanel() {
 
         <div
           onDragOver={(e) => {
+            if (DEMO) return
             e.preventDefault()
             setDragging(true)
           }}
           onDragLeave={() => setDragging(false)}
           onDrop={(e) => {
+            // Dropping a file on a preview that cannot index it would spin and
+            // then fail. Refuse to start rather than fail late.
+            if (DEMO) return
             e.preventDefault()
             setDragging(false)
             const file = e.dataTransfer.files?.[0]
@@ -152,17 +156,30 @@ export default function DocumentsPanel() {
             <Upload size={22} className="text-faint" aria-hidden />
           )}
           <p className="mt-3 text-sm text-hi">
-            {uploading ? 'Reading and indexing…' : 'Drop a file here'}
+            {DEMO
+              ? 'Upload is not available in this preview'
+              : uploading
+                ? 'Reading and indexing…'
+                : 'Drop a file here'}
           </p>
           <p className="mt-1 text-[12px] text-faint">
-            {accepted.join(' · ')} · up to {Math.round((data?.maxBytes ?? 15728640) / 1048576)} MB
+            {DEMO
+              ? DEMO_NOTES.upload
+              : `${accepted.join(' · ')} · up to ${Math.round((data?.maxBytes ?? 15728640) / 1048576)} MB`}
           </p>
+          {DEMO && (
+            <p className="mt-2 max-w-md text-[11px] leading-relaxed text-faint">
+              In the running app a dropped PDF, DOCX, MD, TXT or CSV is validated, chunked,
+              embedded and citable in the ask bar within seconds.
+            </p>
+          )}
           <Button
             type="button"
             size="sm"
             variant="outline"
             className="mt-4"
-            disabled={uploading}
+            disabled={uploading || DEMO}
+            title={DEMO ? DEMO_NOTES.upload : undefined}
             onClick={() => fileInput.current?.click()}
           >
             Choose a file
@@ -199,7 +216,11 @@ export default function DocumentsPanel() {
         loading={loading}
         onView={onView}
         onDelete={onDelete}
-        empty="Nothing uploaded yet. Anything you add here becomes searchable in the ask bar."
+        empty={
+          DEMO
+            ? 'No uploads in the preview. In the running app anything added here is indexed and becomes citable in the ask bar.'
+            : 'Nothing uploaded yet. Anything you add here becomes searchable in the ask bar.'
+        }
       />
 
       <DocumentTable
@@ -268,13 +289,24 @@ function DocumentTable({
                 >
                   <BookOpen size={14} aria-hidden />
                 </button>
-                <a
-                  href={api.documentDownloadUrl(doc.docId)}
-                  aria-label={`Download ${doc.docId}`}
-                  className="rounded p-1.5 text-muted transition-colors duration-150 hover:bg-white/10 hover:text-hi"
-                >
-                  <Download size={14} aria-hidden />
-                </a>
+                {DEMO ? (
+                  <span
+                    aria-disabled
+                    aria-label={`Download ${doc.docId} (not available in preview)`}
+                    title="Downloads are served by the backend, which this static preview does not have."
+                    className="cursor-not-allowed rounded p-1.5 text-faint"
+                  >
+                    <Download size={14} aria-hidden />
+                  </span>
+                ) : (
+                  <a
+                    href={api.documentDownloadUrl(doc.docId)}
+                    aria-label={`Download ${doc.docId}`}
+                    className="rounded p-1.5 text-muted transition-colors duration-150 hover:bg-white/10 hover:text-hi"
+                  >
+                    <Download size={14} aria-hidden />
+                  </a>
+                )}
                 {onDelete && (
                   <button
                     type="button"
