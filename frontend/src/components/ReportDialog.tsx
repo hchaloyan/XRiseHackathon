@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { createPortal } from 'react-dom'
 import { Download, FileSpreadsheet, FileText, Table2, X } from 'lucide-react'
-import { api } from '../api/client'
+import { api, DEMO, DEMO_NOTES } from '../api/client'
 import type { InsightResponse, KpiResponse } from '../api/types'
 import { cn } from '../lib/cn'
 
@@ -191,20 +191,39 @@ export default function ReportDialog({
             what you do once it looks right. */}
         <div className="mt-5 rounded-xl border border-line bg-white/[0.04] p-4">
           <p className="text-xs text-hi">Everything above checks out?</p>
-          <p className="mt-0.5 text-[11px] text-faint">Download this report for {readable}.</p>
+          <p className="mt-0.5 text-[11px] text-faint">
+            {DEMO ? DEMO_NOTES.export : `Download this report for ${readable}.`}
+          </p>
           <div className="mt-3 flex flex-wrap items-center gap-2">
-            {EXPORTS.map(({ format, label, icon: Icon, hint }) => (
-              <a
-                key={format}
-                href={api.reportUrl(format, day)}
-                className="inline-flex cursor-pointer items-center gap-1.5 rounded-lg border border-line bg-white/[0.06] px-3 py-1.5 text-xs text-hi transition-colors duration-150 hover:bg-white/10"
-              >
-                <Icon size={13} className="text-accent" aria-hidden />
-                {label}
-                <span className="text-[11px] text-faint">{hint}</span>
-                <Download size={11} className="text-faint" aria-hidden />
-              </a>
-            ))}
+            {EXPORTS.map(({ format, label, icon: Icon, hint }) =>
+              /* A live-looking link to a backend that is not there downloads
+                 nothing and says nothing, which in front of a judge reads as a
+                 broken feature rather than an absent one. Render the same row
+                 disabled instead, so the capability is still visible. */
+              DEMO ? (
+                <span
+                  key={format}
+                  aria-disabled
+                  title="Exports are rendered by the backend, which this static preview does not have."
+                  className="inline-flex cursor-not-allowed items-center gap-1.5 rounded-lg border border-line border-dashed px-3 py-1.5 text-xs text-faint"
+                >
+                  <Icon size={13} aria-hidden />
+                  {label}
+                  <span className="text-[11px]">{hint}</span>
+                </span>
+              ) : (
+                <a
+                  key={format}
+                  href={api.reportUrl(format, day)}
+                  className="inline-flex cursor-pointer items-center gap-1.5 rounded-lg border border-line bg-white/[0.06] px-3 py-1.5 text-xs text-hi transition-colors duration-150 hover:bg-white/10"
+                >
+                  <Icon size={13} className="text-accent" aria-hidden />
+                  {label}
+                  <span className="text-[11px] text-faint">{hint}</span>
+                  <Download size={11} className="text-faint" aria-hidden />
+                </a>
+              ),
+            )}
           </div>
         </div>
       </div>

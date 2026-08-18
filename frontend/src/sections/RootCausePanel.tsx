@@ -1,8 +1,9 @@
 import { CircleAlert, FileText, Lightbulb, Wrench } from 'lucide-react'
-import { api } from '../api/client'
+import { api, DEMO, DEMO_NOTES } from '../api/client'
 import type { Evidence, EventContext, EventRow, RootCauseResponse } from '../api/types'
 import { Badge } from '../components/ui/Badge'
 import Analysing from '../components/ui/Analysing'
+import PreviewTag from '../components/ui/PreviewTag'
 import { clockTime, humanizeCode, minutes } from '../lib/format'
 import { useFetch } from '../lib/useFetch'
 
@@ -161,6 +162,13 @@ export default function RootCausePanel({ event }: { event: EventRow }) {
             <h4 className="label-caps">Likely Cause</h4>
           </div>
 
+          {/* Only reachable in the preview for the two rows that carry canned
+              analysis, and those look exactly like a live ranking — so say
+              which it is. Renders nothing in the real app. */}
+          <PreviewTag state="recorded" className="mt-2">
+            {DEMO_NOTES.rootCause}
+          </PreviewTag>
+
           {/* The section's one accent-bearing element: a 2px lit rule and
                   a single glow. No accent fill behind the text. */}
           <div className="mt-3 rounded-r-lg border-l-2 border-accent bg-white/[0.05] p-4 shadow-glow">
@@ -192,6 +200,13 @@ export default function RootCausePanel({ event }: { event: EventRow }) {
             )}
           </div>
         </>
+      ) : DEMO ? (
+        // In the preview this is the NORMAL outcome for 16 of the 18 rows, and
+        // the generic "unavailable" line reads as a failure rather than as a
+        // boundary. Name the reason instead.
+        <PreviewTag state="unavailable" className="mt-4">
+          {DEMO_NOTES.rootCauseMissing}
+        </PreviewTag>
       ) : (
         <p className="mt-4 text-xs text-muted">
           Likely cause unavailable for this event. The computed evidence above is unaffected.

@@ -54,10 +54,20 @@ The Pages build is the real UI running on the committed sample data in
 `frontend/src/mocks`. You can click through the briefing, change the date, open
 an event, read the full report and see the document list.
 
-Two things are switched off there, and the app says so in a banner rather than
-pretending otherwise: **AI generation and document search**. Both need a local
-model and a persistent vector index, which no static host provides. Clone and
-run it to see those.
+There is no backend behind it, so parts of the app are running and parts are a
+recording. The preview labels all three states rather than leaving you to guess,
+and every caveat reads from one map in `frontend/src/api/client.ts`
+(`DEMO_CAPABILITIES`) so the banner and the inline badges cannot drift apart:
+
+| | What | Why |
+|---|---|---|
+| **Live** | KPIs, charts, event table, inventory, ask-bar summaries | pure arithmetic, so it runs in the browser exactly as it does in the app |
+| **Recorded** | Briefing narrative and callouts; root cause on `DT-0112` and `QC-0071` | real model output, captured once and replayed — badged in place, because a replay is otherwise indistinguishable from a live generation |
+| **Off** | SOP search, root cause on other rows, upload, exports | needs a local model, the vector index or the file system |
+
+Controls that cannot work are disabled rather than left live, so nothing fails
+silently in front of a reader, and the two rows carrying a recorded analysis are
+marked in the event table so you know which to open.
 
 Publishing is automatic on every push to `main`
 ([.github/workflows/pages.yml](.github/workflows/pages.yml)). Enable it once
