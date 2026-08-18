@@ -1,7 +1,7 @@
 import { useEffect, type MouseEvent as ReactMouseEvent } from 'react'
 import { Activity } from 'lucide-react'
 import { NavLink, Outlet, Route, Routes, useOutletContext } from 'react-router'
-import { api } from './api/client'
+import { api, DEMO } from './api/client'
 import type { KpiResponse } from './api/types'
 import DayPicker from './components/DayPicker'
 import ScrollOverlay from './components/ScrollOverlay'
@@ -202,6 +202,20 @@ function Shell() {
           </div>
         </div>
       </header>
+
+      {/* Says what this is, once, at the top. A preview that looks live is
+          worse than no preview: every figure below is real committed sample
+          data, but nothing here is being generated. */}
+      {DEMO && (
+        <div className="border-b border-accent/30 bg-accent/10">
+          <p className="mx-auto max-w-7xl px-6 py-2 text-[12px] text-hi">
+            <span className="font-medium">Static preview.</span> Real data, real
+            calculations. Ask bar summaries work here because they are pure arithmetic; AI
+            generation and document search are switched off, since they need a local model
+            and a vector index. Clone and run it to see those live.
+          </p>
+        </div>
+      )}
 
       {/* pb-40 keeps the last row clear of the fixed ask bar. */}
       <div className="mx-auto max-w-7xl px-6 pt-6 pb-40">

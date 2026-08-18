@@ -74,16 +74,25 @@ def _requested_day(query: str, available: list[date]) -> tuple[date, str, date |
     text = query.lower()
     real_today = date.today()
 
+    # A date that parses as digits but is not a real calendar date - "31 feb",
+    # "2026-02-30" - must not take the endpoint down. The regexes match the
+    # shape; only date() knows whether the day exists in that month.
     match = _ISO_DATE.search(text)
     if match:
-        wanted = date(int(match.group(1)), int(match.group(2)), int(match.group(3)))
+        try:
+            wanted = date(int(match.group(1)), int(match.group(2)), int(match.group(3)))
+        except ValueError:
+            return latest, "latest", None
         return _clamp(wanted, available), "asked", wanted
 
     match = _DAY_MONTH.search(text)
     if match:
         month = _MONTHS.index(match.group(2).lower()[:3]) + 1
         year = real_today.year if month <= real_today.month else real_today.year - 1
-        wanted = date(year, month, int(match.group(1)))
+        try:
+            wanted = date(year, month, int(match.group(1)))
+        except ValueError:
+            return latest, "latest", None
         return _clamp(wanted, available), "asked", wanted
 
     if _YESTERDAY.search(text):
