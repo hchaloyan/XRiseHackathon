@@ -31,7 +31,7 @@ from app.schemas import (
     SopDocument,
     SOPResult,
 )
-from app.services import conversation, metric_query
+from app.services import conversation, metric_query, summary_query
 from app.services.knowledge_base import INCLUDE_GET, get_knowledge_base, read_sop
 
 # No prefix here - main.py applies /api to every router uniformly.
@@ -81,7 +81,23 @@ def search_sops(payload: SearchRequest) -> SearchResponse:
             fallback_message=turn.reply,  # existing UI renders this field
         )
 
-    # Track 2: metric questions, caught by name BEFORE retrieval.
+    # Track 2: "what happened?". Before the metric guard on purpose: a
+    # question like "summarise downtime today" contains a metric word, and the
+    # useful answer is the breakdown, not one number.
+    if summary_query.wants_summary(query):
+        summary = summary_query.answer(query)
+        return SearchResponse(
+            query=query,
+            kind="summary",
+            summary_title=summary.title,
+            summary_lines=summary.bullets,
+            suggestions=summary.follow_ups,
+            metric_day=summary.day,
+            metric_is_current=summary.is_current_day,
+            fallback_message=summary.title,  # older UI reads this field only
+        )
+
+    # Track 3: metric questions, caught by name BEFORE retrieval.
     #
     # This used to be left to the similarity floor, which meant the guarantee
     # rested on "what was OEE yesterday" happening to score 0.477. Re-phrase it
@@ -99,7 +115,7 @@ def search_sops(payload: SearchRequest) -> SearchResponse:
             fallback_message=answered["reply"],  # older UI reads this field only
         )
 
-    # Track 3: retrieval, with the previous query available as context.
+    # Track 4: retrieval, with the previous query available as context.
     #
     # Both orderings below end up trying the fragment alone AND joined to the
     # previous query; only the order differs. That keeps follow-up handling a

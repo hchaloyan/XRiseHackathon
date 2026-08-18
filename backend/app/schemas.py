@@ -71,6 +71,9 @@ class SearchResponse(ApiModel):
       results      - retrieval found sections above the similarity floor
       conversation - a greeting or capability question, answered without a
                      model and without touching the index
+      summary      - "what happened?" in any of its forms. A title and a few
+                     computed lines, so the answer arrives in the chat rather
+                     than as a pointer at a table.
       metric       - the question asks for a figure this plant's data holds.
                      Answered from pandas, never from a model, and carries the
                      day to switch the dashboard to.
@@ -83,7 +86,9 @@ class SearchResponse(ApiModel):
     """
 
     query: str
-    kind: Literal["results", "conversation", "metric", "general", "off_topic"] = "results"
+    kind: Literal[
+        "results", "conversation", "summary", "metric", "general", "off_topic"
+    ] = "results"
     results: List[SOPResult] = []
     # The spoken answer. Set on "conversation" (canned, no model) and on
     # "general" (model-written).
@@ -91,6 +96,10 @@ class SearchResponse(ApiModel):
     # Non-null only on "general": the label the UI must show, so a model's
     # opinion is never mistaken for plant procedure.
     disclaimer: Optional[str] = None
+    # Set on "summary": a heading and the computed lines beneath it. Every
+    # line comes from pandas, so a summary is as trustworthy as the dashboard.
+    summary_title: Optional[str] = None
+    summary_lines: List[str] = []
     # Non-null only on "metric": the day the answer is about. The UI offers to
     # switch the dashboard to it, which is the actual answer to "what was
     # yesterday's OEE" - the number plus the day it belongs to.

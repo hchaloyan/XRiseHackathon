@@ -22,6 +22,21 @@ import type {
  */
 const BASE_URL = import.meta.env.VITE_API_BASE_URL ?? (import.meta.env.DEV ? 'http://localhost:8000' : '')
 
+/**
+ * Static preview build: no backend exists behind it and none can, so every
+ * call short-circuits to the committed fixtures rather than waiting out a
+ * network timeout first.
+ *
+ * Set only by the Pages workflow. The desktop app and local development never
+ * see it, so nothing about the real paths changes.
+ */
+export const DEMO = import.meta.env.VITE_DEMO === '1'
+
+/** Fixture-only response for the paths that have no canned data of their own. */
+function demoOnly<T>(value: T): Promise<T> {
+  return Promise.resolve(value)
+}
+
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
   const res = await fetch(`${BASE_URL}${path}`, {
     headers: { 'Content-Type': 'application/json' },
@@ -62,10 +77,44 @@ async function withFallback<T>(
   }
 }
 
+/** Titles only. The preview lists the corpus; it cannot serve the files. */
+const DEMO_SOPS = [
+  'Injection Molding Changeover and First-Off Approval',
+  'Preventive Maintenance Schedule and Lubrication',
+  'CNC Tool Breakage Response and Insert Replacement',
+  'CNC Changeover, Work Offsets and First Article',
+  'Sensor Fault Diagnosis and Recalibration',
+  'Material Starvation Response and Line-Side Replenishment',
+  'Injection Molding Defect Troubleshooting',
+  'Robotic Welding Quality: Porosity, Spatter and Undercut',
+  '3D Printer and Additive Manufacturing Build Failure Recovery',
+  'Assembly Station Jam Clearing and Robot Fault Recovery',
+  'Powder Coating Colour Change and Booth Cleanout',
+  'Powder Coating Defect Troubleshooting',
+  'Aqueous Parts Washer Operation and Bath Control',
+  'Case Packer Jam Clearing and Label Recovery',
+  'Finishing and Packaging Preventive Maintenance',
+]
+
 export const api = {
   /** Available days for the picker. No fixture: an empty list just disables
    *  the calendar rather than offering days the data cannot answer for. */
-  days: () => request<DaysResponse>('/api/days'),
+  days: () => {
+    if (DEMO) {
+      // Derived from the fixture's own trend rather than a second hard-coded
+      // list, so the picker can never offer a day the fixture cannot render.
+      const days = (fixtures.kpis as KpiResponse).trend.map((t) => t.day)
+      const latest = days[days.length - 1]
+      return demoOnly<DaysResponse>({
+        days,
+        latest,
+        earliest: days[0],
+        today: latest,
+        daysBehind: 0,
+      })
+    }
+    return request<DaysResponse>('/api/days')
+  },
 
   kpis: (day?: string | null) =>
     withFallback(
@@ -101,8 +150,60 @@ export const api = {
    * returns zero results plus the fixed redirect string (rule 8 — no intent
    * classifier runs on the client).
    */
-  search: (query: string, previousQuery?: string | null) =>
-    post<SearchResponse>('/api/search', { query, previousQuery: previousQuery ?? null }),
+  search: (query: string, previousQuery?: string | null) => {
+    if (DEMO) {
+      // Summaries are pure arithmetic, so the preview can do them for real
+      // from the same fixture the dashboard is drawing. Retrieval cannot: it
+      // needs an embedding model, and pretending otherwise would be a lie.
+      const k = fixtures.kpis as KpiResponse
+      if (/summar|recap|rundown|overview|what happened|catch me up|how did we do/i.test(query)) {
+        const down = k.events.filter((e) => e.kind === 'downtime')
+        const qual = k.events.filter((e) => e.kind === 'quality')
+        const stopped = down.reduce((n, e) => n + (e.durationMinutes ?? 0), 0)
+        const rejected = qual.reduce((n, e) => n + (e.defectCount ?? 0), 0)
+        const worst = [...k.machines].sort((a, b) => a.oee - b.oee)[0]
+        return demoOnly<SearchResponse>({
+          query,
+          kind: 'summary',
+          results: [],
+          reply: null,
+          disclaimer: null,
+          summaryTitle: `Shift summary for ${k.day}`,
+          summaryLines: [
+            `OEE ${(k.plant.oee * 100).toFixed(1)}% on ${k.plant.goodCount.toLocaleString()} good parts of ${k.plant.totalCount.toLocaleString()}, scrap ${(k.plant.scrapRate * 100).toFixed(1)}%.`,
+            `${down.length} stoppages costing ${stopped.toFixed(0)} minutes.`,
+            `${qual.length} quality events covering ${rejected} rejected parts.`,
+            `Lowest machine was ${worst.machineId} ${worst.name} at ${(worst.oee * 100).toFixed(1)}% OEE.`,
+            `${k.inventory.partsBelowReorder} of ${k.inventory.partsTracked} parts below reorder point.`,
+          ],
+          metricDay: null,
+          metricIsCurrent: true,
+          suggestions: ['What stopped the line?', 'What needs reordering?'],
+          resolvedFrom: null,
+          fallbackMessage: null,
+        })
+      }
+      return demoOnly<SearchResponse>({
+        query,
+        kind: 'conversation',
+        results: [],
+        reply:
+          'This is a static preview, so document retrieval is switched off. In ' +
+          'the app this searches 15 SOPs and anything you upload, and answers ' +
+          'with the exact section plus a link into the source. Summaries work ' +
+          'here: try "summarise the shift".',
+        disclaimer: null,
+        summaryTitle: null,
+        summaryLines: [],
+        metricDay: null,
+        metricIsCurrent: false,
+        suggestions: ['Summarise the shift'],
+        resolvedFrom: null,
+        fallbackMessage: null,
+      })
+    }
+    return post<SearchResponse>('/api/search', { query, previousQuery: previousQuery ?? null })
+  },
 
   /** Model reasoning over the exact chunks the user already has on screen. */
   explain: (query: string, sopIds: string[]) =>
@@ -111,7 +212,30 @@ export const api = {
   /** The whole document behind a result. Read from disk, no model, no index. */
   sop: (docId: string) => request<SopDocument>(`/api/sops/${encodeURIComponent(docId)}`),
 
-  documents: () => request<DocumentListResponse>('/api/documents'),
+  documents: () => {
+    if (DEMO) {
+      return demoOnly<DocumentListResponse>({
+        documents: DEMO_SOPS.map((d, i) => ({
+          docId: `SOP-${String(i + 1).padStart(3, '0')}`,
+          title: d,
+          source: 'sop' as const,
+          format: '.md',
+          department: '',
+          revision: '',
+          originalName: '',
+          storedName: '',
+          sizeBytes: 0,
+          sha256: '',
+          uploadedAt: '',
+          chunks: 0,
+          chars: 0,
+        })),
+        acceptedFormats: ['.pdf', '.docx', '.md', '.txt', '.csv'],
+        maxBytes: 15728640,
+      })
+    }
+    return request<DocumentListResponse>('/api/documents')
+  },
 
   /**
    * Multipart, so no Content-Type header: the browser must set it itself with

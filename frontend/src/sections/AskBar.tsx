@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from 'react'
-import { BarChart3, BookOpen, ChevronDown, FileText, Loader2, Search, X } from 'lucide-react'
+import { BarChart3, BookOpen, ChevronDown, ClipboardList, FileText, Loader2, Search, X } from 'lucide-react'
 import { api } from '../api/client'
 import type { SearchResponse, SopDocument, SopResult } from '../api/types'
 import SopViewer from '../components/SopViewer'
@@ -36,6 +36,8 @@ export default function AskBar() {
   const [reply, setReply] = useState<string | null>(null)
   const [disclaimer, setDisclaimer] = useState<string | null>(null)
   const [metricDay, setMetricDay] = useState<string | null>(null)
+  const [summaryTitle, setSummaryTitle] = useState<string | null>(null)
+  const [summaryLines, setSummaryLines] = useState<string[]>([])
   const [suggestions, setSuggestions] = useState<string[]>([])
   const [fallback, setFallback] = useState<string | null>(null)
   // The last query that actually returned sections. Sent as context so a
@@ -68,6 +70,8 @@ export default function AskBar() {
     setReply(null)
     setDisclaimer(null)
     setMetricDay(null)
+    setSummaryTitle(null)
+    setSummaryLines([])
     setSuggestions([])
     setResolvedFrom(null)
     try {
@@ -76,7 +80,13 @@ export default function AskBar() {
       setKind(data.kind)
       setReply(data.reply)
       setDisclaimer(data.disclaimer)
-      setMetricDay(data.kind === 'metric' && !data.metricIsCurrent ? data.metricDay : null)
+      setMetricDay(
+        (data.kind === 'metric' || data.kind === 'summary') && !data.metricIsCurrent
+          ? data.metricDay
+          : null,
+      )
+      setSummaryTitle(data.summaryTitle)
+      setSummaryLines(data.summaryLines ?? [])
       setSuggestions(data.suggestions ?? [])
       setResolvedFrom(data.resolvedFrom)
       setFallback(data.fallbackMessage)
@@ -124,6 +134,8 @@ export default function AskBar() {
     setReply(null)
     setDisclaimer(null)
     setMetricDay(null)
+    setSummaryTitle(null)
+    setSummaryLines([])
     setSuggestions([])
     setFallback(null)
     setExpandedId(null)
@@ -226,6 +238,41 @@ export default function AskBar() {
                 <p className="pr-8 text-sm leading-relaxed text-hi">{reply}</p>
               )}
 
+              {/* "What happened?" answered in the chat rather than pointed at.
+                  Every line is computed in pandas, which is why a summary can
+                  be stated plainly instead of hedged. */}
+              {kind === 'summary' && summaryTitle && (
+                <div className="mr-8 rounded-lg border border-line bg-white/[0.05] p-4">
+                  <div className="flex items-center gap-2">
+                    <ClipboardList size={13} className="text-accent" aria-hidden />
+                    <h4 className="text-sm font-medium text-hi">{summaryTitle}</h4>
+                  </div>
+                  <ul className="mt-2.5 space-y-1.5">
+                    {summaryLines.map((line, i) => (
+                      <li key={i} className="flex gap-2 text-xs leading-relaxed text-muted">
+                        <span className="mt-[7px] h-1 w-1 shrink-0 rounded-full bg-accent" />
+                        <span>{line}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  {metricDay && (
+                    <Button
+                      type="button"
+                      size="sm"
+                      variant="outline"
+                      className="mt-3"
+                      onClick={() => {
+                        setDay(metricDay)
+                        dismiss()
+                      }}
+                    >
+                      <BarChart3 size={13} aria-hidden />
+                      Open the {metricDay} dashboard
+                    </Button>
+                  )}
+                </div>
+              )}
+
               {/* A figure from the plant's own data. Computed in pandas, so
                   this is an answer rather than a redirect — and it carries the
                   day, because "yesterday's OEE" is meaningless without it. */}
@@ -267,6 +314,7 @@ export default function AskBar() {
               {kind !== 'conversation' &&
                 kind !== 'general' &&
                 kind !== 'metric' &&
+                kind !== 'summary' &&
                 results?.length === 0 && (
                 <p className="pr-8 text-sm text-muted">
                   {fallback ?? 'No SOPs found. Try different keywords.'}
@@ -330,7 +378,7 @@ export default function AskBar() {
             id="askbar"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Ask about SOPs, procedures, troubleshooting…"
+            placeholder="Ask about the shift, or search SOPs and procedures…"
             className="h-10 border-0 bg-transparent pl-9 focus-visible:shadow-none"
             autoComplete="off"
           />

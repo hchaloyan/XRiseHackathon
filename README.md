@@ -7,6 +7,7 @@ from the plant's own SOPs and manuals.
 Built for the MFGX AI hackathon: *every manufacturing user should save at least
 30 minutes per day using AI.*
 
+- **Live preview:** https://hchaloyan.github.io/XRiseHackathon/ (sample data, see below)
 - Design spec: [docs/superpowers/specs/2026-08-10-mfgx-ai-design.md](docs/superpowers/specs/2026-08-10-mfgx-ai-design.md)
 - Working agreements: [CLAUDE.md](CLAUDE.md)
 
@@ -31,6 +32,12 @@ things a supervisor actually types: greetings, follow-up fragments
 British/American spelling. Questions about plant figures are answered from
 computed data with a link to that day's briefing, never guessed at.
 
+Ask it what happened and it tells you, rather than pointing at a table.
+"Summarise the shift", "what stopped the line", "how is M-22 doing", "what
+needs reordering", "anything I should know" and about thirty other phrasings
+all return the numbers in the chat. Every line is assembled in pandas, so a
+summary is exactly as trustworthy as the dashboard and costs no model call.
+
 **Documents** — upload SOPs, manuals and audit records (PDF, DOCX, MD, TXT,
 CSV). They are chunked, embedded and searchable within seconds, and cited by the
 same machinery as the built-in corpus. Uploads are checked before indexing:
@@ -40,6 +47,23 @@ and a relevance test against the plant's own vocabulary.
 **Any day** — the date picker moves the whole dashboard across the 30-day
 window. When the newest record lags the calendar, the app says so rather than
 presenting an old shift as today's.
+
+## The preview link
+
+The Pages build is the real UI running on the committed sample data in
+`frontend/src/mocks`. You can click through the briefing, change the date, open
+an event, read the full report and see the document list.
+
+Two things are switched off there, and the app says so in a banner rather than
+pretending otherwise: **AI generation and document search**. Both need a local
+model and a persistent vector index, which no static host provides. Clone and
+run it to see those.
+
+Publishing is automatic on every push to `main`
+([.github/workflows/pages.yml](.github/workflows/pages.yml)). Enable it once
+under **Settings, Pages, Source: GitHub Actions**. The workflow sets
+`BASE_PATH` for the project subpath and copies `index.html` to `404.html`, since
+Pages has no rewrite rules and a deep link would otherwise miss the router.
 
 ## Prerequisites
 
@@ -60,12 +84,33 @@ One process in a native window. Uvicorn serves the API *and* the built UI on the
 same origin in a background thread — no second dev server, no CORS, no browser
 chrome.
 
+One command per line. Windows PowerShell 5.1 does not understand `&&` (that
+arrived in PowerShell 7), and `;` is a poor substitute because it runs the next
+command even when the previous one failed.
+
+```powershell
+cd backend
+python -m venv .venv
+.venv\Scripts\activate
+pip install -r requirements.txt
+
+cd ..\frontend
+npm install
+npm run build
+
+cd ..
+python backend\calibrate_kb.py --reindex   # build the vector index, see below
+python run.py                               # or double-click start.bat
+```
+
+macOS and Linux, same order:
+
 ```bash
-cd backend && python -m venv .venv && .venv/Scripts/activate
+cd backend && python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 cd ../frontend && npm install && npm run build && cd ..
-python backend/calibrate_kb.py --reindex   # build the vector index, see below
-python run.py                              # or double-click start.bat on Windows
+python backend/calibrate_kb.py --reindex
+python run.py
 ```
 
 The window opens in about a second; the model warms behind it, so the first
@@ -86,11 +131,10 @@ Groq key or switch inference to the hosted fallback.
 
 **Backend** (`:8000`):
 
-```bash
+```powershell
 cd backend
 python -m venv .venv
-.venv/Scripts/activate        # Windows
-# source .venv/bin/activate   # macOS / Linux
+.venv\Scripts\activate        # Windows;  source .venv/bin/activate  elsewhere
 pip install -r requirements.txt
 uvicorn app.main:app --reload --port 8000
 ```
@@ -109,6 +153,22 @@ window's `127.0.0.1`, which CORS then blocks — the app silently falls back to
 fixtures and looks fine while showing canned data.
 
 Check `http://localhost:8000/health` before debugging anything else.
+
+## Keys and secrets
+
+Nothing secret is committed, and nothing should be. `backend/.env` is
+gitignored, and `.env.example` holds placeholders only. The one optional key is
+Groq's, used for general-knowledge answers in the ask bar; without it that path
+returns the standard redirect and every other feature is unaffected.
+
+A quick check before pushing:
+
+```bash
+git grep -nIE "(gsk_|sk-[A-Za-z0-9]{20,}|ghp_|AKIA[0-9A-Z]{16})" -- . | grep -v .env.example
+git ls-files | grep -E "(^|/)\.env$"
+```
+
+Both should return nothing.
 
 ## The vector index
 
@@ -182,5 +242,8 @@ run.py              desktop launcher
    nullable. If the model is down, the briefing shows real numbers and says the
    narrative is unavailable.
 7. **The ask bar does not classify intent.** Metric questions are caught by name
-   against a closed vocabulary, off-corpus questions by a calibrated similarity
-   floor. Neither is a model deciding where your question should go.
+   against a closed vocabulary, summaries by a closed set of shift phrasings
+   that must also name something on the floor, off-corpus questions by a
+   calibrated similarity floor. None of these is a model deciding where your
+   question should go — "show me the downtime" is a summary and "show me the
+   changeover steps" is a document search, decided by a regex you can read.

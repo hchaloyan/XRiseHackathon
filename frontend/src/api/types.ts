@@ -27,6 +27,10 @@ export interface SopResult {
  *                    chat line and `suggestions` as clickable chips. Matched
  *                    by regex server-side: no model, ~1ms, never intercepts
  *                    a real question.
+ *   'summary'      — "what happened?". `summaryTitle` and `summaryLines`
+ *                    carry a heading and computed lines; render them as a
+ *                    list. Assembled in pandas, so a summary is exactly as
+ *                    trustworthy as the dashboard.
  *   'metric'       — asks for a figure the plant data holds. `reply` carries
  *                    the computed number and `metricDay` the day it is from.
  *                    Answered in pandas, never by a model.
@@ -43,7 +47,7 @@ export interface SopResult {
  */
 export interface SearchResponse {
   query: string
-  kind: 'results' | 'conversation' | 'metric' | 'general' | 'off_topic'
+  kind: 'results' | 'conversation' | 'summary' | 'metric' | 'general' | 'off_topic'
   results: SopResult[]
   /** The spoken answer. Set on 'conversation' and on 'general'. */
   reply: string | null
@@ -60,6 +64,9 @@ export interface SearchResponse {
   metricDay: string | null
   /** True when metricDay is already on screen, so no jump is offered. */
   metricIsCurrent: boolean
+  /** Set on 'summary'. Heading plus one line per finding. */
+  summaryTitle: string | null
+  summaryLines: string[]
   /** Example questions, all guaranteed to retrieve. Empty on 'results'. */
   suggestions: string[]
   /**

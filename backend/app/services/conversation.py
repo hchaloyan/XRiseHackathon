@@ -27,6 +27,8 @@ from datetime import datetime
 # Shown as clickable chips whenever we have nothing better to offer. Drawn
 # from the SOP corpus so every one of them is guaranteed to retrieve.
 EXAMPLE_QUESTIONS = [
+    "Summarise the shift",
+    "What stopped the line today?",
     "How do I purge the barrel for a colour change?",
     "What causes porosity in the robot welds?",
     "What is on the weekly PM for the CNC machines?",
@@ -38,7 +40,9 @@ EXAMPLE_QUESTIONS = [
 _CAPABILITY = (
     "I answer from the plant's SOPs, manuals and audit documents - "
     "procedures, troubleshooting steps and maintenance schedules. "
-    "For line data like OEE, scrap or downtime, click any row in the table above."
+    "I can also summarise the shift: ask what happened, what stopped the line, "
+    "how a machine is doing or what needs reordering, and you get the numbers "
+    "here rather than a pointer to the table."
 )
 
 
