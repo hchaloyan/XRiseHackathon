@@ -4,7 +4,9 @@ An AI copilot for a manufacturing shift supervisor. It opens on the morning
 briefing. You drill into any event without navigating away, and it answers your
 questions from the plant's own SOPs and manuals.
 
-Built for the MFGX AI hackathon: *every manufacturing user should save at least
+Built for the Xrise Hackathon 2026 "Problem Statement 3 — MFGX AI AI-Powered Manufacturing":
+
+*every manufacturing user should save at least
 30 minutes per day using AI.*
 
 **Live preview, no install:** https://hchaloyan.github.io/XRiseHackathon/
