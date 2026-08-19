@@ -71,13 +71,6 @@ The preview disables controls that cannot work rather than leaving them live,
 so nothing fails silently in front of a reader. It also marks the two rows
 carrying a recorded analysis in the event table, so you know which to open.
 
-Every push to `main` publishes the preview automatically
-([.github/workflows/pages.yml](.github/workflows/pages.yml)). Enable it once
-under **Settings → Pages → Source: GitHub Actions**. The workflow sets
-`BASE_PATH` for the project subpath and copies `index.html` to `404.html`.
-Pages has no rewrite rules, so without that copy a deep link would miss the
-router.
-
 ---
 
 ## Running it
@@ -140,9 +133,6 @@ the window stops the server. `python run.py --browser` opens the default
 browser instead. Use that fallback if the native window misbehaves on an
 unfamiliar machine.
 
-The window renders `frontend/dist`, not your working tree. **Rebuild after any
-UI change**, or use the two-server setup below.
-
 ### For development
 
 **Backend** (`:8000`):
@@ -162,13 +152,6 @@ cd frontend
 npm install
 npm run dev
 ```
-
-Do not create `frontend/.env`. Vite bakes `VITE_API_BASE_URL` in at build time.
-A `localhost` value makes the packaged app a different origin from the window's
-`127.0.0.1`, and CORS then blocks it. The app silently falls back to fixtures
-and looks fine while showing canned data.
-
-Check `http://localhost:8000/health` before debugging anything else.
 
 ---
 
