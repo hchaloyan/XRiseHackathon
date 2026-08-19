@@ -107,9 +107,7 @@ The app runs as one process in a native window. Uvicorn serves the API *and*
 the built UI on the same origin from a background thread. That means no second
 dev server, no CORS and no browser chrome.
 
-Run one command per line. Windows PowerShell 5.1 does not understand `&&`,
-which arrived in PowerShell 7. `;` is a poor substitute, because it runs the
-next command even when the previous one failed.
+Run one command per line.
 
 ```powershell
 cd backend
