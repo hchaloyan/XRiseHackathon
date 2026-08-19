@@ -229,19 +229,22 @@ function Shell() {
                       'h-1.5 w-1.5 shrink-0 rounded-full',
                       c.state === 'live'
                         ? 'bg-positive'
-                        : c.state === 'recorded'
-                          ? 'bg-accent'
+                        : // Amber here only, deliberately off-palette. The legend has to
+                          // name this colour in words, and "lavender" is not a call a
+                          // reader makes on a 6px dot. The restriction holds everywhere else.
+                          c.state === 'recorded'
+                          ? 'bg-amber-400'
                           : 'bg-line',
                     )}
                   />
-                  <span className="text-hi">{c.name}</span>
-                  <span className="text-faint">— {c.note}</span>
+                  <span className="text-hi">{c.name}:</span>
+                  <span className="text-faint">{c.note}</span>
                 </li>
               ))}
             </ul>
 
             <p className="mt-2 text-[11px] text-faint">
-              Green is really executing in your browser. Amber is genuine model output captured
+              Green is really executing in your browser. Orange is genuine model output captured
               once and replayed. Grey needs a local model, a vector index or the file system.
               Clone the repo and run the desktop app to see all of it live.
             </p>
