@@ -1,6 +1,6 @@
 # general_answer
 
-Prompt lives here as markdown, not as a string literal in Python (rule 5).
+Prompt lives here as markdown, not as a string literal in Python.
 
 A shift supervisor asked something the plant's SOP library does not cover.
 Answer from general manufacturing knowledge.

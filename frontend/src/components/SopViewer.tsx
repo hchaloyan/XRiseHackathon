@@ -8,7 +8,7 @@ import { SkeletonLines } from './ui/Skeleton'
  * Renders one SOP inside the ask bar panel and scrolls to the section the
  * result came from.
  *
- * Not a modal and not a route (CLAUDE.md rule 7): it replaces the result list
+ * Not a modal and not a route: it replaces the result list
  * in place, and Back returns to the same results. The demo never navigates
  * away from the single screen.
  *

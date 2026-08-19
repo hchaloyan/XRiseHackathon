@@ -4,7 +4,7 @@ import { cn } from '../../lib/cn'
 
 /**
  * Text-colored, outline-only. A filled saturated chip is exactly the optical
- * vibration the dark-theme spec warns about, and there are up to a dozen of
+ * vibration a dark theme has to avoid, and there are up to a dozen of
  * these on screen at once.
  */
 const badge = cva(

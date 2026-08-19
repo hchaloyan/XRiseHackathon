@@ -18,9 +18,9 @@ import WindowControls from './sections/WindowControls'
 
 /**
  * Two screens behind react-router, at the user's explicit direction. This is a
- * deliberate override of CLAUDE.md rule 7 ("one screen, no react-router").
+ * deliberate override of the original "one screen, no react-router" call.
  *
- * What rule 7 actually protects is still intact: root cause expands INLINE
+ * What that call actually protects is still intact: root cause expands INLINE
  * inside the event table, and the ask bar is fixed to the viewport on both
  * screens — so insight → drill-down → answer never navigates away.
  *
@@ -264,7 +264,7 @@ function Shell() {
       </div>
 
       {/* Persistent across both screens: never scrolled past, never navigated
-          away from (CLAUDE.md capability 3). */}
+          away from. */}
       <AskBar />
 
       {/* The page's scroll pill. Drawn over the content because a native bar

@@ -1,6 +1,6 @@
 """Ollama client. Default provider. Uses the `format` param for structured output.
 
-Contract notes (CLAUDE.md rules 2 and 3):
+Contract notes:
   - `complete()` never raises for model-side problems. It returns None so the
     caller can degrade to computed-only fields instead of returning a 5xx.
   - Shape is enforced by passing the JSON schema to Ollama's `format`, not by

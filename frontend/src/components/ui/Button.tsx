@@ -5,7 +5,7 @@ import { cn } from '../../lib/cn'
 /**
  * The one place a saturated fill is allowed: a single small primary action.
  * Its label is dark-on-accent, since accent is a tone-200 pastel.
- * Disabled follows the spec exactly — 12% white fill, 38% white label.
+ * Disabled is exactly 12% white fill, 38% white label.
  */
 const button = cva(
   [
@@ -22,7 +22,7 @@ const button = cva(
         outline: 'border border-line text-hi hover:bg-white/5',
         ghost: 'text-muted hover:bg-white/5 hover:text-hi',
       },
-      /** 44px floor on the tappable variants, per design.md touch targets. */
+      /** 44px floor on the tappable variants, the touch-target minimum. */
       size: { sm: 'h-9 px-4 text-xs', md: 'min-h-11 px-6 text-sm', icon: 'size-11' },
     },
     defaultVariants: { variant: 'primary', size: 'md' },

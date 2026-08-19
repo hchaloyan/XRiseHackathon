@@ -1,9 +1,9 @@
 """Router: GET /api/insights. The narrative that renders on page load.
 
-Rule 1 in practice: kpi_engine computes every figure, this module formats
-those figures into a prompt, and the model returns prose only. If the model
-is slow or down, the computed fields still ship and the header still renders
-real numbers (spec 5).
+The computed/generated split in practice: kpi_engine computes every figure,
+this module formats those figures into a prompt, and the model returns prose
+only. If the model is slow or down, the computed fields still ship and the
+header still renders real numbers.
 """
 
 from __future__ import annotations
@@ -31,7 +31,7 @@ router = APIRouter()
 # it once per day value rather than once per page load takes the briefing from
 # 12-15s to instant on every load after the first.
 #
-# This is not the prewarm cache spec D3 rules out - that one is about a
+# This is not the prewarm cache that was ruled out - that one is about a
 # throwaway call whose output must be discarded. This caches a real response
 # whose inputs are provably static. Pass ?refresh=true to regenerate.
 _cache: dict[date, InsightResponse] = {}

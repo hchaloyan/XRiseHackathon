@@ -1,7 +1,7 @@
 """Conversational shell in front of the knowledge base.
 
-CLAUDE.md rule 8 rules out an intent classifier routing free text between
-document search and factory data, and that still holds: nothing here decides
+No intent classifier routes free text between document search and factory
+data, and that still holds here: nothing in this module decides
 where a *question* goes. This handles only the turns that are not questions -
 greetings, thanks, "what can you do" - which are matched by fixed patterns,
 not by a model.

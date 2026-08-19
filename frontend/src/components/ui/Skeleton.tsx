@@ -1,7 +1,7 @@
 import { cn } from '../../lib/cn'
 
 /**
- * Load-bearing, not polish: insight generation runs ~10s (spec §2) and the
+ * Load-bearing, not polish: insight generation runs ~10s and the
  * user is watching an empty slot the whole time.
  */
 export function Skeleton({ className }: { className?: string }) {

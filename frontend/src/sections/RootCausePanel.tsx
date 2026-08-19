@@ -17,7 +17,7 @@ import { useFetch } from '../lib/useFetch'
  * above it.
  *
  * Hypotheses are nullable: if the model fails, the row still shows its
- * computed evidence and simply omits the cause (spec §5).
+ * computed evidence and simply omits the cause.
  */
 
 /** Analysis is slow and expensive; a collapsed-then-reopened row must not

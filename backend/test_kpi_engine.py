@@ -1,4 +1,4 @@
-"""Smoke check for the KPI slice (spec 11). Run: python test_kpi_engine.py
+"""Smoke check for the KPI slice. Run: python test_kpi_engine.py
 
 Asserts the arithmetic holds together and that the three planted patterns are
 actually findable -- if a seed change flattens them, root cause has nothing to

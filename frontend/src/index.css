@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
-/* Self-hosted, not fonts.googleapis.com: spec D1 commits to a fully offline
-   demo path, and venue wifi is not part of it. */
+/* Self-hosted, not fonts.googleapis.com: the demo path is fully offline,
+   and venue wifi is not part of it. */
 @import "@fontsource-variable/inter";
 @import "@fontsource-variable/jetbrains-mono";
 

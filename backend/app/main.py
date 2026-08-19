@@ -38,7 +38,7 @@ async def lifespan(app: FastAPI):
     # One thread, in order, on purpose. Three concurrent generations would
     # contend for the same model and finish later than three sequential ones.
     def _warm() -> None:
-        # Spec D3: throwaway call to make the model VRAM-resident. Removes
+        # Throwaway call to make the model VRAM-resident. Removes
         # model load time from the first real request. Caches no output.
         get_client().prewarm()
         insights.warm()      # the briefing, visible on load

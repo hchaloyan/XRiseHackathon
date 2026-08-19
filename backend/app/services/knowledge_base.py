@@ -1,4 +1,4 @@
-"""Chunk, embed, index, query. Includes the similarity floor from spec 7.1.
+"""Chunk, embed, index, query. Includes the out-of-scope similarity floor.
 
 Embeddings are computed explicitly via Ollama (`nomic-embed-text`) and passed
 to Chroma as vectors. We never let Chroma pick an embedding function, so the
@@ -44,8 +44,8 @@ INCLUDE_GET = cast(Any, ["documents", "metadatas"])
 # query_expansion, and used by both guards: expansion refuses to enrich such a
 # query, and the lexical fallback refuses to match one. Several do occur in SOP
 # prose - "downtime" is in six documents - so without these guards a bare
-# metric word retrieves a maintenance procedure, which is the rule 8 failure
-# the similarity floor exists to prevent.
+# metric word retrieves a maintenance procedure, which is the failure the
+# similarity floor exists to prevent.
 from app.services.query_expansion import METRIC_TERMS  # noqa: E402  (re-exported)
 
 _ollama = OllamaSDK(host=settings.ollama_host)
@@ -409,7 +409,7 @@ class KnowledgeBase:
         Runs only when vector search returned nothing, so it can never
         outrank a real semantic match. Guarded by METRIC_TERMS as well:
         "downtime" appears in six SOPs, and letting a bare metric word
-        retrieve a maintenance procedure is the rule 8 failure the similarity
+        retrieve a maintenance procedure is the failure the similarity
         floor exists to prevent.
         """
         terms = [t for t in re.findall(r"[a-z0-9]+", query.lower()) if len(t) >= 2]
@@ -467,7 +467,7 @@ class KnowledgeBase:
         not separable by distance: post-fix "summarize SOP 001" scores 0.362 and
         "which machine had the most downtime this week" 0.366. This is a literal
         id match inside document search, never a route between documents and
-        factory data - rule 8 still holds.
+        factory data - the separation still holds.
         """
         k = top_k or settings.retrieval_top_k
         count = self.collection.count()
@@ -505,7 +505,7 @@ class KnowledgeBase:
         seen: set[str] = set()
         for i, chunk_id in enumerate(ids):
             distance = float(distances[i]) if distances else 1.0
-            # Spec 7.1: cosine DISTANCE ceiling. Above it, not really a match.
+            # Cosine DISTANCE ceiling. Above it, not really a match.
             if distance > settings.max_match_distance:
                 continue
             meta = dict(metadatas[i] or {})
@@ -537,7 +537,7 @@ class KnowledgeBase:
         return results
 
     def debug_distances(self, queries: list[str], top_k: int = 4) -> None:
-        """Calibration helper for spec 7.1. Prints raw distances, no filtering."""
+        """Calibration helper for the floor. Prints raw distances, no filtering."""
         for q in queries:
             raw = self.collection.query(
                 query_embeddings=[embed_query(q)], n_results=top_k, include=INCLUDE_QUERY

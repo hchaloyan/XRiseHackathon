@@ -1,11 +1,11 @@
-"""The single interface every model call goes through (CLAUDE.md rule 2).
+"""The single interface every model call goes through.
 
 Two implementations, selected by settings.llm_provider. Swapping providers
 must stay a one-variable change, never a refactor.
 
 Structured output is requested by passing a JSON schema, not by asking the
-model politely (rule 3). Every array in every schema must carry explicit
-minItems/maxItems - see spec 8.
+model politely. Every array in every schema must carry explicit
+minItems/maxItems.
 """
 
 from abc import ABC, abstractmethod
@@ -37,7 +37,7 @@ class LLMClient(ABC):
         """Return parsed JSON matching `schema`, or None on failure.
 
         Never raises for model-side problems. Returning None is what lets
-        callers degrade to computed-only responses instead of 5xx (spec 5).
+        callers degrade to computed-only responses instead of 5xx.
         """
 
     @abstractmethod

@@ -1,4 +1,4 @@
-"""Router: POST /api/root-cause. Inline expansion of an event row (rule 7).
+"""Router: POST /api/root-cause. Inline expansion of an event row.
 
 Order matters: assemble evidence in pandas, retrieve the SOP sections that
 apply, and only then call the model to rank hypotheses. The model receives

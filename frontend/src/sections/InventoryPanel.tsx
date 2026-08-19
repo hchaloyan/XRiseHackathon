@@ -5,8 +5,8 @@ import { Skeleton } from '../components/ui/Skeleton'
 import { cn } from '../lib/cn'
 
 /**
- * Inventory is named alongside OEE, scrap and downtime in CLAUDE.md
- * capability 1, and rides in the /api/kpis payload.
+ * Inventory sits alongside OEE, scrap and downtime in the briefing, and
+ * rides in the /api/kpis payload.
  *
  * This panel used to lead with "Lowest cover 4.4 days", which is stock-control
  * vocabulary: it stated a number and left the supervisor to work out which

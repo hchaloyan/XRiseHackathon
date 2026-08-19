@@ -11,7 +11,7 @@ import RootCausePanel from './RootCausePanel'
 
 /**
  * Downtime + quality rows. Each row expands IN PLACE into RootCausePanel
- * (rule 7) -> POST /api/root-cause. Data questions are answered by clicking
+ * -> POST /api/root-cause. Data questions are answered by clicking
  * a row, never by typing in the ask bar.
  *
  * Built from grid rows rather than a <table>: the whole row must be a real

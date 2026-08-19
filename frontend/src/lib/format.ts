@@ -42,7 +42,7 @@ export const humanizeCode = (code: string) =>
  * points for rates and in raw units otherwise.
  *
  * Only client-side arithmetic in the app, and deliberately so: it compares
- * values pandas already computed rather than deriving a new metric (rule 1).
+ * values pandas already computed rather than deriving a new metric.
  */
 export function deltaVsMean(current: number, history: number[]) {
   if (history.length === 0) return null

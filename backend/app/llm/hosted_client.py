@@ -1,7 +1,7 @@
 """Hosted OpenAI-compatible fallback. Unused unless LLM_PROVIDER=hosted.
 
 This exists for one reason: if the local model is slow or incoherent at hour
-six, switching providers must be a one-variable change (CLAUDE.md rule 2).
+six, switching providers must be a one-variable change.
 Same contract as OllamaClient - returns None on any failure, never raises.
 
 Works against any OpenAI-compatible /chat/completions endpoint (OpenAI,
@@ -47,7 +47,7 @@ class HostedClient(LLMClient):
             "max_tokens": max_tokens,
         }
         if mode == "json_schema":
-            # Structured output by schema, not by prompting (rule 3).
+            # Structured output by schema, not by prompting.
             payload["response_format"] = {
                 "type": "json_schema",
                 "json_schema": {"name": "response", "schema": schema, "strict": False},

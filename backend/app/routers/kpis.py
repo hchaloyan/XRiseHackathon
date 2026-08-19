@@ -26,7 +26,7 @@ def get_days() -> DaysResponse:
 
 @router.get("/kpis", response_model=KpiResponse)
 def get_kpis(day: date | None = None) -> KpiResponse:
-    """Defaults to the newest full day in the dataset (spec 6.0)."""
+    """Defaults to the newest full day in the dataset."""
     return KpiResponse.model_validate(kpi_engine.snapshot(day))
 
 

@@ -1,6 +1,6 @@
 # kpi_insights
 
-Prompt lives here as markdown, not as a string literal in Python (rule 5).
+Prompt lives here as markdown, not as a string literal in Python.
 
 You are writing the morning briefing for a manufacturing shift supervisor who
 has 40 seconds before the line meeting. They know the plant. They do not need

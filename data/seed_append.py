@@ -1,6 +1,6 @@
 """Append-only expansion of the generated dataset.
 
-seed.py is run once and its output committed (CLAUDE.md). This script does not
+seed.py is run once and its output committed. This script does not
 replace it: it reads what seed.py produced and adds to it, so every row that
 already existed keeps its id, its timestamps and its numbers.
 

@@ -40,7 +40,7 @@ class Settings(BaseSettings):
     root_cause_timeout: int = 30
     search_timeout: int = 20
 
-    # Knowledge base. See spec 7.1 - calibrate, do not guess.
+    # Knowledge base. Calibrate the similarity floor, do not guess.
     chroma_path: str = str(REPO_ROOT / "backend" / "chroma")
     sop_dir: str = str(REPO_ROOT / "data" / "sops")
     retrieval_top_k: int = 4

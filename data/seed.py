@@ -1,9 +1,9 @@
 """Generate the synthetic factory dataset. Run ONCE, commit the output.
 
-Volume (spec 6.0): 3 lines x 4 machines = 12 machines, 14 days ending
+Volume: 3 lines x 4 machines = 12 machines, 14 days ending
 "yesterday", 2 shifts/day, ~340 production runs, ~120 downtime events,
-~90 quality events. Plus an inventory snapshot (CLAUDE.md capability 1
-names inventory alongside OEE, scrap and downtime).
+~90 quality events. Plus an inventory snapshot, since inventory sits
+alongside OEE, scrap and downtime in the briefing.
 
 Machines carry a human name, a process type and search keywords, so a
 supervisor can type "3d printing machine" or "molding press" and land on
@@ -11,7 +11,7 @@ the right asset instead of memorising M-33. Reason codes stay canonical --
 a real MES has one taxonomy across the plant -- while operator notes and
 defect types are specific to the process that produced them.
 
-The three planted patterns (spec 6.1) are the whole point. Uniform random
+The three planted patterns are the whole point. Uniform random
 data gives root-cause analysis nothing to find and the model produces
 generic filler:
 
@@ -45,7 +45,7 @@ LAST_DAY = datetime(2026, 8, 9)  # newest full day in the dataset
 SHIFT_START_HOUR = {"A": 6, "B": 14}
 SHIFT_MINUTES = 480
 
-# Planted patterns (spec 6.1). Named, not magic strings scattered below.
+# Planted patterns. Named, not magic strings scattered below.
 CHANGEOVER_MACHINE = "M-22"  # 1: shift-B changeover overrun (CNC fixture setup)
 SPIKE_MACHINE = "M-31"  # 2: defect spike after one specific changeover (weld cell)
 SPIKE_DAY = 8  # day index the triggering changeover happens on

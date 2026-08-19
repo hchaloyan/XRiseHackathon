@@ -141,8 +141,8 @@ function post<T>(path: string, body: unknown): Promise<T> {
  *
  * Insights and root cause are still empty `APIRouter()` stubs, so this is the
  * normal path for them today, not an error path. It also means a backend that
- * dies mid-demo degrades to stale-but-correct numbers instead of a red screen
- * (spec §5).
+ * dies mid-demo degrades to stale-but-correct numbers instead of a red
+ * screen.
  *
  * An `undefined` fixture rethrows: some rows have no canned analysis, and a
  * caller that can degrade honestly should be told so rather than handed
@@ -237,7 +237,7 @@ export const api = {
    * than papered over with canned SOPs.
    *
    * Off-corpus queries are handled server-side by the similarity floor, which
-   * returns zero results plus the fixed redirect string (rule 8 — no intent
+   * returns zero results plus the fixed redirect string (no intent
    * classifier runs on the client).
    */
   search: (query: string, previousQuery?: string | null) => {

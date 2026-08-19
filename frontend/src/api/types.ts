@@ -1,7 +1,7 @@
 /**
  * Mirrors backend/app/schemas.py. Kept in sync BY HAND.
  *
- * Same two rules as the Python side (spec 4.1):
+ * Same two rules as the Python side:
  *   - computed fields come from pandas and are always present
  *   - generated fields come from the LLM and are always `| null`
  *
@@ -39,7 +39,7 @@ export interface SopResult {
  *                    Factory-data questions never land here; they keep the
  *                    redirect, because a model inventing an OEE figure is the
  *                    worst failure this app has available to it.
- *   'off_topic'    — nothing cleared the floor (spec 7.1). Render
+ *   'off_topic'    — nothing cleared the floor. Render
  *                    `fallbackMessage` plus `suggestions`.
  *
  * `fallbackMessage` is set on both non-results paths, so a UI that only
@@ -250,7 +250,7 @@ export interface KpiResponse {
 
 /* ---------------------------------------------------------------------------
  * The shapes below were defined here FIRST, ahead of the backend, so the
- * frontend could proceed against fixtures (spec §9). The routers are now
+ * frontend could proceed against fixtures. The routers are now
  * built and schemas.py matches these names. Two additions were made when
  * they landed, both computed and both marked below: the KPI block on
  * InsightResponse, and `sources` on RootCauseResponse.
@@ -362,7 +362,7 @@ export interface SopCitation {
 
 export interface RootCauseResponse {
   eventId: string
-  /** Computed — all three render even when the model fails (spec §5). */
+  /** Computed — all three render even when the model fails. */
   event: EventContext
   evidence: Evidence[]
   sources: SopCitation[]

@@ -144,7 +144,7 @@ export default function InsightHeader({
           )}
 
           {/* Model failed entirely: say so plainly rather than showing an
-              empty card (spec §5). The numbers below are unaffected. */}
+              empty card. The numbers below are unaffected. */}
           {!data.headline && !data.narrative && (
             <p className="mt-3 text-sm text-muted">
               Narrative unavailable. All figures below are computed and unaffected.

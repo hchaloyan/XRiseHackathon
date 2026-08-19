@@ -11,7 +11,7 @@ import { cn } from '../lib/cn'
 import { useDay } from '../lib/day'
 
 /**
- * Persistent ask bar -> POST /api/search. Documents only (CLAUDE.md rule 8).
+ * Persistent ask bar -> POST /api/search. Documents only.
  *
  * No model runs on this path at all. Retrieval returns the matching sections,
  * and "View in SOP-00X" opens the source document from disk. An earlier
@@ -325,7 +325,7 @@ export default function AskBar() {
                 </div>
               )}
 
-              {/* Spec 7.1 redirect, an empty corpus, or an unreachable API. */}
+              {/* The off-corpus redirect, an empty corpus, or an unreachable API. */}
               {kind !== 'conversation' &&
                 kind !== 'general' &&
                 kind !== 'metric' &&

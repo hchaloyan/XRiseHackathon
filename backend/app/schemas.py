@@ -1,6 +1,6 @@
 """ALL Pydantic request/response models. This file is the API contract.
 
-Two rules govern every model here (spec 4.1):
+Two rules govern every model here:
   - COMPUTED fields come from pandas. Always present, never Optional.
   - GENERATED fields come from the LLM. Always Optional, default None.
 
@@ -30,7 +30,7 @@ class ApiModel(BaseModel):
 
 # ===== KNOWLEDGE BASE =====
 
-# Spec 7.1: the fixed redirect for queries the SOP corpus cannot answer.
+# The fixed redirect for queries the SOP corpus cannot answer.
 OFF_TOPIC_MESSAGE = (
     "I answer from SOPs and manuals. For line data, use the briefing above or "
     "click any event row."
@@ -82,7 +82,6 @@ class SearchResponse(ApiModel):
                      those become "metric", because a model inventing an OEE
                      figure is the worst failure available to this app.
       off_topic    - nothing cleared the floor and no general answer applies
-                     (spec 7.1)
     """
 
     query: str
@@ -179,7 +178,7 @@ class ExplainResponse(ApiModel):
 
 
 # JSON schema handed to Ollama's `format` param. Every array carries explicit
-# minItems/maxItems (spec 8).
+# minItems/maxItems.
 EXPLAIN_SCHEMA = {
     "type": "object",
     "properties": {
@@ -208,7 +207,7 @@ EXPLAIN_SCHEMA = {
 # Names follow frontend/src/api/types.ts, which the redesigned components are
 # already built against. The computed block below is an addition to that
 # contract, not a change to it: without it the header renders empty whenever
-# the model is slow, which is the one moment it must not (spec 5).
+# the model is slow, which is the one moment it must not.
 
 Severity = Literal["high", "medium", "low"]
 
@@ -342,7 +341,7 @@ class Hypothesis(ApiModel):
 
 class RootCauseResponse(ApiModel):
     event_id: str
-    # COMPUTED - both render even when the model fails (spec 5).
+    # COMPUTED - both render even when the model fails.
     event: EventContext
     evidence: List[Evidence]
     sources: List[SopCitation]
@@ -478,7 +477,7 @@ class InventoryItem(ApiModel):
 
 
 class Inventory(ApiModel):
-    """CLAUDE.md capability 1 names inventory alongside OEE, scrap and downtime."""
+    """Inventory sits alongside OEE, scrap and downtime in the daily briefing."""
 
     parts_tracked: int
     parts_below_reorder: int
@@ -493,8 +492,8 @@ class Inventory(ApiModel):
 
 
 class KpiResponse(ApiModel):
-    """Event rows ride along here rather than in a fifth endpoint: CLAUDE.md
-    names four routers, and the single screen loads in one fetch."""
+    """Event rows ride along here rather than in a fifth endpoint: there are
+    four routers, and the single screen loads in one fetch."""
 
     day: date
     plant: KpiValues

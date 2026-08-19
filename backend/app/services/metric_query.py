@@ -6,16 +6,16 @@ The floor in knowledge_base.search() was doing this job, and it did it by
 accident of geometry. "what was OEE yesterday" scored 0.477 and fell out; a
 differently phrased metric question could score 0.33 and stay in, and then the
 ask bar answers a question about this plant's output with a maintenance
-procedure. That is the rule 8 failure the floor exists to prevent, and leaving
+procedure. That is the failure the floor exists to prevent, and leaving
 it to a distance was always a bet on phrasing.
 
 So metric questions are now caught by name, before retrieval, against a closed
-vocabulary. That is not the free-text intent classifier rule 8 rules out - it
+vocabulary. That is not a free-text intent classifier - it
 is a keyword guard over eleven words, and the same METRIC_TERMS set already
 used by query expansion and the lexical fallback.
 
 Having caught them, we can do better than a redirect. Every figure here comes
-from kpi_engine, which is pandas (rule 1). The model is not involved, so the
+from kpi_engine, which is pandas. The model is not involved, so the
 number is either right or the arithmetic is broken - it can never be invented.
 """
 

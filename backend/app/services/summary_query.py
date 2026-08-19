@@ -25,7 +25,7 @@ from app.services import kpi_engine
 
 # Nouns that mean "something on the production floor". Used to keep the
 # imperative phrasings ("show me the ...") from swallowing procedure questions,
-# which is the one way this gate could break CLAUDE.md rule 8.
+# which is the one way this gate could send a procedure question to the data.
 _FLOOR = (
     r"(shift|day|line|plant|floor|downtime|stoppages?|scrap|quality|defects?|"
     r"oee|machines?|materials?|stock|inventory|reorders?|numbers|figures|"

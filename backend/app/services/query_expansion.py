@@ -79,7 +79,7 @@ _MACHINE_ID = re.compile(r"\bm-?\s?(\d{2})\b", re.IGNORECASE)
 # This guard is not optional. Without it "what is the scrap rate for M-22"
 # picks up the whole CNC vocabulary from the machine table and starts scoring
 # like a real procedure question, which walks it straight under the similarity
-# floor - the exact rule 8 failure the floor exists to prevent. Expansion must
+# floor - the exact failure the floor exists to prevent. Expansion must
 # never be able to talk a data question into the corpus.
 METRIC_TERMS = frozenset({
     "oee", "scrap", "downtime", "availability", "performance", "utilisation",
@@ -119,7 +119,7 @@ def machine_expansions() -> dict[str, str]:
 def names_a_metric(query: str) -> bool:
     """True when the query asks about a factory figure rather than a procedure.
 
-    The single guard that keeps rule 8 intact across three separate features:
+    The single guard that keeps the separation intact across three features:
     expansion refuses to enrich these, the lexical fallback refuses to match
     them, and the general-knowledge answerer refuses to answer them. A model
     guessing at this plant's OEE is the worst thing this app could do.

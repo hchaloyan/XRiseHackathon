@@ -1,8 +1,8 @@
 """Correlate events and assemble evidence FIRST, then call the model.
 
 Everything in this module is pandas. The model's only job is to rank
-hypotheses against evidence that was already gathered and counted here
-(rule 1). A ranked cause with no supporting figure behind it is worth
+hypotheses against evidence that was already gathered and counted here.
+A ranked cause with no supporting figure behind it is worth
 nothing in front of manufacturing judges.
 """
 

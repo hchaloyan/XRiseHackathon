@@ -922,7 +922,7 @@
       "soonestRunsOutOn": "2026-08-13"
     }
   },
-  "_insightsComment": "Mock GET /api/insights. Every figure quoted here is derivable from the kpis block above — the model quotes computed numbers, it never produces them (rule 1).",
+  "_insightsComment": "Mock GET /api/insights. Every figure quoted here is derivable from the kpis block above — the model quotes computed numbers, it never produces them.",
   "insights": {
     "day": "2026-08-09",
     "headline": "Scrap doubled to 1.70% and weld porosity is 38% of it",
@@ -954,7 +954,7 @@
       }
     ]
   },
-  "_rootCauseComment": "Mock POST /api/root-cause, keyed by eventId. Covers the two rows the demo script walks. Any other row degrades to computed-only evidence built client-side from the EventRow (spec 5).",
+  "_rootCauseComment": "Mock POST /api/root-cause, keyed by eventId. Covers the two rows the demo script walks. Any other row degrades to computed-only evidence built client-side from the EventRow.",
   "rootCause": {
     "DT-0112": {
       "eventId": "DT-0112",
@@ -1130,7 +1130,7 @@
       "summary": null
     }
   },
-  "_searchComment": "Mock POST /api/search. `canned` is a fixture lookup used ONLY when the backend is unreachable — it selects a stored response, it does not route between document search and factory data (rule 8). Every path still returns one SearchResponse.",
+  "_searchComment": "Mock POST /api/search. `canned` is a fixture lookup used ONLY when the backend is unreachable — it selects a stored response, it does not route between document search and factory data. Every path still returns one SearchResponse.",
   "search": {
     "default": {
       "query": "",

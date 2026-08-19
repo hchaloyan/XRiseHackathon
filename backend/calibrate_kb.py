@@ -1,4 +1,4 @@
-"""Calibrate MAX_MATCH_DISTANCE for the ask bar (spec 7.1).
+"""Calibrate MAX_MATCH_DISTANCE for the ask bar.
 
 Run from backend/:
 
@@ -67,8 +67,8 @@ IN_CORPUS = [
 # cutoff up into the factory-data band.
 BY_REFERENCE = ["summarize SOP 001", "what does SOP-001 cover", "SOP-003"]
 
-# Factory-data questions. Rule 8 says these belong to the event table, not the
-# ask bar. Every one of these must fall ABOVE the cutoff so the ask bar returns
+# Factory-data questions. These belong to the event table, not the ask bar.
+# Every one of these must fall ABOVE the cutoff so the ask bar returns
 # the redirect instead of an irrelevant SOP.
 OUT_OF_CORPUS = [
     "what was OEE yesterday",
@@ -143,7 +143,7 @@ def main() -> int:
 
     # The bands overlap on realistic phrasing, so there is no midpoint to take.
     # Sweep instead and read the trade directly.
-    print("\n  cutoff   answered      admitted (rule 8 violations)")
+    print("\n  cutoff   answered      admitted (leaked data questions)")
     print("  " + "-" * 74)
     sweep = []
     for cut in [round(0.20 + 0.01 * i, 2) for i in range(26)]:
@@ -181,11 +181,11 @@ def main() -> int:
     for q in BY_REFERENCE:
         print(f"  {q!r:34} -> {_doc_reference(q)}")
 
-    # Rule 8 is the property that actually matters, so assert it rather than
-    # leaving it to be read off the table above.
+    # The redirect is the property that actually matters, so assert it rather
+    # than leaving it to be read off the table above.
     cutoff = best_cut or settings.max_match_distance
     leaks = [q for q, d, _ in out_rows if d <= cutoff]
-    print(f"\nRule 8 check at {cutoff}: {len(leaks)} factory-data question(s) admitted")
+    print(f"\nRedirect check at {cutoff}: {len(leaks)} factory-data question(s) admitted")
     for q in leaks:
         print(f"  ADMITTED  {q!r}")
     if len(leaks) > 1:

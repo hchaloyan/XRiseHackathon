@@ -76,7 +76,7 @@ def test_named_documents_resolve_exactly():
 
 
 def test_factory_data_is_redirected():
-    """Rule 8: data questions belong to the event table. The similarity floor is
+    """Data questions belong to the event table. The similarity floor is
     the only thing standing between a judge's OEE question and a confident-
     looking maintenance procedure.
 

@@ -4,8 +4,8 @@ Two steps, deliberately separate (the "medium" design):
   1. /api/search  - retrieval only. No model. Fast enough to feel instant.
   2. /api/explain - model reasoning over chunks the user already saw.
 
-Rule 8 holds: nothing here routes a *question* between document search and
-factory data. /api/search has a conversational shell in front of it, but it
+No intent classifier: nothing here routes a *question* between document
+search and factory data. /api/search has a conversational shell in front of it, but it
 only intercepts whole-query pattern matches that are not questions at all
 (greetings, thanks, "what can you do"), by regex and never by a model. Real
 queries fall through to retrieval, and off-corpus ones are still caught by
@@ -143,7 +143,7 @@ def search_sops(payload: SearchRequest) -> SearchResponse:
 
     if not chunks:
         # Nothing cleared the floor. Two very different situations hide here,
-        # and conflating them is what would break rule 8.
+        # and conflating them is the failure this branch exists to prevent.
         #
         # A question naming a factory metric ("what was OEE yesterday") must
         # keep the redirect: the answer lives in the event table, and a model

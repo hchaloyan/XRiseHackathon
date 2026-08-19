@@ -1,4 +1,4 @@
-"""ALL arithmetic lives here. Pure pandas, zero LLM (CLAUDE.md rule 1).
+"""ALL arithmetic lives here. Pure pandas, zero LLM.
 
 Standard OEE, computed from time and counts rather than assumed:
 
@@ -71,7 +71,7 @@ def _rollup(df: pd.DataFrame) -> dict:
 
 
 def latest_day() -> date:
-    """Newest full day in the dataset. The dashboard's default (spec 6.0)."""
+    """Newest full day in the dataset. The dashboard's default."""
     return max(_shift_frame()["day"])
 
 
@@ -103,7 +103,7 @@ def trend() -> list[dict]:
 
 def events(day: date) -> list[dict[str, Any]]:
     """Downtime + quality rows for one day, newest first. Each is expandable
-    into root cause on the frontend (rule 7), so both kinds share one shape."""
+    into root cause on the frontend, so both kinds share one shape."""
     frames = load()
     # Name and type ride on every row so the table is searchable by what a
     # supervisor calls the asset, not just by M-33.
@@ -243,7 +243,7 @@ def defects_by_type(day: date) -> list[dict]:
 def insight_facts(day: date | None = None) -> dict:
     """Pre-aggregated numbers for the KPI Insights narrative.
 
-    Every figure the model is allowed to mention is computed here (rule 1).
+    Every figure the model is allowed to mention is computed here.
     The model receives this dict rendered as text and writes prose only.
     """
     day = day or latest_day()

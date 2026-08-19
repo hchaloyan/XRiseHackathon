@@ -9,7 +9,7 @@ import { deltaVsMean, minutes, pct } from '../lib/format'
 /**
  * KPI cards + sparklines -> GET /api/kpis.
  *
- * Every number here is computed in pandas, never by the model (rule 1). The
+ * Every number here is computed in pandas, never by the model. The
  * only client-side arithmetic is the delta against the 14-day mean, which
  * compares values pandas already produced rather than deriving a new metric.
  */
@@ -171,7 +171,7 @@ function Sparkline({
 }
 
 /**
- * Worst first. Spec §6.1 plants a machine that degrades silently against its
+ * Worst first. The dataset plants a machine that degrades silently against its
  * ideal cycle time — it never raises a downtime event, so this ranking is the
  * only place it surfaces.
  */
